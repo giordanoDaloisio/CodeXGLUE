@@ -1,0 +1,33 @@
+/NFSHOME/gdaloisio/miniconda3/envs/codecompl/lib/python3.7/site-packages/fuzzywuzzy/fuzz.py:11: UserWarning: Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning
+  warnings.warn('Using slow pure-python SequenceMatcher. Install python-Levenshtein to remove this warning')
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+The current process just got forked. Disabling parallelism to avoid deadlocks...
+To disable this warning, please explicitly set TOKENIZERS_PARALLELISM=(true | false)
+06/05/2024 21:48:31 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False, world size: 1
+06/05/2024 21:48:31 - INFO - transformers.tokenization_utils_base -   Model name '../../CodeCompletion-token/save/javaCorpus/checkpoint' not found in model shortcut name list (gpt2, gpt2-medium, gpt2-large, gpt2-xl, distilgpt2). Assuming '../../CodeCompletion-token/save/javaCorpus/checkpoint' is a path, a model identifier, or url to a directory containing tokenizer files.
+Traceback (most recent call last):
+  File "run_lm.py", line 653, in <module>
+    main()
+  File "run_lm.py", line 610, in main
+    tokenizer = tokenizer_class.from_pretrained(pretrained, do_lower_case=args.do_lower_case, sep_token='<EOL>', bos_token='<s>', eos_token='</s>', pad_token='<pad>', unk_token='<|UNKNOWN|>', additional_special_tokens=special_tokens)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codecompl/lib/python3.7/site-packages/transformers/tokenization_utils_base.py", line 1140, in from_pretrained
+    return cls._from_pretrained(*inputs, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codecompl/lib/python3.7/site-packages/transformers/tokenization_utils_base.py", line 1246, in _from_pretrained
+    list(cls.vocab_files_names.values()),
+OSError: Model name '../../CodeCompletion-token/save/javaCorpus/checkpoint' was not found in tokenizers model name list (gpt2, gpt2-medium, gpt2-large, gpt2-xl, distilgpt2). We assumed '../../CodeCompletion-token/save/javaCorpus/checkpoint' was a path, a model identifier, or url to a directory containing vocabulary files named ['vocab.json', 'merges.txt'] but couldn't find such vocabulary files at this path or url.
+srun: error: compute-0-3: task 0: Exited with exit code 1
+/NFSHOME/gdaloisio/miniconda3/envs/codecompl/bin/python: can't open file 'run.py': [Errno 2] No such file or directory
+srun: error: compute-0-3: task 0: Exited with exit code 2
