@@ -498,9 +498,14 @@ def main():
         
         if args.prune:
             logger.info("Apply model pruning")
-            parameters_to_prune = (
-            (model.dense, "weight"),
-            (model.lm_head, "weight"))
+            parameters_to_prune = [
+                (model.dense, "weight"),
+                (model.lm_head, "weight")
+            ]
+            for layer in model.encoder.roberta.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
 
             prune.global_unstructured(
                 parameters_to_prune,

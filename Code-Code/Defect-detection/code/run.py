@@ -55,7 +55,8 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           OpenAIGPTConfig, OpenAIGPTLMHeadModel, OpenAIGPTTokenizer,
                           RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer,
                           DistilBertConfig, DistilBertForMaskedLM, DistilBertForSequenceClassification, DistilBertTokenizer)
-from optimum.quanto import qint8, quantize
+from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
+
 
 
 logger = logging.getLogger(__name__)
@@ -629,49 +630,16 @@ def main():
 
         if args.quantize:
             logger.info("********** Apply Quantization **********")
-            quantize(model, weights=qint8, activations=qint8)
+            quantize(model, weights=qfloat8, activations=qint8)
+            freeze(model)
             print_model_size(model)
 
-        # if args.quantize_dynamic: 
-        #     old_model = copy.deepcopy(model)
-        #     logger.info("********** Apply CPU Dynamic Quantization **********")
-        #     model = torch.quantization.quantize_dynamic(old_model, {torch.nn.Linear}, dtype=torch.qint8)
-        #     print_model_size(model)
-        
-        # if args.quantize_static:
-        #     if not torch.cuda.is_available() or args.no_cuda:
-        #         logger.info("************* Apply CPU Static Quantization **************")
-        #         quant_model = copy.deepcopy(model)
-        #         for _, mod in quant_model.named_modules():
-        #             if isinstance(mod, torch.nn.Embedding):
-        #                 mod.qconfig = torch.ao.quantization.float_qparams_weight_only_qconfig
-        #         torch.quantization.prepare(quant_model, inplace=True)
-        #         model = torch.quantization.convert(quant_model)
-        #     if torch.cuda.is_available() and not args.no_cuda:
-        #         logger.info("********** Apply GPU Static Quantization **********")
-        #         old_model = copy.deepcopy(model)
-        #         old_model.eval()
-        #         qconfig = get_default_qconfig("x86")
-        #         qconfig_mapping = QConfigMapping().set_object_type(torch.nn.Embedding, torch.ao.quantization.float_qparams_weight_only_qconfig)
-        #         eval_dataset = TextDataset(tokenizer, args, args.eval_data_file)
-        #         eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
-        #         eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size,num_workers=4,pin_memory=True)
-        #         prepared_model = prepare_fx(old_model, qconfig_mapping, (next(iter(eval_dataloader))[0]))
-        #         print(prepared_model.graph)
-        #         def calibrate(model, data_loader):
-        #             model.eval()
-        #             with torch.no_grad():
-        #                 for data, _ in data_loader:
-        #                     model(data)
-        #         calibrate(prepared_model, eval_dataloader)  # run calibration on sample data
-        #         model = convert_fx(prepared_model)
 
 
         if args.prune:
             logger.info("******* Apply Pruning ***********")
-            old_model = copy.deepcopy(model)
             parameters_to_prune = []
-            for layer in old_model.encoder.roberta.encoder.layer:
+            for layer in model.encoder.roberta.encoder.layer:
                 parameters_to_prune.append((layer.attention.self.query, 'weight'))
                 parameters_to_prune.append((layer.attention.self.key, 'weight'))
                 parameters_to_prune.append((layer.attention.self.value, 'weight'))

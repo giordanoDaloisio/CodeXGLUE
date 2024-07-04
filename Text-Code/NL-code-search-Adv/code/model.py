@@ -7,6 +7,7 @@ from torch.autograd import Variable
 import copy
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss, MSELoss
+from icecream import ic
 
 
     
@@ -22,6 +23,7 @@ class Model(nn.Module):
     def forward(self, code_inputs,nl_inputs,return_vec=False): 
         bs=code_inputs.shape[0]
         inputs=torch.cat((code_inputs,nl_inputs),0)
+        ic(self.encoder(inputs,attention_mask=inputs.ne(1)))
         outputs=self.encoder(inputs,attention_mask=inputs.ne(1))[1]
         code_vec=outputs[:bs]
         nl_vec=outputs[bs:]

@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/train_%j.out
-#SBATCH -J tc_train
+#SBATCH -o ./logs/tc_prune_%j.out
+#SBATCH -J tcp
 #SBATCH -p cuda
 #SBATCH -c 40
 #SBATCH --gres=gpu:large
@@ -30,7 +30,8 @@ srun python run.py \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
     --tokenizer_name=roberta-base \
-    --do_train \
+    --do_eval \
+    --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
@@ -41,4 +42,6 @@ srun python run.py \
     --learning_rate 5e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
-    --seed 123456 2>&1| tee train.log
+    --seed 123456 2>&1 \
+    --job_id $SLURM_JOB_ID \
+    --prune | tee test.log

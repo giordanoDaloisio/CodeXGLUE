@@ -50,6 +50,10 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           OpenAIGPTConfig, OpenAIGPTLMHeadModel, OpenAIGPTTokenizer,
                           RobertaConfig, RobertaModel, RobertaTokenizer,
                           DistilBertConfig, DistilBertForMaskedLM, DistilBertTokenizer)
+from optimum.quanto import quantize, qint8, freeze
+import torch.nn.utils.prune as prune
+import time
+import csv
 
 logger = logging.getLogger(__name__)
 
@@ -339,7 +343,7 @@ def evaluate(args, model, tokenizer,eval_when_training=False):
 
     return result
 
-def test(args, model, tokenizer):
+def test(args, model, tokenizer, time_file='', time_folder=''):
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_dataset = TextDataset(tokenizer, args,args.test_data_file)
 
@@ -361,11 +365,20 @@ def test(args, model, tokenizer):
     nb_eval_steps = 0
     code_vecs=[] 
     nl_vecs=[]
+    times=[]
     for batch in eval_dataloader:
         code_inputs = batch[0].to(args.device)    
         nl_inputs = batch[1].to(args.device)
         with torch.no_grad():
+            start = time.time()
             lm_loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            end = time.time()
+            inf_time = end-start
+            times.append(inf_time)
+            if time_folder != '' and time_file != '':
+                with open(os.path.join(time_folder, time_file), 'a') as f:
+                    write = csv.writer(f)
+                    write.writerow([inf_time])
             eval_loss += lm_loss.mean().item()
             code_vecs.append(code_vec.cpu().numpy())
             nl_vecs.append(nl_vec.cpu().numpy())
@@ -391,7 +404,12 @@ def test(args, model, tokenizer):
             for idx in sort_id[:100]:
                 js['answers'].append(indexs[int(idx)])
             f.write(json.dumps(js)+'\n')
-                        
+    logger.info("Average inference time: "+str(np.mean(times)))
+
+def print_model_size(model):
+    torch.save(model.state_dict(), 'tmp.p')
+    logger.info("Size (MB): " + str(os.path.getsize("tmp.p")/1e6))
+    os.remove('tmp.p')                      
                         
 def main():
     parser = argparse.ArgumentParser()
@@ -488,6 +506,9 @@ def main():
     parser.add_argument('--server_ip', type=str, default='', help="For distant debugging.")
     parser.add_argument('--server_port', type=str, default='', help="For distant debugging.")
 
+    parser.add_argument('--quantize', action='store_true')
+    parser.add_argument('--prune', action='store_true')
+    parser.add_argument('--job_id', type=str)
     
 
     args = parser.parse_args()
@@ -581,7 +602,30 @@ def main():
 
         train(args, train_dataset, model, tokenizer)
 
-
+    if args.quantize:
+        logger.info("************ Apply Quantization *****************")
+        quantize(model, weights=qint8, activations=qint8)
+        print_model_size(model)
+        freeze(model)
+        logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+    elif args.prune:
+        logger.info("******* Apply Pruning ***********")
+        parameters_to_prune = []
+        for layer in model.encoder.roberta.encoder.layer:
+            parameters_to_prune.append((layer.attention.self.query, 'weight'))
+            parameters_to_prune.append((layer.attention.self.key, 'weight'))
+            parameters_to_prune.append((layer.attention.self.value, 'weight'))
+        prune.global_unstructured(
+            parameters_to_prune,
+            pruning_method=prune.L1Unstructured,
+            amount=0.2,
+        )
+        print_model_size(model)
+        logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+    else:
+        logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+    time_dir = os.path.join(args.output_dir, 'times')
+    os.makedirs(time_dir, exist_ok=True)
 
     # Evaluation
     results = {}
@@ -600,7 +644,7 @@ def main():
         output_dir = os.path.join(args.output_dir, '{}'.format(checkpoint_prefix))  
         model.load_state_dict(torch.load(output_dir))                  
         model.to(args.device)
-        test(args, model, tokenizer)
+        test(args, model, tokenizer, logfile, time_dir)
 
     return results
 

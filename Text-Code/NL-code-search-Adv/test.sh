@@ -1,11 +1,10 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/train_%j.out
-#SBATCH -J tc_train
-#SBATCH -p cuda
+#SBATCH -o ./logs/tc_nocuda_%j.out
+#SBATCH -J tcnc
+#SBATCH -p normal
 #SBATCH -c 40
-#SBATCH --gres=gpu:large
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -17,6 +16,7 @@ source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
 cd code
+LANG=java
 OUTPUTDIR=./saved_models
 PRETRAINDIR=microsoft/codebert-base    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
@@ -30,7 +30,8 @@ srun python run.py \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
     --tokenizer_name=roberta-base \
-    --do_train \
+    --do_eval \
+    --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
@@ -41,4 +42,4 @@ srun python run.py \
     --learning_rate 5e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
-    --seed 123456 2>&1| tee train.log
+    --seed 123456 2>&1| tee test.log
