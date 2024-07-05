@@ -50,7 +50,7 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           OpenAIGPTConfig, OpenAIGPTLMHeadModel, OpenAIGPTTokenizer,
                           RobertaConfig, RobertaModel, RobertaTokenizer,
                           DistilBertConfig, DistilBertForMaskedLM, DistilBertTokenizer)
-from optimum.quanto import quantize, qint8, freeze
+from optimum.quanto import quantize, qint8, freeze, Calibration
 import torch.nn.utils.prune as prune
 import time
 import csv
@@ -406,6 +406,17 @@ def test(args, model, tokenizer, time_file='', time_folder=''):
             f.write(json.dumps(js)+'\n')
     logger.info("Average inference time: "+str(np.mean(times)))
 
+def calibrate(args, model, tokenizer):
+    eval_dataset = TextDataset(tokenizer, args,args.test_data_file)
+    args.eval_batch_size = args.per_gpu_eval_batch_size * max(1, args.n_gpu)
+    eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
+    eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
+    for batch in eval_dataloader:
+        code_inputs = batch[0].to(args.device)    
+        nl_inputs = batch[1].to(args.device)
+        with torch.no_grad():
+            model(code_inputs,nl_inputs)
+
 def print_model_size(model):
     torch.save(model.state_dict(), 'tmp.p')
     logger.info("Size (MB): " + str(os.path.getsize("tmp.p")/1e6))
@@ -613,6 +624,9 @@ def main():
         if args.quantize:
             logger.info("************ Apply Quantization *****************")
             quantize(model, weights=qint8, activations=qint8)
+            with Calibration(debug=True):
+                logger.info("********** Calibrate **********")
+                calibrate(args, model, tokenizer)
             freeze(model)
             print_model_size(model)
             logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"

@@ -395,6 +395,19 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
                 f.write(example.idx+'\t0\n')    
     logger.info("Average inference time: "+str(np.mean(inf_times)))
 
+
+def calibrate(args, model, tokenizer):
+    eval_dataset = TextDataset(tokenizer, args,args.eval_data_file)
+    eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
+    eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
+    model.eval()
+    for batch in tqdm(eval_dataloader,total=len(eval_dataloader)):
+        inputs = batch[0].to(args.device)        
+        with torch.no_grad():
+            model(inputs)
+
+
+
 def print_model_size(model):
     torch.save(model.state_dict(), 'tmp.p')
     logger.info("Size (MB): " + str(os.path.getsize("tmp.p")/1e6))
@@ -631,6 +644,9 @@ def main():
         if args.quantize:
             logger.info("********** Apply Quantization **********")
             quantize(model, weights=qfloat8, activations=qint8)
+            with Calibration(debug=True):
+                logger.info("*********** Calibrate **************")
+                calibrate(args, model, tokenizer)
             freeze(model)
             print_model_size(model)
 
