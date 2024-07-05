@@ -523,9 +523,9 @@ def main():
         ptvsd.wait_for_attach()
 
     # Setup CUDA, GPU & distributed training
-    if args.local_rank == -1 or args.no_cuda:
+    if args.local_rank == -1 or args.no_cuda or not torch.cuda.is_available():
         device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
-        args.n_gpu = torch.cuda.device_count()
+        args.n_gpu = 1
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)
         device = torch.device("cuda", args.local_rank)
@@ -602,38 +602,43 @@ def main():
 
         train(args, train_dataset, model, tokenizer)
 
-    if args.quantize:
-        logger.info("************ Apply Quantization *****************")
-        quantize(model, weights=qint8, activations=qint8)
-        print_model_size(model)
-        freeze(model)
-        logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
-    elif args.prune:
-        logger.info("******* Apply Pruning ***********")
-        parameters_to_prune = []
-        for layer in model.encoder.roberta.encoder.layer:
-            parameters_to_prune.append((layer.attention.self.query, 'weight'))
-            parameters_to_prune.append((layer.attention.self.key, 'weight'))
-            parameters_to_prune.append((layer.attention.self.value, 'weight'))
-        prune.global_unstructured(
-            parameters_to_prune,
-            pruning_method=prune.L1Unstructured,
-            amount=0.2,
-        )
-        print_model_size(model)
-        logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
-    else:
-        logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
-    time_dir = os.path.join(args.output_dir, 'times')
-    os.makedirs(time_dir, exist_ok=True)
-
     # Evaluation
     results = {}
     if args.do_eval and args.local_rank in [-1, 0]:
         checkpoint_prefix = 'checkpoint-best-mrr/model.bin'
-        output_dir = os.path.join(args.output_dir, '{}'.format(checkpoint_prefix))  
-        model.load_state_dict(torch.load(output_dir))      
+        output_dir = os.path.join(args.output_dir, '{}'.format(checkpoint_prefix))
+        model.load_state_dict(torch.load(output_dir, map_location=args.device))      
         model.to(args.device)
+
+        if args.quantize:
+            logger.info("************ Apply Quantization *****************")
+            quantize(model, weights=qint8, activations=qint8)
+            freeze(model)
+            print_model_size(model)
+            logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        elif args.prune:
+            logger.info("******* Apply Pruning ***********")
+            parameters_to_prune = []
+            for layer in model.encoder.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                parameters_to_prune.append((layer.attention.output.dense, 'weight'))
+                parameters_to_prune.append((layer.intermediate.dense, 'weight'))
+                parameters_to_prune.append((layer.output.dense, 'weight'))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.2,
+            )
+            print_model_size(model)
+            logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        else:
+            logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        time_dir = os.path.join(args.output_dir, 'times')
+        os.makedirs(time_dir, exist_ok=True)
+
+
         result=evaluate(args, model, tokenizer)
         logger.info("***** Eval results *****")
         for key in sorted(result.keys()):
@@ -641,9 +646,34 @@ def main():
             
     if args.do_test and args.local_rank in [-1, 0]:
         checkpoint_prefix = 'checkpoint-best-mrr/model.bin'
-        output_dir = os.path.join(args.output_dir, '{}'.format(checkpoint_prefix))  
-        model.load_state_dict(torch.load(output_dir))                  
-        model.to(args.device)
+        output_dir = os.path.join(args.output_dir, '{}'.format(checkpoint_prefix))
+        if not args.do_eval:
+            model.load_state_dict(torch.load(output_dir, map_location=args.device))                  
+            model.to(args.device)
+            if args.quantize:
+                    logger.info("************ Apply Quantization *****************")
+                    quantize(model, weights=qint8, activations=qint8)
+                    print_model_size(model)
+                    freeze(model)
+                    logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            elif args.prune:
+                logger.info("******* Apply Pruning ***********")
+                parameters_to_prune = []
+                for layer in model.encoder.roberta.encoder.layer:
+                    parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                    parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                    parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                prune.global_unstructured(
+                    parameters_to_prune,
+                    pruning_method=prune.L1Unstructured,
+                    amount=0.2,
+                )
+                print_model_size(model)
+                logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            else:
+                logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            time_dir = os.path.join(args.output_dir, 'times')
+            os.makedirs(time_dir, exist_ok=True)
         test(args, model, tokenizer, logfile, time_dir)
 
     return results

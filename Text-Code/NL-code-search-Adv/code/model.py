@@ -23,10 +23,17 @@ class Model(nn.Module):
     def forward(self, code_inputs,nl_inputs,return_vec=False): 
         bs=code_inputs.shape[0]
         inputs=torch.cat((code_inputs,nl_inputs),0)
-        ic(self.encoder(inputs,attention_mask=inputs.ne(1)))
-        outputs=self.encoder(inputs,attention_mask=inputs.ne(1))[1]
-        code_vec=outputs[:bs]
-        nl_vec=outputs[bs:]
+        if self.args.model_type == 'roberta':
+            outputs=self.encoder(inputs,attention_mask=inputs.ne(1))[1]
+            code_vec=outputs[:bs]
+            nl_vec=outputs[bs:]
+        else:
+            outputs=self.encoder(inputs,attention_mask=inputs.ne(1))
+            hidden_states = outputs.logits  # Use the last hidden state
+            # Assuming we take the [CLS] token representation as the sentence embedding
+            # For DistilBERT, [CLS] token is the first token
+            code_vec = hidden_states[:bs, 0, :]
+            nl_vec = hidden_states[bs:, 0, :]
         
         if return_vec:
             return code_vec,nl_vec
