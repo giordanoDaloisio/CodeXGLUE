@@ -1,10 +1,11 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/tc_quant_nocuda_%j.out
-#SBATCH -J tcqnc
-#SBATCH -p normal
+#SBATCH -o ./logs/tc_distil_%j.out
+#SBATCH -J tcd
+#SBATCH -p cuda
 #SBATCH -c 40
+#SBATCH --gres=gpu:large
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -16,12 +17,11 @@ source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
 cd code
-LANG=java
-OUTPUTDIR=./saved_models
-PRETRAINDIR=microsoft/codebert-base    # will download pre-trained CodeGPT model
+OUTPUTDIR=./saved_models_distil
+PRETRAINDIR=distilbert/distilbert-base-uncased    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM
-MODEL=roberta
+MODEL=distilbert
 
 
 srun python run.py \
@@ -29,7 +29,7 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=roberta-base \
+    --tokenizer_name=distilbert-base-uncased \
     --do_eval \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
@@ -43,5 +43,4 @@ srun python run.py \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
     --seed 123456 2>&1 \
-    --job_id $SLURM_JOB_ID \
-    --quantize | tee test.log
+    --job_id $SLURM_JOB_ID | tee test.log

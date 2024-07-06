@@ -624,7 +624,7 @@ def main():
         if args.quantize:
             logger.info("************ Apply Quantization *****************")
             quantize(model, weights=qint8, activations=qint8)
-            with Calibration(debug=True):
+            with Calibration():
                 logger.info("********** Calibrate **********")
                 calibrate(args, model, tokenizer)
             freeze(model)
@@ -667,6 +667,9 @@ def main():
             if args.quantize:
                     logger.info("************ Apply Quantization *****************")
                     quantize(model, weights=qint8, activations=qint8)
+                    with Calibration():
+                        logger.info("********** Calibrate **********")
+                        calibrate(args, model, tokenizer)
                     print_model_size(model)
                     freeze(model)
                     logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"

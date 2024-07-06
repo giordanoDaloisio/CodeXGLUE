@@ -43,4 +43,5 @@ srun python run.py \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
     --no_cuda \
+    --job_id $SLURM_JOB_ID \
     --seed 123456 2>&1| tee test.log
