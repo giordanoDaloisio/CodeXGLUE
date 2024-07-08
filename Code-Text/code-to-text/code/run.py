@@ -47,7 +47,7 @@ import torch.nn.utils.prune as prune
 from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           RobertaConfig, RobertaModel, RobertaTokenizer, DistilBertConfig, DistilBertTokenizer, DistilBertModel)
 import time
-from optimum.quanto import qint8, quantize
+from optimum.quanto import qint8, quantize, freeze, Calibration
 
 MODEL_CLASSES = {'roberta': (RobertaConfig, RobertaModel, RobertaTokenizer), 
                  'distilbert': (DistilBertConfig, DistilBertModel, DistilBertTokenizer)}
@@ -166,6 +166,38 @@ def set_seed(seed=42):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
+
+def calibration(model, tokenizer, device, args):
+    files=[]
+    if args.dev_filename is not None:
+        files.append(args.dev_filename)
+    if args.test_filename is not None:
+        files.append(args.test_filename)
+    if args.file_len:
+        files = files[:args.file_len]
+
+    for file in files:   
+        eval_examples = read_examples(file)
+        eval_features = convert_examples_to_features(eval_examples, tokenizer, args,stage='test')
+        all_source_ids = torch.tensor([f.source_ids for f in eval_features], dtype=torch.long)
+        all_source_mask = torch.tensor([f.source_mask for f in eval_features], dtype=torch.long)    
+        eval_data = TensorDataset(all_source_ids,all_source_mask)   
+
+        eval_sampler = SequentialSampler(eval_data)
+        eval_dataloader = DataLoader(eval_data, sampler=eval_sampler, batch_size=args.eval_batch_size)
+
+        model.eval() 
+    
+        for batch in tqdm(eval_dataloader,total=len(eval_dataloader)):
+            batch = tuple(t.to(device) for t in batch)
+            source_ids,source_mask= batch                  
+            with torch.no_grad():
+                model(source_ids=source_ids,source_mask=source_mask)
+    
+def print_model_size(model):
+    torch.save(model.state_dict(), 'tmp.p')
+    logger.info("Size (MB): " + str(os.path.getsize("tmp.p")/1e6))
+    os.remove('tmp.p')
         
 def main():
     parser = argparse.ArgumentParser()
@@ -493,8 +525,11 @@ def main():
         if args.quantize:
             logger.info("Apply quantization")
             quantize(model, weights=qint8, activations=qint8)
-            # old_model = copy.deepcopy(model)
-            # model = torch.ao.quantization.quantize_dynamic(old_model, {torch.nn.Linear}, dtype=torch.qint8)
+            logger.info("******* Calibration **************")
+            with Calibration():
+                calibration(model, tokenizer, device, args)
+            freeze(model)
+            print_model_size(model)
         
         if args.prune:
             logger.info("Apply model pruning")
@@ -511,7 +546,8 @@ def main():
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,
                 amount=0.2,
-            )    
+            )
+            print_model_size(model)
 
 
 

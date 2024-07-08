@@ -29,7 +29,7 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=roberta-base \
+    --tokenizer_name=distilbert \
     --do_eval \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
