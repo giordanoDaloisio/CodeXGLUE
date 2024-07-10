@@ -396,7 +396,13 @@ def test(args, model, tokenizer, time_file='', time_folder=''):
     for example in eval_dataset.examples:
         indexs.append(example.idx)
         urls.append(example.url)
-    with open(os.path.join(args.output_dir,"predictions.jsonl"),'w') as f:
+    if args.quantize:
+        output_file = "predictions_quant.jsonl"
+    elif args.prune:
+        output_file = "predictions_prune.jsonl"
+    else:
+        output_file = "predictions.jsonl"
+    with open(os.path.join(args.output_dir, output_file),'w') as f:
         for index,url,sort_id in zip(indexs,urls,sort_ids):
             js={}
             js['url']=url

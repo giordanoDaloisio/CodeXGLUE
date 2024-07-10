@@ -617,7 +617,16 @@ def main():
                         p.append(text)
             model.train()
             predictions=[]
-            with open(os.path.join(args.output_dir,"test_{}.output".format(str(idx))),'w') as f, open(os.path.join(args.output_dir,"test_{}.gold".format(str(idx))),'w') as f1:
+            if args.quantize:
+                output_file = "test_{}_quant.output".format(str(idx))
+                gold_file = "test_{}_quant.gold".format(str(idx))
+            elif args.prune:
+                output_file = "test_{}_prune.output".format(str(idx))
+                gold_file = "test_{}_prune.gold".format(str(idx))
+            else:
+                output_file = "test_{}.output".format(str(idx))
+                gold_file = "test_{}.gold".format(str(idx))
+            with open(os.path.join(args.output_dir, output_file),'w') as f, open(os.path.join(args.output_dir, gold_file),'w') as f1:
                 for ref,gold in zip(p,eval_examples):
                     predictions.append(str(gold.idx)+'\t'+ref)
                     f.write(str(gold.idx)+'\t'+ref+'\n')
