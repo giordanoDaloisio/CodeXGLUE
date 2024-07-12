@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "run_cloze.py", line 85, in <module>
-    if __name__ == '__main__':
-  File "run_cloze.py", line 81, in main
-    #for lang in ['ruby', 'javascript', 'go', 'python', 'java', 'php']:
-  File "run_cloze.py", line 54, in cloze_test
-    'prediction': idx2word[predict_id]})
-FileNotFoundError: [Errno 2] No such file or directory: 'evaluator/predictions/ruby/predictions.txt'
-srun: error: compute-0-3: task 0: Exited with exit code 1

@@ -382,11 +382,19 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
     labels=np.concatenate(labels,0)
     preds=logits[:,0]>0.5
     if args.quantize:
-        pred_name = "predictions_quant.txt"
+        pred_name = f"predictions_quant_{args.device}.txt"
+    elif args.quantize4:
+        pred_name = f"predictions_quant4_{args.device}.txt"
+    elif args.quantizef8:
+        pred_name = f"predictions_quantf8_{args.device}.txt"
+    elif args.prune6:
+        pred_name = f"predictions_prune6_{args.device}.txt"
+    elif args.prune4:
+        pred_name = f"predictions_prune4_{args.device}.txt"
     elif args.prune:
-        pred_name = "predictions_prune.txt"
+        pred_name = f"predictions_prune_{args.device}.txt"
     else:
-        pred_name = "predictions.txt"
+        pred_name = f"predictions_{args.device}.txt"
     with open(os.path.join(args.output_dir, pred_name),'w') as f:
         for example,pred in zip(eval_dataset.examples,preds):
             if pred:
@@ -520,6 +528,10 @@ def main():
     parser.add_argument('--quantize_dynamic', action='store_true')
     parser.add_argument('--quantize_static', action='store_true')
     parser.add_argument('--quantize', action='store_true')
+    parser.add_argument('--quantize4', action='store_true')
+    parser.add_argument('--quantizef8', action='store_true')
+    parser.add_argument('--prune6', action='store_true')
+    parser.add_argument('--prune4', action='store_true')
     parser.add_argument('--prune', action='store_true')
     
     args = parser.parse_args()
@@ -556,10 +568,14 @@ def main():
         logfile = f"quantize_dyn_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
     elif args.quantize:
         logfile = f"quantize_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
-    elif args.quantize_static:
-        logfile = f"quantize_stat_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
+    elif args.quantize4:
+        logfile = f"quantize4_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
     elif args.prune:
-        logfile = f"prune_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
+        logfile = f"prune6_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
+    elif args.prune:
+        logfile = f"prune4_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
+    elif args.prune:
+        logfile = f"prune2_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
     else:
         logfile = f"times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"    
     time_dir = os.path.join(args.output_dir, 'times')
@@ -642,18 +658,63 @@ def main():
         model.to(args.device)
 
         if args.quantize:
-            logger.info("********** Apply Quantization **********")
-            quantize(model, weights=qfloat8, activations=qint8)
-            with Calibration(debug=True):
+            logger.info("********** Apply Quantization qint8 **********")
+            quantize(model, weights=qint8, activations=qint8)
+            with Calibration():
+                logger.info("*********** Calibrate **************")
+                calibrate(args, model, tokenizer)
+            freeze(model)
+            print_model_size(model)
+        
+        if args.quantize4:
+            logger.info("********** Apply Quantization qint4 **********")
+            quantize(model, weights=qint4, activations=qint4)
+            with Calibration():
+                logger.info("*********** Calibrate **************")
+                calibrate(args, model, tokenizer)
+            freeze(model)
+            print_model_size(model)
+        
+        if args.quantizef8:
+            logger.info("********** Apply Quantization qfloat8 **********")
+            quantize(model, weights=qfloat8, activations=qfloat8)
+            with Calibration():
                 logger.info("*********** Calibrate **************")
                 calibrate(args, model, tokenizer)
             freeze(model)
             print_model_size(model)
 
+        if args.prune6:
+            logger.info("******* Apply Pruning 0.6 ***********")
+            parameters_to_prune = []
+            for layer in model.encoder.roberta.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.6,
+            )
+            print_model_size(model)
+        
+        if args.prune4:
+            logger.info("******* Apply Pruning 0.4 ***********")
+            parameters_to_prune = []
+            for layer in model.encoder.roberta.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.4,
+            )
+            print_model_size(model)
 
 
         if args.prune:
-            logger.info("******* Apply Pruning ***********")
+            logger.info("******* Apply Pruning 0.2 ***********")
             parameters_to_prune = []
             for layer in model.encoder.roberta.encoder.layer:
                 parameters_to_prune.append((layer.attention.self.query, 'weight'))
@@ -664,7 +725,7 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.2,
             )
-            
+            print_model_size(model)
 
         results = {}
         if args.do_eval and args.local_rank in [-1, 0]:

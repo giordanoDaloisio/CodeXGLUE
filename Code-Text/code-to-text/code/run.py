@@ -47,7 +47,7 @@ import torch.nn.utils.prune as prune
 from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           RobertaConfig, RobertaModel, RobertaTokenizer, DistilBertConfig, DistilBertTokenizer, DistilBertModel)
 import time
-from optimum.quanto import qint8, quantize, freeze, Calibration
+from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
 
 MODEL_CLASSES = {'roberta': (RobertaConfig, RobertaModel, RobertaTokenizer), 
                  'distilbert': (DistilBertConfig, DistilBertModel, DistilBertTokenizer)}
@@ -242,9 +242,14 @@ def main():
                         help="Avoid using CUDA when available")
     parser.add_argument('--quantize', action='store_true', 
                         help="Perform model quantization on the trained model")
+    parser.add_argument('--quantize4', action='store_true')
+    parser.add_argument('--quantizef8', action='store_true')
     parser.add_argument('--prune', action='store_true',
                         help="Perform model pruning on the trained model")
-    
+    parser.add_argument('--prune4', action='store_true',
+                        help="Perform model pruning on the trained model")
+    parser.add_argument('--prune6', action='store_true',
+                        help="Perform model pruning on the trained model")
     parser.add_argument("--train_batch_size", default=8, type=int,
                         help="Batch size per GPU/CPU for training.")
     parser.add_argument("--eval_batch_size", default=8, type=int,
@@ -523,8 +528,26 @@ def main():
         # starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
 
         if args.quantize:
-            logger.info("Apply quantization")
+            logger.info("Apply quantization qint8")
             quantize(model, weights=qint8, activations=qint8)
+            logger.info("******* Calibration **************")
+            with Calibration():
+                calibration(model, tokenizer, device, args)
+            freeze(model)
+            print_model_size(model)
+        
+        if args.quantize4:
+            logger.info("Apply quantization qint4")
+            quantize(model, weights=qint4, activations=qint4)
+            logger.info("******* Calibration **************")
+            with Calibration():
+                calibration(model, tokenizer, device, args)
+            freeze(model)
+            print_model_size(model)
+        
+        if args.quantizef8:
+            logger.info("Apply quantization qfloat8")
+            quantize(model, weights=qfloat8, activations=qfloat8)
             logger.info("******* Calibration **************")
             with Calibration():
                 calibration(model, tokenizer, device, args)
@@ -537,7 +560,7 @@ def main():
                 (model.dense, "weight"),
                 (model.lm_head, "weight")
             ]
-            for layer in model.encoder.roberta.encoder.layer:
+            for layer in model.encoder.encoder.layer:
                 parameters_to_prune.append((layer.attention.self.query, 'weight'))
                 parameters_to_prune.append((layer.attention.self.key, 'weight'))
                 parameters_to_prune.append((layer.attention.self.value, 'weight'))
@@ -546,6 +569,42 @@ def main():
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,
                 amount=0.2,
+            )
+            print_model_size(model)
+        
+        if args.prune4:
+            logger.info("Apply model pruning 0.4")
+            parameters_to_prune = [
+                (model.dense, "weight"),
+                (model.lm_head, "weight")
+            ]
+            for layer in model.encoder.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.4,
+            )
+            print_model_size(model)
+        
+        if args.prune6:
+            logger.info("Apply model pruning 0.6")
+            parameters_to_prune = [
+                (model.dense, "weight"),
+                (model.lm_head, "weight")
+            ]
+            for layer in model.encoder.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.6,
             )
             print_model_size(model)
 
@@ -618,14 +677,26 @@ def main():
             model.train()
             predictions=[]
             if args.quantize:
-                output_file = "test_{}_quant.output".format(str(idx))
-                gold_file = "test_{}_quant.gold".format(str(idx))
+                output_file = "test_{}_quant_{}.output".format(str(idx), args.device)
+                gold_file = "test_{}_quant_{}.gold".format(str(idx), args.device)
+            elif args.quantize4:
+                output_file = "test_{}_quant4_{}.output".format(str(idx),args.device)
+                gold_file = "test_{}_quant4_{}.gold".format(str(idx),args.device)
+            elif args.quantizef8:
+                output_file = "test_{}_quantf8_{}.output".format(str(idx), args.device)
+                gold_file = "test_{}_quantf8_{}.gold".format(str(idx),args.device)
             elif args.prune:
-                output_file = "test_{}_prune.output".format(str(idx))
-                gold_file = "test_{}_prune.gold".format(str(idx))
+                output_file = "test_{}_prune2_{}.output".format(str(idx),args.device)
+                gold_file = "test_{}_prune2_{}.gold".format(str(idx),args.device)
+            elif args.prune4:
+                output_file = "test_{}_prune4_{}.output".format(str(idx),args.device)
+                gold_file = "test_{}_prune4_{}.gold".format(str(idx),args.device)
+            elif args.prune6:
+                output_file = "test_{}_prune6_{}.output".format(str(idx),args.device)
+                gold_file = "test_{}_prune6_{}.gold".format(str(idx),args.device)
             else:
-                output_file = "test_{}.output".format(str(idx))
-                gold_file = "test_{}.gold".format(str(idx))
+                output_file = "test_{}_{}.output".format(str(idx),args.device)
+                gold_file = "test_{}_{}.gold".format(str(idx),args.device)
             with open(os.path.join(args.output_dir, output_file),'w') as f, open(os.path.join(args.output_dir, gold_file),'w') as f1:
                 for ref,gold in zip(p,eval_examples):
                     predictions.append(str(gold.idx)+'\t'+ref)

@@ -1,10 +1,12 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_quant_%j.out
-#SBATCH -J ct_quant
-#SBATCH -p normal
+#SBATCH -o ./logs/test_cuda_prune6_%j.out
+#SBATCH -J ct_prune6_cuda
+#SBATCH -p cuda
 #SBATCH -c 40
+#SBATCH --gres=gpu:large
+
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -36,4 +38,4 @@ test_file=$data_dir/$lang/test.jsonl
 test_model=$output_dir/checkpoint-best-bleu/pytorch_model.bin #checkpoint for test
 model=roberta
 
-srun python run.py --do_test --model_type $model --model_name_or_path $pretrained_model --load_model_path $test_model --test_filename $test_file --file_len $file_len --output_dir $output_dir --max_source_length $source_length --max_target_length $target_length --beam_size $beam_size --eval_batch_size $batch_size --no_cuda --job_id $SLURM_JOB_ID --quantize
+srun python run.py --do_test --model_type $model --model_name_or_path $pretrained_model --load_model_path $test_model --test_filename $test_file --file_len $file_len --output_dir $output_dir --max_source_length $source_length --max_target_length $target_length --beam_size $beam_size --eval_batch_size $batch_size --job_id $SLURM_JOB_ID --prune6

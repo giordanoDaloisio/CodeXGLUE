@@ -1,7 +1,0 @@
-Traceback (most recent call last):
-  File "run_cloze.py", line 85, in <module>
-    main()
-  File "run_cloze.py", line 77, in main
-    logging.info('Running on ' + device)
-TypeError: can only concatenate str (not "torch.device") to str
-srun: error: compute-0-3: task 0: Exited with exit code 1

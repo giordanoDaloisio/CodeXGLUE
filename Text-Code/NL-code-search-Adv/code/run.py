@@ -50,7 +50,7 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           OpenAIGPTConfig, OpenAIGPTLMHeadModel, OpenAIGPTTokenizer,
                           RobertaConfig, RobertaModel, RobertaTokenizer,
                           DistilBertConfig, DistilBertForMaskedLM, DistilBertTokenizer)
-from optimum.quanto import quantize, qint8, freeze, Calibration
+from optimum.quanto import quantize, qint8, qint4, qfloat8, freeze, Calibration
 import torch.nn.utils.prune as prune
 import time
 import csv
@@ -397,11 +397,19 @@ def test(args, model, tokenizer, time_file='', time_folder=''):
         indexs.append(example.idx)
         urls.append(example.url)
     if args.quantize:
-        output_file = "predictions_quant.jsonl"
+        output_file = f"predictions_quant_{args.device}.jsonl"
+    elif args.quantize4:
+        output_file = f"predictions_quant4_{args.device}.jsonl"
+    elif args.quantizef8:
+        output_file = f"predictions_quanf8_{args.device}.jsonl"
     elif args.prune:
-        output_file = "predictions_prune.jsonl"
+        output_file = f"predictions_prune_{args.device}.jsonl"
+    elif args.prune4:
+        output_file = f"predictions_prune4_{args.device}.jsonl"
+    elif args.prune6:
+        output_file = f"predictions_prune6_{args.device}.jsonl"
     else:
-        output_file = "predictions.jsonl"
+        output_file = f"predictions_{args.device}.jsonl"
     with open(os.path.join(args.output_dir, output_file),'w') as f:
         for index,url,sort_id in zip(indexs,urls,sort_ids):
             js={}
@@ -524,7 +532,11 @@ def main():
     parser.add_argument('--server_port', type=str, default='', help="For distant debugging.")
 
     parser.add_argument('--quantize', action='store_true')
+    parser.add_argument('--quantize4', action='store_true')
+    parser.add_argument('--quantizef8', action='store_true')
     parser.add_argument('--prune', action='store_true')
+    parser.add_argument('--prune4', action='store_true')
+    parser.add_argument('--prune6', action='store_true')
     parser.add_argument('--job_id', type=str)
     
 
@@ -628,7 +640,7 @@ def main():
         model.to(args.device)
 
         if args.quantize:
-            logger.info("************ Apply Quantization *****************")
+            logger.info("************ Apply Quantization qint8 *****************")
             quantize(model, weights=qint8, activations=qint8)
             with Calibration():
                 logger.info("********** Calibrate **********")
@@ -636,6 +648,24 @@ def main():
             freeze(model)
             print_model_size(model)
             logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        elif args.quantize4:
+            logger.info("************ Apply Quantization qint4 *****************")
+            quantize(model, weights=qint4, activations=qint4)
+            with Calibration():
+                logger.info("********** Calibrate **********")
+                calibrate(args, model, tokenizer)
+            freeze(model)
+            print_model_size(model)
+            logfile = f"quantize4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        elif args.quantizef8:
+            logger.info("************ Apply Quantization qfloat8 *****************")
+            quantize(model, weights=qfloat8, activations=qfloat8)
+            with Calibration():
+                logger.info("********** Calibrate **********")
+                calibrate(args, model, tokenizer)
+            freeze(model)
+            print_model_size(model)
+            logfile = f"quantizef8_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.prune:
             logger.info("******* Apply Pruning ***********")
             parameters_to_prune = []
@@ -653,6 +683,40 @@ def main():
             )
             print_model_size(model)
             logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        elif args.prune4:
+            logger.info("******* Apply Pruning 0.4 ***********")
+            parameters_to_prune = []
+            for layer in model.encoder.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                parameters_to_prune.append((layer.attention.output.dense, 'weight'))
+                parameters_to_prune.append((layer.intermediate.dense, 'weight'))
+                parameters_to_prune.append((layer.output.dense, 'weight'))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.4,
+            )
+            print_model_size(model)
+            logfile = f"prune4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        elif args.prune6:
+            logger.info("******* Apply Pruning 0.6 ***********")
+            parameters_to_prune = []
+            for layer in model.encoder.encoder.layer:
+                parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                parameters_to_prune.append((layer.attention.output.dense, 'weight'))
+                parameters_to_prune.append((layer.intermediate.dense, 'weight'))
+                parameters_to_prune.append((layer.output.dense, 'weight'))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.6,
+            )
+            print_model_size(model)
+            logfile = f"prune6_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         else:
             logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         time_dir = os.path.join(args.output_dir, 'times')
@@ -671,7 +735,7 @@ def main():
             model.load_state_dict(torch.load(output_dir, map_location=args.device))                  
             model.to(args.device)
             if args.quantize:
-                    logger.info("************ Apply Quantization *****************")
+                    logger.info("************ Apply Quantization qint8 *****************")
                     quantize(model, weights=qint8, activations=qint8)
                     with Calibration():
                         logger.info("********** Calibrate **********")
@@ -679,6 +743,24 @@ def main():
                     print_model_size(model)
                     freeze(model)
                     logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            elif args.quantize4:
+                logger.info("************ Apply Quantization qint4 *****************")
+                quantize(model, weights=qint4, activations=qint4)
+                with Calibration():
+                    logger.info("********** Calibrate **********")
+                    calibrate(args, model, tokenizer)
+                freeze(model)
+                print_model_size(model)
+                logfile = f"quantize4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            elif args.quantizef8:
+                logger.info("************ Apply Quantization qfloat8 *****************")
+                quantize(model, weights=qfloat8, activations=qfloat8)
+                with Calibration():
+                    logger.info("********** Calibrate **********")
+                    calibrate(args, model, tokenizer)
+                freeze(model)
+                print_model_size(model)
+                logfile = f"quantizef8_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
             elif args.prune:
                 logger.info("******* Apply Pruning ***********")
                 parameters_to_prune = []
@@ -689,10 +771,44 @@ def main():
                 prune.global_unstructured(
                     parameters_to_prune,
                     pruning_method=prune.L1Unstructured,
-                    amount=0.2,
+                    amount=0.4,
                 )
                 print_model_size(model)
                 logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            elif args.prune4:
+                logger.info("******* Apply Pruning 0.4 ***********")
+                parameters_to_prune = []
+                for layer in model.encoder.encoder.layer:
+                    parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                    parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                    parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                    parameters_to_prune.append((layer.attention.output.dense, 'weight'))
+                    parameters_to_prune.append((layer.intermediate.dense, 'weight'))
+                    parameters_to_prune.append((layer.output.dense, 'weight'))
+                prune.global_unstructured(
+                    parameters_to_prune,
+                    pruning_method=prune.L1Unstructured,
+                    amount=0.4,
+                )
+                print_model_size(model)
+                logfile = f"prune4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+            elif args.prune6:
+                logger.info("******* Apply Pruning 0.6 ***********")
+                parameters_to_prune = []
+                for layer in model.encoder.encoder.layer:
+                    parameters_to_prune.append((layer.attention.self.query, 'weight'))
+                    parameters_to_prune.append((layer.attention.self.key, 'weight'))
+                    parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                    parameters_to_prune.append((layer.attention.output.dense, 'weight'))
+                    parameters_to_prune.append((layer.intermediate.dense, 'weight'))
+                    parameters_to_prune.append((layer.output.dense, 'weight'))
+                prune.global_unstructured(
+                    parameters_to_prune,
+                    pruning_method=prune.L1Unstructured,
+                    amount=0.6,
+                )
+                print_model_size(model)
+                logfile = f"prune6_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
             else:
                 logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
             time_dir = os.path.join(args.output_dir, 'times')
