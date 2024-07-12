@@ -696,6 +696,8 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.6,
             )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
             print_model_size(model)
         
         if args.prune4:
@@ -710,6 +712,8 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.4,
             )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
             print_model_size(model)
 
 
@@ -725,6 +729,8 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.2,
             )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
             print_model_size(model)
 
         results = {}

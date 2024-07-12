@@ -681,6 +681,8 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.2,
             )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
             print_model_size(model)
             logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.prune4:
@@ -698,6 +700,8 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.4,
             )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
             print_model_size(model)
             logfile = f"prune4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.prune6:
@@ -715,6 +719,8 @@ def main():
                 pruning_method=prune.L1Unstructured,
                 amount=0.6,
             )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
             print_model_size(model)
             logfile = f"prune6_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         else:
@@ -740,8 +746,8 @@ def main():
                     with Calibration():
                         logger.info("********** Calibrate **********")
                         calibrate(args, model, tokenizer)
-                    print_model_size(model)
                     freeze(model)
+                    print_model_size(model)
                     logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
             elif args.quantize4:
                 logger.info("************ Apply Quantization qint4 *****************")
@@ -807,6 +813,10 @@ def main():
                     pruning_method=prune.L1Unstructured,
                     amount=0.6,
                 )
+                for module, param in parameters_to_prune:
+                    logger.info(module)
+                    logger.info(param)
+                    prune.remove(module, param)
                 print_model_size(model)
                 logfile = f"prune6_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
             else:
