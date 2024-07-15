@@ -691,6 +691,9 @@ def main():
                 parameters_to_prune.append((layer.attention.self.query, 'weight'))
                 parameters_to_prune.append((layer.attention.self.key, 'weight'))
                 parameters_to_prune.append((layer.attention.self.value, 'weight'))
+                parameters_to_prune.append((layer.attention.self.query, 'bias'))
+                parameters_to_prune.append((layer.attention.self.key, 'bias'))
+                parameters_to_prune.append((layer.attention.self.value, 'bias'))
             prune.global_unstructured(
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,

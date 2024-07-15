@@ -1,0 +1,3 @@
+srun: error: Task launch for StepId=11638.0 failed on node compute-2-4: Job credential expired
+srun: error: Application launch failed: Job credential expired
+srun: Job step aborted
