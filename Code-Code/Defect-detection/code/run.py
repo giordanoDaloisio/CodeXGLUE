@@ -56,7 +56,7 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer,
                           DistilBertConfig, DistilBertForMaskedLM, DistilBertForSequenceClassification, DistilBertTokenizer)
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
-
+from torchinfo import summary
 
 
 logger = logging.getLogger(__name__)
@@ -309,7 +309,7 @@ def evaluate(args, model, tokenizer, time_log="", time_dir="", eval_when_trainin
     labels=[]
     inf_times = []
     for batch in eval_dataloader:
-        inputs = batch[0].to(args.device)        
+        inputs = batch[0].to(args.device)   
         label=batch[1].to(args.device) 
         with torch.no_grad():
             start = time.time()
@@ -393,6 +393,8 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
         pred_name = f"predictions_prune4_{args.device}.txt"
     elif args.prune:
         pred_name = f"predictions_prune_{args.device}.txt"
+    elif args.prune_local:
+        pred_name = f"predictions_prune_local_{args.device}.txt"
     else:
         pred_name = f"predictions_{args.device}.txt"
     with open(os.path.join(args.output_dir, pred_name),'w') as f:
@@ -530,6 +532,7 @@ def main():
     parser.add_argument('--quantize', action='store_true')
     parser.add_argument('--quantize4', action='store_true')
     parser.add_argument('--quantizef8', action='store_true')
+    parser.add_argument('--prune_local', action='store_true')
     parser.add_argument('--prune6', action='store_true')
     parser.add_argument('--prune4', action='store_true')
     parser.add_argument('--prune', action='store_true')
@@ -570,9 +573,9 @@ def main():
         logfile = f"quantize_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
     elif args.quantize4:
         logfile = f"quantize4_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
-    elif args.prune:
+    elif args.prune6:
         logfile = f"prune6_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
-    elif args.prune:
+    elif args.prune4:
         logfile = f"prune4_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
     elif args.prune:
         logfile = f"prune2_times_{args.job_id}_{args.model_name_or_path.split('/')[0]}.csv"
@@ -616,14 +619,7 @@ def main():
         args.block_size = tokenizer.max_len_single_sentence  # Our input block size will be the max possible for the model
     args.block_size = min(args.block_size, tokenizer.max_len_single_sentence)
     if args.model_name_or_path:
-        # if args.quantize:
-        #     quanto_config = QuantoConfig(weights='int8')
-        #     model = model_class.from_pretrained(args.model_name_or_path,
-        #                                     from_tf=bool('.ckpt' in args.model_name_or_path),
-        #                                     config=config,
-        #                                     cache_dir=args.cache_dir if args.cache_dir else None,
-        #                                     quantization_config=quanto_config)    
-        # else:
+      
         model = model_class.from_pretrained(args.model_name_or_path,
                                         from_tf=bool('.ckpt' in args.model_name_or_path),
                                         config=config,
@@ -664,7 +660,6 @@ def main():
                 logger.info("*********** Calibrate **************")
                 calibrate(args, model, tokenizer)
             freeze(model)
-            print_model_size(model)
         
         if args.quantize4:
             logger.info("********** Apply Quantization qint4 **********")
@@ -673,7 +668,6 @@ def main():
                 logger.info("*********** Calibrate **************")
                 calibrate(args, model, tokenizer)
             freeze(model)
-            print_model_size(model)
         
         if args.quantizef8:
             logger.info("********** Apply Quantization qfloat8 **********")
@@ -682,7 +676,6 @@ def main():
                 logger.info("*********** Calibrate **************")
                 calibrate(args, model, tokenizer)
             freeze(model)
-            print_model_size(model)
 
         if args.prune6:
             logger.info("******* Apply Pruning 0.6 ***********")
@@ -701,7 +694,6 @@ def main():
             )
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
-            print_model_size(model)
         
         if args.prune4:
             logger.info("******* Apply Pruning 0.4 ***********")
@@ -716,9 +708,9 @@ def main():
                 amount=0.4,
             )
             for module, param in parameters_to_prune:
+                logger.info(prune.is_pruned(module))
                 prune.remove(module, param)
-            print_model_size(model)
-
+                logger.info(prune.is_pruned(module))
 
         if args.prune:
             logger.info("******* Apply Pruning 0.2 ***********")
@@ -733,8 +725,26 @@ def main():
                 amount=0.2,
             )
             for module, param in parameters_to_prune:
+                logger.info(prune.is_pruned(module))
                 prune.remove(module, param)
-            print_model_size(model)
+                logger.info(prune.is_pruned(module))
+            
+        
+        if args.prune_local:
+            logger.info("******* Apply Local Pruning ***********")
+            parameters_to_prune = []
+            for layer in model.encoder.roberta.encoder.layer:
+                parameters_to_prune.append(layer.attention.self.query)
+                parameters_to_prune.append(layer.attention.self.key)
+                parameters_to_prune.append(layer.attention.self.value)
+            for module in parameters_to_prune:
+                prune.ln_structured(module, name="weight", amount=0.4, n=2, dim=1)
+            for module in parameters_to_prune:
+                prune.remove(module, "weight")
+            logger.info(model)
+        
+        print_model_size(model)
+        summary(model, verbose=2)
 
         results = {}
         if args.do_eval and args.local_rank in [-1, 0]:

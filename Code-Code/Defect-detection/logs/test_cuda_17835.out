@@ -1,0 +1,65 @@
+07/16/2024 22:58:25 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/codebert-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+07/16/2024 22:58:29 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/codebert-base', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='microsoft/codebert-base', cache_dir='', block_size=400, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=5, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id='17835', quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=False, prune_local=False, prune6=False, prune4=False, prune=False, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
+07/16/2024 22:58:33 - INFO - __main__ -   Size (MB): 498.658348
+07/16/2024 22:58:39 - INFO - __main__ -   ***** Running evaluation *****
+07/16/2024 22:58:39 - INFO - __main__ -     Num examples = 2732
+07/16/2024 22:58:39 - INFO - __main__ -     Batch size = 64
+==========================================================================================
+Layer (type:depth-idx)                                            Param #
+==========================================================================================
+Model                                                             --
+├─RobertaForSequenceClassification: 1-1                           --
+│    └─RobertaModel: 2-1                                          --
+│    │    └─RobertaEmbeddings: 3-1                                39,000,576
+│    │    └─RobertaEncoder: 3-2                                   85,054,464
+│    └─RobertaClassificationHead: 2-2                             --
+│    │    └─Linear: 3-3                                           590,592
+│    │    └─Dropout: 3-4                                          --
+│    │    └─Linear: 3-5                                           769
+├─Dropout: 1-2                                                    --
+==========================================================================================
+Total params: 124,646,401
+Trainable params: 124,646,401
+Non-trainable params: 0
+==========================================================================================
+07/16/2024 22:59:04 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:10 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:13 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:15 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:17 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:20 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:22 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:24 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:27 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:29 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:31 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:34 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:36 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:38 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:41 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:43 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:46 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:48 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:50 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:53 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:55 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 22:59:57 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:00 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:02 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:04 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:07 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:09 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:11 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:14 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:16 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:18 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:21 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:23 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 23:00:26 - INFO - __main__ -   torch.Size([64, 400])
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+07/16/2024 23:00:28 - INFO - __main__ -   torch.Size([64, 400])
+slurmstepd-compute-0-3: error: *** JOB 17835 ON compute-0-3 CANCELLED AT 2024-07-16T23:00:26 ***
+07/16/2024 23:00:30 - INFO - __main__ -   torch.Size([64, 400])
+slurmstepd-compute-0-3: error: *** STEP 17835.0 ON compute-0-3 CANCELLED AT 2024-07-16T23:00:31 ***

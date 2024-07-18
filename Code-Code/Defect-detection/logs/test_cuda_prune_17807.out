@@ -1,0 +1,133 @@
+07/16/2024 21:41:35 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/codebert-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+07/16/2024 21:41:37 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/codebert-base', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='microsoft/codebert-base', cache_dir='', block_size=400, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=5, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id='17807', quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=False, prune_local=False, prune6=False, prune4=False, prune=True, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
+07/16/2024 21:41:38 - INFO - __main__ -   ******* Apply Pruning 0.2 ***********
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:38 - INFO - __main__ -   True
+07/16/2024 21:41:38 - INFO - __main__ -   False
+07/16/2024 21:41:40 - INFO - __main__ -   Size (MB): 498.658348
+07/16/2024 21:41:46 - INFO - __main__ -   ***** Running evaluation *****
+07/16/2024 21:41:46 - INFO - __main__ -     Num examples = 2732
+07/16/2024 21:41:46 - INFO - __main__ -     Batch size = 64
+07/16/2024 21:41:50 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:41:54 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:41:56 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:41:58 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:01 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:03 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:05 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:08 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:10 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:12 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:15 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:17 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:19 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:22 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:24 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:27 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:29 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:31 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:34 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:36 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:38 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:41 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:43 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:45 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:48 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:50 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:52 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:55 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:42:57 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:00 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:02 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:04 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:07 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:09 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:11 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:14 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:16 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:18 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:21 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:23 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:26 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:28 - INFO - __main__ -   torch.Size([64, 400])
+07/16/2024 21:43:30 - INFO - __main__ -   torch.Size([44, 400])
+07/16/2024 21:43:32 - INFO - __main__ -   Average time: 0.08600202826566475
+07/16/2024 21:43:32 - INFO - __main__ -   ***** Eval results *****
+07/16/2024 21:43:32 - INFO - __main__ -     eval_acc = 0.6395
+07/16/2024 21:43:32 - INFO - __main__ -     eval_loss = 0.8056
+07/16/2024 21:43:38 - INFO - __main__ -   ***** Running Test *****
+07/16/2024 21:43:38 - INFO - __main__ -     Num examples = 2732
+07/16/2024 21:43:38 - INFO - __main__ -     Batch size = 64
+  0%|          | 0/43 [00:00<?, ?it/s]  2%|▏         | 1/43 [00:02<01:39,  2.38s/it]  5%|▍         | 2/43 [00:04<01:37,  2.38s/it]  7%|▋         | 3/43 [00:07<01:35,  2.38s/it]  9%|▉         | 4/43 [00:09<01:32,  2.38s/it] 12%|█▏        | 5/43 [00:11<01:30,  2.38s/it] 14%|█▍        | 6/43 [00:14<01:27,  2.38s/it] 16%|█▋        | 7/43 [00:16<01:25,  2.37s/it] 19%|█▊        | 8/43 [00:19<01:23,  2.38s/it] 21%|██        | 9/43 [00:21<01:20,  2.38s/it] 23%|██▎       | 10/43 [00:23<01:18,  2.38s/it] 26%|██▌       | 11/43 [00:26<01:15,  2.37s/it] 28%|██▊       | 12/43 [00:28<01:13,  2.37s/it] 30%|███       | 13/43 [00:30<01:11,  2.38s/it] 33%|███▎      | 14/43 [00:33<01:08,  2.38s/it] 35%|███▍      | 15/43 [00:35<01:06,  2.38s/it] 37%|███▋      | 16/43 [00:38<01:04,  2.38s/it] 40%|███▉      | 17/43 [00:40<01:01,  2.37s/it] 42%|████▏     | 18/43 [00:42<00:59,  2.38s/it] 44%|████▍     | 19/43 [00:45<00:57,  2.38s/it] 47%|████▋     | 20/43 [00:47<00:54,  2.38s/it] 49%|████▉     | 21/43 [00:49<00:52,  2.39s/it] 51%|█████     | 22/43 [00:52<00:50,  2.39s/it] 53%|█████▎    | 23/43 [00:54<00:47,  2.40s/it] 56%|█████▌    | 24/43 [00:57<00:45,  2.39s/it] 58%|█████▊    | 25/43 [00:59<00:42,  2.39s/it] 60%|██████    | 26/43 [01:01<00:40,  2.39s/it] 63%|██████▎   | 27/43 [01:04<00:38,  2.39s/it] 65%|██████▌   | 28/43 [01:06<00:35,  2.39s/it] 67%|██████▋   | 29/43 [01:09<00:33,  2.39s/it] 70%|██████▉   | 30/43 [01:11<00:30,  2.38s/it] 72%|███████▏  | 31/43 [01:13<00:28,  2.38s/it] 74%|███████▍  | 32/43 [01:16<00:26,  2.38s/it] 77%|███████▋  | 33/43 [01:18<00:23,  2.39s/it] 79%|███████▉  | 34/43 [01:20<00:21,  2.38s/it] 81%|████████▏ | 35/43 [01:23<00:19,  2.38s/it] 84%|████████▎ | 36/43 [01:25<00:16,  2.39s/it] 86%|████████▌ | 37/43 [01:28<00:14,  2.39s/it] 88%|████████▊ | 38/43 [01:30<00:11,  2.40s/it] 91%|█████████ | 39/43 [01:32<00:09,  2.40s/it] 93%|█████████▎| 40/43 [01:35<00:07,  2.40s/it] 95%|█████████▌| 41/43 [01:37<00:04,  2.41s/it] 98%|█████████▊| 42/43 [01:40<00:02,  2.40s/it]100%|██████████| 43/43 [01:41<00:00,  2.17s/it]100%|██████████| 43/43 [01:41<00:00,  2.37s/it]
+07/16/2024 21:45:19 - INFO - __main__ -   Average inference time: 0.010982812837112782

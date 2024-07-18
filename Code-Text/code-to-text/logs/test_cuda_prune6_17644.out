@@ -1,0 +1,12 @@
+07/16/2024 16:14:24 - INFO - __main__ -   Namespace(model_type='roberta', model_name_or_path='microsoft/codebert-base', output_dir='model/java', load_model_path='model/java/checkpoint-best-bleu/pytorch_model.bin', train_filename=None, dev_filename=None, test_filename='../dataset/java/test.jsonl', config_name='', tokenizer_name='', max_source_length=256, max_target_length=128, do_train=False, do_eval=False, do_test=True, do_lower_case=False, no_cuda=False, quantize=False, quantize4=False, quantizef8=False, prune=False, prune4=False, prune6=True, do_retrain=False, train_batch_size=8, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=5e-05, beam_size=10, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=3, max_steps=-1, eval_steps=-1, train_steps=-1, warmup_steps=0, local_rank=-1, seed=42, job_id='17644', file_len=300)
+07/16/2024 16:14:24 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False
+07/16/2024 16:14:26 - INFO - __main__ -   reload model from model/java/checkpoint-best-bleu/pytorch_model.bin
+07/16/2024 16:14:28 - INFO - __main__ -   Apply model pruning 0.6
+07/16/2024 16:14:31 - INFO - __main__ -   Size (MB): 706.91481
+07/16/2024 16:14:31 - INFO - __main__ -   Test file: ../dataset/java/test.jsonl
+  0%|          | 0/172 [00:00<?, ?it/s]/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/model.py:114: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:78.)
+  self.scores = self.tt.FloatTensor(size).zero_()
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+  1%|          | 1/172 [00:58<2:47:22, 58.73s/it]  1%|          | 2/172 [03:51<5:57:03, 126.02s/it]  2%|▏         | 3/172 [06:38<6:47:12, 144.57s/it]  2%|▏         | 4/172 [08:12<5:48:31, 124.47s/it]  3%|▎         | 5/172 [12:19<7:49:46, 168.78s/it]  3%|▎         | 6/172 [15:30<8:08:14, 176.47s/it]  4%|▍         | 7/172 [16:59<6:45:58, 147.63s/it]  5%|▍         | 8/172 [19:26<6:43:22, 147.58s/it]slurmstepd-compute-0-3: error: *** STEP 17644.0 ON compute-0-3 CANCELLED AT 2024-07-16T16:35:39 ***
+slurmstepd-compute-0-3: error: *** JOB 17644 ON compute-0-3 CANCELLED AT 2024-07-16T16:35:39 ***
+srun: error: compute-0-3: task 0: Terminated

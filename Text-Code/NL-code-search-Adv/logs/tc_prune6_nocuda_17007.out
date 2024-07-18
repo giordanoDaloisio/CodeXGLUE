@@ -1,0 +1,17 @@
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+07/17/2024 08:50:05 - WARNING - __main__ -   Process rank: -1, device: cpu, n_gpu: 1, distributed training: False, 16-bits training: False
+07/17/2024 08:50:14 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/codebert-base', mlm=False, mlm_probability=0.15, config_name='microsoft/codebert-base', tokenizer_name='roberta-base', cache_dir='', block_size=256, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=5e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=2, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', quantize=False, quantize4=False, quantizef8=False, prune=False, prune4=False, prune6=True, job_id='17007', n_gpu=1, device=device(type='cpu'), per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, start_epoch=0, start_step=0)
+07/17/2024 08:50:17 - INFO - __main__ -   ******* Apply Pruning 0.6 ***********
+07/17/2024 08:50:30 - INFO - __main__ -   Size (MB): 498.64844
+07/17/2024 08:50:39 - INFO - __main__ -   ***** Running evaluation *****
+07/17/2024 08:50:39 - INFO - __main__ -     Num examples = 9604
+07/17/2024 08:50:39 - INFO - __main__ -     Batch size = 64
+07/17/2024 09:46:59 - INFO - __main__ -   ***** Eval results *****
+07/17/2024 09:46:59 - INFO - __main__ -     eval_loss = 4.5364
+07/17/2024 09:46:59 - INFO - __main__ -     eval_mrr = 0.0034
+07/17/2024 09:47:28 - INFO - __main__ -   ***** Running Test *****
+07/17/2024 09:47:28 - INFO - __main__ -     Num examples = 19210
+07/17/2024 09:47:28 - INFO - __main__ -     Batch size = 64
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd-compute-0-3: error: *** JOB 17007 ON compute-0-3 CANCELLED AT 2024-07-17T10:58:58 ***
+slurmstepd-compute-0-3: error: *** STEP 17007.0 ON compute-0-3 CANCELLED AT 2024-07-17T10:58:58 ***

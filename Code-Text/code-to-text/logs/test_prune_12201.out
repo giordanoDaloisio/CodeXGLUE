@@ -1,0 +1,9 @@
+07/15/2024 17:47:45 - INFO - __main__ -   Namespace(model_type='roberta', model_name_or_path='microsoft/codebert-base', output_dir='model/java', load_model_path='model/java/checkpoint-best-bleu/pytorch_model.bin', train_filename=None, dev_filename=None, test_filename='../dataset/java/test.jsonl', config_name='', tokenizer_name='', max_source_length=256, max_target_length=128, do_train=False, do_eval=False, do_test=True, do_lower_case=False, no_cuda=True, quantize=False, quantize4=False, quantizef8=False, prune=True, prune4=False, prune6=False, train_batch_size=8, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=5e-05, beam_size=10, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=3, max_steps=-1, eval_steps=-1, train_steps=-1, warmup_steps=0, local_rank=-1, seed=42, job_id='12201', file_len=300)
+07/15/2024 17:47:45 - WARNING - __main__ -   Process rank: -1, device: cpu, n_gpu: 0, distributed training: False
+07/15/2024 17:47:49 - INFO - __main__ -   reload model from model/java/checkpoint-best-bleu/pytorch_model.bin
+07/15/2024 17:47:53 - INFO - __main__ -   Apply model pruning
+07/15/2024 17:48:05 - INFO - __main__ -   Size (MB): 948.607162
+07/15/2024 17:48:05 - INFO - __main__ -   Test file: ../dataset/java/test.jsonl
+  0%|          | 0/172 [00:00<?, ?it/s]  1%|          | 1/172 [1:25:29<243:38:25, 5129.27s/it]  1%|          | 2/172 [2:35:00<215:35:34, 4565.50s/it]  2%|▏         | 3/172 [3:38:46<198:29:22, 4228.18s/it]slurmstepd-compute-2-5: error: *** STEP 12201.0 ON compute-2-5 CANCELLED AT 2024-07-15T22:14:37 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd-compute-2-5: error: *** JOB 12201 ON compute-2-5 CANCELLED AT 2024-07-15T22:14:37 ***
