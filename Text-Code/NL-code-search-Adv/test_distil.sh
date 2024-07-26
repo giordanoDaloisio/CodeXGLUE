@@ -29,7 +29,7 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=distilbert \
+    --tokenizer_name=distilbert-base-uncased \
     --do_eval \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
@@ -43,5 +43,5 @@ srun python run.py \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
     --no_cuda \
-    --job_id $SLURM_JOB_ID \
-    --seed 123456 2>&1| tee test.log
+    --seed 123456 2>&1 \
+    --job_id $SLURM_JOB_ID | tee test.log
