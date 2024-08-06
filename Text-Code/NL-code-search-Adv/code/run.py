@@ -282,6 +282,7 @@ def train(args, train_dataset, model, tokenizer):
 
 
 eval_dataset=None
+
 def evaluate(args, model, tokenizer,eval_when_training=False):
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_output_dir = args.output_dir
@@ -371,7 +372,9 @@ def test(args, model, tokenizer, time_file='', time_folder=''):
         nl_inputs = batch[1].to(args.device)
         with torch.no_grad():
             start = time.time()
+            logger.info("************ Loading Data ***************")
             lm_loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            
             end = time.time()
             inf_time = end-start
             times.append(inf_time)

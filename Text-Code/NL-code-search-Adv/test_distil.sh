@@ -4,7 +4,7 @@
 #SBATCH -o ./logs/tcd_nocuda_%j.out
 #SBATCH -J tcdnc
 #SBATCH -p normal
-#SBATCH -c 40
+#SBATCH -c 60
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -30,7 +30,6 @@ srun python run.py \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
     --tokenizer_name=distilbert-base-uncased \
-    --do_eval \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
