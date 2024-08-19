@@ -691,8 +691,7 @@ def main():
             with Calibration():
                 calibration(model, tokenizer, device, args)
             freeze(model)
-            print_model_size(model,args)
-        
+
         if args.quantize4:
             logger.info("Apply quantization qint4")
             quantize(model, weights=qint4, activations=qint4)
@@ -700,7 +699,6 @@ def main():
             with Calibration():
                 calibration(model, tokenizer, device, args)
             freeze(model)
-            print_model_size(model,args)
         
         if args.quantizef8:
             logger.info("Apply quantization qfloat8")
@@ -709,7 +707,6 @@ def main():
             with Calibration():
                 calibration(model, tokenizer, device, args)
             freeze(model)
-            print_model_size(model,args)
         
         if args.prune:
             logger.info("Apply model pruning")
@@ -730,10 +727,6 @@ def main():
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
             
-            #if args.do_retrain:
-
-            print_model_size(model,args)
-        
         if args.prune4:
             logger.info("Apply model pruning 0.4")
             parameters_to_prune = [
@@ -752,7 +745,6 @@ def main():
             )
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
-            print_model_size(model,args)
         
         if args.prune6:
             logger.info("Apply model pruning 0.6")
@@ -772,10 +764,8 @@ def main():
             )
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
-            print_model_size(model,args)
 
-
-
+        print_model_size(model,args)
 
         files=[]
         if args.dev_filename is not None:
