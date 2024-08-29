@@ -57,7 +57,7 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                           DistilBertConfig, DistilBertForMaskedLM, DistilBertForSequenceClassification, DistilBertTokenizer)
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
 from torchinfo import summary
-
+from distilled_dataset import DistilledDataset
 
 logger = logging.getLogger(__name__)
 
@@ -105,6 +105,7 @@ class TextDataset(Dataset):
                 self.examples.append(convert_examples_to_features(js,tokenizer,args))
         if 'train' in file_path:
             for idx, example in enumerate(self.examples[:3]):
+                    logger.info(example)
                     logger.info("*** Example ***")
                     logger.info("idx: {}".format(idx))
                     logger.info("label: {}".format(example.label))
@@ -283,16 +284,20 @@ def train(args, train_dataset, model, tokenizer):
 def evaluate(args, model, tokenizer, time_log="", time_dir="", eval_when_training=False):
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_output_dir = args.output_dir
-
-    eval_dataset = TextDataset(tokenizer, args,args.eval_data_file)
-
     if not os.path.exists(eval_output_dir) and args.local_rank in [-1, 0]:
         os.makedirs(eval_output_dir)
+    if args.vocab_size:
+        eval_dataset = DistilledDataset(args, args.vocab_size, args.eval_data_file, logger)
+        eval_sampler = SequentialSampler(eval_dataset)
+        eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size, num_workers=8, pin_memory=True)
+
+    else:
+        eval_dataset = TextDataset(tokenizer, args,args.eval_data_file)
+        # Note that DistributedSampler samples randomly
+        eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
+        eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size,num_workers=4,pin_memory=True)
 
     args.eval_batch_size = args.per_gpu_eval_batch_size * max(1, args.n_gpu)
-    # Note that DistributedSampler samples randomly
-    eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
-    eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size,num_workers=4,pin_memory=True)
 
     # multi-gpu evaluate
     if args.n_gpu > 1 and eval_when_training is False:
@@ -327,6 +332,8 @@ def evaluate(args, model, tokenizer, time_log="", time_dir="", eval_when_trainin
         nb_eval_steps += 1
     logits=np.concatenate(logits,0)
     labels=np.concatenate(labels,0)
+    if "train_unlabel" in args.eval_data_file:
+        np.save("../dataset/preds_unlabel_train", logits)
     preds=logits[:,0]>0.5
     eval_acc=np.mean(labels==preds)
     eval_loss = eval_loss / nb_eval_steps
@@ -349,6 +356,18 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
     # Note that DistributedSampler samples randomly
     eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
     eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
+
+    if args.vocab_size:
+        eval_dataset = DistilledDataset(args, args.vocab_size, args.test_data_file, logger)
+        eval_sampler = SequentialSampler(eval_dataset)
+        eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size, num_workers=8, pin_memory=True)
+    else:
+        
+        # Loop to handle MNLI double evaluation (matched, mis-matched)
+        eval_dataset = TextDataset(tokenizer, args,args.test_data_file)
+        # Note that DistributedSampler samples randomly
+        eval_sampler = SequentialSampler(eval_dataset) if args.local_rank == -1 else DistributedSampler(eval_dataset)
+        eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
 
     # multi-gpu evaluate
     if args.n_gpu > 1:
@@ -536,6 +555,12 @@ def main():
     parser.add_argument('--prune6', action='store_true')
     parser.add_argument('--prune4', action='store_true')
     parser.add_argument('--prune', action='store_true')
+
+    parser.add_argument('--attention_heads', type=int)
+    parser.add_argument('--hidden_dim', type=int)
+    parser.add_argument('--intermediate_size', type=int)
+    parser.add_argument('--n_layers', type=int)
+    parser.add_argument('--vocab_size', type=int)
     
     args = parser.parse_args()
 
@@ -611,21 +636,32 @@ def main():
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config = config_class.from_pretrained(args.config_name if args.config_name else args.model_name_or_path,
                                           cache_dir=args.cache_dir if args.cache_dir else None)
-    config.num_labels=1
+    if args.attention_heads and args.hidden_dim and args.intermediate_size and args.vocab_size and args.n_layers:
+        config.num_attention_heads = args.attention_heads
+        config.hidden_size = args.hidden_dim
+        config.intermediate_size = args.intermediate_size
+        config.vocab_size = args.vocab_size
+        config.num_hidden_layers = args.n_layers
+        config.hidden_dropout_prob = 0.5
+        config.num_labels=2
+    else:
+        config.num_labels=1
     tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name,
                                                 do_lower_case=args.do_lower_case,
                                                 cache_dir=args.cache_dir if args.cache_dir else None)
     if args.block_size <= 0:
         args.block_size = tokenizer.max_len_single_sentence  # Our input block size will be the max possible for the model
     args.block_size = min(args.block_size, tokenizer.max_len_single_sentence)
-    if args.model_name_or_path:
+    if args.model_name_or_path and not args.vocab_size:
       
         model = model_class.from_pretrained(args.model_name_or_path,
-                                        from_tf=bool('.ckpt' in args.model_name_or_path),
+                                            from_tf=bool('.ckpt' in args.model_name_or_path),
                                         config=config,
                                         cache_dir=args.cache_dir if args.cache_dir else None)    
     else:
+        # For DISTILLATION
         model = model_class(config)
+
 
     model=Model(model,config,tokenizer,args)
     if args.local_rank == 0:
@@ -725,24 +761,8 @@ def main():
                 amount=0.2,
             )
             for module, param in parameters_to_prune:
-                logger.info(prune.is_pruned(module))
                 prune.remove(module, param)
-                logger.info(prune.is_pruned(module))
-            
-        
-        if args.prune_local:
-            logger.info("******* Apply Local Pruning ***********")
-            parameters_to_prune = []
-            for layer in model.encoder.roberta.encoder.layer:
-                parameters_to_prune.append(layer.attention.self.query)
-                parameters_to_prune.append(layer.attention.self.key)
-                parameters_to_prune.append(layer.attention.self.value)
-            for module in parameters_to_prune:
-                prune.ln_structured(module, name="weight", amount=0.4, n=2, dim=1)
-            for module in parameters_to_prune:
-                prune.remove(module, "weight")
-            logger.info(model)
-        
+
         print_model_size(model)
         summary(model, verbose=2)
 
@@ -757,7 +777,7 @@ def main():
         if args.do_test and args.local_rank in [-1, 0]:
                 test(args, model, tokenizer, logfile, time_dir)
 
-    return results
+        return results
 
 
 if __name__ == "__main__":

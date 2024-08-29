@@ -218,7 +218,7 @@ def train(args, train_dataset, model, tokenizer):
             nl_inputs = batch[1].to(args.device)
 
             model.train()
-            loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            loss,_,code_vec,nl_vec = model(code_inputs,nl_inputs)
 
             if args.n_gpu > 1:
                 loss = loss.mean()  # mean() to average on multi-gpu parallel training
@@ -311,17 +311,22 @@ def evaluate(args, model, tokenizer,eval_when_training=False):
     model.eval()
     code_vecs=[] 
     nl_vecs=[]
+    logits=[]
     for batch in eval_dataloader:
         code_inputs = batch[0].to(args.device)    
         nl_inputs = batch[1].to(args.device)
         with torch.no_grad():
-            lm_loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            lm_loss,logit,code_vec,nl_vec = model(code_inputs,nl_inputs)
             eval_loss += lm_loss.mean().item()
             code_vecs.append(code_vec.cpu().numpy())
             nl_vecs.append(nl_vec.cpu().numpy())
         nb_eval_steps += 1
+        logits.append(logit.cpu().numpy())
     code_vecs=np.concatenate(code_vecs,0)
     nl_vecs=np.concatenate(nl_vecs,0)
+    logits=np.concatenate(logits,0)
+    if "unlabel_train" in args.eval_data_file:
+        np.save("data/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
     perplexity = torch.tensor(eval_loss)
 

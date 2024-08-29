@@ -1,0 +1,666 @@
+08/22/2024 23:29:33 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/codebert-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+08/22/2024 23:29:39 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/codebert-base', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='microsoft/codebert-base', cache_dir='', block_size=400, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=2, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id='145337', quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=False, prune_local=False, prune6=False, prune4=False, prune=True, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
+08/22/2024 23:29:44 - INFO - __main__ -   ******* Apply Pruning 0.2 ***********
+/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.9/site-packages/transformers/optimization.py:591: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+08/22/2024 23:29:56 - INFO - __main__ -   ***** Running training *****
+08/22/2024 23:29:56 - INFO - __main__ -     Num examples = 2732
+08/22/2024 23:29:56 - INFO - __main__ -     Num Epochs = 2
+08/22/2024 23:29:56 - INFO - __main__ -     Instantaneous batch size per GPU = 32
+08/22/2024 23:29:56 - INFO - __main__ -     Total train batch size (w. parallel, distributed & accumulation) = 32
+08/22/2024 23:29:56 - INFO - __main__ -     Gradient Accumulation steps = 1
+08/22/2024 23:29:56 - INFO - __main__ -     Total optimization steps = 172
+  0%|          | 0/86 [00:00<?, ?it/s]epoch 0 loss 0.37787:   0%|          | 0/86 [00:07<?, ?it/s]epoch 0 loss 0.37787:   1%|          | 1/86 [00:07<10:46,  7.61s/it]epoch 0 loss 0.4398:   1%|          | 1/86 [00:11<10:46,  7.61s/it] epoch 0 loss 0.4398:   2%|▏         | 2/86 [00:11<07:16,  5.20s/it]epoch 0 loss 0.46836:   2%|▏         | 2/86 [00:14<07:16,  5.20s/it]epoch 0 loss 0.46836:   3%|▎         | 3/86 [00:14<06:07,  4.43s/it]epoch 0 loss 0.49775:   3%|▎         | 3/86 [00:18<06:07,  4.43s/it]epoch 0 loss 0.49775:   5%|▍         | 4/86 [00:18<05:33,  4.07s/it]epoch 0 loss 0.48054:   5%|▍         | 4/86 [00:21<05:33,  4.07s/it]epoch 0 loss 0.48054:   6%|▌         | 5/86 [00:21<05:13,  3.87s/it]epoch 0 loss 0.48169:   6%|▌         | 5/86 [00:25<05:13,  3.87s/it]epoch 0 loss 0.48169:   7%|▋         | 6/86 [00:25<04:59,  3.75s/it]epoch 0 loss 0.45299:   7%|▋         | 6/86 [00:28<04:59,  3.75s/it]epoch 0 loss 0.45299:   8%|▊         | 7/86 [00:28<04:51,  3.69s/it]epoch 0 loss 0.45419:   8%|▊         | 7/86 [00:32<04:51,  3.69s/it]epoch 0 loss 0.45419:   9%|▉         | 8/86 [00:32<04:43,  3.63s/it]epoch 0 loss 0.43479:   9%|▉         | 8/86 [00:35<04:43,  3.63s/it]epoch 0 loss 0.43479:  10%|█         | 9/86 [00:35<04:36,  3.59s/it]epoch 0 loss 0.43353:  10%|█         | 9/86 [00:39<04:36,  3.59s/it]epoch 0 loss 0.43353:  12%|█▏        | 10/86 [00:39<04:31,  3.58s/it]epoch 0 loss 0.42986:  12%|█▏        | 10/86 [00:42<04:31,  3.58s/it]epoch 0 loss 0.42986:  13%|█▎        | 11/86 [00:42<04:26,  3.55s/it]epoch 0 loss 0.43349:  13%|█▎        | 11/86 [00:46<04:26,  3.55s/it]epoch 0 loss 0.43349:  14%|█▍        | 12/86 [00:46<04:22,  3.54s/it]epoch 0 loss 0.42394:  14%|█▍        | 12/86 [00:49<04:22,  3.54s/it]epoch 0 loss 0.42394:  15%|█▌        | 13/86 [00:49<04:17,  3.53s/it]epoch 0 loss 0.41491:  15%|█▌        | 13/86 [00:53<04:17,  3.53s/it]epoch 0 loss 0.41491:  16%|█▋        | 14/86 [00:53<04:13,  3.53s/it]epoch 0 loss 0.40382:  16%|█▋        | 14/86 [00:56<04:13,  3.53s/it]epoch 0 loss 0.40382:  17%|█▋        | 15/86 [00:56<04:10,  3.52s/it]epoch 0 loss 0.39704:  17%|█▋        | 15/86 [01:00<04:10,  3.52s/it]epoch 0 loss 0.39704:  19%|█▊        | 16/86 [01:00<04:06,  3.52s/it]epoch 0 loss 0.39124:  19%|█▊        | 16/86 [01:03<04:06,  3.52s/it]epoch 0 loss 0.39124:  20%|█▉        | 17/86 [01:03<04:02,  3.52s/it]epoch 0 loss 0.40914:  20%|█▉        | 17/86 [01:07<04:02,  3.52s/it]epoch 0 loss 0.40914:  21%|██        | 18/86 [01:07<03:59,  3.52s/it]epoch 0 loss 0.41107:  21%|██        | 18/86 [01:10<03:59,  3.52s/it]epoch 0 loss 0.41107:  22%|██▏       | 19/86 [01:10<03:55,  3.52s/it]epoch 0 loss 0.40721:  22%|██▏       | 19/86 [01:14<03:55,  3.52s/it]epoch 0 loss 0.40721:  23%|██▎       | 20/86 [01:14<03:52,  3.52s/it]epoch 0 loss 0.41621:  23%|██▎       | 20/86 [01:17<03:52,  3.52s/it]epoch 0 loss 0.41621:  24%|██▍       | 21/86 [01:17<03:48,  3.52s/it]epoch 0 loss 0.42988:  24%|██▍       | 21/86 [01:21<03:48,  3.52s/it]epoch 0 loss 0.42988:  26%|██▌       | 22/86 [01:21<03:45,  3.52s/it]epoch 0 loss 0.42616:  26%|██▌       | 22/86 [01:24<03:45,  3.52s/it]epoch 0 loss 0.42616:  27%|██▋       | 23/86 [01:24<03:41,  3.51s/it]epoch 0 loss 0.4289:  27%|██▋       | 23/86 [01:28<03:41,  3.51s/it] epoch 0 loss 0.4289:  28%|██▊       | 24/86 [01:28<03:37,  3.51s/it]epoch 0 loss 0.43465:  28%|██▊       | 24/86 [01:31<03:37,  3.51s/it]epoch 0 loss 0.43465:  29%|██▉       | 25/86 [01:32<03:34,  3.52s/it]epoch 0 loss 0.42985:  29%|██▉       | 25/86 [01:35<03:34,  3.52s/it]epoch 0 loss 0.42985:  30%|███       | 26/86 [01:35<03:30,  3.51s/it]epoch 0 loss 0.42634:  30%|███       | 26/86 [01:39<03:30,  3.51s/it]epoch 0 loss 0.42634:  31%|███▏      | 27/86 [01:39<03:27,  3.51s/it]epoch 0 loss 0.4225:  31%|███▏      | 27/86 [01:42<03:27,  3.51s/it] epoch 0 loss 0.4225:  33%|███▎      | 28/86 [01:42<03:23,  3.51s/it]epoch 0 loss 0.41782:  33%|███▎      | 28/86 [01:46<03:23,  3.51s/it]epoch 0 loss 0.41782:  34%|███▎      | 29/86 [01:46<03:20,  3.51s/it]epoch 0 loss 0.41978:  34%|███▎      | 29/86 [01:49<03:20,  3.51s/it]epoch 0 loss 0.41978:  35%|███▍      | 30/86 [01:49<03:16,  3.51s/it]epoch 0 loss 0.4144:  35%|███▍      | 30/86 [01:53<03:16,  3.51s/it] epoch 0 loss 0.4144:  36%|███▌      | 31/86 [01:53<03:13,  3.52s/it]epoch 0 loss 0.41227:  36%|███▌      | 31/86 [01:56<03:13,  3.52s/it]epoch 0 loss 0.41227:  37%|███▋      | 32/86 [01:56<03:09,  3.51s/it]epoch 0 loss 0.41349:  37%|███▋      | 32/86 [02:00<03:09,  3.51s/it]epoch 0 loss 0.41349:  38%|███▊      | 33/86 [02:00<03:06,  3.52s/it]epoch 0 loss 0.41125:  38%|███▊      | 33/86 [02:03<03:06,  3.52s/it]epoch 0 loss 0.41125:  40%|███▉      | 34/86 [02:03<03:02,  3.52s/it]epoch 0 loss 0.40623:  40%|███▉      | 34/86 [02:07<03:02,  3.52s/it]epoch 0 loss 0.40623:  41%|████      | 35/86 [02:07<02:59,  3.51s/it]epoch 0 loss 0.39947:  41%|████      | 35/86 [02:10<02:59,  3.51s/it]epoch 0 loss 0.39947:  42%|████▏     | 36/86 [02:10<02:55,  3.51s/it]epoch 0 loss 0.40246:  42%|████▏     | 36/86 [02:14<02:55,  3.51s/it]epoch 0 loss 0.40246:  43%|████▎     | 37/86 [02:14<02:52,  3.52s/it]epoch 0 loss 0.40021:  43%|████▎     | 37/86 [02:17<02:52,  3.52s/it]epoch 0 loss 0.40021:  44%|████▍     | 38/86 [02:17<02:48,  3.51s/it]epoch 0 loss 0.40043:  44%|████▍     | 38/86 [02:21<02:48,  3.51s/it]epoch 0 loss 0.40043:  45%|████▌     | 39/86 [02:21<02:45,  3.51s/it]epoch 0 loss 0.39981:  45%|████▌     | 39/86 [02:24<02:45,  3.51s/it]epoch 0 loss 0.39981:  47%|████▋     | 40/86 [02:24<02:41,  3.51s/it]epoch 0 loss 0.39642:  47%|████▋     | 40/86 [02:28<02:41,  3.51s/it]epoch 0 loss 0.39642:  48%|████▊     | 41/86 [02:28<02:38,  3.51s/it]epoch 0 loss 0.39287:  48%|████▊     | 41/86 [02:31<02:38,  3.51s/it]epoch 0 loss 0.39287:  49%|████▉     | 42/86 [02:31<02:34,  3.51s/it]epoch 0 loss 0.39112:  49%|████▉     | 42/86 [02:35<02:34,  3.51s/it]epoch 0 loss 0.39112:  50%|█████     | 43/86 [02:35<02:31,  3.51s/it]epoch 0 loss 0.39291:  50%|█████     | 43/86 [02:38<02:31,  3.51s/it]epoch 0 loss 0.39291:  51%|█████     | 44/86 [02:38<02:27,  3.51s/it]epoch 0 loss 0.39091:  51%|█████     | 44/86 [02:42<02:27,  3.51s/it]epoch 0 loss 0.39091:  52%|█████▏    | 45/86 [02:42<02:23,  3.51s/it]epoch 0 loss 0.38839:  52%|█████▏    | 45/86 [02:45<02:23,  3.51s/it]epoch 0 loss 0.38839:  53%|█████▎    | 46/86 [02:45<02:20,  3.51s/it]epoch 0 loss 0.39168:  53%|█████▎    | 46/86 [02:49<02:20,  3.51s/it]epoch 0 loss 0.39168:  55%|█████▍    | 47/86 [02:49<02:16,  3.51s/it]epoch 0 loss 0.3903:  55%|█████▍    | 47/86 [02:52<02:16,  3.51s/it] epoch 0 loss 0.3903:  56%|█████▌    | 48/86 [02:52<02:13,  3.52s/it]epoch 0 loss 0.38776:  56%|█████▌    | 48/86 [02:56<02:13,  3.52s/it]epoch 0 loss 0.38776:  57%|█████▋    | 49/86 [02:56<02:10,  3.53s/it]epoch 0 loss 0.38525:  57%|█████▋    | 49/86 [02:59<02:10,  3.53s/it]epoch 0 loss 0.38525:  58%|█████▊    | 50/86 [02:59<02:06,  3.53s/it]epoch 0 loss 0.38208:  58%|█████▊    | 50/86 [03:03<02:06,  3.53s/it]epoch 0 loss 0.38208:  59%|█████▉    | 51/86 [03:03<02:03,  3.53s/it]epoch 0 loss 0.37932:  59%|█████▉    | 51/86 [03:06<02:03,  3.53s/it]epoch 0 loss 0.37932:  60%|██████    | 52/86 [03:06<01:59,  3.53s/it]epoch 0 loss 0.37747:  60%|██████    | 52/86 [03:10<01:59,  3.53s/it]epoch 0 loss 0.37747:  62%|██████▏   | 53/86 [03:10<01:56,  3.52s/it]epoch 0 loss 0.37639:  62%|██████▏   | 53/86 [03:13<01:56,  3.52s/it]epoch 0 loss 0.37639:  63%|██████▎   | 54/86 [03:13<01:52,  3.52s/it]epoch 0 loss 0.3761:  63%|██████▎   | 54/86 [03:17<01:52,  3.52s/it] epoch 0 loss 0.3761:  64%|██████▍   | 55/86 [03:17<01:48,  3.52s/it]epoch 0 loss 0.3794:  64%|██████▍   | 55/86 [03:20<01:48,  3.52s/it]epoch 0 loss 0.3794:  65%|██████▌   | 56/86 [03:21<01:45,  3.51s/it]epoch 0 loss 0.37874:  65%|██████▌   | 56/86 [03:24<01:45,  3.51s/it]epoch 0 loss 0.37874:  66%|██████▋   | 57/86 [03:24<01:41,  3.51s/it]epoch 0 loss 0.3794:  66%|██████▋   | 57/86 [03:28<01:41,  3.51s/it] epoch 0 loss 0.3794:  67%|██████▋   | 58/86 [03:28<01:38,  3.51s/it]epoch 0 loss 0.37833:  67%|██████▋   | 58/86 [03:31<01:38,  3.51s/it]epoch 0 loss 0.37833:  69%|██████▊   | 59/86 [03:31<01:34,  3.51s/it]epoch 0 loss 0.37764:  69%|██████▊   | 59/86 [03:35<01:34,  3.51s/it]epoch 0 loss 0.37764:  70%|██████▉   | 60/86 [03:35<01:31,  3.51s/it]epoch 0 loss 0.37644:  70%|██████▉   | 60/86 [03:38<01:31,  3.51s/it]epoch 0 loss 0.37644:  71%|███████   | 61/86 [03:38<01:27,  3.52s/it]epoch 0 loss 0.3764:  71%|███████   | 61/86 [03:42<01:27,  3.52s/it] epoch 0 loss 0.3764:  72%|███████▏  | 62/86 [03:42<01:24,  3.51s/it]epoch 0 loss 0.3786:  72%|███████▏  | 62/86 [03:45<01:24,  3.51s/it]epoch 0 loss 0.3786:  73%|███████▎  | 63/86 [03:45<01:20,  3.51s/it]epoch 0 loss 0.37709:  73%|███████▎  | 63/86 [03:49<01:20,  3.51s/it]epoch 0 loss 0.37709:  74%|███████▍  | 64/86 [03:49<01:17,  3.51s/it]epoch 0 loss 0.37725:  74%|███████▍  | 64/86 [03:52<01:17,  3.51s/it]epoch 0 loss 0.37725:  76%|███████▌  | 65/86 [03:52<01:13,  3.51s/it]epoch 0 loss 0.37552:  76%|███████▌  | 65/86 [03:56<01:13,  3.51s/it]epoch 0 loss 0.37552:  77%|███████▋  | 66/86 [03:56<01:10,  3.51s/it]epoch 0 loss 0.37648:  77%|███████▋  | 66/86 [03:59<01:10,  3.51s/it]epoch 0 loss 0.37648:  78%|███████▊  | 67/86 [03:59<01:06,  3.51s/it]epoch 0 loss 0.37945:  78%|███████▊  | 67/86 [04:03<01:06,  3.51s/it]epoch 0 loss 0.37945:  79%|███████▉  | 68/86 [04:03<01:03,  3.51s/it]epoch 0 loss 0.37772:  79%|███████▉  | 68/86 [04:06<01:03,  3.51s/it]epoch 0 loss 0.37772:  80%|████████  | 69/86 [04:06<00:59,  3.51s/it]epoch 0 loss 0.37659:  80%|████████  | 69/86 [04:10<00:59,  3.51s/it]epoch 0 loss 0.37659:  81%|████████▏ | 70/86 [04:10<00:56,  3.51s/it]epoch 0 loss 0.37469:  81%|████████▏ | 70/86 [04:13<00:56,  3.51s/it]epoch 0 loss 0.37469:  83%|████████▎ | 71/86 [04:13<00:52,  3.51s/it]epoch 0 loss 0.37279:  83%|████████▎ | 71/86 [04:17<00:52,  3.51s/it]epoch 0 loss 0.37279:  84%|████████▎ | 72/86 [04:17<00:49,  3.51s/it]epoch 0 loss 0.37552:  84%|████████▎ | 72/86 [04:20<00:49,  3.51s/it]epoch 0 loss 0.37552:  85%|████████▍ | 73/86 [04:20<00:45,  3.52s/it]epoch 0 loss 0.37423:  85%|████████▍ | 73/86 [04:24<00:45,  3.52s/it]epoch 0 loss 0.37423:  86%|████████▌ | 74/86 [04:24<00:42,  3.52s/it]epoch 0 loss 0.37312:  86%|████████▌ | 74/86 [04:27<00:42,  3.52s/it]epoch 0 loss 0.37312:  87%|████████▋ | 75/86 [04:27<00:38,  3.52s/it]epoch 0 loss 0.37198:  87%|████████▋ | 75/86 [04:31<00:38,  3.52s/it]epoch 0 loss 0.37198:  88%|████████▊ | 76/86 [04:31<00:35,  3.52s/it]epoch 0 loss 0.37137:  88%|████████▊ | 76/86 [04:34<00:35,  3.52s/it]epoch 0 loss 0.37137:  90%|████████▉ | 77/86 [04:34<00:31,  3.52s/it]epoch 0 loss 0.37213:  90%|████████▉ | 77/86 [04:38<00:31,  3.52s/it]epoch 0 loss 0.37213:  91%|█████████ | 78/86 [04:38<00:28,  3.52s/it]epoch 0 loss 0.37212:  91%|█████████ | 78/86 [04:41<00:28,  3.52s/it]epoch 0 loss 0.37212:  92%|█████████▏| 79/86 [04:41<00:24,  3.53s/it]epoch 0 loss 0.37229:  92%|█████████▏| 79/86 [04:45<00:24,  3.53s/it]epoch 0 loss 0.37229:  93%|█████████▎| 80/86 [04:45<00:21,  3.53s/it]epoch 0 loss 0.37267:  93%|█████████▎| 80/86 [04:48<00:21,  3.53s/it]epoch 0 loss 0.37267:  94%|█████████▍| 81/86 [04:48<00:17,  3.52s/it]epoch 0 loss 0.37259:  94%|█████████▍| 81/86 [04:52<00:17,  3.52s/it]epoch 0 loss 0.37259:  95%|█████████▌| 82/86 [04:52<00:14,  3.52s/it]epoch 0 loss 0.37145:  95%|█████████▌| 82/86 [04:55<00:14,  3.52s/it]epoch 0 loss 0.37145:  97%|█████████▋| 83/86 [04:55<00:10,  3.52s/it]epoch 0 loss 0.37174:  97%|█████████▋| 83/86 [04:59<00:10,  3.52s/it]epoch 0 loss 0.37174:  98%|█████████▊| 84/86 [04:59<00:07,  3.51s/it]epoch 0 loss 0.37044:  98%|█████████▊| 84/86 [05:02<00:07,  3.51s/it]epoch 0 loss 0.37044:  99%|█████████▉| 85/86 [05:02<00:03,  3.51s/it]epoch 0 loss 0.37055:  99%|█████████▉| 85/86 [05:04<00:03,  3.51s/it]08/22/2024 23:35:06 - INFO - __main__ -   ***** Running evaluation *****
+08/22/2024 23:35:06 - INFO - __main__ -     Num examples = 2732
+08/22/2024 23:35:06 - INFO - __main__ -     Batch size = 64
+08/22/2024 23:36:46 - INFO - __main__ -   Average time: 0.02038257066593614
+08/22/2024 23:36:47 - INFO - __main__ -     eval_loss = 0.3013
+08/22/2024 23:36:47 - INFO - __main__ -     eval_acc = 0.8653
+08/22/2024 23:36:47 - INFO - __main__ -     ********************
+08/22/2024 23:36:47 - INFO - __main__ -     Best acc:0.8653
+08/22/2024 23:36:47 - INFO - __main__ -     ********************
+08/22/2024 23:36:48 - INFO - __main__ -   Saving model checkpoint to ./saved_models/checkpoint-best-acc/model.bin
+epoch 0 loss 0.37055: 100%|██████████| 86/86 [06:52<00:00, 35.26s/it]epoch 0 loss 0.37055: 100%|██████████| 86/86 [06:52<00:00,  4.79s/it]
+  0%|          | 0/86 [00:00<?, ?it/s]epoch 1 loss 0.26071:   0%|          | 0/86 [00:03<?, ?it/s]epoch 1 loss 0.26071:   1%|          | 1/86 [00:03<05:19,  3.76s/it]epoch 1 loss 0.24624:   1%|          | 1/86 [00:07<05:19,  3.76s/it]epoch 1 loss 0.24624:   2%|▏         | 2/86 [00:07<05:03,  3.62s/it]epoch 1 loss 0.23499:   2%|▏         | 2/86 [00:10<05:03,  3.62s/it]epoch 1 loss 0.23499:   3%|▎         | 3/86 [00:10<04:56,  3.57s/it]epoch 1 loss 0.21654:   3%|▎         | 3/86 [00:14<04:56,  3.57s/it]epoch 1 loss 0.21654:   5%|▍         | 4/86 [00:14<04:51,  3.55s/it]epoch 1 loss 0.24488:   5%|▍         | 4/86 [00:17<04:51,  3.55s/it]epoch 1 loss 0.24488:   6%|▌         | 5/86 [00:17<04:46,  3.54s/it]epoch 1 loss 0.24673:   6%|▌         | 5/86 [00:21<04:46,  3.54s/it]epoch 1 loss 0.24673:   7%|▋         | 6/86 [00:21<04:42,  3.53s/it]epoch 1 loss 0.23655:   7%|▋         | 6/86 [00:24<04:42,  3.53s/it]epoch 1 loss 0.23655:   8%|▊         | 7/86 [00:24<04:38,  3.53s/it]epoch 1 loss 0.25645:   8%|▊         | 7/86 [00:28<04:38,  3.53s/it]epoch 1 loss 0.25645:   9%|▉         | 8/86 [00:28<04:34,  3.52s/it]epoch 1 loss 0.25994:   9%|▉         | 8/86 [00:31<04:34,  3.52s/it]epoch 1 loss 0.25994:  10%|█         | 9/86 [00:31<04:31,  3.52s/it]epoch 1 loss 0.25835:  10%|█         | 9/86 [00:35<04:31,  3.52s/it]epoch 1 loss 0.25835:  12%|█▏        | 10/86 [00:35<04:27,  3.52s/it]epoch 1 loss 0.25024:  12%|█▏        | 10/86 [00:38<04:27,  3.52s/it]epoch 1 loss 0.25024:  13%|█▎        | 11/86 [00:38<04:23,  3.52s/it]epoch 1 loss 0.2406:  13%|█▎        | 11/86 [00:42<04:23,  3.52s/it] epoch 1 loss 0.2406:  14%|█▍        | 12/86 [00:42<04:20,  3.52s/it]epoch 1 loss 0.24224:  14%|█▍        | 12/86 [00:45<04:20,  3.52s/it]epoch 1 loss 0.24224:  15%|█▌        | 13/86 [00:45<04:16,  3.52s/it]epoch 1 loss 0.23528:  15%|█▌        | 13/86 [00:49<04:16,  3.52s/it]epoch 1 loss 0.23528:  16%|█▋        | 14/86 [00:49<04:13,  3.53s/it]epoch 1 loss 0.2406:  16%|█▋        | 14/86 [00:53<04:13,  3.53s/it] epoch 1 loss 0.2406:  17%|█▋        | 15/86 [00:53<04:10,  3.53s/it]epoch 1 loss 0.23306:  17%|█▋        | 15/86 [00:56<04:10,  3.53s/it]epoch 1 loss 0.23306:  19%|█▊        | 16/86 [00:56<04:06,  3.52s/it]epoch 1 loss 0.23174:  19%|█▊        | 16/86 [01:00<04:06,  3.52s/it]epoch 1 loss 0.23174:  20%|█▉        | 17/86 [01:00<04:03,  3.52s/it]epoch 1 loss 0.24571:  20%|█▉        | 17/86 [01:03<04:03,  3.52s/it]epoch 1 loss 0.24571:  21%|██        | 18/86 [01:03<03:59,  3.52s/it]epoch 1 loss 0.23795:  21%|██        | 18/86 [01:07<03:59,  3.52s/it]epoch 1 loss 0.23795:  22%|██▏       | 19/86 [01:07<03:55,  3.52s/it]epoch 1 loss 0.23575:  22%|██▏       | 19/86 [01:10<03:55,  3.52s/it]epoch 1 loss 0.23575:  23%|██▎       | 20/86 [01:10<03:52,  3.52s/it]epoch 1 loss 0.2282:  23%|██▎       | 20/86 [01:14<03:52,  3.52s/it] epoch 1 loss 0.2282:  24%|██▍       | 21/86 [01:14<03:48,  3.51s/it]epoch 1 loss 0.2274:  24%|██▍       | 21/86 [01:17<03:48,  3.51s/it]epoch 1 loss 0.2274:  26%|██▌       | 22/86 [01:17<03:44,  3.51s/it]epoch 1 loss 0.22581:  26%|██▌       | 22/86 [01:21<03:44,  3.51s/it]epoch 1 loss 0.22581:  27%|██▋       | 23/86 [01:21<03:41,  3.51s/it]epoch 1 loss 0.22428:  27%|██▋       | 23/86 [01:24<03:41,  3.51s/it]epoch 1 loss 0.22428:  28%|██▊       | 24/86 [01:24<03:37,  3.51s/it]epoch 1 loss 0.21807:  28%|██▊       | 24/86 [01:28<03:37,  3.51s/it]epoch 1 loss 0.21807:  29%|██▉       | 25/86 [01:28<03:34,  3.51s/it]epoch 1 loss 0.21517:  29%|██▉       | 25/86 [01:31<03:34,  3.51s/it]epoch 1 loss 0.21517:  30%|███       | 26/86 [01:31<03:30,  3.51s/it]epoch 1 loss 0.21083:  30%|███       | 26/86 [01:35<03:30,  3.51s/it]epoch 1 loss 0.21083:  31%|███▏      | 27/86 [01:35<03:27,  3.51s/it]epoch 1 loss 0.21449:  31%|███▏      | 27/86 [01:38<03:27,  3.51s/it]epoch 1 loss 0.21449:  33%|███▎      | 28/86 [01:38<03:23,  3.51s/it]epoch 1 loss 0.21555:  33%|███▎      | 28/86 [01:42<03:23,  3.51s/it]epoch 1 loss 0.21555:  34%|███▎      | 29/86 [01:42<03:20,  3.51s/it]epoch 1 loss 0.21593:  34%|███▎      | 29/86 [01:45<03:20,  3.51s/it]epoch 1 loss 0.21593:  35%|███▍      | 30/86 [01:45<03:16,  3.51s/it]epoch 1 loss 0.21696:  35%|███▍      | 30/86 [01:49<03:16,  3.51s/it]epoch 1 loss 0.21696:  36%|███▌      | 31/86 [01:49<03:13,  3.51s/it]epoch 1 loss 0.22121:  36%|███▌      | 31/86 [01:52<03:13,  3.51s/it]epoch 1 loss 0.22121:  37%|███▋      | 32/86 [01:52<03:09,  3.51s/it]epoch 1 loss 0.22387:  37%|███▋      | 32/86 [01:56<03:09,  3.51s/it]epoch 1 loss 0.22387:  38%|███▊      | 33/86 [01:56<03:06,  3.52s/it]epoch 1 loss 0.22359:  38%|███▊      | 33/86 [01:59<03:06,  3.52s/it]epoch 1 loss 0.22359:  40%|███▉      | 34/86 [01:59<03:02,  3.52s/it]epoch 1 loss 0.23039:  40%|███▉      | 34/86 [02:03<03:02,  3.52s/it]epoch 1 loss 0.23039:  41%|████      | 35/86 [02:03<02:59,  3.52s/it]epoch 1 loss 0.24117:  41%|████      | 35/86 [02:06<02:59,  3.52s/it]epoch 1 loss 0.24117:  42%|████▏     | 36/86 [02:06<02:55,  3.52s/it]epoch 1 loss 0.24182:  42%|████▏     | 36/86 [02:10<02:55,  3.52s/it]epoch 1 loss 0.24182:  43%|████▎     | 37/86 [02:10<02:52,  3.52s/it]epoch 1 loss 0.24206:  43%|████▎     | 37/86 [02:13<02:52,  3.52s/it]epoch 1 loss 0.24206:  44%|████▍     | 38/86 [02:13<02:48,  3.52s/it]epoch 1 loss 0.24299:  44%|████▍     | 38/86 [02:17<02:48,  3.52s/it]epoch 1 loss 0.24299:  45%|████▌     | 39/86 [02:17<02:45,  3.51s/it]epoch 1 loss 0.24414:  45%|████▌     | 39/86 [02:20<02:45,  3.51s/it]epoch 1 loss 0.24414:  47%|████▋     | 40/86 [02:20<02:41,  3.51s/it]epoch 1 loss 0.24212:  47%|████▋     | 40/86 [02:24<02:41,  3.51s/it]epoch 1 loss 0.24212:  48%|████▊     | 41/86 [02:24<02:38,  3.51s/it]epoch 1 loss 0.24576:  48%|████▊     | 41/86 [02:27<02:38,  3.51s/it]epoch 1 loss 0.24576:  49%|████▉     | 42/86 [02:27<02:34,  3.51s/it]epoch 1 loss 0.24345:  49%|████▉     | 42/86 [02:31<02:34,  3.51s/it]epoch 1 loss 0.24345:  50%|█████     | 43/86 [02:31<02:31,  3.51s/it]epoch 1 loss 0.24388:  50%|█████     | 43/86 [02:34<02:31,  3.51s/it]epoch 1 loss 0.24388:  51%|█████     | 44/86 [02:34<02:27,  3.52s/it]epoch 1 loss 0.24388:  51%|█████     | 44/86 [02:38<02:27,  3.52s/it]epoch 1 loss 0.24388:  52%|█████▏    | 45/86 [02:38<02:24,  3.53s/it]epoch 1 loss 0.24269:  52%|█████▏    | 45/86 [02:41<02:24,  3.53s/it]epoch 1 loss 0.24269:  53%|█████▎    | 46/86 [02:42<02:21,  3.53s/it]epoch 1 loss 0.24057:  53%|█████▎    | 46/86 [02:45<02:21,  3.53s/it]epoch 1 loss 0.24057:  55%|█████▍    | 47/86 [02:45<02:17,  3.52s/it]epoch 1 loss 0.23906:  55%|█████▍    | 47/86 [02:49<02:17,  3.52s/it]epoch 1 loss 0.23906:  56%|█████▌    | 48/86 [02:49<02:13,  3.52s/it]epoch 1 loss 0.23713:  56%|█████▌    | 48/86 [02:52<02:13,  3.52s/it]epoch 1 loss 0.23713:  57%|█████▋    | 49/86 [02:52<02:10,  3.52s/it]epoch 1 loss 0.23693:  57%|█████▋    | 49/86 [02:56<02:10,  3.52s/it]epoch 1 loss 0.23693:  58%|█████▊    | 50/86 [02:56<02:06,  3.52s/it]epoch 1 loss 0.23793:  58%|█████▊    | 50/86 [02:59<02:06,  3.52s/it]epoch 1 loss 0.23793:  59%|█████▉    | 51/86 [02:59<02:03,  3.52s/it]epoch 1 loss 0.23672:  59%|█████▉    | 51/86 [03:03<02:03,  3.52s/it]epoch 1 loss 0.23672:  60%|██████    | 52/86 [03:03<01:59,  3.51s/it]epoch 1 loss 0.23437:  60%|██████    | 52/86 [03:06<01:59,  3.51s/it]epoch 1 loss 0.23437:  62%|██████▏   | 53/86 [03:06<01:56,  3.52s/it]epoch 1 loss 0.23315:  62%|██████▏   | 53/86 [03:10<01:56,  3.52s/it]epoch 1 loss 0.23315:  63%|██████▎   | 54/86 [03:10<01:52,  3.52s/it]epoch 1 loss 0.23389:  63%|██████▎   | 54/86 [03:13<01:52,  3.52s/it]epoch 1 loss 0.23389:  64%|██████▍   | 55/86 [03:13<01:48,  3.51s/it]epoch 1 loss 0.2327:  64%|██████▍   | 55/86 [03:17<01:48,  3.51s/it] epoch 1 loss 0.2327:  65%|██████▌   | 56/86 [03:17<01:45,  3.51s/it]epoch 1 loss 0.23067:  65%|██████▌   | 56/86 [03:20<01:45,  3.51s/it]epoch 1 loss 0.23067:  66%|██████▋   | 57/86 [03:20<01:41,  3.51s/it]epoch 1 loss 0.23131:  66%|██████▋   | 57/86 [03:24<01:41,  3.51s/it]epoch 1 loss 0.23131:  67%|██████▋   | 58/86 [03:24<01:38,  3.51s/it]epoch 1 loss 0.23089:  67%|██████▋   | 58/86 [03:27<01:38,  3.51s/it]epoch 1 loss 0.23089:  69%|██████▊   | 59/86 [03:27<01:34,  3.51s/it]epoch 1 loss 0.2289:  69%|██████▊   | 59/86 [03:31<01:34,  3.51s/it] epoch 1 loss 0.2289:  70%|██████▉   | 60/86 [03:31<01:31,  3.51s/it]epoch 1 loss 0.22911:  70%|██████▉   | 60/86 [03:34<01:31,  3.51s/it]epoch 1 loss 0.22911:  71%|███████   | 61/86 [03:34<01:27,  3.51s/it]epoch 1 loss 0.23041:  71%|███████   | 61/86 [03:38<01:27,  3.51s/it]epoch 1 loss 0.23041:  72%|███████▏  | 62/86 [03:38<01:24,  3.51s/it]epoch 1 loss 0.23118:  72%|███████▏  | 62/86 [03:41<01:24,  3.51s/it]epoch 1 loss 0.23118:  73%|███████▎  | 63/86 [03:41<01:20,  3.52s/it]epoch 1 loss 0.22981:  73%|███████▎  | 63/86 [03:45<01:20,  3.52s/it]epoch 1 loss 0.22981:  74%|███████▍  | 64/86 [03:45<01:17,  3.52s/it]epoch 1 loss 0.22796:  74%|███████▍  | 64/86 [03:48<01:17,  3.52s/it]epoch 1 loss 0.22796:  76%|███████▌  | 65/86 [03:48<01:13,  3.52s/it]epoch 1 loss 0.22665:  76%|███████▌  | 65/86 [03:52<01:13,  3.52s/it]epoch 1 loss 0.22665:  77%|███████▋  | 66/86 [03:52<01:10,  3.52s/it]epoch 1 loss 0.22555:  77%|███████▋  | 66/86 [03:55<01:10,  3.52s/it]epoch 1 loss 0.22555:  78%|███████▊  | 67/86 [03:55<01:06,  3.51s/it]epoch 1 loss 0.22607:  78%|███████▊  | 67/86 [03:59<01:06,  3.51s/it]epoch 1 loss 0.22607:  79%|███████▉  | 68/86 [03:59<01:03,  3.51s/it]epoch 1 loss 0.22574:  79%|███████▉  | 68/86 [04:02<01:03,  3.51s/it]epoch 1 loss 0.22574:  80%|████████  | 69/86 [04:02<00:59,  3.51s/it]epoch 1 loss 0.22533:  80%|████████  | 69/86 [04:06<00:59,  3.51s/it]epoch 1 loss 0.22533:  81%|████████▏ | 70/86 [04:06<00:56,  3.51s/it]epoch 1 loss 0.2272:  81%|████████▏ | 70/86 [04:09<00:56,  3.51s/it] epoch 1 loss 0.2272:  83%|████████▎ | 71/86 [04:09<00:52,  3.52s/it]epoch 1 loss 0.22606:  83%|████████▎ | 71/86 [04:13<00:52,  3.52s/it]epoch 1 loss 0.22606:  84%|████████▎ | 72/86 [04:13<00:49,  3.53s/it]epoch 1 loss 0.22692:  84%|████████▎ | 72/86 [04:16<00:49,  3.53s/it]epoch 1 loss 0.22692:  85%|████████▍ | 73/86 [04:16<00:45,  3.53s/it]epoch 1 loss 0.22647:  85%|████████▍ | 73/86 [04:20<00:45,  3.53s/it]epoch 1 loss 0.22647:  86%|████████▌ | 74/86 [04:20<00:42,  3.53s/it]epoch 1 loss 0.22656:  86%|████████▌ | 74/86 [04:23<00:42,  3.53s/it]epoch 1 loss 0.22656:  87%|████████▋ | 75/86 [04:24<00:38,  3.52s/it]epoch 1 loss 0.2252:  87%|████████▋ | 75/86 [04:27<00:38,  3.52s/it] epoch 1 loss 0.2252:  88%|████████▊ | 76/86 [04:27<00:35,  3.52s/it]epoch 1 loss 0.22596:  88%|████████▊ | 76/86 [04:31<00:35,  3.52s/it]epoch 1 loss 0.22596:  90%|████████▉ | 77/86 [04:31<00:31,  3.52s/it]epoch 1 loss 0.22571:  90%|████████▉ | 77/86 [04:34<00:31,  3.52s/it]epoch 1 loss 0.22571:  91%|█████████ | 78/86 [04:34<00:28,  3.52s/it]epoch 1 loss 0.22727:  91%|█████████ | 78/86 [04:38<00:28,  3.52s/it]epoch 1 loss 0.22727:  92%|█████████▏| 79/86 [04:38<00:24,  3.51s/it]epoch 1 loss 0.2295:  92%|█████████▏| 79/86 [04:41<00:24,  3.51s/it] epoch 1 loss 0.2295:  93%|█████████▎| 80/86 [04:41<00:21,  3.51s/it]epoch 1 loss 0.2326:  93%|█████████▎| 80/86 [04:45<00:21,  3.51s/it]epoch 1 loss 0.2326:  94%|█████████▍| 81/86 [04:45<00:17,  3.51s/it]epoch 1 loss 0.23476:  94%|█████████▍| 81/86 [04:48<00:17,  3.51s/it]epoch 1 loss 0.23476:  95%|█████████▌| 82/86 [04:48<00:14,  3.51s/it]epoch 1 loss 0.23582:  95%|█████████▌| 82/86 [04:52<00:14,  3.51s/it]epoch 1 loss 0.23582:  97%|█████████▋| 83/86 [04:52<00:10,  3.51s/it]epoch 1 loss 0.24051:  97%|█████████▋| 83/86 [04:55<00:10,  3.51s/it]epoch 1 loss 0.24051:  98%|█████████▊| 84/86 [04:55<00:07,  3.51s/it]epoch 1 loss 0.24507:  98%|█████████▊| 84/86 [04:59<00:07,  3.51s/it]epoch 1 loss 0.24507:  99%|█████████▉| 85/86 [04:59<00:03,  3.51s/it]epoch 1 loss 0.24722:  99%|█████████▉| 85/86 [05:00<00:03,  3.51s/it]08/22/2024 23:41:54 - INFO - __main__ -   ***** Running evaluation *****
+08/22/2024 23:41:54 - INFO - __main__ -     Num examples = 2732
+08/22/2024 23:41:54 - INFO - __main__ -     Batch size = 64
+08/22/2024 23:43:35 - INFO - __main__ -   Average time: 0.01989855877188749
+08/22/2024 23:43:35 - INFO - __main__ -     eval_loss = 0.3278
+08/22/2024 23:43:35 - INFO - __main__ -     eval_acc = 0.8605
+epoch 1 loss 0.24722: 100%|██████████| 86/86 [06:46<00:00, 34.74s/it]epoch 1 loss 0.24722: 100%|██████████| 86/86 [06:46<00:00,  4.73s/it]
+08/22/2024 23:43:36 - INFO - __main__ -   Size (MB): 498.658348
+==========================================================================================
+Layer (type:depth-idx)                                            Param #
+==========================================================================================
+Model                                                             --
+├─RobertaForSequenceClassification: 1-1                           --
+│    └─roberta.embeddings.word_embeddings.weight                  ├─38,603,520
+│    └─roberta.embeddings.position_embeddings.weight              ├─394,752
+│    └─roberta.embeddings.token_type_embeddings.weight            ├─768
+│    └─roberta.embeddings.LayerNorm.weight                        ├─768
+│    └─roberta.embeddings.LayerNorm.bias                          ├─768
+│    └─roberta.encoder.layer.0.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.0.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.0.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.0.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.0.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.0.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.0.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.0.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.0.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.0.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.0.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.0.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.0.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.0.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.1.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.1.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.1.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.1.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.1.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.1.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.1.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.1.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.1.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.1.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.1.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.1.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.1.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.1.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.2.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.2.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.2.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.2.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.2.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.2.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.2.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.2.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.2.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.2.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.2.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.2.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.2.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.2.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.3.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.3.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.3.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.3.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.3.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.3.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.3.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.3.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.3.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.3.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.3.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.3.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.3.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.3.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.4.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.4.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.4.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.4.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.4.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.4.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.4.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.4.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.4.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.4.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.4.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.4.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.4.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.4.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.5.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.5.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.5.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.5.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.5.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.5.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.5.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.5.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.5.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.5.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.5.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.5.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.5.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.5.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.6.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.6.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.6.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.6.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.6.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.6.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.6.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.6.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.6.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.6.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.6.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.6.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.6.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.6.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.7.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.7.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.7.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.7.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.7.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.7.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.7.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.7.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.7.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.7.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.7.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.7.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.7.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.7.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.8.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.8.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.8.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.8.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.8.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.8.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.8.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.8.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.8.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.8.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.8.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.8.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.8.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.8.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.9.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.9.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.9.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.9.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.9.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.9.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.9.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.9.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.9.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.9.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.9.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.9.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.9.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.9.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.10.attention.self.query.bias         ├─768
+│    └─roberta.encoder.layer.10.attention.self.query.weight       ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.key.bias           ├─768
+│    └─roberta.encoder.layer.10.attention.self.key.weight         ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.value.bias         ├─768
+│    └─roberta.encoder.layer.10.attention.self.value.weight       ├─589,824
+│    └─roberta.encoder.layer.10.attention.output.dense.weight     ├─589,824
+│    └─roberta.encoder.layer.10.attention.output.dense.bias       ├─768
+│    └─roberta.encoder.layer.10.attention.output.LayerNorm.weight ├─768
+│    └─roberta.encoder.layer.10.attention.output.LayerNorm.bias   ├─768
+│    └─roberta.encoder.layer.10.intermediate.dense.weight         ├─2,359,296
+│    └─roberta.encoder.layer.10.intermediate.dense.bias           ├─3,072
+│    └─roberta.encoder.layer.10.output.dense.weight               ├─2,359,296
+│    └─roberta.encoder.layer.10.output.dense.bias                 ├─768
+│    └─roberta.encoder.layer.10.output.LayerNorm.weight           ├─768
+│    └─roberta.encoder.layer.10.output.LayerNorm.bias             ├─768
+│    └─roberta.encoder.layer.11.attention.self.query.bias         ├─768
+│    └─roberta.encoder.layer.11.attention.self.query.weight       ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.key.bias           ├─768
+│    └─roberta.encoder.layer.11.attention.self.key.weight         ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.value.bias         ├─768
+│    └─roberta.encoder.layer.11.attention.self.value.weight       ├─589,824
+│    └─roberta.encoder.layer.11.attention.output.dense.weight     ├─589,824
+│    └─roberta.encoder.layer.11.attention.output.dense.bias       ├─768
+│    └─roberta.encoder.layer.11.attention.output.LayerNorm.weight ├─768
+│    └─roberta.encoder.layer.11.attention.output.LayerNorm.bias   ├─768
+│    └─roberta.encoder.layer.11.intermediate.dense.weight         ├─2,359,296
+│    └─roberta.encoder.layer.11.intermediate.dense.bias           ├─3,072
+│    └─roberta.encoder.layer.11.output.dense.weight               ├─2,359,296
+│    └─roberta.encoder.layer.11.output.dense.bias                 ├─768
+│    └─roberta.encoder.layer.11.output.LayerNorm.weight           ├─768
+│    └─roberta.encoder.layer.11.output.LayerNorm.bias             ├─768
+│    └─classifier.dense.weight                                    ├─589,824
+│    └─classifier.dense.bias                                      ├─768
+│    └─classifier.out_proj.weight                                 ├─768
+│    └─classifier.out_proj.bias                                   └─1
+│    └─RobertaModel: 2-1                                          --
+│    │    └─embeddings.word_embeddings.weight                     ├─38,603,520
+│    │    └─embeddings.position_embeddings.weight                 ├─394,752
+│    │    └─embeddings.token_type_embeddings.weight               ├─768
+│    │    └─embeddings.LayerNorm.weight                           ├─768
+│    │    └─embeddings.LayerNorm.bias                             ├─768
+│    │    └─encoder.layer.0.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.0.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.0.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.0.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.0.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.0.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.0.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.0.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.0.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.0.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.0.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.0.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.0.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.0.output.dense.bias                     ├─768
+│    │    └─encoder.layer.0.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.0.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.1.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.1.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.1.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.1.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.1.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.1.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.1.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.1.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.1.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.1.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.1.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.1.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.1.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.1.output.dense.bias                     ├─768
+│    │    └─encoder.layer.1.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.1.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.2.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.2.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.2.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.2.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.2.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.2.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.2.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.2.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.2.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.2.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.2.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.2.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.2.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.2.output.dense.bias                     ├─768
+│    │    └─encoder.layer.2.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.2.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.3.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.3.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.3.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.3.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.3.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.3.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.3.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.3.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.3.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.3.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.3.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.3.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.3.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.3.output.dense.bias                     ├─768
+│    │    └─encoder.layer.3.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.3.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.4.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.4.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.4.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.4.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.4.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.4.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.4.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.4.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.4.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.4.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.4.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.4.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.4.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.4.output.dense.bias                     ├─768
+│    │    └─encoder.layer.4.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.4.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.5.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.5.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.5.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.5.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.5.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.5.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.5.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.5.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.5.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.5.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.5.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.5.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.5.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.5.output.dense.bias                     ├─768
+│    │    └─encoder.layer.5.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.5.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.6.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.6.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.6.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.6.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.6.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.6.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.6.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.6.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.6.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.6.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.6.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.6.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.6.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.6.output.dense.bias                     ├─768
+│    │    └─encoder.layer.6.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.6.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.7.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.7.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.7.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.7.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.7.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.7.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.7.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.7.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.7.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.7.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.7.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.7.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.7.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.7.output.dense.bias                     ├─768
+│    │    └─encoder.layer.7.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.7.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.8.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.8.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.8.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.8.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.8.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.8.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.8.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.8.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.8.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.8.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.8.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.8.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.8.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.8.output.dense.bias                     ├─768
+│    │    └─encoder.layer.8.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.8.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.9.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.9.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.9.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.9.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.9.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.9.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.9.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.9.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.9.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.9.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.9.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.9.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.9.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.9.output.dense.bias                     ├─768
+│    │    └─encoder.layer.9.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.9.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.10.attention.self.query.bias            ├─768
+│    │    └─encoder.layer.10.attention.self.query.weight          ├─589,824
+│    │    └─encoder.layer.10.attention.self.key.bias              ├─768
+│    │    └─encoder.layer.10.attention.self.key.weight            ├─589,824
+│    │    └─encoder.layer.10.attention.self.value.bias            ├─768
+│    │    └─encoder.layer.10.attention.self.value.weight          ├─589,824
+│    │    └─encoder.layer.10.attention.output.dense.weight        ├─589,824
+│    │    └─encoder.layer.10.attention.output.dense.bias          ├─768
+│    │    └─encoder.layer.10.attention.output.LayerNorm.weight    ├─768
+│    │    └─encoder.layer.10.attention.output.LayerNorm.bias      ├─768
+│    │    └─encoder.layer.10.intermediate.dense.weight            ├─2,359,296
+│    │    └─encoder.layer.10.intermediate.dense.bias              ├─3,072
+│    │    └─encoder.layer.10.output.dense.weight                  ├─2,359,296
+│    │    └─encoder.layer.10.output.dense.bias                    ├─768
+│    │    └─encoder.layer.10.output.LayerNorm.weight              ├─768
+│    │    └─encoder.layer.10.output.LayerNorm.bias                ├─768
+│    │    └─encoder.layer.11.attention.self.query.bias            ├─768
+│    │    └─encoder.layer.11.attention.self.query.weight          ├─589,824
+│    │    └─encoder.layer.11.attention.self.key.bias              ├─768
+│    │    └─encoder.layer.11.attention.self.key.weight            ├─589,824
+│    │    └─encoder.layer.11.attention.self.value.bias            ├─768
+│    │    └─encoder.layer.11.attention.self.value.weight          ├─589,824
+│    │    └─encoder.layer.11.attention.output.dense.weight        ├─589,824
+│    │    └─encoder.layer.11.attention.output.dense.bias          ├─768
+│    │    └─encoder.layer.11.attention.output.LayerNorm.weight    ├─768
+│    │    └─encoder.layer.11.attention.output.LayerNorm.bias      ├─768
+│    │    └─encoder.layer.11.intermediate.dense.weight            ├─2,359,296
+│    │    └─encoder.layer.11.intermediate.dense.bias              ├─3,072
+│    │    └─encoder.layer.11.output.dense.weight                  ├─2,359,296
+│    │    └─encoder.layer.11.output.dense.bias                    ├─768
+│    │    └─encoder.layer.11.output.LayerNorm.weight              ├─768
+│    │    └─encoder.layer.11.output.LayerNorm.bias                └─768
+│    │    └─RobertaEmbeddings: 3-1                                39,000,576
+│    │    │    └─word_embeddings.weight                           ├─38,603,520
+│    │    │    └─position_embeddings.weight                       ├─394,752
+│    │    │    └─token_type_embeddings.weight                     ├─768
+│    │    │    └─LayerNorm.weight                                 ├─768
+│    │    │    └─LayerNorm.bias                                   └─768
+│    │    └─RobertaEncoder: 3-2                                   85,054,464
+│    │    │    └─layer.0.attention.self.query.bias                ├─768
+│    │    │    └─layer.0.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.0.attention.self.key.bias                  ├─768
+│    │    │    └─layer.0.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.0.attention.self.value.bias                ├─768
+│    │    │    └─layer.0.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.0.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.0.attention.output.dense.bias              ├─768
+│    │    │    └─layer.0.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.0.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.0.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.0.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.0.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.0.output.dense.bias                        ├─768
+│    │    │    └─layer.0.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.0.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.1.attention.self.query.bias                ├─768
+│    │    │    └─layer.1.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.1.attention.self.key.bias                  ├─768
+│    │    │    └─layer.1.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.1.attention.self.value.bias                ├─768
+│    │    │    └─layer.1.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.1.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.1.attention.output.dense.bias              ├─768
+│    │    │    └─layer.1.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.1.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.1.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.1.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.1.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.1.output.dense.bias                        ├─768
+│    │    │    └─layer.1.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.1.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.2.attention.self.query.bias                ├─768
+│    │    │    └─layer.2.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.2.attention.self.key.bias                  ├─768
+│    │    │    └─layer.2.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.2.attention.self.value.bias                ├─768
+│    │    │    └─layer.2.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.2.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.2.attention.output.dense.bias              ├─768
+│    │    │    └─layer.2.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.2.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.2.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.2.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.2.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.2.output.dense.bias                        ├─768
+│    │    │    └─layer.2.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.2.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.3.attention.self.query.bias                ├─768
+│    │    │    └─layer.3.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.3.attention.self.key.bias                  ├─768
+│    │    │    └─layer.3.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.3.attention.self.value.bias                ├─768
+│    │    │    └─layer.3.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.3.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.3.attention.output.dense.bias              ├─768
+│    │    │    └─layer.3.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.3.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.3.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.3.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.3.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.3.output.dense.bias                        ├─768
+│    │    │    └─layer.3.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.3.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.4.attention.self.query.bias                ├─768
+│    │    │    └─layer.4.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.4.attention.self.key.bias                  ├─768
+│    │    │    └─layer.4.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.4.attention.self.value.bias                ├─768
+│    │    │    └─layer.4.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.4.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.4.attention.output.dense.bias              ├─768
+│    │    │    └─layer.4.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.4.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.4.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.4.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.4.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.4.output.dense.bias                        ├─768
+│    │    │    └─layer.4.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.4.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.5.attention.self.query.bias                ├─768
+│    │    │    └─layer.5.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.5.attention.self.key.bias                  ├─768
+│    │    │    └─layer.5.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.5.attention.self.value.bias                ├─768
+│    │    │    └─layer.5.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.5.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.5.attention.output.dense.bias              ├─768
+│    │    │    └─layer.5.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.5.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.5.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.5.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.5.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.5.output.dense.bias                        ├─768
+│    │    │    └─layer.5.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.5.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.6.attention.self.query.bias                ├─768
+│    │    │    └─layer.6.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.6.attention.self.key.bias                  ├─768
+│    │    │    └─layer.6.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.6.attention.self.value.bias                ├─768
+│    │    │    └─layer.6.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.6.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.6.attention.output.dense.bias              ├─768
+│    │    │    └─layer.6.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.6.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.6.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.6.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.6.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.6.output.dense.bias                        ├─768
+│    │    │    └─layer.6.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.6.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.7.attention.self.query.bias                ├─768
+│    │    │    └─layer.7.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.7.attention.self.key.bias                  ├─768
+│    │    │    └─layer.7.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.7.attention.self.value.bias                ├─768
+│    │    │    └─layer.7.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.7.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.7.attention.output.dense.bias              ├─768
+│    │    │    └─layer.7.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.7.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.7.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.7.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.7.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.7.output.dense.bias                        ├─768
+│    │    │    └─layer.7.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.7.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.8.attention.self.query.bias                ├─768
+│    │    │    └─layer.8.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.8.attention.self.key.bias                  ├─768
+│    │    │    └─layer.8.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.8.attention.self.value.bias                ├─768
+│    │    │    └─layer.8.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.8.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.8.attention.output.dense.bias              ├─768
+│    │    │    └─layer.8.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.8.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.8.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.8.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.8.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.8.output.dense.bias                        ├─768
+│    │    │    └─layer.8.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.8.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.9.attention.self.query.bias                ├─768
+│    │    │    └─layer.9.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.9.attention.self.key.bias                  ├─768
+│    │    │    └─layer.9.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.9.attention.self.value.bias                ├─768
+│    │    │    └─layer.9.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.9.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.9.attention.output.dense.bias              ├─768
+│    │    │    └─layer.9.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.9.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.9.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.9.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.9.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.9.output.dense.bias                        ├─768
+│    │    │    └─layer.9.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.9.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.10.attention.self.query.bias               ├─768
+│    │    │    └─layer.10.attention.self.query.weight             ├─589,824
+│    │    │    └─layer.10.attention.self.key.bias                 ├─768
+│    │    │    └─layer.10.attention.self.key.weight               ├─589,824
+│    │    │    └─layer.10.attention.self.value.bias               ├─768
+│    │    │    └─layer.10.attention.self.value.weight             ├─589,824
+│    │    │    └─layer.10.attention.output.dense.weight           ├─589,824
+│    │    │    └─layer.10.attention.output.dense.bias             ├─768
+│    │    │    └─layer.10.attention.output.LayerNorm.weight       ├─768
+│    │    │    └─layer.10.attention.output.LayerNorm.bias         ├─768
+│    │    │    └─layer.10.intermediate.dense.weight               ├─2,359,296
+│    │    │    └─layer.10.intermediate.dense.bias                 ├─3,072
+│    │    │    └─layer.10.output.dense.weight                     ├─2,359,296
+│    │    │    └─layer.10.output.dense.bias                       ├─768
+│    │    │    └─layer.10.output.LayerNorm.weight                 ├─768
+│    │    │    └─layer.10.output.LayerNorm.bias                   ├─768
+│    │    │    └─layer.11.attention.self.query.bias               ├─768
+│    │    │    └─layer.11.attention.self.query.weight             ├─589,824
+│    │    │    └─layer.11.attention.self.key.bias                 ├─768
+│    │    │    └─layer.11.attention.self.key.weight               ├─589,824
+│    │    │    └─layer.11.attention.self.value.bias               ├─768
+│    │    │    └─layer.11.attention.self.value.weight             ├─589,824
+│    │    │    └─layer.11.attention.output.dense.weight           ├─589,824
+│    │    │    └─layer.11.attention.output.dense.bias             ├─768
+│    │    │    └─layer.11.attention.output.LayerNorm.weight       ├─768
+│    │    │    └─layer.11.attention.output.LayerNorm.bias         ├─768
+│    │    │    └─layer.11.intermediate.dense.weight               ├─2,359,296
+│    │    │    └─layer.11.intermediate.dense.bias                 ├─3,072
+│    │    │    └─layer.11.output.dense.weight                     ├─2,359,296
+│    │    │    └─layer.11.output.dense.bias                       ├─768
+│    │    │    └─layer.11.output.LayerNorm.weight                 ├─768
+│    │    │    └─layer.11.output.LayerNorm.bias                   └─768
+│    └─RobertaClassificationHead: 2-2                             --
+│    │    └─dense.weight                                          ├─589,824
+│    │    └─dense.bias                                            ├─768
+│    │    └─out_proj.weight                                       ├─768
+│    │    └─out_proj.bias                                         └─1
+│    │    └─Linear: 3-3                                           590,592
+│    │    │    └─weight                                           ├─589,824
+│    │    │    └─bias                                             └─768
+│    │    └─Dropout: 3-4                                          --
+│    │    └─Linear: 3-5                                           769
+│    │    │    └─weight                                           ├─768
+│    │    │    └─bias                                             └─1
+├─Dropout: 1-2                                                    --
+==========================================================================================
+Total params: 124,646,401
+Trainable params: 124,646,401
+Non-trainable params: 0
+08/22/2024 23:43:43 - INFO - __main__ -   ***** Running evaluation *****
+08/22/2024 23:43:43 - INFO - __main__ -     Num examples = 2732
+08/22/2024 23:43:43 - INFO - __main__ -     Batch size = 64
+==========================================================================================
+08/22/2024 23:45:23 - INFO - __main__ -   Average time: 0.017503488895504973
+08/22/2024 23:45:23 - INFO - __main__ -   ***** Eval results *****
+08/22/2024 23:45:23 - INFO - __main__ -     eval_acc = 0.8605
+08/22/2024 23:45:23 - INFO - __main__ -     eval_loss = 0.3278
+08/22/2024 23:45:30 - INFO - __main__ -   ***** Running Test *****
+08/22/2024 23:45:30 - INFO - __main__ -     Num examples = 2732
+08/22/2024 23:45:30 - INFO - __main__ -     Batch size = 64
+  0%|          | 0/43 [00:00<?, ?it/s]  2%|▏         | 1/43 [00:02<01:39,  2.36s/it]  5%|▍         | 2/43 [00:04<01:37,  2.37s/it]  7%|▋         | 3/43 [00:07<01:34,  2.37s/it]  9%|▉         | 4/43 [00:09<01:32,  2.36s/it] 12%|█▏        | 5/43 [00:11<01:29,  2.36s/it] 14%|█▍        | 6/43 [00:14<01:27,  2.36s/it] 16%|█▋        | 7/43 [00:16<01:25,  2.36s/it] 19%|█▊        | 8/43 [00:18<01:22,  2.37s/it] 21%|██        | 9/43 [00:21<01:20,  2.37s/it] 23%|██▎       | 10/43 [00:23<01:18,  2.37s/it] 26%|██▌       | 11/43 [00:26<01:15,  2.36s/it] 28%|██▊       | 12/43 [00:28<01:13,  2.37s/it] 30%|███       | 13/43 [00:30<01:11,  2.37s/it] 33%|███▎      | 14/43 [00:33<01:08,  2.37s/it] 35%|███▍      | 15/43 [00:35<01:06,  2.36s/it] 37%|███▋      | 16/43 [00:37<01:03,  2.37s/it] 40%|███▉      | 17/43 [00:40<01:01,  2.37s/it] 42%|████▏     | 18/43 [00:42<00:59,  2.37s/it] 44%|████▍     | 19/43 [00:45<00:57,  2.38s/it] 47%|████▋     | 20/43 [00:47<00:54,  2.38s/it] 49%|████▉     | 21/43 [00:49<00:52,  2.39s/it] 51%|█████     | 22/43 [00:52<00:49,  2.38s/it] 53%|█████▎    | 23/43 [00:54<00:47,  2.39s/it] 56%|█████▌    | 24/43 [00:57<00:45,  2.41s/it] 58%|█████▊    | 25/43 [00:59<00:43,  2.41s/it] 60%|██████    | 26/43 [01:01<00:40,  2.41s/it] 63%|██████▎   | 27/43 [01:04<00:38,  2.40s/it] 65%|██████▌   | 28/43 [01:06<00:35,  2.39s/it] 67%|██████▋   | 29/43 [01:08<00:33,  2.39s/it] 70%|██████▉   | 30/43 [01:11<00:31,  2.40s/it] 72%|███████▏  | 31/43 [01:13<00:28,  2.39s/it] 74%|███████▍  | 32/43 [01:16<00:26,  2.38s/it] 77%|███████▋  | 33/43 [01:18<00:23,  2.39s/it] 79%|███████▉  | 34/43 [01:20<00:21,  2.39s/it] 81%|████████▏ | 35/43 [01:23<00:19,  2.39s/it] 84%|████████▎ | 36/43 [01:25<00:16,  2.39s/it] 86%|████████▌ | 37/43 [01:28<00:14,  2.40s/it] 88%|████████▊ | 38/43 [01:30<00:11,  2.40s/it] 91%|█████████ | 39/43 [01:32<00:09,  2.39s/it] 93%|█████████▎| 40/43 [01:35<00:07,  2.39s/it] 95%|█████████▌| 41/43 [01:37<00:04,  2.38s/it] 98%|█████████▊| 42/43 [01:40<00:02,  2.38s/it]100%|██████████| 43/43 [01:41<00:00,  2.16s/it]100%|██████████| 43/43 [01:41<00:00,  2.36s/it]
+08/22/2024 23:47:12 - INFO - __main__ -   Average inference time: 0.014828576598056527

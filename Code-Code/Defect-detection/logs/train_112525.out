@@ -1,0 +1,15 @@
+08/19/2024 21:03:35 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+08/19/2024 21:05:56 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models_gpt', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='gpt2', model_name_or_path='openai-community/gpt2', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='openai-community/gpt2', cache_dir='', block_size=400, do_train=True, do_eval=False, do_test=False, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=5, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id=None, quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=False, prune_local=False, prune6=False, prune4=False, prune=False, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
+08/19/2024 21:07:26 - INFO - __main__ -   *** Example ***
+08/19/2024 21:07:26 - INFO - __main__ -   idx: 0
+08/19/2024 21:07:26 - INFO - __main__ -   label: 0
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 764, in <module>
+    main()
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 641, in main
+    train_dataset = TextDataset(tokenizer, args,args.train_data_file)
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 111, in __init__
+    logger.info("input_tokens: {}".format([x.replace('\u0120','_') for x in example.input_tokens]))
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 111, in <listcomp>
+    logger.info("input_tokens: {}".format([x.replace('\u0120','_') for x in example.input_tokens]))
+AttributeError: 'NoneType' object has no attribute 'replace'

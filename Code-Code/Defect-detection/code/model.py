@@ -14,9 +14,9 @@ class Model(nn.Module):
     def __init__(self, encoder,config,tokenizer,args):
         super(Model, self).__init__()
         self.encoder = encoder
-        self.config=config
-        self.tokenizer=tokenizer
-        self.args=args
+        #self.config=config
+        #self.tokenizer=tokenizer
+        #self.args=args
     
         # Define dropout layer, dropout_probability is taken from args.
         self.dropout = nn.Dropout(args.dropout_probability)

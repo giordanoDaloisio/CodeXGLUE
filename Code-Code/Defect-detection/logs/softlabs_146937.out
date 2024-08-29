@@ -1,0 +1,651 @@
+08/28/2024 21:40:59 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/codebert-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+08/28/2024 21:41:04 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train_label.jsonl', output_dir='./saved_models_distil_ase', eval_data_file='../dataset/train_unlabel.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/codebert-base', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='microsoft/codebert-base', cache_dir='', block_size=400, do_train=False, do_eval=True, do_test=False, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=5, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id='146937', quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=False, prune_local=False, prune6=False, prune4=False, prune=False, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
+08/28/2024 21:41:09 - INFO - __main__ -   Size (MB): 498.658348
+==========================================================================================
+Layer (type:depth-idx)                                            Param #
+==========================================================================================
+Model                                                             --
+├─RobertaForSequenceClassification: 1-1                           --
+│    └─roberta.embeddings.word_embeddings.weight                  ├─38,603,520
+│    └─roberta.embeddings.position_embeddings.weight              ├─394,752
+│    └─roberta.embeddings.token_type_embeddings.weight            ├─768
+│    └─roberta.embeddings.LayerNorm.weight                        ├─768
+│    └─roberta.embeddings.LayerNorm.bias                          ├─768
+│    └─roberta.encoder.layer.0.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.0.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.0.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.0.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.0.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.0.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.0.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.0.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.0.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.0.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.0.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.0.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.0.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.1.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.1.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.1.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.1.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.1.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.1.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.1.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.1.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.1.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.1.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.1.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.1.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.1.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.2.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.2.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.2.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.2.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.2.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.2.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.2.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.2.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.2.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.2.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.2.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.2.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.2.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.3.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.3.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.3.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.3.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.3.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.3.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.3.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.3.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.3.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.3.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.3.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.3.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.3.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.4.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.4.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.4.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.4.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.4.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.4.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.4.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.4.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.4.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.4.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.4.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.4.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.4.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.5.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.5.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.5.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.5.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.5.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.5.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.5.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.5.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.5.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.5.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.5.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.5.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.5.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.6.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.6.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.6.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.6.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.6.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.6.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.6.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.6.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.6.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.6.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.6.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.6.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.6.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.7.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.7.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.7.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.7.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.7.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.7.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.7.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.7.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.7.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.7.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.7.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.7.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.7.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.8.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.8.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.8.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.8.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.8.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.8.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.8.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.8.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.8.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.8.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.8.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.8.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.8.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.9.attention.self.query.weight        ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.query.bias          ├─768
+│    └─roberta.encoder.layer.9.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.key.bias            ├─768
+│    └─roberta.encoder.layer.9.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.9.attention.output.dense.weight      ├─589,824
+│    └─roberta.encoder.layer.9.attention.output.dense.bias        ├─768
+│    └─roberta.encoder.layer.9.attention.output.LayerNorm.weight  ├─768
+│    └─roberta.encoder.layer.9.attention.output.LayerNorm.bias    ├─768
+│    └─roberta.encoder.layer.9.intermediate.dense.weight          ├─2,359,296
+│    └─roberta.encoder.layer.9.intermediate.dense.bias            ├─3,072
+│    └─roberta.encoder.layer.9.output.dense.weight                ├─2,359,296
+│    └─roberta.encoder.layer.9.output.dense.bias                  ├─768
+│    └─roberta.encoder.layer.9.output.LayerNorm.weight            ├─768
+│    └─roberta.encoder.layer.9.output.LayerNorm.bias              ├─768
+│    └─roberta.encoder.layer.10.attention.self.query.weight       ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.query.bias         ├─768
+│    └─roberta.encoder.layer.10.attention.self.key.weight         ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.key.bias           ├─768
+│    └─roberta.encoder.layer.10.attention.self.value.weight       ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.value.bias         ├─768
+│    └─roberta.encoder.layer.10.attention.output.dense.weight     ├─589,824
+│    └─roberta.encoder.layer.10.attention.output.dense.bias       ├─768
+│    └─roberta.encoder.layer.10.attention.output.LayerNorm.weight ├─768
+│    └─roberta.encoder.layer.10.attention.output.LayerNorm.bias   ├─768
+│    └─roberta.encoder.layer.10.intermediate.dense.weight         ├─2,359,296
+│    └─roberta.encoder.layer.10.intermediate.dense.bias           ├─3,072
+│    └─roberta.encoder.layer.10.output.dense.weight               ├─2,359,296
+│    └─roberta.encoder.layer.10.output.dense.bias                 ├─768
+│    └─roberta.encoder.layer.10.output.LayerNorm.weight           ├─768
+│    └─roberta.encoder.layer.10.output.LayerNorm.bias             ├─768
+│    └─roberta.encoder.layer.11.attention.self.query.weight       ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.query.bias         ├─768
+│    └─roberta.encoder.layer.11.attention.self.key.weight         ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.key.bias           ├─768
+│    └─roberta.encoder.layer.11.attention.self.value.weight       ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.value.bias         ├─768
+│    └─roberta.encoder.layer.11.attention.output.dense.weight     ├─589,824
+│    └─roberta.encoder.layer.11.attention.output.dense.bias       ├─768
+│    └─roberta.encoder.layer.11.attention.output.LayerNorm.weight ├─768
+│    └─roberta.encoder.layer.11.attention.output.LayerNorm.bias   ├─768
+│    └─roberta.encoder.layer.11.intermediate.dense.weight         ├─2,359,296
+│    └─roberta.encoder.layer.11.intermediate.dense.bias           ├─3,072
+│    └─roberta.encoder.layer.11.output.dense.weight               ├─2,359,296
+│    └─roberta.encoder.layer.11.output.dense.bias                 ├─768
+│    └─roberta.encoder.layer.11.output.LayerNorm.weight           ├─768
+│    └─roberta.encoder.layer.11.output.LayerNorm.bias             ├─768
+│    └─classifier.dense.weight                                    ├─589,824
+│    └─classifier.dense.bias                                      ├─768
+│    └─classifier.out_proj.weight                                 ├─768
+│    └─classifier.out_proj.bias                                   └─1
+│    └─RobertaModel: 2-1                                          --
+│    │    └─embeddings.word_embeddings.weight                     ├─38,603,520
+│    │    └─embeddings.position_embeddings.weight                 ├─394,752
+│    │    └─embeddings.token_type_embeddings.weight               ├─768
+│    │    └─embeddings.LayerNorm.weight                           ├─768
+│    │    └─embeddings.LayerNorm.bias                             ├─768
+│    │    └─encoder.layer.0.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.0.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.0.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.0.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.0.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.0.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.0.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.0.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.0.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.0.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.0.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.0.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.0.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.0.output.dense.bias                     ├─768
+│    │    └─encoder.layer.0.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.0.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.1.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.1.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.1.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.1.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.1.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.1.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.1.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.1.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.1.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.1.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.1.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.1.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.1.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.1.output.dense.bias                     ├─768
+│    │    └─encoder.layer.1.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.1.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.2.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.2.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.2.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.2.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.2.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.2.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.2.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.2.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.2.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.2.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.2.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.2.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.2.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.2.output.dense.bias                     ├─768
+│    │    └─encoder.layer.2.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.2.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.3.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.3.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.3.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.3.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.3.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.3.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.3.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.3.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.3.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.3.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.3.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.3.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.3.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.3.output.dense.bias                     ├─768
+│    │    └─encoder.layer.3.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.3.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.4.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.4.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.4.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.4.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.4.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.4.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.4.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.4.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.4.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.4.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.4.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.4.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.4.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.4.output.dense.bias                     ├─768
+│    │    └─encoder.layer.4.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.4.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.5.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.5.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.5.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.5.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.5.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.5.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.5.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.5.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.5.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.5.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.5.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.5.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.5.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.5.output.dense.bias                     ├─768
+│    │    └─encoder.layer.5.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.5.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.6.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.6.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.6.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.6.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.6.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.6.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.6.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.6.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.6.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.6.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.6.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.6.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.6.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.6.output.dense.bias                     ├─768
+│    │    └─encoder.layer.6.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.6.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.7.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.7.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.7.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.7.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.7.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.7.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.7.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.7.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.7.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.7.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.7.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.7.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.7.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.7.output.dense.bias                     ├─768
+│    │    └─encoder.layer.7.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.7.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.8.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.8.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.8.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.8.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.8.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.8.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.8.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.8.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.8.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.8.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.8.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.8.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.8.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.8.output.dense.bias                     ├─768
+│    │    └─encoder.layer.8.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.8.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.9.attention.self.query.weight           ├─589,824
+│    │    └─encoder.layer.9.attention.self.query.bias             ├─768
+│    │    └─encoder.layer.9.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.9.attention.self.key.bias               ├─768
+│    │    └─encoder.layer.9.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.9.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.9.attention.output.dense.weight         ├─589,824
+│    │    └─encoder.layer.9.attention.output.dense.bias           ├─768
+│    │    └─encoder.layer.9.attention.output.LayerNorm.weight     ├─768
+│    │    └─encoder.layer.9.attention.output.LayerNorm.bias       ├─768
+│    │    └─encoder.layer.9.intermediate.dense.weight             ├─2,359,296
+│    │    └─encoder.layer.9.intermediate.dense.bias               ├─3,072
+│    │    └─encoder.layer.9.output.dense.weight                   ├─2,359,296
+│    │    └─encoder.layer.9.output.dense.bias                     ├─768
+│    │    └─encoder.layer.9.output.LayerNorm.weight               ├─768
+│    │    └─encoder.layer.9.output.LayerNorm.bias                 ├─768
+│    │    └─encoder.layer.10.attention.self.query.weight          ├─589,824
+│    │    └─encoder.layer.10.attention.self.query.bias            ├─768
+│    │    └─encoder.layer.10.attention.self.key.weight            ├─589,824
+│    │    └─encoder.layer.10.attention.self.key.bias              ├─768
+│    │    └─encoder.layer.10.attention.self.value.weight          ├─589,824
+│    │    └─encoder.layer.10.attention.self.value.bias            ├─768
+│    │    └─encoder.layer.10.attention.output.dense.weight        ├─589,824
+│    │    └─encoder.layer.10.attention.output.dense.bias          ├─768
+│    │    └─encoder.layer.10.attention.output.LayerNorm.weight    ├─768
+│    │    └─encoder.layer.10.attention.output.LayerNorm.bias      ├─768
+│    │    └─encoder.layer.10.intermediate.dense.weight            ├─2,359,296
+│    │    └─encoder.layer.10.intermediate.dense.bias              ├─3,072
+│    │    └─encoder.layer.10.output.dense.weight                  ├─2,359,296
+│    │    └─encoder.layer.10.output.dense.bias                    ├─768
+│    │    └─encoder.layer.10.output.LayerNorm.weight              ├─768
+│    │    └─encoder.layer.10.output.LayerNorm.bias                ├─768
+│    │    └─encoder.layer.11.attention.self.query.weight          ├─589,824
+│    │    └─encoder.layer.11.attention.self.query.bias            ├─768
+│    │    └─encoder.layer.11.attention.self.key.weight            ├─589,824
+│    │    └─encoder.layer.11.attention.self.key.bias              ├─768
+│    │    └─encoder.layer.11.attention.self.value.weight          ├─589,824
+│    │    └─encoder.layer.11.attention.self.value.bias            ├─768
+│    │    └─encoder.layer.11.attention.output.dense.weight        ├─589,824
+│    │    └─encoder.layer.11.attention.output.dense.bias          ├─768
+│    │    └─encoder.layer.11.attention.output.LayerNorm.weight    ├─768
+│    │    └─encoder.layer.11.attention.output.LayerNorm.bias      ├─768
+│    │    └─encoder.layer.11.intermediate.dense.weight            ├─2,359,296
+│    │    └─encoder.layer.11.intermediate.dense.bias              ├─3,072
+│    │    └─encoder.layer.11.output.dense.weight                  ├─2,359,296
+│    │    └─encoder.layer.11.output.dense.bias                    ├─768
+│    │    └─encoder.layer.11.output.LayerNorm.weight              ├─768
+│    │    └─encoder.layer.11.output.LayerNorm.bias                └─768
+│    │    └─RobertaEmbeddings: 3-1                                39,000,576
+│    │    │    └─word_embeddings.weight                           ├─38,603,520
+│    │    │    └─position_embeddings.weight                       ├─394,752
+│    │    │    └─token_type_embeddings.weight                     ├─768
+│    │    │    └─LayerNorm.weight                                 ├─768
+│    │    │    └─LayerNorm.bias                                   └─768
+│    │    └─RobertaEncoder: 3-2                                   85,054,464
+│    │    │    └─layer.0.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.0.attention.self.query.bias                ├─768
+│    │    │    └─layer.0.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.0.attention.self.key.bias                  ├─768
+│    │    │    └─layer.0.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.0.attention.self.value.bias                ├─768
+│    │    │    └─layer.0.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.0.attention.output.dense.bias              ├─768
+│    │    │    └─layer.0.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.0.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.0.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.0.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.0.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.0.output.dense.bias                        ├─768
+│    │    │    └─layer.0.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.0.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.1.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.1.attention.self.query.bias                ├─768
+│    │    │    └─layer.1.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.1.attention.self.key.bias                  ├─768
+│    │    │    └─layer.1.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.1.attention.self.value.bias                ├─768
+│    │    │    └─layer.1.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.1.attention.output.dense.bias              ├─768
+│    │    │    └─layer.1.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.1.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.1.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.1.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.1.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.1.output.dense.bias                        ├─768
+│    │    │    └─layer.1.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.1.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.2.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.2.attention.self.query.bias                ├─768
+│    │    │    └─layer.2.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.2.attention.self.key.bias                  ├─768
+│    │    │    └─layer.2.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.2.attention.self.value.bias                ├─768
+│    │    │    └─layer.2.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.2.attention.output.dense.bias              ├─768
+│    │    │    └─layer.2.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.2.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.2.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.2.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.2.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.2.output.dense.bias                        ├─768
+│    │    │    └─layer.2.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.2.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.3.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.3.attention.self.query.bias                ├─768
+│    │    │    └─layer.3.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.3.attention.self.key.bias                  ├─768
+│    │    │    └─layer.3.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.3.attention.self.value.bias                ├─768
+│    │    │    └─layer.3.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.3.attention.output.dense.bias              ├─768
+│    │    │    └─layer.3.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.3.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.3.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.3.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.3.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.3.output.dense.bias                        ├─768
+│    │    │    └─layer.3.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.3.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.4.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.4.attention.self.query.bias                ├─768
+│    │    │    └─layer.4.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.4.attention.self.key.bias                  ├─768
+│    │    │    └─layer.4.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.4.attention.self.value.bias                ├─768
+│    │    │    └─layer.4.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.4.attention.output.dense.bias              ├─768
+│    │    │    └─layer.4.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.4.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.4.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.4.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.4.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.4.output.dense.bias                        ├─768
+│    │    │    └─layer.4.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.4.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.5.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.5.attention.self.query.bias                ├─768
+│    │    │    └─layer.5.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.5.attention.self.key.bias                  ├─768
+│    │    │    └─layer.5.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.5.attention.self.value.bias                ├─768
+│    │    │    └─layer.5.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.5.attention.output.dense.bias              ├─768
+│    │    │    └─layer.5.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.5.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.5.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.5.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.5.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.5.output.dense.bias                        ├─768
+│    │    │    └─layer.5.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.5.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.6.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.6.attention.self.query.bias                ├─768
+│    │    │    └─layer.6.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.6.attention.self.key.bias                  ├─768
+│    │    │    └─layer.6.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.6.attention.self.value.bias                ├─768
+│    │    │    └─layer.6.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.6.attention.output.dense.bias              ├─768
+│    │    │    └─layer.6.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.6.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.6.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.6.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.6.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.6.output.dense.bias                        ├─768
+│    │    │    └─layer.6.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.6.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.7.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.7.attention.self.query.bias                ├─768
+│    │    │    └─layer.7.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.7.attention.self.key.bias                  ├─768
+│    │    │    └─layer.7.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.7.attention.self.value.bias                ├─768
+│    │    │    └─layer.7.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.7.attention.output.dense.bias              ├─768
+│    │    │    └─layer.7.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.7.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.7.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.7.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.7.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.7.output.dense.bias                        ├─768
+│    │    │    └─layer.7.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.7.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.8.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.8.attention.self.query.bias                ├─768
+│    │    │    └─layer.8.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.8.attention.self.key.bias                  ├─768
+│    │    │    └─layer.8.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.8.attention.self.value.bias                ├─768
+│    │    │    └─layer.8.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.8.attention.output.dense.bias              ├─768
+│    │    │    └─layer.8.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.8.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.8.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.8.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.8.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.8.output.dense.bias                        ├─768
+│    │    │    └─layer.8.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.8.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.9.attention.self.query.weight              ├─589,824
+│    │    │    └─layer.9.attention.self.query.bias                ├─768
+│    │    │    └─layer.9.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.9.attention.self.key.bias                  ├─768
+│    │    │    └─layer.9.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.9.attention.self.value.bias                ├─768
+│    │    │    └─layer.9.attention.output.dense.weight            ├─589,824
+│    │    │    └─layer.9.attention.output.dense.bias              ├─768
+│    │    │    └─layer.9.attention.output.LayerNorm.weight        ├─768
+│    │    │    └─layer.9.attention.output.LayerNorm.bias          ├─768
+│    │    │    └─layer.9.intermediate.dense.weight                ├─2,359,296
+│    │    │    └─layer.9.intermediate.dense.bias                  ├─3,072
+│    │    │    └─layer.9.output.dense.weight                      ├─2,359,296
+│    │    │    └─layer.9.output.dense.bias                        ├─768
+│    │    │    └─layer.9.output.LayerNorm.weight                  ├─768
+│    │    │    └─layer.9.output.LayerNorm.bias                    ├─768
+│    │    │    └─layer.10.attention.self.query.weight             ├─589,824
+│    │    │    └─layer.10.attention.self.query.bias               ├─768
+│    │    │    └─layer.10.attention.self.key.weight               ├─589,824
+│    │    │    └─layer.10.attention.self.key.bias                 ├─768
+│    │    │    └─layer.10.attention.self.value.weight             ├─589,824
+│    │    │    └─layer.10.attention.self.value.bias               ├─768
+│    │    │    └─layer.10.attention.output.dense.weight           ├─589,824
+│    │    │    └─layer.10.attention.output.dense.bias             ├─768
+│    │    │    └─layer.10.attention.output.LayerNorm.weight       ├─768
+│    │    │    └─layer.10.attention.output.LayerNorm.bias         ├─768
+│    │    │    └─layer.10.intermediate.dense.weight               ├─2,359,296
+│    │    │    └─layer.10.intermediate.dense.bias                 ├─3,072
+│    │    │    └─layer.10.output.dense.weight                     ├─2,359,296
+│    │    │    └─layer.10.output.dense.bias                       ├─768
+│    │    │    └─layer.10.output.LayerNorm.weight                 ├─768
+│    │    │    └─layer.10.output.LayerNorm.bias                   ├─768
+│    │    │    └─layer.11.attention.self.query.weight             ├─589,824
+│    │    │    └─layer.11.attention.self.query.bias               ├─768
+│    │    │    └─layer.11.attention.self.key.weight               ├─589,824
+│    │    │    └─layer.11.attention.self.key.bias                 ├─768
+│    │    │    └─layer.11.attention.self.value.weight             ├─589,824
+│    │    │    └─layer.11.attention.self.value.bias               ├─768
+│    │    │    └─layer.11.attention.output.dense.weight           ├─589,824
+│    │    │    └─layer.11.attention.output.dense.bias             ├─768
+│    │    │    └─layer.11.attention.output.LayerNorm.weight       ├─768
+│    │    │    └─layer.11.attention.output.LayerNorm.bias         ├─768
+│    │    │    └─layer.11.intermediate.dense.weight               ├─2,359,296
+│    │    │    └─layer.11.intermediate.dense.bias                 ├─3,072
+│    │    │    └─layer.11.output.dense.weight                     ├─2,359,296
+│    │    │    └─layer.11.output.dense.bias                       ├─768
+│    │    │    └─layer.11.output.LayerNorm.weight                 ├─768
+│    │    │    └─layer.11.output.LayerNorm.bias                   └─768
+│    └─RobertaClassificationHead: 2-2                             --
+│    │    └─dense.weight                                          ├─589,824
+│    │    └─dense.bias                                            ├─768
+│    │    └─out_proj.weight                                       ├─768
+│    │    └─out_proj.bias                                         └─1
+│    │    └─Linear: 3-3                                           590,592
+│    │    │    └─weight                                           ├─589,824
+│    │    │    └─bias                                             └─768
+│    │    └─Dropout: 3-4                                          --
+│    │    └─Linear: 3-5                                           769
+│    │    │    └─weight                                           ├─768
+│    │    │    └─bias                                             └─1
+├─Dropout: 1-2                                                    --
+==========================================================================================
+Total params: 124,646,401
+Trainable params: 124,646,401
+Non-trainable params: 0
+08/28/2024 21:41:32 - INFO - __main__ -   <__main__.InputFeatures object at 0x7fe4098e3c70>
+08/28/2024 21:41:32 - INFO - __main__ -   *** Example ***
+08/28/2024 21:41:32 - INFO - __main__ -   idx: 0
+08/28/2024 21:41:32 - INFO - __main__ -   label: 0
+08/28/2024 21:41:32 - INFO - __main__ -   input_tokens: ['<s>', 'static', '_av', '_', 'cold', '_int', '_v', 'd', 'ade', 'c', '_', 'init', '(', 'AV', 'Cod', 'ec', 'Context', '_*', 'av', 'ctx', ')', '_{', '_V', 'D', 'AD', 'ec', 'oder', 'Context', '_*', 'ctx', '_=', '_av', 'ctx', '->', 'priv', '_', 'data', ';', '_struct', '_v', 'da', '_', 'context', '_*', 'v', 'da', '_', 'ctx', '_=', '_&', 'ctx', '->', 'v', 'da', '_', 'ctx', ';', '_OS', 'Status', '_status', ';', '_int', '_ret', ';', '_c', 'tx', '->', 'h', '264', '_', 'initialized', '_=', '_0', ';', '_/*', '_init', '_p', 'ix', '_', 'fm', 'ts', '_of', '_codec', '_*/', '_if', '_(!', 'ff', '_', 'h', '264', '_', 'v', 'da', '_', 'dec', 'oder', '.', 'p', 'ix', '_', 'fm', 'ts', ')', '_{', '_if', '_(', 'k', 'C', 'FC', 'ore', 'Found', 'ation', 'Version', 'Number', '_<', '_k', 'C', 'FC', 'ore', 'Found', 'ation', 'Version', 'Number', '10', '_', '7', ')', '_ff', '_', 'h', '264', '_', 'v', 'da', '_', 'dec', 'oder', '.', 'p', 'ix', '_', 'fm', 'ts', '_=', '_v', 'da', '_', 'p', 'ix', 'fm', 'ts', '_', 'pri', 'or', '_', '10', '_', '7', ';', '_else', '_ff', '_', 'h', '264', '_', 'v', 'da', '_', 'dec', 'oder', '.', 'p', 'ix', '_', 'fm', 'ts', '_=', '_v', 'da', '_', 'p', 'ix', 'fm', 'ts', ';', '_}', '_/*', '_init', '_v', 'da', '_*/', '_mem', 'set', '(', 'v', 'da', '_', 'ctx', ',', '_0', ',', '_sizeof', '(', 'struct', '_v', 'da', '_', 'context', '));', '_v', 'da', '_', 'ctx', '->', 'width', '_=', '_av', 'ctx', '->', 'width', ';', '_v', 'da', '_', 'ctx', '->', 'height', '_=', '_av', 'ctx', '->', 'height', ';', '_v', 'da', '_', 'ctx', '->', 'format', '_=', "_'", 'av', 'c', '1', "';", '_v', 'da', '_', 'ctx', '->', 'use', '_', 'sync', '_', 'dec', 'oding', '_=', '_1', ';', '_v', 'da', '_', 'ctx', '->', 'use', '_', 'ref', '_', 'buffer', '_=', '_1', ';', '_c', 'tx', '->', 'p', 'ix', '_', 'f', 'mt', '_=', '_av', 'ctx', '->', 'get', '_', 'format', '(', 'av', 'ctx', ',', '_av', 'ctx', '->', 'cod', 'ec', '->', 'p', 'ix', '_', 'fm', 'ts', ');', '_switch', '_(', 'ctx', '->', 'p', 'ix', '_', 'f', 'mt', ')', '_{', '_case', '_AV', '_', 'P', 'IX', '_', 'F', 'MT', '_', 'U', 'Y', 'V', 'Y', '422', ':', '_v', 'da', '_', 'ctx', '->', 'cv', '_', 'p', 'ix', '_', 'f', 'mt', '_', 'type', '_=', "_'", '2', 'v', 'uy', "';", '_break', ';', '_case', '_AV', '_', 'P', 'IX', '_', 'F', 'MT', '_', 'Y', 'U', 'Y', 'V', '422', ':', '_v', 'da', '_', 'ctx', '->', 'cv', '_', 'p', 'ix', '_', 'f', 'mt', '_', 'type', '_=', "_'", 'yu', 'vs', "';", '_break', ';', '_case', '_AV', '_', 'P', 'IX', '_', 'F', 'MT', '_', 'NV', '12', ':', '</s>']
+08/28/2024 21:41:32 - INFO - __main__ -   input_ids: 0 42653 6402 1215 33912 6979 748 417 1829 438 1215 25153 1640 10612 47436 3204 48522 1009 1469 49575 43 25522 468 495 2606 3204 15362 48522 1009 49575 5457 6402 49575 46613 25943 1215 23687 131 29916 748 6106 1215 46796 1009 705 6106 1215 49575 5457 359 49575 46613 705 6106 1215 49575 131 8192 47731 2194 131 6979 5494 131 740 43820 46613 298 29137 1215 49722 5457 321 131 48565 45511 181 3181 1215 40523 1872 9 45797 48404 114 48209 3145 1215 298 29137 1215 705 6106 1215 11127 15362 4 642 3181 1215 40523 1872 43 25522 114 36 330 347 5268 1688 29991 1258 47322 43623 28696 449 347 5268 1688 29991 1258 47322 43623 698 1215 406 43 48400 1215 298 29137 1215 705 6106 1215 11127 15362 4 642 3181 1215 40523 1872 5457 748 6106 1215 642 3181 40523 1872 1215 13718 368 1215 698 1215 406 131 1493 48400 1215 298 29137 1215 705 6106 1215 11127 15362 4 642 3181 1215 40523 1872 5457 748 6106 1215 642 3181 40523 1872 131 35524 48565 45511 748 6106 48404 26012 8738 1640 705 6106 1215 49575 6 321 6 49907 1640 25384 748 6106 1215 46796 48749 748 6106 1215 49575 46613 36097 5457 6402 49575 46613 36097 131 748 6106 1215 49575 46613 37009 5457 6402 49575 46613 37009 131 748 6106 1215 49575 46613 34609 5457 128 1469 438 134 23500 748 6106 1215 49575 46613 3698 1215 45176 1215 11127 19519 5457 112 131 748 6106 1215 49575 46613 3698 1215 13043 1215 47438 5457 112 131 740 43820 46613 642 3181 1215 506 16100 5457 6402 49575 46613 6460 1215 34609 1640 1469 49575 6 6402 49575 46613 29659 3204 46613 642 3181 1215 40523 1872 4397 5405 36 49575 46613 642 3181 1215 506 16100 43 25522 403 17307 1215 510 9482 1215 597 11674 1215 791 975 846 975 37319 35 748 6106 1215 49575 46613 38635 1215 642 3181 1215 506 16100 1215 12528 5457 128 176 705 5781 23500 1108 131 403 17307 1215 510 9482 1215 597 11674 1215 975 791 975 846 37319 35 748 6106 1215 49575 46613 38635 1215 642 3181 1215 506 16100 1215 12528 5457 128 29159 15597 23500 1108 131 403 17307 1215 510 9482 1215 597 11674 1215 31668 1092 35 2
+08/28/2024 21:41:32 - INFO - __main__ -   <__main__.InputFeatures object at 0x7fe4098e3a30>
+08/28/2024 21:41:32 - INFO - __main__ -   *** Example ***
+08/28/2024 21:41:32 - INFO - __main__ -   idx: 1
+08/28/2024 21:41:32 - INFO - __main__ -   label: 0
+08/28/2024 21:41:32 - INFO - __main__ -   input_tokens: ['<s>', 'static', '_void', '_v', '4', 'l', '2', '_', 'free', '_', 'buffer', '(', 'void', '_*', 'op', 'aque', ',', '_uint', '8', '_', 't', '_*', 'un', 'used', ')', '_{', '_V', '4', 'L', '2', 'Buffer', '*', '_av', 'buf', '_=', '_opaque', ';', '_V', '4', 'L', '2', 'm', '2', 'm', 'Context', '_*', 's', '_=', '_buf', '_', 'to', '_', 'm', '2', 'm', 'ctx', '(', 'av', 'buf', ');', '_if', '_(', 'atomic', '_', 'f', 'etch', '_', 'sub', '(&', 'av', 'buf', '->', 'context', '_', 'ref', 'count', ',', '_1', ')', '_==', '_1', ')', '_{', '_atomic', '_', 'f', 'etch', '_', 'sub', '_', 'expl', 'icit', '(&', 's', '->', 'ref', 'count', ',', '_1', ',', '_memory', '_', 'order', '_', 'ac', 'q', '_', 'rel', ');', '_if', '_(', 's', '->', 're', 'init', ')', '_{', '_if', '_(!', 'atomic', '_', 'load', '(&', 's', '->', 'ref', 'count', '))', '_sem', '_', 'post', '(&', 's', '->', 'ref', 'sync', ');', '_}', '_else', '_if', '_(', 'av', 'buf', '->', 'context', '->', 'stream', 'on', ')', '_ff', '_', 'v', '4', 'l', '2', '_', 'buffer', '_', 'en', 'queue', '(', 'av', 'buf', ');', '_av', '_', 'buffer', '_', 'un', 'ref', '(&', 'av', 'buf', '->', 'context', '_', 'ref', ');', '_}', '_}', '</s>']
+08/28/2024 21:41:32 - INFO - __main__ -   input_ids: 0 42653 13842 748 306 462 176 1215 3743 1215 47438 1640 47908 1009 1517 35485 6 49315 398 1215 90 1009 879 6199 43 25522 468 306 574 176 49334 3226 6402 48939 5457 31861 131 468 306 574 176 119 176 119 48522 1009 29 5457 49125 1215 560 1215 119 176 119 49575 1640 1469 48939 4397 114 36 45826 1215 506 29094 1215 10936 49763 1469 48939 46613 46796 1215 13043 11432 6 112 43 45994 112 43 25522 21495 1215 506 29094 1215 10936 1215 23242 17022 49763 29 46613 13043 11432 6 112 6 3783 1215 10337 1215 1043 1343 1215 5982 4397 114 36 29 46613 241 25153 43 25522 114 48209 45826 1215 16204 49763 29 46613 13043 11432 35122 9031 1215 7049 49763 29 46613 13043 45176 4397 35524 1493 114 36 1469 48939 46613 46796 46613 8656 261 43 48400 1215 705 306 462 176 1215 47438 1215 225 48702 1640 1469 48939 4397 6402 1215 47438 1215 879 13043 49763 1469 48939 46613 46796 1215 13043 4397 35524 35524 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+08/28/2024 21:41:32 - INFO - __main__ -   <__main__.InputFeatures object at 0x7fe4098e3e20>
+08/28/2024 21:41:32 - INFO - __main__ -   *** Example ***
+08/28/2024 21:41:32 - INFO - __main__ -   idx: 2
+08/28/2024 21:41:32 - INFO - __main__ -   label: 1
+08/28/2024 21:41:32 - INFO - __main__ -   input_tokens: ['<s>', 'static', '_int', '_d', 'ds', '_', 'dec', 'ode', '(', 'AV', 'Cod', 'ec', 'Context', '_*', 'av', 'ctx', ',', '_void', '_*', 'data', ',', '_int', '_*', 'got', '_', 'frame', ',', '_A', 'VP', 'acket', '_*', 'av', 'p', 'kt', ')', '_{', '_D', 'DS', 'Context', '_*', 'ctx', '_=', '_av', 'ctx', '->', 'priv', '_', 'data', ';', '_Get', 'Byte', 'Context', '_*', 'g', 'bc', '_=', '_&', 'ctx', '->', 'g', 'bc', ';', '_AV', 'Frame', '_*', 'frame', '_=', '_data', ';', '_int', '_m', 'ip', 'map', ';', '_int', '_ret', ';', '_ff', '_', 'text', 'ured', 'sp', '_', 'init', '(&', 'ctx', '->', 'tex', 'd', 'sp', ');', '_by', 'test', 'ream', '2', '_', 'init', '(', 'g', 'bc', ',', '_av', 'p', 'kt', '->', 'data', ',', '_av', 'p', 'kt', '->', 'size', ');', '_if', '_(', 'by', 'test', 'ream', '2', '_', 'get', '_', 'bytes', '_', 'left', '(', 'g', 'bc', ')', '_<', '_128', ')', '_{', '_av', '_', 'log', '(', 'av', 'ctx', ',', '_AV', '_', 'LOG', '_', 'ERROR', ',', '_"', 'Frame', '_is', '_too', '_small', '_(%', 'd', ').', '\\', 'n', '",', '_by', 'test', 'ream', '2', '_', 'get', '_', 'bytes', '_', 'left', '(', 'g', 'bc', '));', '_return', '_A', 'VER', 'ROR', '_', 'IN', 'VAL', 'ID', 'DATA', ';', '_}', '_if', '_(', 'by', 'test', 'ream', '2', '_', 'get', '_', 'le', '32', '(', 'g', 'bc', ')', '_!=', '_MK', 'TAG', "('", 'D', "',", "_'", 'D', "',", "_'", 'S', "',", "_'", "_'", ')', '_||', '_by', 'test', 'ream', '2', '_', 'get', '_', 'le', '32', '(', 'g', 'bc', ')', '_!=', '_124', ')', '_{', '_//', '_header', '_size', '_av', '_', 'log', '(', 'av', 'ctx', ',', '_AV', '_', 'LOG', '_', 'ERROR', ',', '_"', 'Invalid', '_D', 'DS', '_header', '.', '\\', 'n', '");', '_return', '_A', 'VER', 'ROR', '_', 'IN', 'VAL', 'ID', 'DATA', ';', '_}', '_by', 'test', 'ream', '2', '_', 'skip', '(', 'g', 'bc', ',', '_4', ');', '_//', '_flags', '_av', 'ctx', '->', 'height', '_=', '_by', 'test', 'ream', '2', '_', 'get', '_', 'le', '32', '(', 'g', 'bc', ');', '_av', 'ctx', '->', 'width', '_=', '_by', 'test', 'ream', '2', '_', 'get', '_', 'le', '32', '(', 'g', 'bc', ');', '_ret', '_=', '_av', '_', 'image', '_', 'check', '_', 'size', '(', 'av', 'ctx', '->', 'width', ',', '_av', 'ctx', '->', 'height', ',', '_0', ',', '_av', 'ctx', ');', '_if', '_(', 'ret', '_<', '_0', ')', '_{', '_av', '_', 'log', '(', 'av', 'ctx', ',', '_AV', '_', 'LOG', '_', 'ERROR', ',', '_"', 'Invalid', '_image', '_size', '_%', 'dx', '%', 'd', '.', '\\', 'n', '",', '_av', 'ctx', '->', 'width', ',', '_av', 'ctx', '->', 'height', ');', '_return', '_ret', ';', '_}', '_/*', '_Since', '_codec', '_is', '_based', '_on', '_4', 'x', '4', '_blocks', ',', '_size', '</s>']
+08/28/2024 21:41:32 - INFO - __main__ -   input_ids: 0 42653 6979 385 11622 1215 11127 4636 1640 10612 47436 3204 48522 1009 1469 49575 6 13842 1009 23687 6 6979 1009 22371 1215 26061 6 83 12015 32561 1009 1469 642 7282 43 25522 211 5433 48522 1009 49575 5457 6402 49575 46613 25943 1215 23687 131 2315 47447 48522 1009 571 23219 5457 359 49575 46613 571 23219 131 17307 46766 1009 26061 5457 414 131 6979 475 1588 32557 131 6979 5494 131 48400 1215 29015 4075 4182 1215 25153 49763 49575 46613 25401 417 4182 4397 30 21959 26930 176 1215 25153 1640 571 23219 6 6402 642 7282 46613 23687 6 6402 642 7282 46613 10799 4397 114 36 1409 21959 26930 176 1215 6460 1215 46823 1215 6960 1640 571 23219 43 28696 13950 43 25522 6402 1215 12376 1640 1469 49575 6 17307 1215 45403 1215 46734 6 22 46766 16 350 650 48086 417 322 37457 282 1297 30 21959 26930 176 1215 6460 1215 46823 1215 6960 1640 571 23219 48749 671 83 9847 45055 1215 2444 39766 2688 48242 131 35524 114 36 1409 21959 26930 176 1215 6460 1215 459 2881 1640 571 23219 43 49333 20149 46985 45803 495 3934 128 495 3934 128 104 3934 128 128 43 45056 30 21959 26930 176 1215 6460 1215 459 2881 1640 571 23219 43 49333 19446 43 25522 21277 12734 1836 6402 1215 12376 1640 1469 49575 6 17307 1215 45403 1215 46734 6 22 49695 211 5433 12734 4 37457 282 45751 671 83 9847 45055 1215 2444 39766 2688 48242 131 35524 30 21959 26930 176 1215 46554 1640 571 23219 6 204 4397 21277 9287 6402 49575 46613 37009 5457 30 21959 26930 176 1215 6460 1215 459 2881 1640 571 23219 4397 6402 49575 46613 36097 5457 30 21959 26930 176 1215 6460 1215 459 2881 1640 571 23219 4397 5494 5457 6402 1215 20094 1215 15954 1215 10799 1640 1469 49575 46613 36097 6 6402 49575 46613 37009 6 321 6 6402 49575 4397 114 36 4903 28696 321 43 25522 6402 1215 12376 1640 1469 49575 6 17307 1215 45403 1215 46734 6 22 49695 2274 1836 7606 46106 207 417 4 37457 282 1297 6402 49575 46613 36097 6 6402 49575 46613 37009 4397 671 5494 131 35524 48565 1773 45797 16 716 15 204 1178 306 5491 6 1836 2
+08/28/2024 21:41:32 - INFO - __main__ -   ***** Running evaluation *****
+08/28/2024 21:41:32 - INFO - __main__ -     Num examples = 10927
+08/28/2024 21:41:32 - INFO - __main__ -     Batch size = 64
+==========================================================================================
+08/28/2024 21:48:44 - INFO - __main__ -   Average time: 0.08951707890159205
+08/28/2024 21:48:44 - INFO - __main__ -   ***** Eval results *****
+08/28/2024 21:48:44 - INFO - __main__ -     eval_acc = 0.6139
+08/28/2024 21:48:44 - INFO - __main__ -     eval_loss = 0.739

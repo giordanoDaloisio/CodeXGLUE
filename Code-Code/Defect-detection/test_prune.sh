@@ -30,7 +30,7 @@ srun python run.py \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
-    --epoch 5 \
+    --epoch 2 \
     --block_size 400 \
     --train_batch_size 32 \
     --eval_batch_size 64 \

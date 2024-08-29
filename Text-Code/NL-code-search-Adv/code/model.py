@@ -36,11 +36,11 @@ class Model(nn.Module):
             nl_vec = hidden_states[bs:, 0, :]
         
         if return_vec:
-            return code_vec,nl_vec
+            return outputs,code_vec,nl_vec
         scores=(nl_vec[:,None,:]*code_vec[None,:,:]).sum(-1)
         loss_fct = CrossEntropyLoss()
         loss = loss_fct(scores, torch.arange(bs, device=scores.device))
-        return loss,code_vec,nl_vec
+        return loss,outputs,code_vec,nl_vec
 
       
         
