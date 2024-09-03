@@ -325,8 +325,8 @@ def evaluate(args, model, tokenizer,eval_when_training=False):
     code_vecs=np.concatenate(code_vecs,0)
     nl_vecs=np.concatenate(nl_vecs,0)
     logits=np.concatenate(logits,0)
-    if "unlabel_train" in args.eval_data_file:
-        np.save("data/preds_unlabel_train", logits)
+    if "train_stud" in args.eval_data_file:
+        np.save("../dataset/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
     perplexity = torch.tensor(eval_loss)
 
@@ -546,6 +546,8 @@ def main():
     parser.add_argument('--prune4', action='store_true')
     parser.add_argument('--prune6', action='store_true')
     parser.add_argument('--job_id', type=str)
+
+    
     
 
     args = parser.parse_args()

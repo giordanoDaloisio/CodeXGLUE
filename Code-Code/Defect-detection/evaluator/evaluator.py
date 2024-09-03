@@ -4,6 +4,7 @@ import logging
 import sys
 import json
 import numpy as np
+from sklearn.metrics import f1_score, matthews_corrcoef
 
 def read_answers(filename):
     answers={}
@@ -33,6 +34,8 @@ def calculate_scores(answers,predictions):
 
     scores={}
     scores['Acc']=np.mean(Acc)
+    scores['f1'] = f1_score(list(predictions.values()), list(answers.values()))
+    scores['mcc'] = matthews_corrcoef(list(predictions.values()), list(answers.values()))
     return scores
 
 def main():

@@ -18,8 +18,21 @@ The reason for breaking the BLEU computation into three phases cook_refs(), cook
 '''
 
 import sys, math, re, xml.sax.saxutils
-import subprocess
-import os
+from evaluate import load
+import numpy as np
+from sim import sim
+from argparse import ArgumentParser
+from transformers import AutoTokenizer, AutoModel
+import json
+
+parser = ArgumentParser()
+parser.add_argument("--gold")
+parser.add_argument("--pred")
+parser.add_argument("--test_file")
+args = parser.parse_args()
+
+
+
 
 # Added to bypass NIST-style pre-processing of hyp and ref files -- wade
 nonorm = 0
@@ -190,11 +203,40 @@ def bleuFromMaps(m1, m2):
       num += 1
   return [s * 100.0 / num for s in score]
 
+def computeSim(testFile, preds):
+  test_code = []
+  for l in open(testFile):
+     js = json.loads(l)
+     test_code.append(js['code'])
+  sims = []
+  for code, pred in zip(test_code, preds):
+    sims.append(sim(tokenizer, model, code, pred))
+  return sims
+
 if __name__ == '__main__':
-  reference_file = sys.argv[1]
+  DEVICE = 'cuda'
+  model_path = "evaluator/Models/baseline/103080"
+  bertscore = load("bertscore")
+
+  tokenizer = AutoTokenizer.from_pretrained(model_path)
+  model = AutoModel.from_pretrained(model_path).to(DEVICE)
+
+  reference_file = args.gold
   predictions = []
-  for row in sys.stdin:
+  for row in open(args.pred):
     predictions.append(row)
-  (goldMap, predictionMap) = computeMaps(predictions, reference_file) 
-  print (bleuFromMaps(goldMap, predictionMap)[0])
+  (goldMap, predictionMap) = computeMaps(predictions, reference_file)
+
+  gold_list = [v[0] for v in goldMap.values()]
+  pred_list = [v[0] for v in predictionMap.values()]
+  
+  score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
+  sims = computeSim(args.test_file, pred_list)
+
+
+  print("Bleu", bleuFromMaps(goldMap, predictionMap)[0])
+  print("BERTScore Prec", np.mean(list(score['precision'])))
+  print("BERTScore Recall", np.mean(list(score['recall'])))
+  print("BERTScore F1", np.mean(list(score['f1'])))
+  print("SIDE Score", np.mean(sims))
 

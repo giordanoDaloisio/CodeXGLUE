@@ -1,0 +1,8 @@
+Total: 10955
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Bleu 18.738630264083763
+BERTScore Prec 0.9023786084992546
+BERTScore Recall 0.8749145599926296
+BERTScore F1 0.888099333958123
+SIDE Score 0.8708614692697237
