@@ -11,7 +11,7 @@ from models import Model, distill_loss
 from utils import set_seed, DistilledDataset
 from sklearn.metrics import recall_score, precision_score, f1_score
 from torch.utils.data import DataLoader, SequentialSampler, RandomSampler
-from transformers import AdamW, get_linear_schedule_with_warmup, RobertaConfig, RobertaForSequenceClassification
+from transformers import AdamW, get_linear_schedule_with_warmup, RobertaConfig, RobertaModel
 
 
 warnings.filterwarnings("ignore")
@@ -30,7 +30,7 @@ def train(args, model, train_dataloader, eval_dataloader):
     optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate)
     scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=num_steps*0.1,
                                                 num_training_steps=num_steps)
-    dev_best_acc = 0
+    dev_best_mrr = 0
 
     for epoch in range(args.epochs):
         model.train()
@@ -41,10 +41,11 @@ def train(args, model, train_dataloader, eval_dataloader):
         bar = tqdm(train_dataloader, total=len(train_dataloader))
         bar.set_description("Train")
         for batch in bar:
-            texts = batch[0].to("cuda")
-            soft_knowledge = batch[3].to("cuda")
-            preds = model(texts)
-            loss = distill_loss(preds, soft_knowledge)
+            code_inputs = batch[0].to(args.device)    
+            nl_inputs = batch[1].to(args.device)
+            soft_knowledge = batch[2].to("cuda")
+            _,logit,_,_ = model(code_inputs,nl_inputs)
+            loss = distill_loss(logit, soft_knowledge)
 
             loss.backward()
             train_loss += loss.item()
@@ -55,9 +56,9 @@ def train(args, model, train_dataloader, eval_dataloader):
             optimizer.zero_grad()
 
         dev_results = evaluate(model, eval_dataloader)
-        dev_acc = dev_results["eval_acc"]
-        if dev_acc >= dev_best_acc:
-            dev_best_acc = dev_acc
+        dev_mrr = dev_results["eval_mrr"]
+        if dev_mrr >= dev_best_mrr:
+            dev_best_mrr = dev_mrr
             output_dir = os.path.join(args.model_dir, args.size, "best")
             os.makedirs(output_dir, exist_ok=True)
             torch.save(model.state_dict(), os.path.join(output_dir, "model.bin"))
@@ -67,38 +68,80 @@ def train(args, model, train_dataloader, eval_dataloader):
             os.makedirs(output_dir, exist_ok=True)
             torch.save(model.state_dict(), os.path.join(output_dir, "model.bin"))
         
-        logger.info("Train Loss: {0}, Val Acc: {1}, Val Precision: {2}, Val Recall: {3}, Val F1: {4}".format(train_loss/tr_num, dev_results["eval_acc"], dev_results["eval_precision"], dev_results["eval_recall"], dev_results["eval_f1"]))
+        logger.info("Train Loss: {0}, Val mrr: {1}".format(train_loss/tr_num, dev_results["eval_mrr"]))
 
 
 def evaluate(model, eval_dataloader):
+    eval_loss = 0.0
+    nb_eval_steps = 0
     model.eval()
-    predict_all = []
-    labels_all = []
-    with torch.no_grad():
-        bar = tqdm(eval_dataloader, total=len(eval_dataloader))
-        bar.set_description("Evaluation")
-        for batch in bar:
-            texts = batch[0].to("cuda")
-            label = batch[1].to("cuda")
-            prob = model(texts)
-            prob = F.softmax(prob)
-            predict_all.append(prob.cpu().numpy())
-            labels_all.append(label.cpu().numpy())
+    code_vecs=[] 
+    nl_vecs=[]
+    logits=[]
+    for batch in eval_dataloader:
+        code_inputs = batch[0]
+        nl_inputs = batch[1]
+        with torch.no_grad():
+            lm_loss,logit,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            eval_loss += lm_loss.mean().item()
+            code_vecs.append(code_vec.cpu().numpy())
+            nl_vecs.append(nl_vec.cpu().numpy())
+        nb_eval_steps += 1
+        logits.append(logit.cpu().numpy())
+    code_vecs=np.concatenate(code_vecs,0)
+    nl_vecs=np.concatenate(nl_vecs,0)
+    logits=np.concatenate(logits,0)
+    eval_loss = eval_loss / nb_eval_steps
+    perplexity = torch.tensor(eval_loss)
 
-    predict_all = np.concatenate(predict_all, 0)
-    labels_all = np.concatenate(labels_all, 0)
-
-    preds = predict_all[:, 0] > 0.5
-    recall = recall_score(labels_all, preds)
-    precision = precision_score(labels_all, preds)
-    f1 = f1_score(labels_all, preds)
-    results = {
-        "eval_acc": np.mean(labels_all==preds),
-        "eval_precision": float(precision),
-        "eval_recall": float(recall),
-        "eval_f1": float(f1)
+    scores=np.matmul(nl_vecs,code_vecs.T)
+    ranks=[]
+    for i in range(len(scores)):
+        score=scores[i,i]
+        rank=1
+        for j in range(len(scores)):
+            if i!=j and scores[i,j]>=score:
+                rank+=1
+        ranks.append(1/rank)    
+    
+            
+    result = {
+        "eval_loss": float(perplexity),
+        "eval_mrr":float(np.mean(ranks))
     }
-    return results
+
+
+    return result
+
+# def evaluate(model, eval_dataloader):
+#     model.eval()
+#     predict_all = []
+#     labels_all = []
+#     with torch.no_grad():
+#         bar = tqdm(eval_dataloader, total=len(eval_dataloader))
+#         bar.set_description("Evaluation")
+#         for batch in bar:
+#             texts = batch[0].to("cuda")
+#             label = batch[1].to("cuda")
+#             prob = model(texts)
+#             prob = F.softmax(prob)
+#             predict_all.append(prob.cpu().numpy())
+#             labels_all.append(label.cpu().numpy())
+
+#     predict_all = np.concatenate(predict_all, 0)
+#     labels_all = np.concatenate(labels_all, 0)
+
+#     preds = predict_all[:, 0] > 0.5
+#     recall = recall_score(labels_all, preds)
+#     precision = precision_score(labels_all, preds)
+#     f1 = f1_score(labels_all, preds)
+#     results = {
+#         "eval_mrr": np.mean(labels_all==preds),
+#         "eval_precision": float(precision),
+#         "eval_recall": float(recall),
+#         "eval_f1": float(f1)
+#     }
+#     return results
 
 
 def main():
@@ -111,7 +154,7 @@ def main():
     parser.add_argument("--block_size", default=-1, type=int,
                         help="Optional input sequence length after tokenization."
                              "The training dataset will be truncated in block of this size for training."
-                             "Default to the model max input length for single sentence inputs (take into account special tokens).")
+                             "Default to the model max input length for single sentence inputs (take into mrrount special tokens).")
     parser.add_argument("--model_dir", default="./", type=str,
                         help="The output directory where the model predictions and checkpoints will be written.")
     parser.add_argument("--do_train", action="store_true",
@@ -166,7 +209,7 @@ def main():
     config.vocab_size = args.vocab_size
     config.num_hidden_layers = args.n_layers
     config.hidden_dropout_prob = 0.5
-    model = Model(RobertaForSequenceClassification(config=config))
+    model = Model(RobertaModel(config=config))
 
     train_dataset = DistilledDataset(args, args.vocab_size, args.train_data_file, logger)
     train_sampler = RandomSampler(train_dataset)
@@ -187,7 +230,7 @@ def main():
         model.load_state_dict(torch.load(model_dir))
         model.to(args.device)
         eval_res = evaluate(model, eval_dataloader)
-        logger.info("Acc: {0}, Precision: {1}, Recall: {2}, F1: {3}".format(eval_res["eval_acc"], eval_res["eval_precision"], eval_res["eval_recall"], eval_res["eval_f1"]))
+        logger.info("mrr: {0}".format(eval_res["eval_mrr"]))
 
 
 if __name__ == "__main__":

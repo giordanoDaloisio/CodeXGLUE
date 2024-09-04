@@ -59,7 +59,8 @@ train_size = 251820
 
 with open('train.jsonl') as f, open('train_teach.jsonl', 'w') as f1, open('train_stud.jsonl', 'w') as f2:
   for i, l in enumerate(f):
+    l.strip()
     if i < train_size/2:
-        f1.write(json.dumps(l)+'\n')
+        f1.write(l)
     else:
-        f2.write(json.dumps(l)+'\n')
+        f2.write(l)
