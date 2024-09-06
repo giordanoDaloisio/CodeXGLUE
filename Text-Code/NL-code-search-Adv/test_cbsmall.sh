@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/tcd_nocuda_%j.out
-#SBATCH -J tcdnc
+#SBATCH -o ./logs/tccbs_nocuda_%j.out
+#SBATCH -J tccbsnc
 #SBATCH -p normal
 #SBATCH -c 40
 
@@ -17,11 +17,11 @@ conda activate codex
 
 cd code
 LANG=java
-OUTPUTDIR=./saved_models_distil
-PRETRAINDIR=distilbert/distilbert-base-uncased    # will download pre-trained CodeGPT model
+OUTPUTDIR=./saved_models_codeberta_small
+PRETRAINDIR=huggingface/CodeBERTa-small-v1
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM
-MODEL=distilbert
+MODEL=roberta
 
 
 srun python run.py \
@@ -29,7 +29,7 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=distilbert-base-uncased \
+    --tokenizer_name=$PRETRAINDIR \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \

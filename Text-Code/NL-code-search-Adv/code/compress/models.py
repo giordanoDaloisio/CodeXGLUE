@@ -23,29 +23,20 @@ class Model(nn.Module):
         outputs=self.encoder(inputs,attention_mask=inputs.ne(1))[1]
         code_vec=outputs[:bs]
         nl_vec=outputs[bs:]
-        # if self.args.model_type == 'roberta':
-        #     outputs=self.encoder(inputs,attention_mask=inputs.ne(1))[1]
-        #     code_vec=outputs[:bs]
-        #     nl_vec=outputs[bs:]
-        # else:
-        #     outputs=self.encoder(inputs,attention_mask=inputs.ne(1))
-        #     hidden_states = outputs.logits
-        #     code_vec = hidden_states[:bs, 0, :]
-        #     nl_vec = hidden_states[bs:, 0, :]
+        scores=(nl_vec[:,None,:]*code_vec[None,:,:]).sum(-1)
         
         if return_vec:
-            return outputs,code_vec,nl_vec
-        scores=(nl_vec[:,None,:]*code_vec[None,:,:]).sum(-1)
+            return scores,code_vec,nl_vec
+      
         loss_fct = CrossEntropyLoss()
         loss = loss_fct(scores, torch.arange(bs, device=scores.device))
-        return loss,outputs,code_vec,nl_vec
+        return loss,scores,code_vec,nl_vec
 
 
 
 def distill_loss(logits, knowledge, temperature=10.0):
 
-    loss = F.kl_div(F.log_softmax(logits/temperature), F.softmax(knowledge /
-                    temperature), reduction="batchmean") * (temperature**2)
+    loss = F.kl_div(F.log_softmax(logits/temperature), F.softmax(knowledge / temperature), reduction="batchmean") * (temperature**2)
     # Equivalent to cross_entropy for soft labels, from https://github.com/huggingface/transformers/blob/50792dbdcccd64f61483ec535ff23ee2e4f9e18d/examples/distillation/distiller.py#L330
 
     return loss

@@ -19,3 +19,4 @@ No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
 09/06/2024 12:16:16 - INFO - __main__ -   ************ Loading Data ***************
 srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
 slurmstepd-compute-0-3: error: *** STEP 152775.0 ON compute-0-3 CANCELLED AT 2024-09-06T12:16:17 ***
+slurmstepd-compute-0-3: error: *** JOB 152775 ON compute-0-3 CANCELLED AT 2024-09-06T12:16:17 ***

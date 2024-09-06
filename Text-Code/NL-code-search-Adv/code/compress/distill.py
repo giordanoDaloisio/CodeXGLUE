@@ -12,6 +12,7 @@ from utils import set_seed, DistilledDataset
 from sklearn.metrics import recall_score, precision_score, f1_score
 from torch.utils.data import DataLoader, SequentialSampler, RandomSampler
 from transformers import AdamW, get_linear_schedule_with_warmup, RobertaConfig, RobertaModel
+from icecream import ic
 
 
 warnings.filterwarnings("ignore")
@@ -112,36 +113,6 @@ def evaluate(model, eval_dataloader):
 
 
     return result
-
-# def evaluate(model, eval_dataloader):
-#     model.eval()
-#     predict_all = []
-#     labels_all = []
-#     with torch.no_grad():
-#         bar = tqdm(eval_dataloader, total=len(eval_dataloader))
-#         bar.set_description("Evaluation")
-#         for batch in bar:
-#             texts = batch[0].to("cuda")
-#             label = batch[1].to("cuda")
-#             prob = model(texts)
-#             prob = F.softmax(prob)
-#             predict_all.append(prob.cpu().numpy())
-#             labels_all.append(label.cpu().numpy())
-
-#     predict_all = np.concatenate(predict_all, 0)
-#     labels_all = np.concatenate(labels_all, 0)
-
-#     preds = predict_all[:, 0] > 0.5
-#     recall = recall_score(labels_all, preds)
-#     precision = precision_score(labels_all, preds)
-#     f1 = f1_score(labels_all, preds)
-#     results = {
-#         "eval_mrr": np.mean(labels_all==preds),
-#         "eval_precision": float(precision),
-#         "eval_recall": float(recall),
-#         "eval_f1": float(f1)
-#     }
-#     return results
 
 
 def main():

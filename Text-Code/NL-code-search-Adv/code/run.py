@@ -378,7 +378,7 @@ def test(args, model, tokenizer, time_file='', time_folder=''):
         with torch.no_grad():
             start = time.time()
             logger.info("************ Loading Data ***************")
-            lm_loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            lm_loss,_,code_vec,nl_vec = model(code_inputs,nl_inputs)
             
             end = time.time()
             inf_time = end-start
@@ -656,7 +656,6 @@ def main():
                 logger.info("********** Calibrate **********")
                 calibrate(args, model, tokenizer)
             freeze(model)
-            print_model_size(model)
             logfile = f"quantize_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.quantize4:
             logger.info("************ Apply Quantization qint4 *****************")
@@ -665,7 +664,6 @@ def main():
                 logger.info("********** Calibrate **********")
                 calibrate(args, model, tokenizer)
             freeze(model)
-            print_model_size(model)
             logfile = f"quantize4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.quantizef8:
             logger.info("************ Apply Quantization qfloat8 *****************")
@@ -674,7 +672,6 @@ def main():
                 logger.info("********** Calibrate **********")
                 calibrate(args, model, tokenizer)
             freeze(model)
-            print_model_size(model)
             logfile = f"quantizef8_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.prune:
             logger.info("******* Apply Pruning ***********")
@@ -693,7 +690,6 @@ def main():
             )
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
-            print_model_size(model)
             logfile = f"prune_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.prune4:
             logger.info("******* Apply Pruning 0.4 ***********")
@@ -712,7 +708,6 @@ def main():
             )
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
-            print_model_size(model)
             logfile = f"prune4_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         elif args.prune6:
             logger.info("******* Apply Pruning 0.6 ***********")
@@ -731,14 +726,13 @@ def main():
             )
             for module, param in parameters_to_prune:
                 prune.remove(module, param)
-            print_model_size(model)
             logfile = f"prune6_times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         else:
             logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         time_dir = os.path.join(args.output_dir, 'times')
         os.makedirs(time_dir, exist_ok=True)
 
-
+        print_model_size(model)
         result=evaluate(args, model, tokenizer)
         logger.info("***** Eval results *****")
         for key in sorted(result.keys()):
@@ -833,6 +827,7 @@ def main():
                 logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
             time_dir = os.path.join(args.output_dir, 'times')
             os.makedirs(time_dir, exist_ok=True)
+        print_model_size(model)
         test(args, model, tokenizer, logfile, time_dir)
 
     return results

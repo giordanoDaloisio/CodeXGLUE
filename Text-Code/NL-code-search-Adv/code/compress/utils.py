@@ -9,6 +9,7 @@ from torch.utils.data import Dataset
 from tokenizers.pre_tokenizers import Whitespace
 from tokenizers.trainers import WordLevelTrainer
 from tokenizers import Tokenizer, models, pre_tokenizers, decoders, trainers, processors, normalizers
+from transformers import RobertaTokenizer
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -62,29 +63,17 @@ class DistilledDataset(Dataset):
                 else:
                     texts.append(" ".join(d["function_tokens"]).split())
             tokenizer = BPE(texts, vocab_size, file_path, logger)
-        
+        # tokenizer = RobertaTokenizer.from_pretrained("microsoft/codebert-base")
+
         if 'train_stud' in postfix:
             softlabs = np.load(os.path.join(folder, 'preds_unlabel_train.npy')).tolist()
 
         for i,d in enumerate(tqdm(data)):
-            #js = json.loads(d)
             if 'train_stud' in postfix:
                 softlab = softlabs[i]
             else:
                 softlab = [0.1, 0.1]
             self.examples.append(convert_examples_to_features(d, tokenizer, args, softlab))
-            # code = " ".join(d["func"].split())
-            # source_ids = tokenizer.encode(code).ids[:args.block_size-2]
-            # source_ids = [tokenizer.token_to_id(
-            #     "<s>")]+source_ids+[tokenizer.token_to_id("</s>")]
-            # padding_length = args.block_size - len(source_ids)
-            # source_ids += [tokenizer.token_to_id("<pad>")] * padding_length
-            # if "train" in postfix:
-            #     self.examples.append(
-            #         (InputFeatures(code, source_ids, d["pred"], d["pred"], d["soft_label"])))
-            # else:
-            #     self.examples.append(
-            #         (InputFeatures(code, source_ids, d["target"])))
 
     def __len__(self):
         return len(self.examples)
@@ -101,6 +90,27 @@ def set_seed(seed=42):
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
+# def convert_examples_to_features(js,tokenizer,args, softlab):
+#     #code
+#     if 'code_tokens' in js:
+#         code=' '.join(js['code_tokens'])
+#     else:
+#         code=' '.join(js['function_tokens'])
+#     code_tokens=tokenizer.tokenize(code)[:args.block_size-2]
+#     code_tokens =[tokenizer.cls_token]+code_tokens+[tokenizer.sep_token]
+#     code_ids =  tokenizer.convert_tokens_to_ids(code_tokens)
+#     padding_length = args.block_size - len(code_ids)
+#     code_ids+=[tokenizer.pad_token_id]*padding_length
+    
+#     nl=' '.join(js['docstring_tokens'])
+#     nl_tokens=tokenizer.tokenize(nl)[:args.block_size-2]
+#     nl_tokens =[tokenizer.cls_token]+nl_tokens+[tokenizer.sep_token]
+#     nl_ids =  tokenizer.convert_tokens_to_ids(nl_tokens)
+#     padding_length = args.block_size - len(nl_ids)
+#     nl_ids+=[tokenizer.pad_token_id]*padding_length    
+    
+#     return InputFeatures(code_tokens,code_ids,nl_tokens,nl_ids,js['url'],softlab,js['idx'])
+
 def convert_examples_to_features(js,tokenizer,args, soft_lab):
     #code
     if 'code_tokens' in js:
@@ -109,7 +119,6 @@ def convert_examples_to_features(js,tokenizer,args, soft_lab):
         code=' '.join(js['function_tokens'])
     code_ids=tokenizer.encode(code).ids[:args.block_size-2]
     code_ids =[tokenizer.token_to_id("<s>")]+code_ids+[tokenizer.token_to_id("</s>")]
-    # code_ids =  tokenizer.token_to_id(code_tokens)
     padding_length = args.block_size - len(code_ids)
     code_ids+=[tokenizer.token_to_id("<pad>")]*padding_length
     

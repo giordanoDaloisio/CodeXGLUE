@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/train_stud_%j.out
+#SBATCH -o ./logs/train_stud.out
 #SBATCH -J tds
 #SBATCH -p cuda
 #SBATCH -c 40

@@ -24,6 +24,8 @@ def read_predictions(filename):
 
 def calculate_scores(answers,predictions):
     scores=[]
+    scores_1 = []
+    scores_5 = []
     for key in answers:
         if key not in predictions:
             logging.error("Missing prediction for url {}.".format(key))
@@ -33,11 +35,21 @@ def calculate_scores(answers,predictions):
             if idx==answers[key]:
                 scores.append(1/(rank+1))
                 flag=True
-                break
+                if rank < 5:
+                    scores_5.append(1/(rank+1))
+                    if rank == 0:
+                        scores_1.append(1)
+                    else:
+                        scores_1.append(0)
+                else:
+                    scores_5.append(0)
+            
         if flag is False:
             scores.append(0)
     result={}
     result['MRR']=round(np.mean(scores),4)
+    result['MRR@1'] = round(np.mean(scores_1),4)
+    result['MRR@5'] = round(np.mean(scores_5),4)
     return result
 
 def main():
