@@ -1,0 +1,193 @@
+Task;Compression Method;Parameter;Value
+Defect Prediction;No One;Avg Inference Time CUDA;0.01
+Defect Prediction;Distillation (distilbert);Avg Inference Time CUDA;0.005
+Defect Prediction;Quantization  (quanto-qfloat8);Avg Inference Time CUDA;0.021
+Defect Prediction;Quantization (quanto-qint8);Avg Inference Time CUDA;0.019
+Defect Prediction;Quantization (quanto-qint4);Avg Inference Time CUDA;0.03
+Defect Prediction;Pruning 0.6;Avg Inference Time CUDA;0.011
+Defect Prediction;Pruning 0.4;Avg Inference Time CUDA;0.011
+Defect Prediction;Pruning 0.2;Avg Inference Time CUDA;0.014
+Defect Prediction;No One;Avg Inference Time CPU;15.439
+Defect Prediction;Distillation (distilbert);Avg Inference Time CPU;9.068
+Defect Prediction;Quantization (quanto-qfloat8);Avg Inference Time CPU;25.321
+Defect Prediction;Quantization (quanto-qint8);Avg Inference Time CPU;31.464
+Defect Prediction;Quantization (quanto-qint4);Avg Inference Time CPU;35.979
+Defect Prediction;Pruning 0.6;Avg Inference Time CPU;5.824
+Defect Prediction;Pruning 0.4;Avg Inference Time CPU;18.815
+Defect Prediction;Pruning 0.2;Avg Inference Time CPU;18.451
+Defect Prediction;No One;Median Inference Time CUDA;0.011143
+Defect Prediction;Distillation (distilbert);Median Inference Time CUDA;0.005575
+Defect Prediction;Quantization (quanto-qfloat8);Median Inference Time CUDA;0.021454
+Defect Prediction;Quantization (quanto-qint8);Median Inference Time CUDA;0.022159
+Defect Prediction;Quantization (quanto-qint4);Median Inference Time CUDA;0.032724
+Defect Prediction;Pruning 0.6;Median Inference Time CUDA;0.011871
+Defect Prediction;Pruning 0.4;Median Inference Time CUDA;0.011338
+Defect Prediction;Pruning 0.2;Median Inference Time CUDA;0.011723
+Defect Prediction;No One;Median Inference Time CPU;15.902356
+Defect Prediction;Distillation (distilbert);Median Inference Time CPU;9.122519
+Defect Prediction;Quantization (quanto-qfloat8);Median Inference Time CPU;23.373236
+Defect Prediction;Quantization (quanto-qint8);Median Inference Time CPU;33.897889
+Defect Prediction;Quantization (quanto-qint4);Median Inference Time CPU;41.683454
+Defect Prediction;Pruning 0.6;Median Inference Time CPU;5.585062
+Defect Prediction;Pruning 0.4;Median Inference Time CPU;18.828698
+Defect Prediction;Pruning 0.2;Median Inference Time CPU;18.380598
+Defect Prediction;No One;Model Size;498.658348
+Defect Prediction;Distillation (distilbert);Model Size;255.44
+Defect Prediction;Quantization (quanto-qfloat8);Model Size;242.538956
+Defect Prediction;Quantization (quanto-qint8);Model Size;242.5387
+Defect Prediction;Quantization (quanto-qint4);Model Size;202.830864
+Defect Prediction;Pruning 0.6;Model Size;498.655532
+Defect Prediction;Pruning 0.4;Model Size;498.655532
+Defect Prediction;Pruning 0.2;Model Size;498.655532
+Defect Prediction;No One;Accuracy;0.63
+Defect Prediction;Distillation (distilbert);Accuracy;0.616
+Defect Prediction;Quantization (quanto-qfloat8);Accuracy;0.63
+Defect Prediction;Quantization (quanto-qint8);Accuracy;0.627
+Defect Prediction;Quantization (quanto-qint4);Accuracy;0.62
+Defect Prediction;Pruning 0.6;Accuracy;0.593
+Defect Prediction;Pruning 0.4;Accuracy;0.584
+Defect Prediction;Pruning 0.2;Accuracy;0.602
+Defect Prediction;No One;F1;0.541
+Defect Prediction;No One;MCC;0.247
+Defect Prediction;Distillation (distilbert);F1;0.558
+Defect Prediction;Distillation (distilbert);MCC;0.222
+Defect Prediction;Quantization (quanto-qfloat8);F1;0.535
+Defect Prediction;Quantization (quanto-qfloat8);MCC;0.248
+Defect Prediction;Quantization (quanto-qint8);F1;0.536
+Defect Prediction;Quantization (quanto-qint8);MCC;0.241
+Defect Prediction;Quantization (quanto-qint4);F1;0.517
+Defect Prediction;Quantization (quanto-qint4);MCC;0.226
+Defect Prediction;Pruning 0.6;F1;0.275
+Defect Prediction;Pruning 0.6;MCC;0.202
+Defect Prediction;Pruning 0.4;F1;0.211
+Defect Prediction;Pruning 0.4;MCC;0.196
+Defect Prediction;Pruning 0.2;F1;0.319
+Defect Prediction;Pruning 0.2;MCC;0.219
+Summarization;No One;Avg Inference Time CUDA;23.721
+Summarization;Distillation (distilbert);Avg Inference Time CUDA;25.044
+Summarization;Quantization  (quanto-qfloat8);Avg Inference Time CUDA;27.249
+Summarization;Quantization (quanto-qint8);Avg Inference Time CUDA;25.467
+Summarization;Quantization (quanto-qint4);Avg Inference Time CUDA;30.673
+Summarization;Pruning 0.6;Avg Inference Time CUDA;133.508
+Summarization;Pruning 0.4;Avg Inference Time CUDA;56.819
+Summarization;Pruning 0.2;Avg Inference Time CUDA;26.298
+Summarization;No One;Avg Inference Time CPU;500.38
+Summarization;Distillation (distilbert);Avg Inference Time CPU;99.225
+Summarization;Quantization  (quanto-qfloat8);Avg Inference Time CPU;121.039
+Summarization;Quantization (quanto-qint8);Avg Inference Time CPU;121.013
+Summarization;Quantization (quanto-qint4);Avg Inference Time CPU;201.302
+Summarization;Pruning 0.6;Avg Inference Time CPU;597.949
+Summarization;Pruning 0.4;Avg Inference Time CPU;225.061
+Summarization;Pruning 0.2;Avg Inference Time CPU;88.201
+Summarization;No One;Median Inference Time CUDA;23.691545
+Summarization;Distillation (distilbert);Median Inference Time CUDA;23.84124
+Summarization;Quantization  (quanto-qfloat8);Median Inference Time CUDA;27.12745
+Summarization;Quantization (quanto-qint8);Median Inference Time CUDA;25.305003
+Summarization;Quantization (quanto-qint4);Median Inference Time CUDA;30.419127
+Summarization;Pruning 0.6;Median Inference Time CUDA;26.064305
+Summarization;Pruning 0.4;Median Inference Time CUDA;53.249979
+Summarization;Pruning 0.2;Median Inference Time CUDA;129.000642
+Summarization;No One;Median Inference Time CPU;157.36878
+Summarization;Distillation (distilbert);Median Inference Time CPU;92.065376
+Summarization;Quantization  (quanto-qfloat8);Median Inference Time CPU;119.824148
+Summarization;Quantization (quanto-qint8);Median Inference Time CPU;120.766096
+Summarization;Quantization (quanto-qint4);Median Inference Time CPU;122.601804
+Summarization;Pruning 0.6;Median Inference Time CPU;484.378003
+Summarization;Pruning 0.4;Median Inference Time CPU;214.042914
+Summarization;Pruning 0.2;Median Inference Time CPU;85.809057
+Summarization;No One;Model Size;706.910458
+Summarization;Distillation (distilbert);Model Size;473.741846
+Summarization;Quantization  (quanto-qfloat8);Model Size;410.12761
+Summarization;Quantization (quanto-qint8);Model Size;410.139194
+Summarization;Quantization (quanto-qint4);Model Size;340.10105
+Summarization;Pruning 0.6;Model Size;706.910458
+Summarization;Pruning 0.4;Model Size;706.910458
+Summarization;Pruning 0.2;Model Size;706.910458
+Summarization;No One;Bleu;18.791
+Summarization;Distillation (distilbert);Bleu;10.84278693
+Summarization;Quantization  (quanto-qfloat8);Bleu;18.87239722
+Summarization;Quantization (quanto-qint8);Bleu;18.73863026
+Summarization;Quantization (quanto-qint4);Bleu;18.40857023
+Summarization;Pruning 0.6;Bleu;1.248694679
+Summarization;Pruning 0.4;Bleu;6.269478334
+Summarization;Pruning 0.2;Bleu;17.98515048
+Code Search;No One;Avg Inference Time CUDA;0.014026384
+Code Search;Distillation (distilbert);Avg Inference Time CUDA;0.005944954
+Code Search;Quantization  (quanto-qfloat8);Avg Inference Time CUDA;0.022051973
+Code Search;Quantization (quanto-qint8);Avg Inference Time CUDA;0.020785686
+Code Search;Quantization (quanto-qint4);Avg Inference Time CUDA;0.031715363
+Code Search;Pruning 0.6;Avg Inference Time CUDA;0.012755254
+Code Search;Pruning 0.4;Avg Inference Time CUDA;0.011624741
+Code Search;Pruning 0.2;Avg Inference Time CUDA;0.011495261
+Code Search;No One;Avg Inference Time CPU;6.178659578
+Code Search;Distillation (distilbert);Avg Inference Time CPU;1.14179
+Code Search;Quantization  (quanto-qfloat8);Avg Inference Time CPU;8.263457907
+Code Search;Quantization (quanto-qint8);Avg Inference Time CPU;8.726290479
+Code Search;Quantization (quanto-qint4);Avg Inference Time CPU;9.85398576
+Code Search;Pruning 0.6;Avg Inference Time CPU;6.581949183
+Code Search;Pruning 0.4;Avg Inference Time CPU;7.098404006
+Code Search;Pruning 0.2;Avg Inference Time CPU;6.528728545
+Code Search;No One;Median Inference Time CUDA;0.010074
+Code Search;Distillation (distilbert);Median Inference Time CUDA;0.007191
+Code Search;Quantization  (quanto-qfloat8);Median Inference Time CUDA;0.021618
+Code Search;Quantization (quanto-qint8);Median Inference Time CUDA;0.020796
+Code Search;Quantization (quanto-qint4);Median Inference Time CUDA;0.03139
+Code Search;Pruning 0.6;Median Inference Time CUDA;0.012594
+Code Search;Pruning 0.4;Median Inference Time CUDA;0.010927
+Code Search;Pruning 0.2;Median Inference Time CUDA;0.011291
+Code Search;No One;Median Inference Time CPU;6.04695
+Code Search;Distillation (distilbert);Median Inference Time CPU;0.918362
+Code Search;Quantization  (quanto-qfloat8);Median Inference Time CPU;8.411494
+Code Search;Quantization (quanto-qint8);Median Inference Time CPU;9.115803
+Code Search;Quantization (quanto-qint4);Median Inference Time CPU;9.874065
+Code Search;Pruning 0.6;Median Inference Time CPU;6.449681
+Code Search;Pruning 0.4;Median Inference Time CPU;6.875338
+Code Search;Pruning 0.2;Median Inference Time CPU;6.449886
+Code Search;No One;Model Size;498.64844
+Code Search;Distillation (distilbert);Model Size;255.56
+Code Search;Quantization  (quanto-qfloat8);Model Size;242.526826
+Code Search;Quantization (quanto-qint8);Model Size;242.526634
+Code Search;Quantization (quanto-qint4);Model Size;202.815668
+Code Search;Pruning 0.6;Model Size;498.64844
+Code Search;Pruning 0.4;Model Size;498.64844
+Code Search;Pruning 0.2;Model Size;498.64844
+Code Search;No One;MRR;0.3293
+Code Search;Distillation (distilbert);MRR;0.1569
+Code Search;Quantization  (quanto-qfloat8);MRR;0.3286
+Code Search;Quantization (quanto-qint8);MRR;0.3293
+Code Search;Quantization (quanto-qint4);MRR;0.3085
+Code Search;Pruning 0.6;MRR;0.0014
+Code Search;Pruning 0.4;MRR;0.1577
+Code Search;Pruning 0.2;MRR;0.3187
+Summarization;No One;BERTScore;0.888099334
+Summarization;Distillation (distilbert);BERTScore;0.833968554
+Summarization;Quantization  (quanto-qfloat8);BERTScore;0.888519709
+Summarization;Quantization (quanto-qint8);BERTScore;0.888099333
+Summarization;Quantization (quanto-qint4);BERTScore;0.887573532
+Summarization;Pruning 0.6;BERTScore;0.369772208
+Summarization;Pruning 0.4;BERTScore;0.730843167
+Summarization;Pruning 0.2;BERTScore;0.886788105
+Summarization;No One;SIDE;0.870861469
+Summarization;Distillation (distilbert);SIDE;0.255636603
+Summarization;Quantization  (quanto-qfloat8);SIDE;0.871436646
+Summarization;Quantization (quanto-qint8);SIDE;0.870861469
+Summarization;Quantization (quanto-qint4);SIDE;0.872632873
+Summarization;Pruning 0.6;SIDE;0.060840648
+Summarization;Pruning 0.4;SIDE;0.501201641
+Summarization;Pruning 0.2;SIDE;0.874086744
+Code Search;No One;MRR@1;0.5696
+Code Search;No One;MRR@5;0.4259
+Code Search;Distillation (distilbert);MRR@1;0.4822
+Code Search;Distillation (distilbert);MRR@5;0.2957
+Code Search;Quantization  (quanto-qint8);MRR@1;0.5683
+Code Search;Quantization  (quanto-qint8);MRR@5;0.4264
+Code Search;Quantization  (quanto-qfloat8);MRR@1;0.573
+Code Search;Quantization  (quanto-qfloat8);MRR@5;0.4253
+Code Search;Quantization (quanto-qint4);MRR@1;0.5551
+Code Search;Quantization (quanto-qint4);MRR@5;0.4073
+Code Search;Pruning 0.6;MRR@1;0.2609
+Code Search;Pruning 0.6;MRR@5;0.0336
+Code Search;Pruning 0.4;MRR@1;0.4891
+Code Search;Pruning 0.4;MRR@5;0.283
+Code Search;Pruning 0.2;MRR@1;0.5677
+Code Search;Pruning 0.2;MRR@5;0.4169

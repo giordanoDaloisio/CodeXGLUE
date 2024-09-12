@@ -1,0 +1,14 @@
+\begin{tabular}{llll}
+\toprule
+\textbf{Compression Method} & \textbf{Avg Inference Time CPU} & \textbf{Avg Inference Time CUDA} & \textbf{Model Size} \\
+\midrule
+None & 15.4 & 0.010 & 499 \\
+Know. Distil. & \underline{9.1} (-41.3\%) & \textbf{0.005} (-50.0\%) & 255 (-48.8\%) \\
+Pruning (0.2) & 18.5 (+19.5\%) & 0.014 (+40.0\%) & 499 (-0.0\%) \\
+Pruning (0.4) & 18.8 (+21.9\%) & \underline{0.011} (+10.0\%) & 499 (-0.0\%) \\
+Pruning (0.6) & \textbf{5.8} (-62.3\%) & 0.011 (+10.0\%) & 499 (-0.0\%) \\
+Quantization (float8) & 25.3 (+64.0\%) & 0.021 (+110.0\%) & 243 (-51.4\%) \\
+Quantization (int4) & 36.0 (+133.0\%) & 0.030 (+200.0\%) & \textbf{203} (-59.3\%) \\
+Quantization (int8) & 31.5 (+103.8\%) & 0.019 (+90.0\%) & \underline{243} (-51.4\%) \\
+\bottomrule
+\end{tabular}
