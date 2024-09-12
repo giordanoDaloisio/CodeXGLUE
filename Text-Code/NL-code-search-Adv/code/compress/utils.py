@@ -67,6 +67,7 @@ class DistilledDataset(Dataset):
 
         if 'train_stud' in postfix:
             softlabs = np.load(os.path.join(folder, 'preds_unlabel_train.npy')).tolist()
+            print(softlabs)
 
         for i,d in enumerate(tqdm(data)):
             if 'train_stud' in postfix:

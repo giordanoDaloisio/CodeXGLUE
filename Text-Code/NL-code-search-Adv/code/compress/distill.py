@@ -173,7 +173,7 @@ def main():
     n_labels = 2
 
     config = RobertaConfig.from_pretrained("microsoft/codebert-base")
-    config.num_labels = n_labels
+    # config.num_labels = n_labels
     config.num_attention_heads = args.attention_heads
     config.hidden_size = args.hidden_dim
     config.intermediate_size = args.intermediate_size
