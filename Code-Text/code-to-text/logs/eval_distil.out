@@ -1,9 +1,0 @@
-Total: 10955
-Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-Warning: Empty candidate sentence detected; setting raw BERTscores to 0.
-Bleu 10.842786929986243
-BERTScore Prec 0.8293343632855626
-BERTScore Recall 0.8390366279442307
-BERTScore F1 0.8339685540012114
-SIDE Score 0.255636603186406
