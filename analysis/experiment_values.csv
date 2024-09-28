@@ -175,19 +175,19 @@ Summarization;Quantization (quanto-qint4);SIDE;0.872632873
 Summarization;Pruning 0.6;SIDE;0.060840648
 Summarization;Pruning 0.4;SIDE;0.501201641
 Summarization;Pruning 0.2;SIDE;0.874086744
-Code Search;No One;MRR@1;0.5696
-Code Search;No One;MRR@5;0.4259
-Code Search;Distillation (distilbert);MRR@1;0.4822
-Code Search;Distillation (distilbert);MRR@5;0.2957
-Code Search;Quantization  (quanto-qint8);MRR@1;0.5683
-Code Search;Quantization  (quanto-qint8);MRR@5;0.4264
-Code Search;Quantization  (quanto-qfloat8);MRR@1;0.573
-Code Search;Quantization  (quanto-qfloat8);MRR@5;0.4253
-Code Search;Quantization (quanto-qint4);MRR@1;0.5551
-Code Search;Quantization (quanto-qint4);MRR@5;0.4073
-Code Search;Pruning 0.6;MRR@1;0.2609
-Code Search;Pruning 0.6;MRR@5;0.0336
-Code Search;Pruning 0.4;MRR@1;0.4891
-Code Search;Pruning 0.4;MRR@5;0.283
-Code Search;Pruning 0.2;MRR@1;0.5677
-Code Search;Pruning 0.2;MRR@5;0.4169
+Code Search;No One;MRR@1;0.2416
+Code Search;No One;MRR@5;0.3103
+Code Search;Distillation (distilbert);MRR@1;0.1021
+Code Search;Distillation (distilbert);MRR@5;0.1419
+Code Search;Quantization  (quanto-qint8);MRR@1;0.2413
+Code Search;Quantization  (quanto-qint8);MRR@5;0.3105
+Code Search;Quantization  (quanto-qfloat8);MRR@1;0.2416
+Code Search;Quantization  (quanto-qfloat8);MRR@5;0.3095
+Code Search;Quantization (quanto-qint4);MRR@1;0.2232
+Code Search;Quantization (quanto-qint4);MRR@5;0.2895
+Code Search;Pruning 0.6;MRR@1;0.0003
+Code Search;Pruning 0.6;MRR@5;0.0006
+Code Search;Pruning 0.4;MRR@1;0.1032
+Code Search;Pruning 0.4;MRR@5;0.1419
+Code Search;Pruning 0.2;MRR@1;0.2335
+Code Search;Pruning 0.2;MRR@5;0.2996
