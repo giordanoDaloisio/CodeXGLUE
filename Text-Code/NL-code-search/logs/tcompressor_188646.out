@@ -1,0 +1,27 @@
+10/18/2024 22:41:14 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+10/18/2024 22:41:14 - DEBUG - urllib3.connectionpool -   Starting new HTTPS connection (1): huggingface.co:443
+10/18/2024 22:41:14 - DEBUG - urllib3.connectionpool -   https://huggingface.co:443 "HEAD /microsoft/codebert-base/resolve/main/config.json HTTP/11" 200 0
+10/18/2024 22:41:15 - DEBUG - urllib3.connectionpool -   https://huggingface.co:443 "HEAD /roberta-base/resolve/main/tokenizer_config.json HTTP/11" 200 0
+10/18/2024 22:41:15 - DEBUG - urllib3.connectionpool -   https://huggingface.co:443 "HEAD /microsoft/codebert-base/resolve/main/model.safetensors HTTP/11" 404 0
+10/18/2024 22:41:20 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models_distil_compressor', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/codebert-base', mlm=False, mlm_probability=0.15, config_name='microsoft/codebert-base', tokenizer_name='roberta-base', cache_dir='', block_size=256, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=5e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=2, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', quantize=False, quantize4=False, quantizef8=False, prune=False, prune4=False, prune6=False, job_id='188646', n_gpu=1, device=device(type='cuda'), per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, start_epoch=0, start_step=0)
+10/18/2024 22:41:20 - INFO - __main__ -   Size (MB): 22.0094
+10/18/2024 22:41:30 - INFO - __main__ -   ***** Running evaluation *****
+10/18/2024 22:41:30 - INFO - __main__ -     Num examples = 9604
+10/18/2024 22:41:30 - INFO - __main__ -     Batch size = 64
+10/18/2024 22:42:45 - INFO - __main__ -   ***** Eval results *****
+10/18/2024 22:42:45 - INFO - __main__ -     eval_loss = 3.6382
+10/18/2024 22:42:45 - INFO - __main__ -     eval_mrr = 0.0079
+10/18/2024 22:42:45 - INFO - __main__ -   Size (MB): 22.0094
+10/18/2024 22:43:04 - INFO - __main__ -   ***** Running Test *****
+10/18/2024 22:43:04 - INFO - __main__ -     Num examples = 19210
+10/18/2024 22:43:04 - INFO - __main__ -     Batch size = 64
+10/18/2024 22:43:04 - INFO - __main__ -   ************ Loading Data ***************
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Text-Code/NL-code-search-Adv/code/run.py", line 861, in <module>
+    main()
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Text-Code/NL-code-search-Adv/code/run.py", line 855, in main
+    test(args, model, tokenizer, logfile, time_dir)
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Text-Code/NL-code-search-Adv/code/run.py", line 385, in test
+    lm_loss,_,code_vec,nl_vec = model(code_inputs,nl_inputs)
+ValueError: not enough values to unpack (expected 4, got 3)
+srun: error: compute-0-3: task 0: Exited with exit code 1
