@@ -29,19 +29,16 @@ class Model(nn.Module):
             nl_vec=outputs[bs:]
         else:
             outputs=self.encoder(inputs,attention_mask=inputs.ne(1))
-            hidden_states = outputs.logits  # Use the last hidden state
-            # Assuming we take the [CLS] token representation as the sentence embedding
-            # For DistilBERT, [CLS] token is the first token
+            hidden_states = outputs.logits
             code_vec = hidden_states[:bs, 0, :]
             nl_vec = hidden_states[bs:, 0, :]
         
-        if return_vec:
-            return outputs,code_vec,nl_vec
         scores=(nl_vec[:,None,:]*code_vec[None,:,:]).sum(-1)
+        if return_vec:
+            return code_vec,nl_vec, scores
         loss_fct = CrossEntropyLoss()
         loss = loss_fct(scores, torch.arange(bs, device=scores.device))
-        return loss,outputs,code_vec,nl_vec
-
+        return loss,code_vec,nl_vec
       
         
  

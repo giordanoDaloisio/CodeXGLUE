@@ -76,6 +76,7 @@ from optimum.quanto import quantize, qint8, qint4, qfloat8, freeze, Calibration
 import torch.nn.utils.prune as prune
 import time
 import csv
+from studentmodel import StudentModel
 
 logger = logging.getLogger(__name__)
 
@@ -291,7 +292,11 @@ def train(args, train_dataset, model, tokenizer):
             nl_inputs = batch[1].to(args.device)
 
             model.train()
-            loss, _, code_vec, nl_vec = model(code_inputs, nl_inputs)
+            if teacher_model:
+                _,_,teacher_out = teacher_model(code_inputs,nl_inputs,return_vec=True)
+                loss,code_vec,nl_vec = model(code_inputs,nl_inputs,teacher_out)
+            else:
+                loss,code_vec,nl_vec = model(code_inputs,nl_inputs,teacher_out)
 
             if args.n_gpu > 1:
                 loss = loss.mean()  # mean() to average on multi-gpu parallel training
@@ -414,20 +419,17 @@ def evaluate(args, model, tokenizer, eval_when_training=False):
     model.eval()
     code_vecs = []
     nl_vecs = []
-    logits = []
     for batch in eval_dataloader:
         code_inputs = batch[0].to(args.device)
         nl_inputs = batch[1].to(args.device)
         with torch.no_grad():
-            lm_loss, logit, code_vec, nl_vec = model(code_inputs, nl_inputs)
+            lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
             eval_loss += lm_loss.mean().item()
             code_vecs.append(code_vec.cpu().numpy())
             nl_vecs.append(nl_vec.cpu().numpy())
         nb_eval_steps += 1
-        logits.append(logit.cpu().numpy())
     code_vecs = np.concatenate(code_vecs, 0)
     nl_vecs = np.concatenate(nl_vecs, 0)
-    logits = np.concatenate(logits, 0)
     if "train_stud" in args.eval_data_file:
         np.save("../dataset/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
@@ -496,14 +498,14 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
                     enable_timing=True
                 )
                 starter.record()
-                lm_loss, _, code_vec, nl_vec = model(code_inputs, nl_inputs)
+                lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
                 ender.record()
                 inf_time = starter.elapsed_time(ender)
                 torch.cuda.synchronize()
             else:
                 start = time.time()
                 logger.info("************ Loading Data ***************")
-                lm_loss, _, code_vec, nl_vec = model(code_inputs, nl_inputs)
+                lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
                 end = time.time()
                 inf_time = end - start
             times.append(inf_time)
@@ -803,6 +805,7 @@ def main():
     parser.add_argument("--job_id", type=str)
 
     args = parser.parse_args()
+    teacher = 'compressor' in args.output_dir
 
     # Setup distant debugging if needed
     if args.server_ip and args.server_port:
@@ -898,7 +901,21 @@ def main():
     else:
         model = model_class(config)
 
-    model = Model(model, config, tokenizer, args)
+    global teacher_model
+    if teacher:
+        teacher_model=Model(model,config,tokenizer,args).cuda()
+        config_student = config_class.from_dict(config.to_dict())
+        config_student.num_attention_heads = 8
+        config_student.num_hidden_layers = 12
+        config_student.intermediate_size = 64
+        config_student.hidden_size = 96
+        # config_student.vocab_size = 1000
+        student_enc = model_class(config_student) 
+        student_model = StudentModel(student_enc,config_student,tokenizer,args)
+        model = student_model
+    else:
+        model = Model(model,config,tokenizer,args)
+
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
 
