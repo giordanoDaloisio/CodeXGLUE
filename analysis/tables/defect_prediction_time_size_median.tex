@@ -1,0 +1,14 @@
+\begin{tabular}{llll}
+\toprule
+\textbf{Compression Method} & \textbf{Inference Time CPU} & \textbf{Inference Time GPU} & \textbf{Model Size} \\
+\midrule
+None & 15.902 (sec) & 0.011 (sec) & 499 (MB) \\
+Know. Distil. & -39.8\% $\pm$ 2.7\% & -47.7\% $\pm$ 0.6\% & -48.8\% \\
+Pruning (0.2) & 15.5\% $\pm$ 6.0\% & 9.1\% $\pm$ 2.0\% & -0.0\% \\
+Pruning (0.4) & 18.8\% $\pm$ 7.2\% & 6.2\% $\pm$ 1.7\% & -0.0\% \\
+Pruning (0.6) & -67.9\% $\pm$ 1.4\% & 7.3\% $\pm$ 1.6\% & -0.0\% \\
+Quantization (float8) & 41.9\% $\pm$ 16.3\% & 98.3\% $\pm$ 3.2\% & -51.4\% \\
+Quantization (int4) & 133.5\% $\pm$ 26.3\% & 201.6\% $\pm$ 4.8\% & -59.3\% \\
+Quantization (int8) & 102.2\% $\pm$ 14.4\% & 107.4\% $\pm$ 5.1\% & -51.4\% \\
+\bottomrule
+\end{tabular}

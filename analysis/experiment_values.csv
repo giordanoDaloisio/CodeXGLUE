@@ -84,9 +84,9 @@ Summarization;Distillation (distilbert);Median Inference Time CUDA;23.84124
 Summarization;Quantization  (quanto-qfloat8);Median Inference Time CUDA;27.12745
 Summarization;Quantization (quanto-qint8);Median Inference Time CUDA;25.305003
 Summarization;Quantization (quanto-qint4);Median Inference Time CUDA;30.419127
-Summarization;Pruning 0.6;Median Inference Time CUDA;26.064305
+Summarization;Pruning 0.6;Median Inference Time CUDA;129.000642
 Summarization;Pruning 0.4;Median Inference Time CUDA;53.249979
-Summarization;Pruning 0.2;Median Inference Time CUDA;129.000642
+Summarization;Pruning 0.2;Median Inference Time CUDA;26.064305
 Summarization;No One;Median Inference Time CPU;157.36878
 Summarization;Distillation (distilbert);Median Inference Time CPU;92.065376
 Summarization;Quantization  (quanto-qfloat8);Median Inference Time CPU;119.824148
@@ -191,3 +191,7 @@ Code Search;Pruning 0.4;MRR@1;0.1032
 Code Search;Pruning 0.4;MRR@5;0.1419
 Code Search;Pruning 0.2;MRR@1;0.2335
 Code Search;Pruning 0.2;MRR@5;0.2996
+Code Search;Compressor;MRR;0.0043
+Code Search;Compressor;MRR@1;0.0014
+Code Search;Compressor;MRR@5;0.0025
+Code Search;Compressor;Model Size;22.0094
