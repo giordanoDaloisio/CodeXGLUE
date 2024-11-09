@@ -903,7 +903,10 @@ def main():
 
     global teacher_model
     if teacher:
-        teacher_model=Model(model,config,tokenizer,args).cuda()
+        if args.device == 'cuda':
+            teacher_model=Model(model,config,tokenizer,args).cuda()  
+        else: 
+            teacher_model=Model(model,config,tokenizer,args)
         config_student = config_class.from_dict(config.to_dict())
         config_student.num_attention_heads = 8
         config_student.num_hidden_layers = 12

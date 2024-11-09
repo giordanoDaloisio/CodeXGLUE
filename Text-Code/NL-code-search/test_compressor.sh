@@ -17,7 +17,7 @@ conda activate codex
 
 cd code
 LANG=java
-OUTPUTDIR=./saved_models_distill_compressor
+OUTPUTDIR=./saved_models_distil_compressor
 PRETRAINDIR=microsoft/codebert-base    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM

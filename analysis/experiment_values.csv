@@ -63,6 +63,7 @@ Defect Prediction;Pruning 0.4;F1;0.211
 Defect Prediction;Pruning 0.4;MCC;0.196
 Defect Prediction;Pruning 0.2;F1;0.319
 Defect Prediction;Pruning 0.2;MCC;0.219
+Defect Prediction;Compressor;Model Size;3.09374
 Summarization;No One;Avg Inference Time CUDA;23.721
 Summarization;Distillation (distilbert);Avg Inference Time CUDA;25.044
 Summarization;Quantization  (quanto-qfloat8);Avg Inference Time CUDA;27.249
@@ -195,3 +196,6 @@ Code Search;Compressor;MRR;0.0043
 Code Search;Compressor;MRR@1;0.0014
 Code Search;Compressor;MRR@5;0.0025
 Code Search;Compressor;Model Size;22.0094
+Defect Prediction;Compressor;Accuracy;0.5948023426061494
+Defect Prediction;Compressor;F1;0.42132775744903295
+Defect Prediction;Compressor;MCC;0.17303281161098233
