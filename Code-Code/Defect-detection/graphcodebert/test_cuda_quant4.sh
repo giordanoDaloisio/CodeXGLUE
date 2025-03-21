@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_cuda_prune_local_%j.out
-#SBATCH -J dc_pl
+#SBATCH -o ./logs/test_cuda_quant4_%j.out
+#SBATCH -J def_cuda_prune
 #SBATCH -p cuda
 #SBATCH -c 40
 #SBATCH --gres=gpu:large
@@ -40,4 +40,4 @@ srun python run.py \
     --evaluate_during_training \
     --job_id $SLURM_JOB_ID \
     --seed 123456 2>&1 \
-    --prune_local | tee test.log
+    --quantize4 | tee test.log

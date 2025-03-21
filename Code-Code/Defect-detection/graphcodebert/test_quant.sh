@@ -15,9 +15,9 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-base_model=microsoft/codebert-base
+base_model=microsoft/graphcodebert-base
 model_type=roberta
-output_dir=./saved_models
+output_dir=./saved_models_graph
 
 cd code
 srun python run.py \

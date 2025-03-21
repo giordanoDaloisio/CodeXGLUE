@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_quant_graph_%j.out
-#SBATCH -J def_quant
+#SBATCH -o ./logs/test_graph_prune_%j.out
+#SBATCH -J def_prune
 #SBATCH -p normal
 #SBATCH -c 40
 
@@ -15,9 +15,9 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-base_model=microsoft/codebert-base
+base_model=microsoft/graphcodebert-base
 model_type=roberta
-output_dir=./saved_models
+output_dir=./saved_models_graph
 
 cd code
 srun python run.py \
@@ -30,7 +30,7 @@ srun python run.py \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
-    --epoch 5 \
+    --epoch 2 \
     --block_size 400 \
     --train_batch_size 32 \
     --eval_batch_size 64 \
@@ -40,6 +40,6 @@ srun python run.py \
     --job_id $SLURM_JOB_ID \
     --no_cuda \
     --seed 123456 2>&1 \
-    --quantize | tee test.log
+    --prune | tee test.log
 
 

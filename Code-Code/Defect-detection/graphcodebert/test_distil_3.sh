@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_quant_graph_%j.out
-#SBATCH -J def_quant
+#SBATCH -o ./logs/test_graph_distil3_%j.out
+#SBATCH -J dt3
 #SBATCH -p normal
 #SBATCH -c 40
 
@@ -17,7 +17,7 @@ conda activate codex
 
 base_model=microsoft/codebert-base
 model_type=roberta
-output_dir=./saved_models
+output_dir=./saved_models_distil_ase_3
 
 cd code
 srun python run.py \
@@ -32,14 +32,19 @@ srun python run.py \
     --test_data_file=../dataset/test.jsonl \
     --epoch 5 \
     --block_size 400 \
+    --attention_heads 8 \
+    --hidden_dim 96 \
+    --intermediate_size 64 \
+    --n_layers 12 \
+    --vocab_size 1000 \
     --train_batch_size 32 \
     --eval_batch_size 64 \
     --learning_rate 2e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
     --job_id $SLURM_JOB_ID \
-    --no_cuda \
     --seed 123456 2>&1 \
-    --quantize | tee test.log
+    --no_cuda \
+    "$@" | tee test.log
 
 

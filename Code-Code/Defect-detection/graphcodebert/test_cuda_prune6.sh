@@ -1,10 +1,11 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_quant_graph_%j.out
-#SBATCH -J def_quant
-#SBATCH -p normal
+#SBATCH -o ./logs/test_cuda_prune6_%j.out
+#SBATCH -J def_cuda_prune6
+#SBATCH -p cuda
 #SBATCH -c 40
+#SBATCH --gres=gpu:large
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -38,8 +39,5 @@ srun python run.py \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
     --job_id $SLURM_JOB_ID \
-    --no_cuda \
     --seed 123456 2>&1 \
-    --quantize | tee test.log
-
-
+    --prune6 | tee test.log

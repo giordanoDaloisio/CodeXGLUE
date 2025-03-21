@@ -178,7 +178,7 @@ def set_seed(seed=42):
     torch.backends.cudnn.deterministic = True
 
 
-def train(args, train_dataset, model, tokenizer):
+def train(args, train_dataset, model, tokenizer, teacher_model):
     """Train the model"""
 
     args.train_batch_size = args.per_gpu_train_batch_size * max(1, args.n_gpu)
@@ -292,11 +292,11 @@ def train(args, train_dataset, model, tokenizer):
             nl_inputs = batch[1].to(args.device)
 
             model.train()
-            if teacher_model:
+            if teacher_model is not None:
                 _,_,teacher_out = teacher_model(code_inputs,nl_inputs,return_vec=True)
                 loss,code_vec,nl_vec = model(code_inputs,nl_inputs,teacher_out)
             else:
-                loss,code_vec,nl_vec = model(code_inputs,nl_inputs,teacher_out)
+                loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
 
             if args.n_gpu > 1:
                 loss = loss.mean()  # mean() to average on multi-gpu parallel training
@@ -430,8 +430,8 @@ def evaluate(args, model, tokenizer, eval_when_training=False):
         nb_eval_steps += 1
     code_vecs = np.concatenate(code_vecs, 0)
     nl_vecs = np.concatenate(nl_vecs, 0)
-    if "train_stud" in args.eval_data_file:
-        np.save("../dataset/preds_unlabel_train", logits)
+    # if "train_stud" in args.eval_data_file:
+    #     np.save("../dataset/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
     perplexity = torch.tensor(eval_loss)
 
@@ -901,7 +901,6 @@ def main():
     else:
         model = model_class(config)
 
-    global teacher_model
     if teacher:
         if args.device == 'cuda':
             teacher_model=Model(model,config,tokenizer,args).cuda()  
@@ -918,6 +917,7 @@ def main():
         model = student_model
     else:
         model = Model(model,config,tokenizer,args)
+        teacher_model = None
 
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
@@ -934,7 +934,7 @@ def main():
         if args.local_rank == 0:
             torch.distributed.barrier()
 
-        train(args, train_dataset, model, tokenizer)
+        train(args, train_dataset, model, tokenizer, teacher_model)
 
     # Evaluation
     results = {}
