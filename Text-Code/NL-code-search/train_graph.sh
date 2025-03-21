@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/train_cbs_%j.out
-#SBATCH -J defect
+#SBATCH -o ./logs/train_%j.out
+#SBATCH -J tc_train
 #SBATCH -p cuda
 #SBATCH -c 40
 #SBATCH --gres=gpu:large
@@ -16,25 +16,29 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-base_model=huggingface/CodeBERTa-small-v1
-model_type=roberta
-output_dir=./saved_models_cbs
-
 cd code
-python run.py \
-    --output_dir=$output_dir \
-    --model_type=$model_type \
-    --tokenizer_name=$base_model \
-    --model_name_or_path=$base_model \
+OUTPUTDIR=./saved_models_graph
+PRETRAINDIR=microsoft/graphcodebert-base   # will download pre-trained CodeGPT model
+LOGFILE=text2code_concode.log
+PER_NODE_GPU=1       # modify YOUR_GPU_NUM
+MODEL=roberta
+
+
+srun python run.py \
+    --output_dir=$OUTPUTDIR \
+    --model_type=$MODEL \
+    --config_name=$PRETRAINDIR \
+    --model_name_or_path=$PRETRAINDIR \
+    --tokenizer_name=roberta-base \
     --do_train \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
-    --epoch 5 \
-    --block_size 400 \
+    --epoch 2 \
+    --block_size 256 \
     --train_batch_size 32 \
     --eval_batch_size 64 \
-    --learning_rate 2e-5 \
+    --learning_rate 5e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
-    --seed 123456  2>&1 | tee train.log
+    --seed 123456 2>&1| tee train.log
