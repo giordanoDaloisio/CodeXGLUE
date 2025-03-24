@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_graph_prune4_%j.out
+#SBATCH -o ./logs_graph/test_graph_prune4_%j.out
 #SBATCH -J def_prune4
 #SBATCH -p normal
 #SBATCH -c 40

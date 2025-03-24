@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_graph_cuda_%j.out
+#SBATCH -o ./logs_graph/test_graph_cuda_%j.out
 #SBATCH -J def_cuda
 #SBATCH -p cuda
 #SBATCH -c 40

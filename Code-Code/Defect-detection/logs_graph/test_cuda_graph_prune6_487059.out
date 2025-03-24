@@ -1,11 +1,9 @@
-03/24/2025 14:33:51 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+03/24/2025 14:18:11 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
 Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at microsoft/graphcodebert-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
 You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-03/24/2025 14:33:52 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models_graph', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/graphcodebert-base', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='microsoft/graphcodebert-base', cache_dir='', block_size=400, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=5, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id='487062', quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=True, prune_local=False, prune6=False, prune4=False, prune=False, attention_heads=None, hidden_dim=None, intermediate_size=None, n_layers=None, vocab_size=None, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
-03/24/2025 14:33:53 - INFO - __main__ -   ********** Apply Quantization qfloat8 **********
-03/24/2025 14:33:53 - INFO - __main__ -   *********** Calibrate **************
-  0%|          | 0/43 [00:00<?, ?it/s]  2%|▏         | 1/43 [00:08<05:51,  8.37s/it]  7%|▋         | 3/43 [00:10<02:04,  3.11s/it]  9%|▉         | 4/43 [00:13<01:52,  2.89s/it] 12%|█▏        | 5/43 [00:15<01:44,  2.76s/it] 14%|█▍        | 6/43 [00:18<01:38,  2.67s/it] 16%|█▋        | 7/43 [00:20<01:34,  2.61s/it] 19%|█▊        | 8/43 [00:23<01:30,  2.57s/it] 21%|██        | 9/43 [00:25<01:26,  2.55s/it] 23%|██▎       | 10/43 [00:28<01:23,  2.53s/it] 26%|██▌       | 11/43 [00:30<01:20,  2.51s/it] 28%|██▊       | 12/43 [00:33<01:17,  2.51s/it] 30%|███       | 13/43 [00:35<01:15,  2.50s/it] 33%|███▎      | 14/43 [00:38<01:12,  2.50s/it] 35%|███▍      | 15/43 [00:40<01:09,  2.49s/it] 37%|███▋      | 16/43 [00:43<01:07,  2.49s/it] 40%|███▉      | 17/43 [00:45<01:04,  2.49s/it] 42%|████▏     | 18/43 [00:48<01:02,  2.49s/it] 44%|████▍     | 19/43 [00:50<00:59,  2.49s/it] 47%|████▋     | 20/43 [00:53<00:57,  2.49s/it] 49%|████▉     | 21/43 [00:55<00:54,  2.49s/it] 51%|█████     | 22/43 [00:58<00:52,  2.49s/it] 53%|█████▎    | 23/43 [01:00<00:49,  2.49s/it] 56%|█████▌    | 24/43 [01:03<00:47,  2.49s/it] 58%|█████▊    | 25/43 [01:05<00:44,  2.49s/it] 60%|██████    | 26/43 [01:08<00:42,  2.49s/it] 63%|██████▎   | 27/43 [01:10<00:39,  2.49s/it] 65%|██████▌   | 28/43 [01:13<00:37,  2.49s/it] 67%|██████▋   | 29/43 [01:15<00:34,  2.49s/it] 70%|██████▉   | 30/43 [01:18<00:32,  2.49s/it] 72%|███████▏  | 31/43 [01:20<00:29,  2.49s/it] 74%|███████▍  | 32/43 [01:22<00:27,  2.49s/it] 77%|███████▋  | 33/43 [01:25<00:24,  2.49s/it] 79%|███████▉  | 34/43 [01:27<00:22,  2.49s/it] 81%|████████▏ | 35/43 [01:30<00:19,  2.49s/it] 84%|████████▎ | 36/43 [01:32<00:17,  2.49s/it] 86%|████████▌ | 37/43 [01:35<00:14,  2.49s/it] 88%|████████▊ | 38/43 [01:37<00:12,  2.49s/it] 91%|█████████ | 39/43 [01:40<00:09,  2.49s/it] 93%|█████████▎| 40/43 [01:42<00:07,  2.49s/it] 95%|█████████▌| 41/43 [01:45<00:04,  2.49s/it] 98%|█████████▊| 42/43 [01:47<00:02,  2.49s/it]100%|██████████| 43/43 [01:50<00:00,  2.49s/it]100%|██████████| 43/43 [01:50<00:00,  2.57s/it]
-03/24/2025 14:35:51 - INFO - __main__ -   Size (MB): 242.545548
+03/24/2025 14:18:12 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models_graph', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/graphcodebert-base', model=None, mlm=False, mlm_probability=0.15, config_name='', tokenizer_name='microsoft/graphcodebert-base', cache_dir='', block_size=400, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=2e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=5, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', early_stopping_patience=None, min_loss_delta=0.001, dropout_probability=0, job_id='487059', quantize_dynamic=False, quantize_static=False, quantize=False, quantize4=False, quantizef8=False, prune_local=False, prune6=True, prune4=False, prune=False, attention_heads=None, hidden_dim=None, intermediate_size=None, n_layers=None, vocab_size=None, n_gpu=1, per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, device=device(type='cuda'), start_epoch=0, start_step=0)
+03/24/2025 14:18:13 - INFO - __main__ -   ******* Apply Pruning 0.6 ***********
+03/24/2025 14:18:15 - INFO - __main__ -   Size (MB): 498.658348
 ==========================================================================================
 Layer (type:depth-idx)                                            Param #
 ==========================================================================================
@@ -16,12 +14,12 @@ Model                                                             --
 │    └─roberta.embeddings.token_type_embeddings.weight            ├─768
 │    └─roberta.embeddings.LayerNorm.weight                        ├─768
 │    └─roberta.embeddings.LayerNorm.bias                          ├─768
-│    └─roberta.encoder.layer.0.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.0.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.0.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.0.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.0.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.0.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.0.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.0.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.0.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.0.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.0.attention.output.LayerNorm.weight  ├─768
@@ -32,12 +30,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.0.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.0.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.0.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.1.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.1.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.1.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.1.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.1.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.1.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.1.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.1.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.1.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.1.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.1.attention.output.LayerNorm.weight  ├─768
@@ -48,12 +46,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.1.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.1.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.1.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.2.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.2.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.2.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.2.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.2.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.2.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.2.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.2.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.2.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.2.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.2.attention.output.LayerNorm.weight  ├─768
@@ -64,12 +62,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.2.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.2.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.2.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.3.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.3.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.3.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.3.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.3.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.3.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.3.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.3.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.3.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.3.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.3.attention.output.LayerNorm.weight  ├─768
@@ -80,12 +78,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.3.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.3.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.3.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.4.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.4.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.4.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.4.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.4.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.4.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.4.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.4.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.4.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.4.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.4.attention.output.LayerNorm.weight  ├─768
@@ -96,12 +94,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.4.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.4.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.4.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.5.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.5.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.5.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.5.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.5.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.5.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.5.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.5.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.5.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.5.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.5.attention.output.LayerNorm.weight  ├─768
@@ -112,12 +110,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.5.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.5.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.5.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.6.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.6.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.6.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.6.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.6.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.6.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.6.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.6.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.6.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.6.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.6.attention.output.LayerNorm.weight  ├─768
@@ -128,12 +126,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.6.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.6.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.6.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.7.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.7.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.7.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.7.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.7.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.7.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.7.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.7.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.7.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.7.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.7.attention.output.LayerNorm.weight  ├─768
@@ -144,12 +142,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.7.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.7.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.7.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.8.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.8.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.8.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.8.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.8.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.8.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.8.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.8.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.8.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.8.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.8.attention.output.LayerNorm.weight  ├─768
@@ -160,12 +158,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.8.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.8.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.8.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.9.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.9.attention.self.query.bias          ├─768
-│    └─roberta.encoder.layer.9.attention.self.key.weight          ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.query.weight        ├─589,824
 │    └─roberta.encoder.layer.9.attention.self.key.bias            ├─768
-│    └─roberta.encoder.layer.9.attention.self.value.weight        ├─589,824
+│    └─roberta.encoder.layer.9.attention.self.key.weight          ├─589,824
 │    └─roberta.encoder.layer.9.attention.self.value.bias          ├─768
+│    └─roberta.encoder.layer.9.attention.self.value.weight        ├─589,824
 │    └─roberta.encoder.layer.9.attention.output.dense.weight      ├─589,824
 │    └─roberta.encoder.layer.9.attention.output.dense.bias        ├─768
 │    └─roberta.encoder.layer.9.attention.output.LayerNorm.weight  ├─768
@@ -176,12 +174,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.9.output.dense.bias                  ├─768
 │    └─roberta.encoder.layer.9.output.LayerNorm.weight            ├─768
 │    └─roberta.encoder.layer.9.output.LayerNorm.bias              ├─768
-│    └─roberta.encoder.layer.10.attention.self.query.weight       ├─589,824
 │    └─roberta.encoder.layer.10.attention.self.query.bias         ├─768
-│    └─roberta.encoder.layer.10.attention.self.key.weight         ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.query.weight       ├─589,824
 │    └─roberta.encoder.layer.10.attention.self.key.bias           ├─768
-│    └─roberta.encoder.layer.10.attention.self.value.weight       ├─589,824
+│    └─roberta.encoder.layer.10.attention.self.key.weight         ├─589,824
 │    └─roberta.encoder.layer.10.attention.self.value.bias         ├─768
+│    └─roberta.encoder.layer.10.attention.self.value.weight       ├─589,824
 │    └─roberta.encoder.layer.10.attention.output.dense.weight     ├─589,824
 │    └─roberta.encoder.layer.10.attention.output.dense.bias       ├─768
 │    └─roberta.encoder.layer.10.attention.output.LayerNorm.weight ├─768
@@ -192,12 +190,12 @@ Model                                                             --
 │    └─roberta.encoder.layer.10.output.dense.bias                 ├─768
 │    └─roberta.encoder.layer.10.output.LayerNorm.weight           ├─768
 │    └─roberta.encoder.layer.10.output.LayerNorm.bias             ├─768
-│    └─roberta.encoder.layer.11.attention.self.query.weight       ├─589,824
 │    └─roberta.encoder.layer.11.attention.self.query.bias         ├─768
-│    └─roberta.encoder.layer.11.attention.self.key.weight         ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.query.weight       ├─589,824
 │    └─roberta.encoder.layer.11.attention.self.key.bias           ├─768
-│    └─roberta.encoder.layer.11.attention.self.value.weight       ├─589,824
+│    └─roberta.encoder.layer.11.attention.self.key.weight         ├─589,824
 │    └─roberta.encoder.layer.11.attention.self.value.bias         ├─768
+│    └─roberta.encoder.layer.11.attention.self.value.weight       ├─589,824
 │    └─roberta.encoder.layer.11.attention.output.dense.weight     ├─589,824
 │    └─roberta.encoder.layer.11.attention.output.dense.bias       ├─768
 │    └─roberta.encoder.layer.11.attention.output.LayerNorm.weight ├─768
@@ -218,12 +216,12 @@ Model                                                             --
 │    │    └─embeddings.token_type_embeddings.weight               ├─768
 │    │    └─embeddings.LayerNorm.weight                           ├─768
 │    │    └─embeddings.LayerNorm.bias                             ├─768
-│    │    └─encoder.layer.0.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.0.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.0.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.0.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.0.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.0.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.0.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.0.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.0.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.0.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.0.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.0.attention.output.LayerNorm.weight     ├─768
@@ -234,12 +232,12 @@ Model                                                             --
 │    │    └─encoder.layer.0.output.dense.bias                     ├─768
 │    │    └─encoder.layer.0.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.0.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.1.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.1.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.1.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.1.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.1.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.1.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.1.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.1.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.1.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.1.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.1.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.1.attention.output.LayerNorm.weight     ├─768
@@ -250,12 +248,12 @@ Model                                                             --
 │    │    └─encoder.layer.1.output.dense.bias                     ├─768
 │    │    └─encoder.layer.1.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.1.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.2.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.2.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.2.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.2.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.2.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.2.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.2.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.2.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.2.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.2.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.2.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.2.attention.output.LayerNorm.weight     ├─768
@@ -266,12 +264,12 @@ Model                                                             --
 │    │    └─encoder.layer.2.output.dense.bias                     ├─768
 │    │    └─encoder.layer.2.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.2.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.3.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.3.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.3.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.3.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.3.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.3.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.3.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.3.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.3.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.3.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.3.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.3.attention.output.LayerNorm.weight     ├─768
@@ -282,12 +280,12 @@ Model                                                             --
 │    │    └─encoder.layer.3.output.dense.bias                     ├─768
 │    │    └─encoder.layer.3.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.3.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.4.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.4.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.4.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.4.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.4.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.4.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.4.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.4.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.4.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.4.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.4.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.4.attention.output.LayerNorm.weight     ├─768
@@ -298,12 +296,12 @@ Model                                                             --
 │    │    └─encoder.layer.4.output.dense.bias                     ├─768
 │    │    └─encoder.layer.4.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.4.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.5.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.5.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.5.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.5.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.5.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.5.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.5.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.5.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.5.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.5.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.5.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.5.attention.output.LayerNorm.weight     ├─768
@@ -314,12 +312,12 @@ Model                                                             --
 │    │    └─encoder.layer.5.output.dense.bias                     ├─768
 │    │    └─encoder.layer.5.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.5.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.6.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.6.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.6.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.6.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.6.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.6.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.6.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.6.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.6.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.6.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.6.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.6.attention.output.LayerNorm.weight     ├─768
@@ -330,12 +328,12 @@ Model                                                             --
 │    │    └─encoder.layer.6.output.dense.bias                     ├─768
 │    │    └─encoder.layer.6.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.6.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.7.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.7.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.7.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.7.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.7.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.7.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.7.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.7.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.7.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.7.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.7.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.7.attention.output.LayerNorm.weight     ├─768
@@ -346,12 +344,12 @@ Model                                                             --
 │    │    └─encoder.layer.7.output.dense.bias                     ├─768
 │    │    └─encoder.layer.7.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.7.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.8.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.8.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.8.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.8.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.8.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.8.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.8.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.8.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.8.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.8.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.8.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.8.attention.output.LayerNorm.weight     ├─768
@@ -362,12 +360,12 @@ Model                                                             --
 │    │    └─encoder.layer.8.output.dense.bias                     ├─768
 │    │    └─encoder.layer.8.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.8.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.9.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.9.attention.self.query.bias             ├─768
-│    │    └─encoder.layer.9.attention.self.key.weight             ├─589,824
+│    │    └─encoder.layer.9.attention.self.query.weight           ├─589,824
 │    │    └─encoder.layer.9.attention.self.key.bias               ├─768
-│    │    └─encoder.layer.9.attention.self.value.weight           ├─589,824
+│    │    └─encoder.layer.9.attention.self.key.weight             ├─589,824
 │    │    └─encoder.layer.9.attention.self.value.bias             ├─768
+│    │    └─encoder.layer.9.attention.self.value.weight           ├─589,824
 │    │    └─encoder.layer.9.attention.output.dense.weight         ├─589,824
 │    │    └─encoder.layer.9.attention.output.dense.bias           ├─768
 │    │    └─encoder.layer.9.attention.output.LayerNorm.weight     ├─768
@@ -378,12 +376,12 @@ Model                                                             --
 │    │    └─encoder.layer.9.output.dense.bias                     ├─768
 │    │    └─encoder.layer.9.output.LayerNorm.weight               ├─768
 │    │    └─encoder.layer.9.output.LayerNorm.bias                 ├─768
-│    │    └─encoder.layer.10.attention.self.query.weight          ├─589,824
 │    │    └─encoder.layer.10.attention.self.query.bias            ├─768
-│    │    └─encoder.layer.10.attention.self.key.weight            ├─589,824
+│    │    └─encoder.layer.10.attention.self.query.weight          ├─589,824
 │    │    └─encoder.layer.10.attention.self.key.bias              ├─768
-│    │    └─encoder.layer.10.attention.self.value.weight          ├─589,824
+│    │    └─encoder.layer.10.attention.self.key.weight            ├─589,824
 │    │    └─encoder.layer.10.attention.self.value.bias            ├─768
+│    │    └─encoder.layer.10.attention.self.value.weight          ├─589,824
 │    │    └─encoder.layer.10.attention.output.dense.weight        ├─589,824
 │    │    └─encoder.layer.10.attention.output.dense.bias          ├─768
 │    │    └─encoder.layer.10.attention.output.LayerNorm.weight    ├─768
@@ -394,12 +392,12 @@ Model                                                             --
 │    │    └─encoder.layer.10.output.dense.bias                    ├─768
 │    │    └─encoder.layer.10.output.LayerNorm.weight              ├─768
 │    │    └─encoder.layer.10.output.LayerNorm.bias                ├─768
-│    │    └─encoder.layer.11.attention.self.query.weight          ├─589,824
 │    │    └─encoder.layer.11.attention.self.query.bias            ├─768
-│    │    └─encoder.layer.11.attention.self.key.weight            ├─589,824
+│    │    └─encoder.layer.11.attention.self.query.weight          ├─589,824
 │    │    └─encoder.layer.11.attention.self.key.bias              ├─768
-│    │    └─encoder.layer.11.attention.self.value.weight          ├─589,824
+│    │    └─encoder.layer.11.attention.self.key.weight            ├─589,824
 │    │    └─encoder.layer.11.attention.self.value.bias            ├─768
+│    │    └─encoder.layer.11.attention.self.value.weight          ├─589,824
 │    │    └─encoder.layer.11.attention.output.dense.weight        ├─589,824
 │    │    └─encoder.layer.11.attention.output.dense.bias          ├─768
 │    │    └─encoder.layer.11.attention.output.LayerNorm.weight    ├─768
@@ -417,12 +415,12 @@ Model                                                             --
 │    │    │    └─LayerNorm.weight                                 ├─768
 │    │    │    └─LayerNorm.bias                                   └─768
 │    │    └─RobertaEncoder: 3-2                                   85,054,464
-│    │    │    └─layer.0.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.0.attention.self.query.bias                ├─768
-│    │    │    └─layer.0.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.0.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.0.attention.self.key.bias                  ├─768
-│    │    │    └─layer.0.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.0.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.0.attention.self.value.bias                ├─768
+│    │    │    └─layer.0.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.0.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.0.attention.output.dense.bias              ├─768
 │    │    │    └─layer.0.attention.output.LayerNorm.weight        ├─768
@@ -433,12 +431,12 @@ Model                                                             --
 │    │    │    └─layer.0.output.dense.bias                        ├─768
 │    │    │    └─layer.0.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.0.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.1.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.1.attention.self.query.bias                ├─768
-│    │    │    └─layer.1.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.1.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.1.attention.self.key.bias                  ├─768
-│    │    │    └─layer.1.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.1.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.1.attention.self.value.bias                ├─768
+│    │    │    └─layer.1.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.1.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.1.attention.output.dense.bias              ├─768
 │    │    │    └─layer.1.attention.output.LayerNorm.weight        ├─768
@@ -449,12 +447,12 @@ Model                                                             --
 │    │    │    └─layer.1.output.dense.bias                        ├─768
 │    │    │    └─layer.1.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.1.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.2.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.2.attention.self.query.bias                ├─768
-│    │    │    └─layer.2.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.2.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.2.attention.self.key.bias                  ├─768
-│    │    │    └─layer.2.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.2.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.2.attention.self.value.bias                ├─768
+│    │    │    └─layer.2.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.2.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.2.attention.output.dense.bias              ├─768
 │    │    │    └─layer.2.attention.output.LayerNorm.weight        ├─768
@@ -465,12 +463,12 @@ Model                                                             --
 │    │    │    └─layer.2.output.dense.bias                        ├─768
 │    │    │    └─layer.2.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.2.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.3.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.3.attention.self.query.bias                ├─768
-│    │    │    └─layer.3.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.3.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.3.attention.self.key.bias                  ├─768
-│    │    │    └─layer.3.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.3.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.3.attention.self.value.bias                ├─768
+│    │    │    └─layer.3.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.3.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.3.attention.output.dense.bias              ├─768
 │    │    │    └─layer.3.attention.output.LayerNorm.weight        ├─768
@@ -481,12 +479,12 @@ Model                                                             --
 │    │    │    └─layer.3.output.dense.bias                        ├─768
 │    │    │    └─layer.3.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.3.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.4.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.4.attention.self.query.bias                ├─768
-│    │    │    └─layer.4.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.4.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.4.attention.self.key.bias                  ├─768
-│    │    │    └─layer.4.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.4.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.4.attention.self.value.bias                ├─768
+│    │    │    └─layer.4.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.4.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.4.attention.output.dense.bias              ├─768
 │    │    │    └─layer.4.attention.output.LayerNorm.weight        ├─768
@@ -497,12 +495,12 @@ Model                                                             --
 │    │    │    └─layer.4.output.dense.bias                        ├─768
 │    │    │    └─layer.4.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.4.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.5.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.5.attention.self.query.bias                ├─768
-│    │    │    └─layer.5.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.5.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.5.attention.self.key.bias                  ├─768
-│    │    │    └─layer.5.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.5.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.5.attention.self.value.bias                ├─768
+│    │    │    └─layer.5.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.5.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.5.attention.output.dense.bias              ├─768
 │    │    │    └─layer.5.attention.output.LayerNorm.weight        ├─768
@@ -513,12 +511,12 @@ Model                                                             --
 │    │    │    └─layer.5.output.dense.bias                        ├─768
 │    │    │    └─layer.5.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.5.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.6.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.6.attention.self.query.bias                ├─768
-│    │    │    └─layer.6.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.6.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.6.attention.self.key.bias                  ├─768
-│    │    │    └─layer.6.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.6.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.6.attention.self.value.bias                ├─768
+│    │    │    └─layer.6.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.6.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.6.attention.output.dense.bias              ├─768
 │    │    │    └─layer.6.attention.output.LayerNorm.weight        ├─768
@@ -529,12 +527,12 @@ Model                                                             --
 │    │    │    └─layer.6.output.dense.bias                        ├─768
 │    │    │    └─layer.6.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.6.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.7.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.7.attention.self.query.bias                ├─768
-│    │    │    └─layer.7.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.7.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.7.attention.self.key.bias                  ├─768
-│    │    │    └─layer.7.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.7.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.7.attention.self.value.bias                ├─768
+│    │    │    └─layer.7.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.7.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.7.attention.output.dense.bias              ├─768
 │    │    │    └─layer.7.attention.output.LayerNorm.weight        ├─768
@@ -545,12 +543,12 @@ Model                                                             --
 │    │    │    └─layer.7.output.dense.bias                        ├─768
 │    │    │    └─layer.7.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.7.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.8.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.8.attention.self.query.bias                ├─768
-│    │    │    └─layer.8.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.8.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.8.attention.self.key.bias                  ├─768
-│    │    │    └─layer.8.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.8.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.8.attention.self.value.bias                ├─768
+│    │    │    └─layer.8.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.8.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.8.attention.output.dense.bias              ├─768
 │    │    │    └─layer.8.attention.output.LayerNorm.weight        ├─768
@@ -561,12 +559,12 @@ Model                                                             --
 │    │    │    └─layer.8.output.dense.bias                        ├─768
 │    │    │    └─layer.8.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.8.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.9.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.9.attention.self.query.bias                ├─768
-│    │    │    └─layer.9.attention.self.key.weight                ├─589,824
+│    │    │    └─layer.9.attention.self.query.weight              ├─589,824
 │    │    │    └─layer.9.attention.self.key.bias                  ├─768
-│    │    │    └─layer.9.attention.self.value.weight              ├─589,824
+│    │    │    └─layer.9.attention.self.key.weight                ├─589,824
 │    │    │    └─layer.9.attention.self.value.bias                ├─768
+│    │    │    └─layer.9.attention.self.value.weight              ├─589,824
 │    │    │    └─layer.9.attention.output.dense.weight            ├─589,824
 │    │    │    └─layer.9.attention.output.dense.bias              ├─768
 │    │    │    └─layer.9.attention.output.LayerNorm.weight        ├─768
@@ -577,12 +575,12 @@ Model                                                             --
 │    │    │    └─layer.9.output.dense.bias                        ├─768
 │    │    │    └─layer.9.output.LayerNorm.weight                  ├─768
 │    │    │    └─layer.9.output.LayerNorm.bias                    ├─768
-│    │    │    └─layer.10.attention.self.query.weight             ├─589,824
 │    │    │    └─layer.10.attention.self.query.bias               ├─768
-│    │    │    └─layer.10.attention.self.key.weight               ├─589,824
+│    │    │    └─layer.10.attention.self.query.weight             ├─589,824
 │    │    │    └─layer.10.attention.self.key.bias                 ├─768
-│    │    │    └─layer.10.attention.self.value.weight             ├─589,824
+│    │    │    └─layer.10.attention.self.key.weight               ├─589,824
 │    │    │    └─layer.10.attention.self.value.bias               ├─768
+│    │    │    └─layer.10.attention.self.value.weight             ├─589,824
 │    │    │    └─layer.10.attention.output.dense.weight           ├─589,824
 │    │    │    └─layer.10.attention.output.dense.bias             ├─768
 │    │    │    └─layer.10.attention.output.LayerNorm.weight       ├─768
@@ -593,12 +591,12 @@ Model                                                             --
 │    │    │    └─layer.10.output.dense.bias                       ├─768
 │    │    │    └─layer.10.output.LayerNorm.weight                 ├─768
 │    │    │    └─layer.10.output.LayerNorm.bias                   ├─768
-│    │    │    └─layer.11.attention.self.query.weight             ├─589,824
 │    │    │    └─layer.11.attention.self.query.bias               ├─768
-│    │    │    └─layer.11.attention.self.key.weight               ├─589,824
+│    │    │    └─layer.11.attention.self.query.weight             ├─589,824
 │    │    │    └─layer.11.attention.self.key.bias                 ├─768
-│    │    │    └─layer.11.attention.self.value.weight             ├─589,824
+│    │    │    └─layer.11.attention.self.key.weight               ├─589,824
 │    │    │    └─layer.11.attention.self.value.bias               ├─768
+│    │    │    └─layer.11.attention.self.value.weight             ├─589,824
 │    │    │    └─layer.11.attention.output.dense.weight           ├─589,824
 │    │    │    └─layer.11.attention.output.dense.bias             ├─768
 │    │    │    └─layer.11.attention.output.LayerNorm.weight       ├─768
@@ -614,11 +612,11 @@ Model                                                             --
 │    │    └─dense.bias                                            ├─768
 │    │    └─out_proj.weight                                       ├─768
 │    │    └─out_proj.bias                                         └─1
-│    │    └─QLinear: 3-3                                          590,592
+│    │    └─Linear: 3-3                                           590,592
 │    │    │    └─weight                                           ├─589,824
 │    │    │    └─bias                                             └─768
 │    │    └─Dropout: 3-4                                          --
-│    │    └─QLinear: 3-5                                          769
+│    │    └─Linear: 3-5                                           769
 │    │    │    └─weight                                           ├─768
 │    │    │    └─bias                                             └─1
 ├─Dropout: 1-2                                                    --
@@ -626,16 +624,16 @@ Model                                                             --
 Total params: 124,646,401
 Trainable params: 124,646,401
 Non-trainable params: 0
-03/24/2025 14:35:56 - INFO - __main__ -   ***** Running evaluation *****
-03/24/2025 14:35:56 - INFO - __main__ -     Num examples = 2732
-03/24/2025 14:35:56 - INFO - __main__ -     Batch size = 64
+03/24/2025 14:18:21 - INFO - __main__ -   ***** Running evaluation *****
+03/24/2025 14:18:21 - INFO - __main__ -     Num examples = 2732
+03/24/2025 14:18:21 - INFO - __main__ -     Batch size = 64
 ==========================================================================================
-03/24/2025 14:37:42 - INFO - __main__ -   Average time: 0.07989336723505064
-03/24/2025 14:37:42 - INFO - __main__ -   ***** Eval results *****
-03/24/2025 14:37:42 - INFO - __main__ -     eval_acc = 0.6409
-03/24/2025 14:37:42 - INFO - __main__ -     eval_loss = 0.7559
-03/24/2025 14:37:53 - INFO - __main__ -   ***** Running Test *****
-03/24/2025 14:37:53 - INFO - __main__ -     Num examples = 2732
-03/24/2025 14:37:53 - INFO - __main__ -     Batch size = 64
-  0%|          | 0/43 [00:00<?, ?it/s]  2%|▏         | 1/43 [00:02<01:44,  2.50s/it]  5%|▍         | 2/43 [00:05<01:42,  2.50s/it]  7%|▋         | 3/43 [00:07<01:39,  2.50s/it]  9%|▉         | 4/43 [00:10<01:37,  2.50s/it] 12%|█▏        | 5/43 [00:12<01:34,  2.50s/it] 14%|█▍        | 6/43 [00:15<01:32,  2.50s/it] 16%|█▋        | 7/43 [00:17<01:29,  2.49s/it] 19%|█▊        | 8/43 [00:19<01:27,  2.49s/it] 21%|██        | 9/43 [00:22<01:24,  2.49s/it] 23%|██▎       | 10/43 [00:24<01:22,  2.50s/it] 26%|██▌       | 11/43 [00:27<01:19,  2.50s/it] 28%|██▊       | 12/43 [00:29<01:17,  2.50s/it] 30%|███       | 13/43 [00:32<01:14,  2.49s/it] 33%|███▎      | 14/43 [00:34<01:12,  2.49s/it] 35%|███▍      | 15/43 [00:37<01:09,  2.49s/it] 37%|███▋      | 16/43 [00:39<01:07,  2.50s/it] 40%|███▉      | 17/43 [00:42<01:04,  2.50s/it] 42%|████▏     | 18/43 [00:44<01:02,  2.51s/it] 44%|████▍     | 19/43 [00:47<01:00,  2.51s/it] 47%|████▋     | 20/43 [00:50<00:57,  2.51s/it] 49%|████▉     | 21/43 [00:52<00:55,  2.51s/it] 51%|█████     | 22/43 [00:55<00:52,  2.52s/it] 53%|█████▎    | 23/43 [00:57<00:50,  2.51s/it] 56%|█████▌    | 24/43 [01:00<00:47,  2.51s/it] 58%|█████▊    | 25/43 [01:02<00:45,  2.51s/it] 60%|██████    | 26/43 [01:05<00:42,  2.51s/it] 63%|██████▎   | 27/43 [01:07<00:40,  2.51s/it] 65%|██████▌   | 28/43 [01:10<00:37,  2.51s/it] 67%|██████▋   | 29/43 [01:12<00:35,  2.50s/it] 70%|██████▉   | 30/43 [01:15<00:32,  2.51s/it] 72%|███████▏  | 31/43 [01:17<00:29,  2.50s/it] 74%|███████▍  | 32/43 [01:20<00:27,  2.51s/it] 77%|███████▋  | 33/43 [01:22<00:24,  2.50s/it] 79%|███████▉  | 34/43 [01:25<00:22,  2.50s/it] 81%|████████▏ | 35/43 [01:27<00:20,  2.50s/it] 84%|████████▎ | 36/43 [01:30<00:17,  2.51s/it] 86%|████████▌ | 37/43 [01:32<00:15,  2.51s/it] 88%|████████▊ | 38/43 [01:35<00:12,  2.51s/it] 91%|█████████ | 39/43 [01:37<00:10,  2.52s/it] 93%|█████████▎| 40/43 [01:40<00:07,  2.52s/it] 95%|█████████▌| 41/43 [01:42<00:05,  2.51s/it] 98%|█████████▊| 42/43 [01:45<00:02,  2.51s/it]100%|██████████| 43/43 [01:46<00:00,  2.29s/it]100%|██████████| 43/43 [01:46<00:00,  2.49s/it]
-03/24/2025 14:39:40 - INFO - __main__ -   Average inference time: 0.020360092784083166
+03/24/2025 14:20:07 - INFO - __main__ -   Average time: 0.08629113574360692
+03/24/2025 14:20:07 - INFO - __main__ -   ***** Eval results *****
+03/24/2025 14:20:07 - INFO - __main__ -     eval_acc = 0.627
+03/24/2025 14:20:07 - INFO - __main__ -     eval_loss = 0.6611
+03/24/2025 14:20:18 - INFO - __main__ -   ***** Running Test *****
+03/24/2025 14:20:18 - INFO - __main__ -     Num examples = 2732
+03/24/2025 14:20:18 - INFO - __main__ -     Batch size = 64
+  0%|          | 0/43 [00:00<?, ?it/s]  2%|▏         | 1/43 [00:02<01:41,  2.41s/it]  5%|▍         | 2/43 [00:04<01:37,  2.39s/it]  7%|▋         | 3/43 [00:07<01:35,  2.40s/it]  9%|▉         | 4/43 [00:09<01:33,  2.39s/it] 12%|█▏        | 5/43 [00:11<01:30,  2.39s/it] 14%|█▍        | 6/43 [00:14<01:28,  2.39s/it] 16%|█▋        | 7/43 [00:16<01:26,  2.39s/it] 19%|█▊        | 8/43 [00:19<01:23,  2.40s/it] 21%|██        | 9/43 [00:21<01:21,  2.40s/it] 23%|██▎       | 10/43 [00:23<01:18,  2.39s/it] 26%|██▌       | 11/43 [00:26<01:16,  2.40s/it] 28%|██▊       | 12/43 [00:28<01:14,  2.39s/it] 30%|███       | 13/43 [00:31<01:11,  2.40s/it] 33%|███▎      | 14/43 [00:33<01:09,  2.40s/it] 35%|███▍      | 15/43 [00:35<01:07,  2.40s/it] 37%|███▋      | 16/43 [00:38<01:04,  2.39s/it] 40%|███▉      | 17/43 [00:40<01:02,  2.40s/it] 42%|████▏     | 18/43 [00:43<01:00,  2.41s/it] 44%|████▍     | 19/43 [00:45<00:57,  2.40s/it] 47%|████▋     | 20/43 [00:47<00:55,  2.40s/it] 49%|████▉     | 21/43 [00:50<00:53,  2.41s/it] 51%|█████     | 22/43 [00:52<00:50,  2.40s/it] 53%|█████▎    | 23/43 [00:55<00:48,  2.40s/it] 56%|█████▌    | 24/43 [00:57<00:45,  2.40s/it] 58%|█████▊    | 25/43 [00:59<00:43,  2.41s/it] 60%|██████    | 26/43 [01:02<00:40,  2.40s/it] 63%|██████▎   | 27/43 [01:04<00:38,  2.39s/it] 65%|██████▌   | 28/43 [01:07<00:36,  2.40s/it] 67%|██████▋   | 29/43 [01:09<00:33,  2.40s/it] 70%|██████▉   | 30/43 [01:11<00:31,  2.41s/it] 72%|███████▏  | 31/43 [01:14<00:29,  2.42s/it] 74%|███████▍  | 32/43 [01:16<00:26,  2.41s/it] 77%|███████▋  | 33/43 [01:19<00:24,  2.41s/it] 79%|███████▉  | 34/43 [01:21<00:21,  2.41s/it] 81%|████████▏ | 35/43 [01:24<00:19,  2.41s/it] 84%|████████▎ | 36/43 [01:26<00:16,  2.41s/it] 86%|████████▌ | 37/43 [01:28<00:14,  2.41s/it] 88%|████████▊ | 38/43 [01:31<00:12,  2.42s/it] 91%|█████████ | 39/43 [01:33<00:09,  2.41s/it] 93%|█████████▎| 40/43 [01:36<00:07,  2.41s/it] 95%|█████████▌| 41/43 [01:38<00:04,  2.40s/it] 98%|█████████▊| 42/43 [01:40<00:02,  2.41s/it]100%|██████████| 43/43 [01:42<00:00,  2.18s/it]100%|██████████| 43/43 [01:42<00:00,  2.39s/it]
+03/24/2025 14:22:00 - INFO - __main__ -   Average inference time: 0.010251361270283544

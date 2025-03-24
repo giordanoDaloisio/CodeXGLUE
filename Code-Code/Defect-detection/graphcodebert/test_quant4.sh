@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/test_graph_quant4_%j.out
+#SBATCH -o ./logs_graph/test_graph_quant4_%j.out
 #SBATCH -J def_quant
 #SBATCH -p normal
 #SBATCH -c 40

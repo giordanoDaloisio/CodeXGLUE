@@ -199,3 +199,9 @@ Code Search;Compressor;Model Size;22.0094
 Defect Prediction;Compressor;Accuracy;0.5948023426061494
 Defect Prediction;Compressor;F1;0.42132775744903295
 Defect Prediction;Compressor;MCC;0.17303281161098233
+Defect Prediction Graph;No One;Avg Inference Time CUDA;0.01
+Defect Prediction Graph;No One;Avg Inference Time CPU;5.91
+Defect Prediction Graph;No One;Model Size;498.655532
+Defect Prediction Graph;No One;Accuracy;0.6211566617862372
+Defect Prediction Graph;No One;F1;0.5721372467961968
+Defect Prediction Graph;No One;MCC;0.23362966149158498

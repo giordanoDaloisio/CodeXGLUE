@@ -1,3 +1,4 @@
+
 # coding=utf-8
 # Copyright 2018 The Google AI Language Team Authors and The HuggingFace Inc. team.
 # Copyright (c) 2018, NVIDIA CORPORATION.  All rights reserved.
@@ -76,7 +77,6 @@ from optimum.quanto import quantize, qint8, qint4, qfloat8, freeze, Calibration
 import torch.nn.utils.prune as prune
 import time
 import csv
-from studentmodel import StudentModel
 
 logger = logging.getLogger(__name__)
 
@@ -178,67 +178,36 @@ def set_seed(seed=42):
     torch.backends.cudnn.deterministic = True
 
 
-def train(args, train_dataset, model, tokenizer, teacher_model):
-    """Train the model"""
-
+def train(args, train_dataset, model, tokenizer):
+    """ Train the model """
+    
     args.train_batch_size = args.per_gpu_train_batch_size * max(1, args.n_gpu)
-    train_sampler = (
-        RandomSampler(train_dataset)
-        if args.local_rank == -1
-        else DistributedSampler(train_dataset)
-    )
-
-    train_dataloader = DataLoader(
-        train_dataset,
-        sampler=train_sampler,
-        batch_size=args.train_batch_size,
-        num_workers=4,
-        pin_memory=True,
-    )
-    args.max_steps = args.epoch * len(train_dataloader)
-    args.save_steps = len(train_dataloader) // 10
-    args.warmup_steps = len(train_dataloader)
-    args.logging_steps = len(train_dataloader)
-    args.num_train_epochs = args.epoch
+    train_sampler = RandomSampler(train_dataset) if args.local_rank == -1 else DistributedSampler(train_dataset)
+    
+    train_dataloader = DataLoader(train_dataset, sampler=train_sampler, 
+                                  batch_size=args.train_batch_size,num_workers=4,pin_memory=True)
+    args.max_steps=args.epoch*len( train_dataloader)
+    args.save_steps=len( train_dataloader)//10
+    args.warmup_steps=len( train_dataloader)
+    args.logging_steps=len( train_dataloader)
+    args.num_train_epochs=args.epoch
     model.to(args.device)
     # Prepare optimizer and schedule (linear warmup and decay)
-    no_decay = ["bias", "LayerNorm.weight"]
+    no_decay = ['bias', 'LayerNorm.weight']
     optimizer_grouped_parameters = [
-        {
-            "params": [
-                p
-                for n, p in model.named_parameters()
-                if not any(nd in n for nd in no_decay)
-            ],
-            "weight_decay": args.weight_decay,
-        },
-        {
-            "params": [
-                p
-                for n, p in model.named_parameters()
-                if any(nd in n for nd in no_decay)
-            ],
-            "weight_decay": 0.0,
-        },
+        {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)],
+         'weight_decay': args.weight_decay},
+        {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
     ]
-    optimizer = AdamW(
-        optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon
-    )
-    scheduler = get_linear_schedule_with_warmup(
-        optimizer,
-        num_warmup_steps=args.max_steps * 0.1,
-        num_training_steps=args.max_steps,
-    )
+    optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
+    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=args.max_steps*0.1,
+                                                num_training_steps=args.max_steps)
     if args.fp16:
         try:
             from apex import amp
         except ImportError:
-            raise ImportError(
-                "Please install apex from https://www.github.com/nvidia/apex to use fp16 training."
-            )
-        model, optimizer = amp.initialize(
-            model, optimizer, opt_level=args.fp16_opt_level
-        )
+            raise ImportError("Please install apex from https://www.github.com/nvidia/apex to use fp16 training.")
+        model, optimizer = amp.initialize(model, optimizer, opt_level=args.fp16_opt_level)
 
     # multi-gpu training (should be after apex fp16 initialization)
     if args.n_gpu > 1:
@@ -246,16 +215,13 @@ def train(args, train_dataset, model, tokenizer, teacher_model):
 
     # Distributed training (should be after apex fp16 initialization)
     if args.local_rank != -1:
-        model = torch.nn.parallel.DistributedDataParallel(
-            model,
-            device_ids=[args.local_rank],
-            output_device=args.local_rank,
-            find_unused_parameters=True,
-        )
+        model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank],
+                                                          output_device=args.local_rank,
+                                                          find_unused_parameters=True)
 
-    checkpoint_last = os.path.join(args.output_dir, "checkpoint-last")
-    scheduler_last = os.path.join(checkpoint_last, "scheduler.pt")
-    optimizer_last = os.path.join(checkpoint_last, "optimizer.pt")
+    checkpoint_last = os.path.join(args.output_dir, 'checkpoint-last')
+    scheduler_last = os.path.join(checkpoint_last, 'scheduler.pt')
+    optimizer_last = os.path.join(checkpoint_last, 'optimizer.pt')
     if os.path.exists(scheduler_last):
         scheduler.load_state_dict(torch.load(scheduler_last))
     if os.path.exists(optimizer_last):
@@ -264,39 +230,31 @@ def train(args, train_dataset, model, tokenizer, teacher_model):
     logger.info("***** Running training *****")
     logger.info("  Num examples = %d", len(train_dataset))
     logger.info("  Num Epochs = %d", args.num_train_epochs)
-    logger.info(
-        "  Instantaneous batch size per GPU = %d", args.per_gpu_train_batch_size
-    )
-    logger.info(
-        "  Total train batch size (w. parallel, distributed & accumulation) = %d",
-        args.train_batch_size
-        * args.gradient_accumulation_steps
-        * (torch.distributed.get_world_size() if args.local_rank != -1 else 1),
-    )
+    logger.info("  Instantaneous batch size per GPU = %d", args.per_gpu_train_batch_size)
+    logger.info("  Total train batch size (w. parallel, distributed & accumulation) = %d",
+                args.train_batch_size * args.gradient_accumulation_steps * (
+                    torch.distributed.get_world_size() if args.local_rank != -1 else 1))
     logger.info("  Gradient Accumulation steps = %d", args.gradient_accumulation_steps)
     logger.info("  Total optimization steps = %d", args.max_steps)
-
+    
     global_step = args.start_step
-    tr_loss, logging_loss, avg_loss, tr_nb, tr_num, train_loss = 0.0, 0.0, 0.0, 0, 0, 0
-    best_mrr = 0.0
-    best_acc = 0.0
+    tr_loss, logging_loss,avg_loss,tr_nb,tr_num,train_loss = 0.0, 0.0,0.0,0,0,0
+    best_mrr=0.0
+    best_acc=0.0
     # model.resize_token_embeddings(len(tokenizer))
     model.zero_grad()
 
-    for idx in range(args.start_epoch, int(args.num_train_epochs)):
+ 
+    for idx in range(args.start_epoch, int(args.num_train_epochs)): 
         bar = train_dataloader
-        tr_num = 0
-        train_loss = 0
+        tr_num=0
+        train_loss=0
         for step, batch in enumerate(bar):
-            code_inputs = batch[0].to(args.device)
+            code_inputs = batch[0].to(args.device)    
             nl_inputs = batch[1].to(args.device)
 
             model.train()
-            if teacher_model is not None:
-                _,_,teacher_out = teacher_model(code_inputs,nl_inputs,return_vec=True)
-                loss,code_vec,nl_vec = model(code_inputs,nl_inputs,teacher_out)
-            else:
-                loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
 
             if args.n_gpu > 1:
                 loss = loss.mean()  # mean() to average on multi-gpu parallel training
@@ -306,77 +264,57 @@ def train(args, train_dataset, model, tokenizer, teacher_model):
             if args.fp16:
                 with amp.scale_loss(loss, optimizer) as scaled_loss:
                     scaled_loss.backward()
-                torch.nn.utils.clip_grad_norm_(
-                    amp.master_params(optimizer), args.max_grad_norm
-                )
+                torch.nn.utils.clip_grad_norm_(amp.master_params(optimizer), args.max_grad_norm)
             else:
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
 
             tr_loss += loss.item()
-            tr_num += 1
-            train_loss += loss.item()
-            if avg_loss == 0:
-                avg_loss = tr_loss
-            avg_loss = round(train_loss / tr_num, 5)
-            if (step + 1) % 100 == 0:
-                logger.info("epoch {} step {} loss {}".format(idx, step + 1, avg_loss))
-            # bar.set_description("epoch {} loss {}".format(idx,avg_loss))
+            tr_num+=1
+            train_loss+=loss.item()
+            if avg_loss==0:
+                avg_loss=tr_loss
+            avg_loss=round(train_loss/tr_num,5)
+            if (step+1)% 100==0:
+                logger.info("epoch {} step {} loss {}".format(idx,step+1,avg_loss))
+            #bar.set_description("epoch {} loss {}".format(idx,avg_loss))
 
+                
             if (step + 1) % args.gradient_accumulation_steps == 0:
                 optimizer.step()
                 optimizer.zero_grad()
-                scheduler.step()
+                scheduler.step()  
                 global_step += 1
-                output_flag = True
-                avg_loss = round(
-                    np.exp((tr_loss - logging_loss) / (global_step - tr_nb)), 4
-                )
-                if (
-                    args.local_rank in [-1, 0]
-                    and args.logging_steps > 0
-                    and global_step % args.logging_steps == 0
-                ):
+                output_flag=True
+                avg_loss=round(np.exp((tr_loss - logging_loss) /(global_step- tr_nb)),4)
+                if args.local_rank in [-1, 0] and args.logging_steps > 0 and global_step % args.logging_steps == 0:
                     logging_loss = tr_loss
-                    tr_nb = global_step
+                    tr_nb=global_step
 
-                if (
-                    args.local_rank in [-1, 0]
-                    and args.save_steps > 0
-                    and global_step % args.save_steps == 0
-                ):
-
-                    if (
-                        args.local_rank == -1 and args.evaluate_during_training
-                    ):  # Only evaluate when single GPU otherwise metrics may not average well
-                        results = evaluate(
-                            args, model, tokenizer, eval_when_training=True
-                        )
+                if args.local_rank in [-1, 0] and args.save_steps > 0 and global_step % args.save_steps == 0:
+                    
+                    if args.local_rank == -1 and args.evaluate_during_training:  # Only evaluate when single GPU otherwise metrics may not average well
+                        results = evaluate(args, model, tokenizer,eval_when_training=True)
                         for key, value in results.items():
-                            logger.info("  %s = %s", key, round(value, 4))
+                            logger.info("  %s = %s", key, round(value,4))                    
                         # Save model checkpoint
-                        tr_num = 0
-                        train_loss = 0
-
-                    if results["eval_mrr"] > best_acc:
-                        best_acc = results["eval_mrr"]
-                        logger.info("  " + "*" * 20)
-                        logger.info("  Best mrr:%s", round(best_acc, 4))
-                        logger.info("  " + "*" * 20)
-
-                        checkpoint_prefix = "checkpoint-best-mrr"
-                        output_dir = os.path.join(
-                            args.output_dir, "{}".format(checkpoint_prefix)
-                        )
+                        tr_num=0
+                        train_loss=0
+ 
+                    if results['eval_mrr']>best_acc:
+                        best_acc=results['eval_mrr']
+                        logger.info("  "+"*"*20)  
+                        logger.info("  Best mrr:%s",round(best_acc,4))
+                        logger.info("  "+"*"*20)                          
+                        
+                        checkpoint_prefix = 'checkpoint-best-mrr'
+                        output_dir = os.path.join(args.output_dir, '{}'.format(checkpoint_prefix))                        
                         if not os.path.exists(output_dir):
-                            os.makedirs(output_dir)
-                        model_to_save = (
-                            model.module if hasattr(model, "module") else model
-                        )
-                        output_dir = os.path.join(output_dir, "{}".format("model.bin"))
+                            os.makedirs(output_dir)                        
+                        model_to_save = model.module if hasattr(model,'module') else model
+                        output_dir = os.path.join(output_dir, '{}'.format('model.bin')) 
                         torch.save(model_to_save.state_dict(), output_dir)
                         logger.info("Saving model checkpoint to %s", output_dir)
-
 
 eval_dataset = None
 
@@ -419,6 +357,7 @@ def evaluate(args, model, tokenizer, eval_when_training=False):
     model.eval()
     code_vecs = []
     nl_vecs = []
+    logits = []
     for batch in eval_dataloader:
         code_inputs = batch[0].to(args.device)
         nl_inputs = batch[1].to(args.device)
@@ -428,8 +367,10 @@ def evaluate(args, model, tokenizer, eval_when_training=False):
             code_vecs.append(code_vec.cpu().numpy())
             nl_vecs.append(nl_vec.cpu().numpy())
         nb_eval_steps += 1
+        # logits.append(logit.cpu().numpy())
     code_vecs = np.concatenate(code_vecs, 0)
     nl_vecs = np.concatenate(nl_vecs, 0)
+    # logits = np.concatenate(logits, 0)
     # if "train_stud" in args.eval_data_file:
     #     np.save("../dataset/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
@@ -505,7 +446,7 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
             else:
                 start = time.time()
                 logger.info("************ Loading Data ***************")
-                lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
+                lm_loss, _, code_vec, nl_vec = model(code_inputs, nl_inputs)
                 end = time.time()
                 inf_time = end - start
             times.append(inf_time)
@@ -805,7 +746,6 @@ def main():
     parser.add_argument("--job_id", type=str)
 
     args = parser.parse_args()
-    teacher = 'compressor' in args.output_dir
 
     # Setup distant debugging if needed
     if args.server_ip and args.server_port:
@@ -901,24 +841,7 @@ def main():
     else:
         model = model_class(config)
 
-    if teacher:
-        if args.device == 'cuda':
-            teacher_model=Model(model,config,tokenizer,args).cuda()  
-        else: 
-            teacher_model=Model(model,config,tokenizer,args)
-        config_student = config_class.from_dict(config.to_dict())
-        config_student.num_attention_heads = 8
-        config_student.num_hidden_layers = 12
-        config_student.intermediate_size = 64
-        config_student.hidden_size = 96
-        # config_student.vocab_size = 1000
-        student_enc = model_class(config_student) 
-        student_model = StudentModel(student_enc,config_student,tokenizer,args)
-        model = student_model
-    else:
-        model = Model(model,config,tokenizer,args)
-        teacher_model = None
-
+    model = Model(model, config, tokenizer, args)
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
 
@@ -934,7 +857,7 @@ def main():
         if args.local_rank == 0:
             torch.distributed.barrier()
 
-        train(args, train_dataset, model, tokenizer, teacher_model)
+        train(args, train_dataset, model, tokenizer)
 
     # Evaluation
     results = {}
