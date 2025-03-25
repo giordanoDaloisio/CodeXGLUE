@@ -1,5 +1,3 @@
-rm logs_graph/*
-
 sbatch graphcodebert/test_prune.sh
 sbatch graphcodebert/test_prune4.sh
 sbatch graphcodebert/test_prune6.sh
