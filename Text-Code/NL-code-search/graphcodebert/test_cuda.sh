@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/tc_cbsmall_%j.out
-#SBATCH -J tccbs
+#SBATCH -o ./logs_graph/tc_%j.out
+#SBATCH -J tc_test
 #SBATCH -p cuda
 #SBATCH -c 40
 #SBATCH --gres=gpu:large
@@ -17,8 +17,9 @@ source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
 cd code
-OUTPUTDIR=./saved_models_codeberta_small
-PRETRAINDIR=huggingface/CodeBERTa-small-v1    # will download pre-trained CodeGPT model
+LANG=java
+OUTPUTDIR=./saved_models_graph
+PRETRAINDIR=microsoft/graphcodebert-base    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM
 MODEL=roberta
@@ -29,7 +30,7 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=$PRETRAINDIR \
+    --tokenizer_name=roberta-base \
     --do_eval \
     --do_test \
     --train_data_file=../dataset/train.jsonl \

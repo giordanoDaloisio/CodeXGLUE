@@ -412,6 +412,7 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
 
     # GPU-WARM-UP
     if args.device == "cuda":
+        logger.info("******* Warmup **********")
         for i, batch in enumerate(eval_dataloader):
             if i < 5:
                 code_inputs = batch[0].to(args.device)
@@ -446,7 +447,7 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
             else:
                 start = time.time()
                 logger.info("************ Loading Data ***************")
-                lm_loss, _, code_vec, nl_vec = model(code_inputs, nl_inputs)
+                lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
                 end = time.time()
                 inf_time = end - start
             times.append(inf_time)

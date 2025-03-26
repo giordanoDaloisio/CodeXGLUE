@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/tc_prune_nocuda_%j.out
-#SBATCH -J tcpnc
+#SBATCH -o ./logs/tcd_nocuda_%j.out
+#SBATCH -J tcdnc
 #SBATCH -p normal
 #SBATCH -c 40
 
@@ -17,11 +17,11 @@ conda activate codex
 
 cd code
 LANG=java
-OUTPUTDIR=./saved_models
-PRETRAINDIR=microsoft/codebert-base    # will download pre-trained CodeGPT model
+OUTPUTDIR=./saved_models_distil
+PRETRAINDIR=distilbert/distilbert-base-uncased    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM
-MODEL=roberta
+MODEL=distilbert
 
 
 srun python run.py \
@@ -29,8 +29,7 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=roberta-base \
-    --do_eval \
+    --tokenizer_name=distilbert-base-uncased \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
@@ -42,6 +41,6 @@ srun python run.py \
     --learning_rate 5e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
+    --no_cuda \
     --seed 123456 2>&1 \
-    --job_id $SLURM_JOB_ID \
-    --prune | tee test.log
+    --job_id $SLURM_JOB_ID | tee test.log
