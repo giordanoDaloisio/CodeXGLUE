@@ -3,6 +3,7 @@
 import logging
 import sys, json
 import numpy as np
+import pandas as pd
 
 
 def read_answers(filename):
@@ -107,11 +108,13 @@ def main():
     )
 
     args = parser.parse_args()
-    answers = read_answers(args.answers)
+    answers = read_answers('../dataset/test.jsonl')
     predictions = read_predictions(args.predictions)
     scores = calculate_scores(answers, predictions)
     mrr_1 = calculate_mrr1(answers, predictions)
     mrr_5 = calculate_mrr5(answers, predictions)
+    df = pd.read_csv('../../../analysis/experiment_values.csv')
+
     print(scores, mrr_1, mrr_5)
 
 
