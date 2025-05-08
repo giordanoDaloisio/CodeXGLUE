@@ -199,30 +199,48 @@ Code Search,Compressor,Model Size,22.0094
 Defect Prediction,Compressor,Accuracy,0.5948023426061494
 Defect Prediction,Compressor,F1,0.4213277574490329
 Defect Prediction,Compressor,MCC,0.1730328116109823
-Defect Prediction Graph,No One,Avg Inference Time CUDA,0.01
-Defect Prediction Graph,No One,Avg Inference Time CPU,5.91
-Defect Prediction Graph,No One,Model Size,498.655532
-Defect Prediction Graph,No One,Accuracy,0.6211566617862372
-Defect Prediction Graph,No One,F1,0.5721372467961968
-Defect Prediction Graph,No One,MCC,0.2336296614915849
-Defect Prediction Graph,Pruning 0.2,Avg Inference Time CUDA,0.0118718733423176
-Defect Prediction Graph,Pruning 0.6,Avg Inference Time CPU,13.021046350168627
-Defect Prediction Graph,Pruning 0.6,Model Size,498.64844
-Defect Prediction Graph,No One,Avg Inference Time CPU,12.902478380456715
-Defect Prediction Graph,No One,Model Size,498.64844
-Defect Prediction Graph,Quantization (quanto-qint4),Avg Inference Time CPU,14.108944035843757
-Defect Prediction Graph,Quantization (quanto-qint4),Model Size,202.815668
-Defect Prediction Graph,No One,Avg Inference Time CUDA,0.012296549109525459
-Defect Prediction Graph,Quantization (quanto-qfloat8),Avg Inference Time CUDA,0.020646915087272164
-Defect Prediction Graph,Quantization (quanto-qint4),Avg Inference Time CUDA,0.03138020426728005
-Defect Prediction Graph,Quantization (quanto-qint8),Avg Inference Time CPU,16.719297038360292
-Defect Prediction Graph,Quantization (quanto-qint8),Model Size,242.526634
-Defect Prediction Graph,Pruning 0.2,Avg Inference Time CPU,13.84173415586402
-Defect Prediction Graph,Pruning 0.2,Model Size,498.64844
-Defect Prediction Graph,Quantization (quanto-qint8),Avg Inference Time CUDA,0.021146360029809894
-Defect Prediction Graph,Pruning 0.6,Avg Inference Time CUDA,0.010860216577979814
-Defect Prediction Graph,Quantization (quanto-qfloat8),Avg Inference Time CPU,8.13362624716521
-Defect Prediction Graph,Quantization (quanto-qfloat8),Model Size,242.526826
-Defect Prediction Graph,Pruning 0.4,Avg Inference Time CUDA,0.010731271731101001
-Defect Prediction Graph,Pruning 0.4,Avg Inference Time CPU,20.24690510822689
-Defect Prediction Graph,Pruning 0.4,Model Size,498.64844
+Code Search Graph,No One,Avg Inference Time CUDA,0.01
+Code Search Graph,No One,Avg Inference Time CPU,5.91
+Code Search Graph,No One,Model Size,498.655532
+Code Search Graph,Pruning 0.2,Avg Inference Time CUDA,0.0118718733423176
+Code Search Graph,Pruning 0.6,Avg Inference Time CPU,13.021046350168628
+Code Search Graph,Pruning 0.6,Model Size,498.64844
+Code Search Graph,No One,Avg Inference Time CPU,12.902478380456715
+Code Search Graph,No One,Model Size,498.64844
+Code Search Graph,Quantization (quanto-qint4),Avg Inference Time CPU,14.108944035843756
+Code Search Graph,Quantization (quanto-qint4),Model Size,202.815668
+Code Search Graph,No One,Avg Inference Time CUDA,0.0122965491095254
+Code Search Graph,Quantization (quanto-qfloat8),Avg Inference Time CUDA,0.0206469150872721
+Code Search Graph,Quantization (quanto-qint4),Avg Inference Time CUDA,0.03138020426728
+Code Search Graph,Quantization (quanto-qint8),Avg Inference Time CPU,16.719297038360292
+Code Search Graph,Quantization (quanto-qint8),Model Size,242.526634
+Code Search Graph,Pruning 0.2,Avg Inference Time CPU,13.84173415586402
+Code Search Graph,Pruning 0.2,Model Size,498.64844
+Code Search Graph,Quantization (quanto-qint8),Avg Inference Time CUDA,0.0211463600298098
+Code Search Graph,Pruning 0.6,Avg Inference Time CUDA,0.0108602165779798
+Code Search Graph,Quantization (quanto-qfloat8),Avg Inference Time CPU,8.13362624716521
+Code Search Graph,Quantization (quanto-qfloat8),Model Size,242.526826
+Code Search Graph,Pruning 0.4,Avg Inference Time CUDA,0.010731271731101
+Code Search Graph,Pruning 0.4,Avg Inference Time CPU,20.24690510822689
+Code Search Graph,Pruning 0.4,Model Size,498.64844
+Code Search Graph,Pruning 0.6,MRR,0.0373
+Code Search Graph,Pruning 0.6,MRR@1,0.0189
+Code Search Graph,Pruning 0.6,MRR@5,0.0298
+Code Search Graph,Pruning 0.4,MRR,0.2846
+Code Search Graph,Pruning 0.4,MRR@1,0.2041
+Code Search Graph,Pruning 0.4,MRR@5,0.2656
+Code Search Graph,Pruning 0.2,MRR,0.3507
+Code Search Graph,Pruning 0.2,MRR@1,0.2601
+Code Search Graph,Pruning 0.2,MRR@5,0.3312
+Code Search Graph,Quantization (quanto-qint4),MRR,0.3455
+Code Search Graph,Quantization (quanto-qint4),MRR@1,0.2559
+Code Search Graph,Quantization (quanto-qint4),MRR@5,0.3265
+Code Search Graph,Quantization (quanto-qint8),MRR,0.3622
+Code Search Graph,Quantization (quanto-qint8),MRR@1,0.2707
+Code Search Graph,Quantization (quanto-qint8),MRR@5,0.3431
+Code Search Graph,No One,MRR,0.3611
+Code Search Graph,No One,MRR@1,0.2694
+Code Search Graph,No One,MRR@5,0.3419
+Code Search Graph,Quantization (quanto-qfloat8),MRR,0.3611
+Code Search Graph,Quantization (quanto-qfloat8),MRR@1,0.27
+Code Search Graph,Quantization (quanto-qfloat8),MRR@5,0.3419

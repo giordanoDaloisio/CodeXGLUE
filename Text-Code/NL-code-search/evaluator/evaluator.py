@@ -4,6 +4,7 @@ import logging
 import sys, json
 import numpy as np
 import pandas as pd
+import os
 
 
 def read_answers(filename):
@@ -87,34 +88,56 @@ def calculate_scores(answers, predictions):
             scores.append(0)
     result = {}
     result["MRR"] = round(np.mean(scores), 4)
-    # result['MRR@1'] = round(np.mean(scores_1),4)
-    # result['MRR@5'] = round(np.mean(scores_5),4)
     return result
 
 
 def main():
-    import argparse
+    # import argparse
 
-    parser = argparse.ArgumentParser(
-        description="Evaluate leaderboard predictions for NL-code-search-Adv dataset."
-    )
-    parser.add_argument(
-        "--answers", "-a", help="filename of the labels, in txt format."
-    )
-    parser.add_argument(
-        "--predictions",
-        "-p",
-        help="filename of the leaderboard predictions, in txt format.",
-    )
+    # parser = argparse.ArgumentParser(
+    #     description="Evaluate leaderboard predictions for NL-code-search-Adv dataset."
+    # )
+    # parser.add_argument(
+    #     "--answers", "-a", help="filename of the labels, in txt format."
+    # )
+    # parser.add_argument(
+    #     "--predictions",
+    #     "-p",
+    #     help="filename of the leaderboard predictions, in txt format.",
+    # )
 
-    args = parser.parse_args()
+    # args = parser.parse_args()
     answers = read_answers('../dataset/test.jsonl')
-    predictions = read_predictions(args.predictions)
-    scores = calculate_scores(answers, predictions)
-    mrr_1 = calculate_mrr1(answers, predictions)
-    mrr_5 = calculate_mrr5(answers, predictions)
     df = pd.read_csv('../../../analysis/experiment_values.csv')
-
+    for logs in os.listdir('../code/saved_models_graph/'):
+        if os.path.isdir(os.path.join('../code/saved_models_graph/', logs)) or 'cuda' in logs:
+            continue
+        task = 'Code Search Graph'
+        if 'prune4' in logs:
+            compression = 'Pruning 0.4'
+        elif 'prune6' in logs:
+            compression = 'Pruning 0.6'
+        elif 'prune' in logs:
+            compression = 'Pruning 0.2'
+        elif 'quanf8' in logs:
+            compression = 'Quantization (quanto-qfloat8)'
+        elif 'quant4' in logs:
+            compression = 'Quantization (quanto-qint4)'
+        elif 'quant' in logs:
+            compression = 'Quantization (quanto-qint8)'
+        else:
+            compression = 'No One'
+        predictions = read_predictions(os.path.join('../code/saved_models_graph/', logs))
+        scores = calculate_scores(answers, predictions)
+        mrr_1 = calculate_mrr1(answers, predictions)
+        mrr_5 = calculate_mrr5(answers, predictions)
+        df = pd.concat([df, pd.DataFrame({
+            'Task': [task, task, task], 
+            'Compression Method': [compression, compression, compression], 
+            'Parameter': ["MRR", "MRR@1", "MRR@5"], 
+            'Value': [scores['MRR'], mrr_1['MRR@1'], mrr_5['MRR@5']]
+        })], ignore_index=True)  
+        df.to_csv('../../../analysis/experiment_values.csv', index=False)
     print(scores, mrr_1, mrr_5)
 
 
