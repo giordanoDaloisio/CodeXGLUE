@@ -63,6 +63,8 @@ from transformers import (
     DistilBertConfig,
     DistilBertTokenizer,
     DistilBertModel,
+    AutoModelForSeq2SeqLM,
+    T5Config
 )
 import time
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
@@ -70,6 +72,7 @@ from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
 MODEL_CLASSES = {
     "roberta": (RobertaConfig, RobertaModel, RobertaTokenizer),
     "distilbert": (DistilBertConfig, DistilBertModel, DistilBertTokenizer),
+    "t5": (T5Config, AutoModelForSeq2SeqLM, RobertaTokenizer),
 }
 
 logging.basicConfig(
@@ -682,21 +685,26 @@ def main():
         do_lower_case=args.do_lower_case,
     )
 
-    # budild model
-    encoder = model_class.from_pretrained(args.model_name_or_path, config=config)
-    decoder_layer = nn.TransformerDecoderLayer(
-        d_model=config.hidden_size, nhead=config.num_attention_heads
-    )
-    decoder = nn.TransformerDecoder(decoder_layer, num_layers=6)
-    model = Seq2Seq(
-        encoder=encoder,
-        decoder=decoder,
-        config=config,
-        beam_size=args.beam_size,
-        max_length=args.max_target_length,
-        sos_id=tokenizer.cls_token_id,
-        eos_id=tokenizer.sep_token_id,
-    )
+    if args.model_type == "t5":
+        model = model_class.from_pretrained(
+            args.model_name_or_path, config=config, from_tf=bool(".ckpt" in args.model_name_or_path)
+        )
+    else:
+        # budild model
+        encoder = model_class.from_pretrained(args.model_name_or_path, config=config)
+        decoder_layer = nn.TransformerDecoderLayer(
+            d_model=config.hidden_size, nhead=config.num_attention_heads
+        )
+        decoder = nn.TransformerDecoder(decoder_layer, num_layers=6)
+        model = Seq2Seq(
+            encoder=encoder,
+            decoder=decoder,
+            config=config,
+            beam_size=args.beam_size,
+            max_length=args.max_target_length,
+            sos_id=tokenizer.cls_token_id,
+            eos_id=tokenizer.sep_token_id,
+        )
     if args.load_model_path is not None:
         logger.info("reload model from {}".format(args.load_model_path))
         model.load_state_dict(torch.load(args.load_model_path, map_location=device))
@@ -803,12 +811,22 @@ def main():
             for batch in bar:
                 batch = tuple(t.to(device) for t in batch)
                 source_ids, source_mask, target_ids, target_mask = batch
-                loss, _, _ = model(
-                    source_ids=source_ids,
-                    source_mask=source_mask,
-                    target_ids=target_ids,
-                    target_mask=target_mask,
-                )
+                if args.model_type == "t5":
+                    labels = target_ids.masked_fill(labels == tokenizer.pad_token_id, -100)
+                    output = model(
+                        input_ids=source_ids,
+                        attention_mask=source_mask,
+                        labels=labels,
+                        decoder_attention_mask=target_mask,
+                    )
+                    loss = output.loss
+                else:
+                    loss, _, _ = model(
+                        source_ids=source_ids,
+                        source_mask=source_mask,
+                        target_ids=target_ids,
+                        target_mask=target_mask,
+                    )
 
                 if args.n_gpu > 1:
                     loss = loss.mean()  # mean() to average on multi-gpu.
@@ -875,12 +893,24 @@ def main():
                     source_ids, source_mask, target_ids, target_mask = batch
 
                     with torch.no_grad():
-                        _, loss, num = model(
-                            source_ids=source_ids,
-                            source_mask=source_mask,
-                            target_ids=target_ids,
-                            target_mask=target_mask,
-                        )
+                        if args.model_type == "t5":
+                            labels = target_ids.masked_fill(
+                                target_ids == tokenizer.pad_token_id, -100
+                            )
+                            output = model(
+                                input_ids=source_ids,
+                                attention_mask=source_mask,
+                                labels=labels,
+                                decoder_attention_mask=target_mask,
+                            )
+                            loss = output.loss
+                        else:
+                            _, loss, num = model(
+                                source_ids=source_ids,
+                                source_mask=source_mask,
+                                target_ids=target_ids,
+                                target_mask=target_mask,
+                            )
                     eval_loss += loss.sum().item()
                     tokens_num += num.sum().item()
                 # Pring loss of dev dataset
@@ -949,7 +979,18 @@ def main():
                     batch = tuple(t.to(device) for t in batch)
                     source_ids, source_mask = batch
                     with torch.no_grad():
-                        preds = model(source_ids=source_ids, source_mask=source_mask)
+                        if args.model_type == "t5":
+                            labels = target_ids.masked_fill(
+                                target_ids == tokenizer.pad_token_id, -100
+                            )
+                            preds = model(
+                                input_ids=source_ids,
+                                attention_mask=source_mask,
+                                labels=labels,
+                                decoder_attention_mask=target_mask,
+                            )
+                        else:
+                            preds = model(source_ids=source_ids, source_mask=source_mask)
                         for pred in preds:
                             t = pred[0].cpu().numpy()
                             t = list(t)
@@ -1133,26 +1174,50 @@ def main():
                         starter, ender = torch.cuda.Event(
                             enable_timing=True
                         ), torch.cuda.Event(enable_timing=True)
-                        starter.record()
-                        preds = model(source_ids=source_ids, source_mask=source_mask)
-                        ender.record()
-                        ellapsed_time = starter.elapsed_time(ender)
+                        if args.model_type == "t5":
+                            starter.record()
+                            pred = model(
+                                input_ids=source_ids,
+                                attention_mask=source_mask
+                            )
+                            ender.record()
+                            ellapsed_time = starter.elapsed_time(ender)
+                        else:
+                            starter.record()
+                            preds = model(source_ids=source_ids, source_mask=source_mask)
+                            ender.record()
+                            ellapsed_time = starter.elapsed_time(ender)
                         torch.cuda.synchronize()
                     else:
-                        starter = time.time()
-                        preds = model(source_ids=source_ids, source_mask=source_mask)
-                        ender = time.time()
-                        ellapsed_time = ender - starter
+                        if args.model_type == "t5":
+                            starter = time.time()
+                            pred = model(
+                                input_ids=source_ids,
+                                attention_mask=source_mask
+                            )
+                            ender = time.time()
+                            ellapsed_time = ender - starter
+                        else:
+                            starter = time.time()
+                            preds = model(source_ids=source_ids, source_mask=source_mask)
+                            ender = time.time()
+                            ellapsed_time = ender - starter
                     with open(os.path.join(time_dir, logfile), "a") as f:
                         f.write(str(ellapsed_time) + ",")
                     times.append(ellapsed_time)
                     for pred in preds:
-                        t = pred[0].cpu().numpy()
-                        t = list(t)
-                        if 0 in t:
-                            t = t[: t.index(0)]
-                        text = tokenizer.decode(t, clean_up_tokenization_spaces=False)
-                        p.append(text)
+                        if args.model_type == "t5":
+                            text = tokenizer.decode(
+                                pred, skip_special_tokens=True
+                            )
+                            p.append(text)
+                        else:
+                            t = pred[0].cpu().numpy()
+                            t = list(t)
+                            if 0 in t:
+                                t = t[: t.index(0)]
+                            text = tokenizer.decode(t, clean_up_tokenization_spaces=False)
+                            p.append(text)
             model.train()
             predictions = []
             if args.quantize:

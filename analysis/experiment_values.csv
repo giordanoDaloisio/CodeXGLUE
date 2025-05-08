@@ -244,3 +244,42 @@ Code Search Graph,No One,MRR@5,0.3419
 Code Search Graph,Quantization (quanto-qfloat8),MRR,0.3611
 Code Search Graph,Quantization (quanto-qfloat8),MRR@1,0.27
 Code Search Graph,Quantization (quanto-qfloat8),MRR@5,0.3419
+Defect Prediction Graph,Pruning 0.6,Avg Inference Time CUDA,0.0102513612702835
+Defect Prediction Graph,Pruning 0.2,Avg Inference Time CPU,47.49614692843237
+Defect Prediction Graph,Pruning 0.2,Model Size,498.655532
+Defect Prediction Graph,Pruning 0.4,Avg Inference Time CUDA,0.0104886820149976
+Defect Prediction Graph,Quantization (quanto-qint8),Avg Inference Time CUDA,0.0203471571900123
+Defect Prediction Graph,Quantization (quanto-qint4),Avg Inference Time CPU,27.5919300844503
+Defect Prediction Graph,Quantization (quanto-qint4),Model Size,202.830864
+Defect Prediction Graph,Quantization (quanto-qfloat8),Avg Inference Time CPU,15.428074254546054
+Defect Prediction Graph,Quantization (quanto-qfloat8),Model Size,242.538956
+Defect Prediction Graph,Quantization (quanto-qfloat8),Avg Inference Time CUDA,0.0203600927840831
+Defect Prediction Graph,Pruning 0.4,Avg Inference Time CPU,7.357994750488636
+Defect Prediction Graph,Pruning 0.4,Model Size,498.655532
+Defect Prediction Graph,Quantization (quanto-qint8),Avg Inference Time CPU,34.83609700757404
+Defect Prediction Graph,Quantization (quanto-qint8),Model Size,242.5387
+Defect Prediction Graph,Quantization (quanto-qint4),Avg Inference Time CUDA,0.03033391264982
+Defect Prediction Graph,Pruning 0.6,Avg Inference Time CPU,48.44649135789206
+Defect Prediction Graph,Pruning 0.6,Model Size,498.655532
+Defect Prediction Graph,Pruning 0.2,Avg Inference Time CUDA,0.0104141346243924
+Defect Prediction Graph,Quantization (quanto-qint4),Accuracy,0.6277452415812591
+Defect Prediction Graph,Quantization (quanto-qint4),F1,0.6044340723453909
+Defect Prediction Graph,Quantization (quanto-qint4),MCC,0.2535238683307118
+Defect Prediction Graph,Pruning 0.6,Accuracy,0.6050512445095169
+Defect Prediction Graph,Pruning 0.6,F1,0.5322930212397052
+Defect Prediction Graph,Pruning 0.6,MCC,0.1973432329396212
+Defect Prediction Graph,Quantization (quanto-qint8),Accuracy,0.6204245973645681
+Defect Prediction Graph,Quantization (quanto-qint8),F1,0.5688149688149688
+Defect Prediction Graph,Quantization (quanto-qint8),MCC,0.2316711785683037
+Defect Prediction Graph,Quantization (quanto-qint8),Accuracy,0.6215226939970717
+Defect Prediction Graph,Quantization (quanto-qint8),F1,0.5751848808545604
+Defect Prediction Graph,Quantization (quanto-qint8),MCC,0.23490234558506892
+Defect Prediction Graph,No One,Accuracy,0.6211566617862372
+Defect Prediction Graph,No One,F1,0.5721372467961968
+Defect Prediction Graph,No One,MCC,0.23362966149158498
+Defect Prediction Graph,Pruning 0.4,Accuracy,0.6153001464128843
+Defect Prediction Graph,Pruning 0.4,F1,0.4482939632545932
+Defect Prediction Graph,Pruning 0.4,MCC,0.22149695747026732
+Defect Prediction Graph,Pruning 0.2,Accuracy,0.6211566617862372
+Defect Prediction Graph,Pruning 0.2,F1,0.552141929900476
+Defect Prediction Graph,Pruning 0.2,MCC,0.23063267014173822
