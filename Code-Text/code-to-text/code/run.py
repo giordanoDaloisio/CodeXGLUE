@@ -812,7 +812,7 @@ def main():
                 batch = tuple(t.to(device) for t in batch)
                 source_ids, source_mask, target_ids, target_mask = batch
                 if args.model_type == "t5":
-                    labels = target_ids.masked_fill(labels == tokenizer.pad_token_id, -100)
+                    labels = target_ids.masked_fill(target_ids == tokenizer.pad_token_id, -100)
                     output = model(
                         input_ids=source_ids,
                         attention_mask=source_mask,
@@ -904,6 +904,8 @@ def main():
                                 decoder_attention_mask=target_mask,
                             )
                             loss = output.loss
+                            eval_loss += loss.sum().item() * source_ids.size(0)
+                            tokens_num += source_ids.size(0)
                         else:
                             _, loss, num = model(
                                 source_ids=source_ids,
@@ -911,8 +913,8 @@ def main():
                                 target_ids=target_ids,
                                 target_mask=target_mask,
                             )
-                    eval_loss += loss.sum().item()
-                    tokens_num += num.sum().item()
+                            eval_loss += loss.sum().item()
+                            tokens_num += num.sum().item()
                 # Pring loss of dev dataset
                 model.train()
                 eval_loss = eval_loss / tokens_num
@@ -983,23 +985,26 @@ def main():
                             labels = target_ids.masked_fill(
                                 target_ids == tokenizer.pad_token_id, -100
                             )
-                            preds = model(
+                            preds = model.generate(
                                 input_ids=source_ids,
                                 attention_mask=source_mask,
-                                labels=labels,
-                                decoder_attention_mask=target_mask,
+                                # labels=labels,
+                                # decoder_attention_mask=target_mask,
                             )
+                            for pred in preds:
+                                text = tokenizer.decode(pred, skip_special_tokens=True, clean_up_tokenization_spaces=False)
+                                p.append(text)
                         else:
                             preds = model(source_ids=source_ids, source_mask=source_mask)
-                        for pred in preds:
-                            t = pred[0].cpu().numpy()
-                            t = list(t)
-                            if 0 in t:
-                                t = t[: t.index(0)]
-                            text = tokenizer.decode(
-                                t, clean_up_tokenization_spaces=False
-                            )
-                            p.append(text)
+                            for pred in preds:
+                                t = pred[0].cpu().numpy()
+                                t = list(t)
+                                if 0 in t:
+                                    t = t[: t.index(0)]
+                                text = tokenizer.decode(
+                                    t, clean_up_tokenization_spaces=False
+                                )
+                                p.append(text)
                 model.train()
                 predictions = []
                 with open(os.path.join(args.output_dir, "dev.output"), "w") as f, open(
@@ -1151,13 +1156,19 @@ def main():
             )
 
             # GPU-WARM-UP
-            if device == "cuda":
+            if torch.cuda.is_available() and not args.no_cuda:
                 for i, batch in enumerate(eval_dataloader):
                     if i < 5:
                         batch = tuple(t.to(device) for t in batch)
                         source_ids, source_mask = batch
                         with torch.no_grad():
-                            _ = model(source_ids=source_ids, source_mask=source_mask)
+                            if args.model_type == "t5":
+                                _ = model.generate(
+                                    input_ids=source_ids,
+                                    attention_mask=source_mask,
+                                )
+                            else:
+                                _ = model(source_ids=source_ids, source_mask=source_mask)
                     else:
                         break
 
@@ -1170,18 +1181,20 @@ def main():
                 source_ids, source_mask = batch
                 with torch.no_grad():
                     # starter.record()
-                    if device == "cuda":
+                    if torch.cuda.is_available() and not args.no_cuda:
                         starter, ender = torch.cuda.Event(
                             enable_timing=True
                         ), torch.cuda.Event(enable_timing=True)
+                        preds = None
                         if args.model_type == "t5":
                             starter.record()
-                            pred = model(
+                            preds = model.generate(
                                 input_ids=source_ids,
-                                attention_mask=source_mask
+                                attention_mask=source_mask,
                             )
                             ender.record()
                             ellapsed_time = starter.elapsed_time(ender)
+
                         else:
                             starter.record()
                             preds = model(source_ids=source_ids, source_mask=source_mask)
@@ -1191,7 +1204,7 @@ def main():
                     else:
                         if args.model_type == "t5":
                             starter = time.time()
-                            pred = model(
+                            preds = model.generate(
                                 input_ids=source_ids,
                                 attention_mask=source_mask
                             )
@@ -1259,7 +1272,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # processes = int(os.environ['SLURM_CPUS_PER_TASK'])
-    # pool = Pool(processes)
-    # pool.map(main, range(processes))
     main()

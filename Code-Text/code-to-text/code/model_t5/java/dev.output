@@ -1,0 +1,1000 @@
+912	Creates a secondary read preference .
+204	Returns the SQL statement with the values of the bind variables .
+2253	Watches the file and returns a CompletableFuture that is completed asynchronously .
+2006	Converts a JSON string into a Map .
+1828	Get the Java library file for the given name .
+1143	Parses a decimal value .
+839	Returns a task that will fail if the task has timed out .
+4467	Adds the values to the given ContentValues .
+712	Returns the child node with the given namespace and name .
+4837	Decodes the given MultivaluedMap and returns a new MultivaluedMap with the decoded
+3456	Inserts a new instruction list at the start of the method .
+260	Returns a sequential merge of this Flux with the specified prefetch size .
+244	Returns a new Mono that is the same as this one but with the given Publisher .
+767	Get the schema names of the given database .
+1791	Undeploys an Apk package .
+1905	Updates the fab of the material sheet .
+4139	Creates a BitmapDescriptor from a View .
+4931	Get the current branch of the repository .
+217	Subscribe to a subscriber .
+4597	Returns a new namespace map with the given prefix and namespace URI .
+1628	Gets the value of the againstProposalList property .
+4464	Adds a segment to the buffer .
+3436	Print the stack map table .
+1805	Gets the AndroidJar file .
+3679	Get the JMX connection for the given child .
+4827	Stop the connection .
+2278	Load the Gtfs file .
+53	Enter the guard .
+1307	Parses the properties from the given string .
+3462	Flushes the output stream .
+2787	Closes the stream .
+2276	Registers an error for an entity .
+1273	Opens a custom tab with the given Uri .
+1763	Add a chart to the layout .
+2757	Write CORS properties .
+837	Creates a list of connections summaries for a given person .
+759	Checks if the object is null .
+3112	Reads the given stream as a string .
+792	Loads the properties from the given configuration source .
+2940	Get the properties of a service .
+2817	Open a new file output stream for writing .
+4945	Adds a file to the list of added files .
+2166	Sets the pattern of the image .
+355	Sets the current time in milliseconds .
+3763	Render the combined require scripts .
+4392	Gets the value of the any property .
+1022	Try to get the next object in the cursor .
+3100	Compute the identifier for a transfer .
+645	Get the value for a column .
+4522	Cleanup the difference .
+2401	Returns the mean of the given values .
+5149	Start the command .
+5066	Removes a receipt from the list of receipts .
+2962	Generate a request identity with a table name .
+4729	Stores the results in the page .
+1575	Get the maximum size of the view roadot party summary .
+569	Initializes the variable type .
+375	Adds an activity to the list of activities .
+1866	Clears the memory cache .
+2370	Verify the parameters .
+653	Convert the given value to a Java value .
+1907	Morphs the current sheet into the sheet .
+827	Returns the name of the batch .
+3113	Start a release for a given milestone .
+2277	Export a feed to a file .
+3714	Returns the matching info .
+2988	Deletes the entity .
+1332	Returns the name of the property .
+3032	Get the query binding of the passed name or throw an exception .
+2910	Logs the response code and message from the http response .
+1716	Check if the vote date is the same as the one in the list .
+2187	Parses a JSON string and returns a list of mixed elements .
+584	Puts a byte into the vector .
+4990	Returns the number of files in the current page .
+1401	Returns the value of the given future .
+4375	Clean the directory .
+2005	Converts the given object to a JSON string .
+1338	Closes the connection .
+3786	Get the elements of the given UIClassification .
+3108	Get the build task with the given build configuration audited .
+2211	Pretty print the JSON response .
+4562	Asserts that the group has the specified size .
+1799	Returns the java executable .
+2656	Get the JAX - RS client .
+458	Load a service from the system property .
+1876	Reads the response from the server and appends it to the given StringBuilder .
+262	Creates a new Flux that is a parallel stream that is a series of values that are
+2584	Encode an integer .
+3286	Returns the value of the named property .
+2193	Convert a JSON object to an Integer .
+542	Create a new name type item .
+1728	Gets the value of the voteDataList property .
+4646	Sleep for a given number of milliseconds .
+2577	Creates a map of static fields .
+1741	Gets the value of the ballotDocumentData property .
+4089	Add a query parameter .
+3241	Stop the OpenDJ server .
+3758	Override onComponentTag to add the class to the tag .
+1170	Registers a directory .
+2169	Creates a new ProtobufWritable instance of the given type .
+2020	Deregisters a service with Consul .
+4598	Removes all namespaces with the given prefix .
+4415	Get the CowFace object from the command line .
+2152	Build a map entry message .
+4788	Find or create a pool .
+3509	Returns a list of GatewayAddresses from a domain address .
+4780	Print a message and exception to stderr .
+3271	Write a curve polygon .
+2965	Post process response .
+1796	Execute the command .
+1133	Merge the given options with the given default options .
+4174	Called when the image is changed .
+4042	Called when the profile is refreshed .
+744	Returns a list of all change sets that are to be run .
+385	Removes a provider from the registry .
+898	Returns the last error .
+1252	Cancela a nota
+5140	Execute the given command .
+1310	Sets the color of the left action icon .
+3458	Build an instruction list from the given instructions .
+4885	Add a dry run if the options are set to true .
+520	Store a local variable .
+3152	Returns the task that is currently running on the given build configuration .
+3126	Checks if the build set task is empty .
+4881	Adds a file to the repository .
+3834	Override this method to add the action to the tag .
+4334	Returns a rule that matches the given characters .
+2059	This method is called before the method call is called .
+4532	Checks if the given method has a non - void return type .
+94	Returns a builder that sorts the elements in reverse order .
+938	Executes a command on the database .
+4398	Start a timer for the result set life .
+2185	Validates the response .
+2786	Sets the file properties .
+913	Creates a secondary preferred read preference .
+2404	Multiply this quaternion by the given scalar .
+3561	Flushes the tag .
+1295	Reads a varint from the stream .
+3716	Creates a question set for this person .
+26	Resizes the array if the size is bigger than the given size .
+2157	Sets the column number in the configuration .
+4100	Returns the stack trace of the given exception .
+1463	Returns the source code relative path for the given stack trace element .
+4158	Delete a comment .
+871	Returns true if the server is the master of the server .
+5122	Creates a tree of box nodes .
+2444	Sets the span of the given object to the builder .
+4988	Get the head element .
+1629	Adds a data serie value to the given data series .
+3063	Read the title from the passed XML element .
+1323	Reads a value from the given JsonReader .
+4418	Converts a CowInputStream to a String .
+4344	Pop the element from the stack as the specified class .
+4	Grows the buffer to a smaller size .
+4906	Adds a file to be deleted to commit .
+2655	Returns the service credentials .
+4002	Log a method call .
+159	Loads the finalizer class from the given loaders .
+916	Creates a secondary read preference .
+2973	Removes all of the elements from the collection .
+2519	Gets the list of dispatcher type providers .
+1961	Handle the request .
+474	Call a constructor on the given class with the given parameters .
+1973	Start up the call queue .
+4647	Starts the timer .
+701	Returns the field with the given name .
+3981	Get the schema for the given xsd file .
+566	Returns the type of the given descriptor .
+4363	Returns a new Characters object that contains all of the given characters but the specified ones .
+1030	Returns the address of the socket .
+1051	Sets the text version .
+3893	Get the type image .
+4503	Checks if the adapter is different from the current one .
+1352	The user details service .
+2171	Set the output format class .
+4322	Adds a word to the trie .
+4969	Sets the delete options .
+3466	Called when the AdView is failed to load .
+1735	Add data series .
+4417	Loads a COW file from the given path or resource .
+1647	Creates a grid layout for the content overview panel .
+2553	Adds a new manifest to the configured manifest .
+3268	Write a GeometryCollection to a ByteWriter .
+3059	Read a phase from the XML .
+3588	Returns the local storage .
+4239	Parses the given JSON source .
+3698	Get the issue type with the given name .
+991	Converts the object to a JSON string .
+2030	Returns a receive queue .
+1840	Converts a hexadecimal character to a digit .
+524	If a type is comparable to a given comparison mode .
+2769	Get the properties of a share .
+172	Creates a new HostAndPort from the given host and port .
+4819	Gets the destination for the given destination name .
+4537	Initialize the connector map .
+1885	Join size tag to key
+4820	Get the message consumer for the given destination .
+1804	Get the path to the Android tool .
+58	Enter a guard if it is satisfied .
+581	Returns the descriptor of the type .
+5169	Get the details of a specific Legislator .
+482	Convert RGB to HSV .
+1875	Notify the handler that a request has finished .
+552	Visit a parameter annotation .
+257	Executes the given onError on each emitted value .
+2706	Generate an AccessCondition that is a Condition that is true if the sequence number is less than
+580	Returns the type of the given char array at the given offset .
+4211	Get the list of shares for a user .
+1949	Clip the current rectangle .
+2281	Creates a DataSource for the given database connection .
+3976	Initialize all registered loaders .
+1755	Adds the logo to the top header .
+1083	Returns true if the journal or fsync is acknowledged .
+4677	Returns a list of words from the given text .
+4720	Waits for a task to finish .
+3872	Lazy login .
+1990	Adds a task to be executed once after a given time .
+3874	Logout the current user .
+3334	Returns true if this tag contains the specified child tag .
+1559	Creates a default series for donout .
+772	Start the watcher .
+794	Removes the given configuration from the container .
+3531	Processes the main process .
+2902	Checks if the URI is a DNS name .
+3469	Get the original position of the content of the given position .
+3367	Parse a string .
+3825	Sets the default menu item .
+443	Sets the height of the display .
+806	Returns the value associated with the given key or null if the key does not exist .
+496	Converts a map of meta data to a Bundle .
+3298	Publish an event to the specified event bus .
+2779	List all files and directories .
+895	Adds the error result to the result .
+2036	Enable logging mapped diagnostic context .
+1569	Sets the map of resource types to the rule violations .
+1558	Creates a default series for the PIE chart .
+4393	Creates a new instance of the given class with the given parameters .
+3675	Returns the modules that are used to create the event handlers .
+1148	Writes the message to the given file .
+1503	Returns true if the buffer is empty .
+3789	Gets the image .
+2046	Destroy a session .
+617	Converts the given value to the appropriate type .
+3630	Obtains the text of the chip from a specific typed array .
+4508	Returns the number of bytes in the image .
+802	Loads properties from configuration .
+414	Sets the data position .
+4428	Checks if the given mode is known to be used .
+120	Returns a new immutable sorted map with the same keys as the given map .
+764	Surround with schema sets .
+1936	Get the SVG path data .
+1362	Calculate the position of the item in the action view .
+3329	Marks the owner tag of the given attributes .
+3978	Sets the listener which will be notified when the tag is removed from the TagViewer .
+3943	Print the UI Grid .
+1751	Gets the value of the dokument property .
+3285	Read a JSON object from a string .
+480	Returns a list of all registered wrappers that match the given intent .
+1348	Gets the context path for the given process definition .
+3104	Checks if the given build task has a direct configuration dependency on this build configuration .
+17	Creates an immutable array containing the elements of the given array .
+3198	Set the value of a field on the given instance .
+2172	Matches the given word against this pattern .
+3727	Returns the encoded authorization header .
+2336	Returns the set of all the keys in the map .
+3465	Returns the ad view for the given index .
+4552	Apply the given instance to the given context logger configuration .
+3986	Removes the attribute with the given name .
+1268	Returns the cosine similarity of two vectors .
+1555	Sets the legend styling .
+2430	Creates a Quaternion from an imaginary value .
+1783	Calculate the source and destination mappings .
+479	Gets the inner text of the given view .
+4744	Returns the factory class .
+4441	Get the list of all the schemas in the database .
+499	Checks if the given package is granted for backwards compatibility .
+2569	Creates an empty ZIP archive .
+468	Gets the value of the field with the given name .
+410	Read a Parcelable from the real object using the specified ClassLoader .
+4785	Returns the package statement for the given source file .
+3905	Invalidate a session .
+4119	Indent a block of text .
+4350	Checks if this range touches the specified range .
+1289	Enables a VM .
+465	Adds a data entry to the DropBoxManager .
+4160	Get a comment by id .
+656	Checks if the given command is a command .
+1522	Patch all unresolved references .
+561	Reads the type of a frame .
+4874	Checks if two lists are unordered .
+556	Visit a table switch instruction .
+1926	Parse a duration string .
+3307	Adds the given value to the attribute value set .
+982	Returns the address of the server .
+4666	Returns the absolute path of the resource .
+2016	Adds a header to the response .
+4742	Splice a string into a list of regular expressions .
+4870	Commit the file to the working tree .
+325	Deny the specified permissions .
+5073	Migrate the personality .
+671	Checks if the given example is present in the database .
+3434	Update the uninitialized new offsets .
+4781	Starts the timer .
+4630	Get the cities for a given state .
+4282	Decode percent - encoded characters .
+2591	Adds a new header field to the table .
+2136	Creates a standard Base64 object .
+1673	Adds the view application action event page element daily summary values .
+2573	Sets the maximum size of the dynamic table .
+1955	Returns the clip path reference .
+2175	Returns true if the given word is uncountable .
+3242	Prints an entry .
+1072	Returns the read concern as a document .
+2457	Find the type of the given lambda expression .
+3745	Get the value of the given key from the wizard .
+2590	Returns the index of the field with the given name .
+594	Sets the column mapping .
+76	Parses a media type from a string .
+3754	Get the user widths .
+5088	Returns the DigestUtils instance .
+4612	Matches a ViewGroup s children count as equal to the specified value .
+819	Returns true if the task should be applied to the request context .
+600	Set the value of the parameter .
+4404	Wrap a CallableStatement .
+1746	Decrypt a value using the given symmetric key .
+4144	Adds the views to the pager .
+1085	Returns a new WriteConcern with the given write - timeout .
+2859	Get the ACL for the given queue .
+563	Returns the type of the given local .
+2001	Adds an event listener to the channel .
+3027	Get all successful reports for the passed Schematron output .
+2334	Ensure that the given namespace is valid .
+1292	Read the info for a given source .
+3589	Gets the session storage .
+4450	Returns a new buffer with the specified additional bytes .
+2478	Returns a stream of all the animation frames .
+5010	Configures the table to resize the columns .
+4333	Creates a rule that matches the given string .
+64	Signal the next waiter .
+4543	Checks if the given method has a getter prefix .
+2452	Returns a reference type that is not a wildcard type .
+848	Throws an exception if the given object is not a valid type .
+1100	Returns the value of the specified key as a decimal128 value .
+945	Inserts a document into the collection .
+876	Returns the error message .
+2231	Increase the length of the cache to the given index .
+2308	Update the stop times for a pattern stop .
+4954	Logs the contents of a git repository .
+1725	Add data item .
+2808	Start a copy of a file .
+1667	Gets the user id from the SecurityContext .
+2162	Put the next tuple into the JSON file .
+4140	Returns a function that checks if the given file is related to the given file .
+2057	Read the config from the classpath or from the system .
+416	Peek the next element .
+756	Returns the maximum number of fractional digits for the timestamp .
+2266	Sets the field to null .
+361	Build a new instance of the given fragment class .
+29	Convert an array of hextets to an IPv6 address string .
+2732	Download the attributes of the queue .
+1071	Encodes the given value with the default context .
+2145	Creates a new instance of this class .
+3619	Creates a property which allows to set the current global angle of the progress drawable .
+4519	Returns the size of the action bar .
+3503	Deserialize a set of typed tuples .
+4594	Register a class for the adapter .
+79	Escapes the given string .
+616	Execute the update .
+1221	Send the asset to the client .
+4469	Animate the camera to include the given position .
+295	Instrument a native method .
+3024	Remove all variables from the map .
+4771	Aggregate the single cluster member data .
+4526	Get the tracee profile properties file .
+1213	Creates a new class loader with the specified parent .
+3520	Expire the given key at the given milliseconds .
+1044	Creates a filter that filters documents by geo within a polygon .
+342	Create an image decoder .
+2525	Add the given parameters to the excluded query .
+2987	Updates the customer with a new phone number .
+326	Selects the available sdks .
+2931	Sets the entity resolver .
+1720	Gets the value of the committeeProposalList property .
+2044	Returns the service endpoint server .
+842	Monitor the log .
+2897	Asserts that the given value is in the given range .
+4586	Returns the next codepoint in the CharSequence .
+5084	Returns the ImageUtils instance .
+1266	Consulta a status bahia .
+1939	Returns the stroke style .
+1331	Returns the serialized name of the element .
+1450	Builds a route .
+3377	Write a 32 - bit integer to the stream .
+203	Sets the number of expected edges to be added to the network .
+1469	Renders the given raw bytes .
+2721	Canonicalizes the request .
+3372	Determine the width of the command name .
+2032	Starts the listener .
+1304	Adds an Attribute to the list of Attributes .
+885	Checks if the current state is in the given array .
+3133	Checks if the given url is secure with the CSRF token .
+317	Returns the application restrictions for the given package .
+3855	Initialise the menu .
+1822	Check if client secret is in resources / client_secrets . json .
+1634	Create the ministry summary .
+3770	Returns the cache key for this field .
+2864	Validate an IP address .
+2500	Detects if the device is a other phone device .
+1864	Commit the cache entry to disk .
+1826	Returns the GAV version of the project .
+193	Returns the code point at the given index in the given sequence .
+1582	Creates a field for the given property .
+3264	Write a polygon to the ByteWriter .
+2689	Load the store from disk and store type . json and store . json .
+2282	Adds an error info entry to the error info map .
+568	Pop a type from the stack .
+2286	Get the average speed for a pattern
+2876	Lists shares with the given prefix .
+4173	Build the image URL for the profile .
+3274	Write a triangle to the given ByteWriter .
+2712	Apply the sequence condition to the given request .
+226	Adds a subscriber info index to the list of indexes .
+944	Returns a codec for the given class .
+2139	Reads the next proto blob from the current block .
+1462	Checks if a class exists in the given package .
+4756	Merge deprecated information .
+2174	Pluralizes a word .
+313	Returns the point at the given length .
+888	Returns the object id as a byte array .
+4887	Add a list of files to the repository .
+3559	Creates a new member key from the given context object and name .
+2831	Appends a path to a URI .
+3574	Appends the given sequence to the template .
+4966	Checkouts a list of files in a repository .
+4189	Get the hash keys for the activity .
+947	Find a single document by id .
+3155	Removes a build record from the list of build records .
+4723	Main method .
+1557	Creates a highlighter that shows the chart with the North axis .
+2086	Converts a thrift class to a Pig script .
+363	Returns the size of the default display .
+3572	Adds a context converter to the engine .
+13	Writes the given bytes to the stream .
+4259	Handles a broadcast intent .
+4410	Sets the language .
+1614	Navigate to the page of the violation .
+2983	Returns the URI that represents the file .
+3533	Loop process .
+573	Visit an annotation .
+2704	Get the Extended Error Information from an input stream .
+5104	Runs the command .
+2571	Compresses the given input stream to the given output stream .
+1020	Returns a copy of this cursor .
+2460	Exit the given statement .
+4154	Merge the properties from another properties .
+2533	Process the DynaView .
+3345	Sets the value of the attribute .
+2672	Generate the relationship file for the given transfer .
+3296	Process an event .
+2422	Creates a new Complexf object from the given angle .
+4541	Create connector instance .
+1042	Creates a Bson that matches documents in the given field with the given filter .
+1571	Gets the value of the uppdrag property .
+3444	Convert a InstructionList to a string .
+3105	Parses the given JSON PNC config .
+1425	Throws a FieldNotFoundException if the field was not found .
+5042	Creates a DBI instance .
+4662	Get last modified time of resource file .
+2465	Returns true if the given invocation is a partial invocation of the given method .
+3326	Append children to the tag .
+4488	Returns the number of rows in the cursor .
+3	Reads bytes from the input stream .
+2489	Detects if the device is an iPhone .
+2350	Removes a job from the set .
+1721	Gets the value of the parliamentElectoralRegions property .
+3521	Decrements the value of the specified key by the given integer .
+4751	Add an error message .
+2639	Reduce the name of a class based on the suffix .
+3809	Get the javascript code to call when the browser is loaded .
+3622	Creates a listener which allows to animate the sweep animation .
+1750	Gets the active user account .
+4187	Extend the access token .
+3876	Get a model for a command .
+1390	Builds a configuration instance using the given configuration provider .
+694	Converts this data type to a database data type .
+2324	Creates the SQL table .
+4222	Get the Facebook instance .
+5072	Adjusts the arguments for the given method .
+2745	Get the metrics table for the given storage service and location .
+765	Add a schema to a procedure text .
+1924	Called when the cursor is changed .
+2542	Copy a PlexusIoResource to a file .
+1631	Adds annual summary data .
+1207	Sets the handle key for the request .
+200	Removes the entry with the given key hash known .
+378	Adds a provider to the list of providers .
+3892	Check if the access to the given field is allowed to be applied to the menu .
+5007	Creates the control for the part .
+596	Initialize all configuration properties .
+3730	Get a property as a String .
+3395	Returns the configuration schema for the build .
+5159	Create an object from the given class .
+4715	Creates a key for the received at event .
+1592	Get the page id from the parameters .
+3145	Get the list of artifacts for a given build record .
+4049	Disconnects the connection from the service .
+3273	Write a TIN .
+1998	Build a proxy service .
+1208	Set required property on the model .
+45	Creates a builder with the given expected size .
+873	Adds a key to the query .
+3482	Returns the type of the given class .
+1792	Extract the package name from the given apk file .
+1440	Generate a random secret .
+4243	Get a resource from the Twitter API .
+3805	Add blacklist categories .
+411	Writes a blob to the underlying byte array .
+4566	Registers a term .
+2041	Adds an endpoint service with the given alias and service management bundle .
+994	Converts the group into a DBObject .
+3739	Finds an unused port .
+1092	Creates a geo - haystack index .
+3806	Initiate the partial page request .
+4351	Returns a new range that is merged with this range .
+4578	This method is called by the snapshot resolution process .
+4877	Sets the preferred client type .
+2599	Asserts that the given character is equal to the given expected character .
+3625	Initializes the hide floating action buttons button .
+5018	Create a member of criterion .
+4135	Creates a new MemorySize from the given array of memory sizes .
+3495	Returns true if the given type has a public constructor with no parameters .
+3652	Checks if the given method is a callback method .
+1303	Sets the attribute value .
+3888	Initialize the filter .
+3686	Returns all packages in the project .
+2123	Converts a tuple to a thrift object .
+2025	Stop the http server .
+2271	Returns the trip id .
+4270	Get the raw value for the given key .
+3969	Register an application context .
+5134	Returns the bottom border of the box .
+1959	Track the timeouts that have been sent .
+2249	Build a list of empty ticks .
+3603	Obtains the duration of the animation which should be used to animate the visibility of the button from
+634	Checks if the given object has a property with the given name .
+2340	Get the trip speed .
+1920	Copy the text from the text area to the clipboard .
+2225	Percent encodes a string .
+2751	Creates a merge request .
+2619	Asserts that the actual value is equal to the expected value .
+4424	Get all cow files in the given folder .
+660	Fix up the command line arguments .
+1235	Sets the Swagger options .
+1894	Returns the last item in the list .
+3137	Checks if the latest successful build record has a rebuilt implicit dependency .
+1251	Correcao a partir de acesso no NF
+1752	Creates the basic layout for the page mode .
+526	Gets a static field .
+3398	Determine the system root .
+3339	Adds a new WebSocketPushListener to the session .
+2710	Apply the append condition to the given request .
+4445	Returns a map of table names to tables .
+3816	Parses a response into a specific type .
+3406	Parse options from command line arguments .
+510	Fixes the trace path .
+1694	Adds data for a given year to the given map .
+3441	Creates a method scope local variable .
+3190	Creates a new instance of the given class .
+4784	Sets the indentation token .
+160	Dispatches all listeners .
+4716	Initialize the GuestNode .
+3116	Returns a collector that accumulates all elements of the input collection into a flat list .
+3907	Returns all users in the registry .
+48	Calculates the new capacity for the queue .
+2881	Get extended error information from the given reader .
+2446	Transforms the type parameters of this type .
+3194	Finds all static fields of a class .
+3432	Build a new stack map .
+4409	Execute the task .
+4473	Returns a style span with a bold style .
+4941	Returns the file that was renamed to the given index .
+1806	Returns the platform directory .
+3999	Converts an XML string to a JSON string .
+1797	Copy the stream without closing the stream .
+2235	Operates on the order at the given index .
+3570	Registers a callback for engine ready events .
+237	Returns the value of the sequence and subtracts the given value .
+3185	Parse the Java version .
+2753	Update a table .
+3312	Checks if the attribute contains a valid regular expression .
+3828	Set the markup id for the header .
+1045	Returns a filter that filters documents by the given coordinates within the center of the specified field .
+5097	Create a source detail object .
+220	Post an event to the event bus .
+3227	Returns the dependencies of the specified server type .
+4848	Writes the serialized object to the given file .
+4623	Get the candidate for a specific stage .
+222	Removes a sticky event from the event queue .
+687	Inserts a new string value after the existing key .
+3511	Parse a port number from an address .
+1111	Throws an IllegalArgumentException if the value is null .
+3782	Update the class elements .
+1488	Cancels an existing animation .
+2131	Returns the list of hosts that are used to connect to the server .
+2681	Writes the sealed content to the given file .
+1733	Sets the column converters .
+3724	Sets the address of the candidate .
+2677	Send a message to Kafka .
+2764	Delete a share .
+2279	Validates a feed .
+3453	Converts a type to a class .
+2066	Adds a value to the list .
+670	Returns true if the given runtime labels match .
+3852	Adds the children of the given UIClassification to the model object .
+158	Returns the sum of all the values in this map .
+426	Sets whether the default network is active .
+2866	Encodes a byte array into a string .
+1836	Returns the names of the files in the given base directory .
+562	Set the stack to the given values .
+329	Adds a new HTTP response rule to the FakeHttpLayer .
+254	Concatenates the input values into a single value using the provided function .
+1633	Adds the entry data to the data series .
+166	Executes the given Runnable on the worker .
+5089	Returns the StringUtils instance .
+1248	Adiciona a lote assinado .
+1954	Gets the element for a radial gradient paint .
+1034	Creates a filter that filters documents by the given field name to be less than the given value
+3879	Convert the date field values to HTML .
+937	Executes a command .
+4620	Get a single rating .
+1785	Resolves the given artifact to a single target .
+2099	Converts a message to a PigScript .
+3021	Apply Schematron validation to the passed XML resource .
+1374	Adds an instance to the managed instances .
+4963	Checks if the given ref is of the given type .
+4974	This method is called by the filter class .
+1341	Sets the HTTP proxy .
+2548	Adds a section to the manifest .
+4740	Execute the rule .
+210	The function domain redis template .
+2555	Clean up the manifest .
+3074	Checks if the given subject option has the given role .
+3249	Read a line string from a byte stream .
+1624	Creates the paging controls .
+622	Generate the SQL for a CREATE INDEX statement .
+4850	Returns the provider URL .
+5138	Checks if the given child node is inside the parent .
+1989	Returns a new instance of the DnsClient .
+834	Propagate the result of the given promise to the destination settable .
+2470	Returns the index of the leaf node in the tree .
+4918	Sets whether or not the rename option is to be used .
+4636	Get the AddlBio for a candidate .
+336	Returns the index of the bit n in the bitmap .
+2844	Generate a shared access signature hash for a table .
+4364	Gets the value of the deploymentDescriptor property .
+3035	Format the message using the given format .
+564	Sets the local variable .
+2795	Runs a sample of the table getting started .
+103	Returns an array of the elements of this sequence as an array of the specified type .
+4015	Creates a view which displays a date in the profile edit view .
+864	Put an object in the map .
+3551	Returns the base paths that were occupied by the specified load balancer group .
+2967	Deletes the given entity .
+3766	Execute the operation .
+1253	Informa a NFRetornoEventoInutilizacao .
+3567	Builds the MustacheEngine .
+1442	Returns all artifacts that are coming from ninja - standalone .
+4274	Loads an image from the server using the specified encoded data .
+2212	Set the callback URL for the subscription .
+5045	Creates a new named property with the given name and value .
+4408	Executes the command .
+3960	Deletes the given key from the local cache .
+3808	Get the resource stream .
+3568	Adds a template locator to the engine .
+4853	Build a new JMS service .
+2198	Parses a JSON string and returns a list of subreddits .
+2640	Get a boolean property .
+2011	Sets the callback to be called when the list of components is added .
+709	Returns all children of the given namespace and nodename .
+2284	Creates a new GTFSError for an entity .
+3692	Gets the visible properties of the given one to many .
+1997	Builds a proxy service .
+4668	Generate a long id with the given length .
+4999	Returns the authorization url for the given OAuth config .
+2755	Serialize the given ServiceProperties to a byte array .
+235	Repeat the Flux by the specified number of times using the supplied predicate .
+2662	Process the request .
+1489	Animates a view .
+3994	Delete a trigger .
+1737	Gets the ballot summary item .
+2906	Parse a date from a string using the specified pattern and time zone .
+2116	Gets the field value of the given class .
+2788	Dispatches a read request to the parent file .
+2290	Returns the distance between the current trips and the pattern .
+4883	Adds a list of files to the specified repository in verbose mode .
+2263	Checks the distance and time of the stop time .
+4553	Creates an instance of the given class .
+83	Allocates the array of objects .
+4232	Get actions by application .
+1565	Gets the value of the kommunvalkrets property .
+1977	Checks the request type .
+4548	Capitalizes the first character of a string .
+1968	Sends a method call to the service bundle .
+3900	Called when the request is started .
+4020	Set the contentView with minimal elements .
+3671	Runs the given operation asynchronously .
+141	Concatenates two arrays of the given type .
+762	Returns the local host address .
+2410	Creates a new quaternion from the given x y z and w .
+1815	Generate correct R . java for APKLIB dependencies .
+1993	Returns a new callback coordinator that will be called when the callback is completed .
+2508	Returns the URI of the URL .
+4764	Paints the icon .
+3023	Remove a parameter from the query .
+4534	Returns a set of all wrapper classes .
+4349	Checks if this range overlaps with another range .
+2816	Open a new write existing file .
+3485	Finds and removes a method with the given name and arguments .
+2709	Apply the source condition to the given request .
+2882	Parses the error details from the request .
+3717	Retrieve a question set .
+2219	Set the longitude of the subscription .
+2511	Returns the values of the named parameter .
+1888	Get the disk cache .
+988	Returns the value as a number .
+1577	Add the party data .
+979	Creates a replace options .
+4389	Execute the goal .
+1516	Starts the daemon service .
+1772	Write the emulator start script to the file .
+3966	Generates HTML for the given element .
+2265	Returns the size of the table .
+4829	Returns the configuration for the pool .
+4297	Get the value of the designated column as an OffsetDateTime .
+4888	Add a list of files to a repository .
+2318	Put a feed file into the GTFS .
+823	Creates a new build task .
+1590	Gets the value of the committeeProposalContainer property .
+2426	Multiply this quaternion by a scalar value .
+1863	Delete the cache entry .
+2956	Creates a Cloud Blob client .
+2476	Creates a stream that emits invalidations of the given observable .
+115	Returns a lexicographical ordering .
+1036	Creates a filter that filters documents by field name less than or equal to the given value .
+2247	Display a chart .
+372	Load a resource bag value .
+446	Release the connection .
+4533	Apply the given output element to the given StringBuilder .
+2393	Returns the inverse square root of the given double .
+4021	Returns the friendly name of the given field .
+840	Finds the node with the next lowest SN .
+100	Removes all values for the given key from the map .
+4702	Create a map of property values from the attributes .
+2329	Generate the SQL to select all existing fields from a table .
+3845	Get the JS code for the data .
+3921	Initialize the button .
+3608	Creates the background drawable that will be used to activate the layer .
+2791	Resets the file to its initial state .
+1510	Sets the background color of the menu .
+420	Reads a primitive value from the stream .
+2068	Sets the element at the given index .
+3913	Execute events .
+934	Get a collection .
+535	Throw an exception .
+3282	Creates a new JSON object .
+4028	Handles the crop request .
+606	Parses a checksum value .
+4726	Returns the total number of pages .
+5156	Search for districts in a state .
+439	Sets the display flags .
+1242	Describando um resultmdfe recepcao evento .
+1222	Do with a consumer .
+4610	Creates a variant list from the given media types .
+697	Returns true if the database supports boolean data type .
+2033	Builds a service queue .
+970	Adds each value to the collection .
+4571	Removes dot segments from the given path .
+3409	Returns the ancestor of the given child item or null if no such child item is found .
+1848	Preload images .
+4280	Returns a string representation of this metric .
+3690	Finds a bean for a table .
+3626	Creates and returns a listener which allows to hide the floating action buttons .
+2435	Creates a quaternion from an angle and radians .
+4821	Get the producer for the given destination .
+3512	Sets the value of the specified key .
+2501	Checks if the given value is an EL expression .
+4658	Asserts that the specified set is null or empty .
+5087	Returns the ZipUtils instance .
+493	Queue an input buffer .
+4994	Removes expired entries from the cache .
+812	Adds a soft constraint match to the score .
+1702	Display document attachments .
+5124	Set the mapping file for the given URL .
+2167	Convert a word to underscore .
+665	Print the help message for the error messages .
+1286	Sets the callback to be called when the auto scale is started .
+1964	Handle backend client responses .
+1423	Finds a field using the given strategy .
+4521	Returns true if the current context is connected to the network .
+614	Process a line .
+1282	Shuts down the driver .
+21	Write a map to a stream .
+3346	Merges the given data arrays into a single ByteBuffer .
+4864	Returns the next number in the set .
+3849	Adds a new value to the row .
+2385	Wrap angle in radians .
+267	Pause all running tasks .
+1896	Aligns the sheet with the FAB .
+2360	Write this notification to a Parcel .
+2316	Get the value for the given id .
+3719	Returns the address .
+583	Returns the opcode of the instruction .
+1912	Checks if the CharSequence contains a word breaking character .
+5120	Gets the JAXBContext for the given context path .
+4831	Sets the model file .
+1620	Returns the address of the user account .
+940	Execute a JavaScript expression .
+4461	Returns the column at the given ordinal position .
+1841	Try to move the view to the specified position .
+1220	Rewrite a SQL statement .
+2176	Get the output stream for the job .
+1165	AAD authentication filter .
+488	Run the next task in the queue .
+1359	Updates the position of the items in the menu .
+2364	Check the properties of the request .
+3597	Obtains the size of the button from a specific typed array .
+1018	Backpatch the message length .
+3839	Check login .
+2491	Detects if the device is a Windows Mobile device .
+3297	Publishes an event to all registered event busses .
+2230	Adds a trade to the trade .
+4099	Converts a Object to a Boolean .
+4423	Get the cowfile with the given name .
+4045	Writes the string to the buffer .
+3586	Invalidate all fragments with the given key .
+658	Extract a file from a jar file .
+4899	Commit all changes to the specified repository .
+3539	Adds the encoding to the request .
+2051	Send the item to the event manager .
+211	Returns the app map .
+748	Sets the default value of the column .
+4712	Get the value of the given attribute from the given configuration .
+4809	Processes the cluster cluster .
+169	Add all causes to the set .
+2207	Check that the given URL is valid for OAuth callback .
+1435	Escape all quotes and backslashes in the given string .
+3854	Get a new UIStructurBrowser .
+4251	Get a user .
+1486	Resets the velocity tracking .
+4795	Recursively add all the source files and subdirectories to the map .
+747	Sets the value of the boolean column .
+3850	Returns the index of the given input name .
+2850	Gets the CloudFileShare associated with this file .
+2730	Deletes the queue if it exists .
+2630	Asserts that two objects are not the same .
+856	Throws an IllegalArgumentException if any of the given objects are null .
+1317	Sets the search focused state .
+2701	Uploads the given permissions to the storage .
+4058	Get the persona of the given app identifier .
+2361	Returns the height of the view .
+3280	Abbreviates a string to a maximum length .
+4506	Updates or deletes the records .
+300	Make a private method .
+3725	Retrieve a person .
+721	Creates a precondition instance for the given tag name .
+2576	Returns the index of the header field with the given name and value .
+2067	Adds the given values to the end of the array .
+2648	Collect claims from the given subject .
+949	Map a map reduce and return the result .
+3311	Adds a value change listener to the list of value change listeners .
+4215	Adds a like to an entity .
+9	Converts an iterable to an iterator .
+4444	Resync all the watch keys .
+3784	Evaluate the UI provider .
+3385	Appends an array of integers to the beginning of the given array .
+444	Sets the rotation of the shadow .
+1536	Writes a tab - separated line to the output .
+4247	Sends a PUT request to the Socialize API asynchronously .
+2963	Initializes the operation .
+5100	Validate the options .
+4083	Compute the signature of a method .
+5123	Compute the backgrounds of the root node .
+3621	Creates a property which allows to set the current sweep angle .
+422	Reads a byte array from an input stream .
+4499	Returns true if the current position was read .
+1073	Compresses the given list of buffers to the given output stream .
+2359	Put a PersistableBundle into the Bundle .
+3970	Build a SelectInput with the given name and possible names .
+236	Converts a callable to a Mono .
+5161	Unregisters the MBean with the MBean server .
+4987	Returns the status of the file .
+1960	Check the client connection .
+1297	Reads the engine type from the stream .
+2545	Initialize the zip output stream .
+4512	Sets the default content view .
+112	Concatenates two HashFunctions together .
+4524	Flat map the value of this Option to an Option .
+3342	Returns the tag repository .
+763	Returns the hostname of the local host .
+929	Returns the credential list .
+3780	Evaluate the instance .
+962	Creates a new update with a single value .
+1261	Describer um resultmdfe retornorecepcao de MdfeRet
+4082	Returns a class by name .
+2390	Lerps a triangle .
+4168	Parses the response from the Facebook API .
+2239	Increments the acceleration .
+3403	Activates all modules in the given classloader .
+3952	Try to clone the given object .
+3868	Prune all finished tasks .
+1996	Wrap a callback with a timeout .
+3741	Set the parameter values .
+4515	Creates an intent that will be used to perform a specific action on the specified context .
+1184	Returns the status code of the response .
+3142	Create a build set task .
+1561	Creates the committee ranking menu bar .
+4910	Adds a file to the list of new files to commit .
+4163	Get comments by entity .
+1118	Returns the UUID representation of this object .
+571	Visit the given source .
+3399	Determine the local root directory .
+2784	Set the file metadata .
+4159	Add a comment to an entity .
+2188	Format comma separated list .
+2317	Put a feed file to the feed store .
+2445	Reduces the constraint formulas in the bound set .
+4808	Generates a template file .
+4750	Formats the results of the select .
+4011	Stop all search for the given app .
+1217	Add a custom parameter to the route method .
+3658	Cancels a request with the given tag .
+4412	Say or think .
+3967	Returns the complete rendered input for the given element .
+2827	Uploads the given stream to the storage .
+2723	Sign a table request .
+4451	Log the given encoder to the log .
+3090	Flushes the left over buffer to the output stream .
+2636	Checks if the given field exists in the given class .
+1545	Create a map from a list of strings .
+1956	Get the parts of a string .
+4684	Returns the tag state of the filter .
+1913	Returns true if the given number of characters are only letters or digits .
+3365	Check that the token is not end of file .
+357	Reset the queue .
+2606	Asserts that the character is uppercase .
+3123	Delete a temporary build .
+3162	Creates an instance of the given class .
+1246	Get the namespace map for the given SOAP envelope .
+4057	Unregister a service from the service registry .
+303	Adds a child node to this node .
+4114	Executes the given command with the given arguments .
+4834	Clustered event manager service queue .
+2719	Appends a canonicalized element to the given builder .
+822	Gets a build task for the given hash .
+3606	Adapts the background of the image button .
+816	Returns the problem scale for the given solution .
+4308	Add a sharp path .
+3743	Add a parameter value .
+125	Returns true if the two paths are equal .
+1180	Returns a path for the given pattern .
+3358	Returns the text of the children of this element .
+1264	Encerramento acesso do evento assinado xml
+612	Writes the next line of text .
+3846	Get data reload js .
+2773	List shares .
+5105	Read all commands from the classpath .
+3256	Reads a compound curve from a byte stream .
+657	Checks if the given command is a no - arg command .
+2691	Creates a new http client context for the given site .
+4371	Checks if the project directory exists and is a directory .
+2594	Set the default script names .
+3997	Converts an XML string to an object using XStream .
+4432	Wraps the given message with a line separator .
+294	Add the smallest screen width to the qualifiers string .
+5058	Validates the arguments .
+560	Visit a line number .
+1923	Updates the selection if required .
+5170	Compares this enum to the specified enum .
+2354	Called when a stop job is received .
+740	Returns the column name for the given column .
+3555	Deregisters all removable targets from the target group .
+3634	Obtains the closable state of the preference from a specific typed array .
+2453	Returns a type that is a intersection of the given types .
+376	Adds a service to the list of services .
+2657	Creates a javax . ws . rs . client . Client .
+459	Check if the given device has the given permission for the given package .
+2403	Returns the shift of the given multiplicand .
+2936	Adds the query and fragment to the URI .
+3070	Returns the deferred action for the given request .
+3528	Gets a bit from the set stored at the given key .
+1192	Returns the response for the given status .
+2000	Starts the proxy server .
+3375	Create a filter from a filter string .
+1475	Switch views .
+1392	Encodes a byte array into a base64 encoded string .
+1434	Tokenizes the given string .
+646	Initializes the configuration value provider .
+4992	Update the list after a hit .
+5076	Handles a preflight CORS request .
+1972	Stops the service bundle .
