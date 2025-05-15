@@ -1154,9 +1154,11 @@ def main():
             eval_dataloader = DataLoader(
                 eval_data, sampler=eval_sampler, batch_size=args.eval_batch_size
             )
-
+            model.eval()
             # GPU-WARM-UP
             if torch.cuda.is_available() and not args.no_cuda:
+                logger.info("********* GPU-WARM-UP ********")
+                # warm up for 5 batches
                 for i, batch in enumerate(eval_dataloader):
                     if i < 5:
                         batch = tuple(t.to(device) for t in batch)
@@ -1171,8 +1173,6 @@ def main():
                                 _ = model(source_ids=source_ids, source_mask=source_mask)
                     else:
                         break
-
-            model.eval()
             p = []
             times = []
 
