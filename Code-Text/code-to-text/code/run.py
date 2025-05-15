@@ -68,6 +68,7 @@ from transformers import (
 )
 import time
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
+from torchinfo import summary
 
 MODEL_CLASSES = {
     "roberta": (RobertaConfig, RobertaModel, RobertaTokenizer),
@@ -239,7 +240,13 @@ def calibration(model, tokenizer, device, args):
             batch = tuple(t.to(device) for t in batch)
             source_ids, source_mask = batch
             with torch.no_grad():
-                model(source_ids=source_ids, source_mask=source_mask)
+                if args.model_type == "t5":
+                    model.generate(
+                        input_ids=source_ids,
+                        attention_mask=source_mask,
+                    )
+                else:
+                    model(source_ids=source_ids, source_mask=source_mask)
 
 
 def print_model_size(model, args):
@@ -1067,11 +1074,15 @@ def main():
 
         if args.prune:
             logger.info("Apply model pruning")
-            parameters_to_prune = [(model.dense, "weight"), (model.lm_head, "weight")]
-            for layer in model.encoder.encoder.layer:
-                parameters_to_prune.append((layer.attention.self.query, "weight"))
-                parameters_to_prune.append((layer.attention.self.key, "weight"))
-                parameters_to_prune.append((layer.attention.self.value, "weight"))
+            # parameters_to_prune = [(model.dense, "weight"), (model.lm_head, "weight")]
+            # for layer in model.encoder.encoder.layer:
+            #     parameters_to_prune.append((layer.attention.self.query, "weight"))
+            #     parameters_to_prune.append((layer.attention.self.key, "weight"))
+            #     parameters_to_prune.append((layer.attention.self.value, "weight"))
+            parameters_to_prune = []
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
 
             prune.global_unstructured(
                 parameters_to_prune,
@@ -1083,11 +1094,15 @@ def main():
 
         if args.prune4:
             logger.info("Apply model pruning 0.4")
-            parameters_to_prune = [(model.dense, "weight"), (model.lm_head, "weight")]
-            for layer in model.encoder.encoder.layer:
-                parameters_to_prune.append((layer.attention.self.query, "weight"))
-                parameters_to_prune.append((layer.attention.self.key, "weight"))
-                parameters_to_prune.append((layer.attention.self.value, "weight"))
+            # parameters_to_prune = [(model.dense, "weight"), (model.lm_head, "weight")]
+            # for layer in model.encoder.encoder.layer:
+            #     parameters_to_prune.append((layer.attention.self.query, "weight"))
+            #     parameters_to_prune.append((layer.attention.self.key, "weight"))
+            #     parameters_to_prune.append((layer.attention.self.value, "weight"))
+            parameters_to_prune = []
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
 
             prune.global_unstructured(
                 parameters_to_prune,
@@ -1099,12 +1114,16 @@ def main():
 
         if args.prune6:
             logger.info("Apply model pruning 0.6")
-            parameters_to_prune = [(model.dense, "weight"), (model.lm_head, "weight")]
-            for layer in model.encoder.encoder.layer:
-                parameters_to_prune.append((layer.attention.self.query, "weight"))
-                parameters_to_prune.append((layer.attention.self.key, "weight"))
-                parameters_to_prune.append((layer.attention.self.value, "weight"))
-
+            # parameters_to_prune = [(model.dense, "weight"), (model.lm_head, "weight")]
+            # for layer in model.encoder.encoder.layer:
+            #     parameters_to_prune.append((layer.attention.self.query, "weight"))
+            #     parameters_to_prune.append((layer.attention.self.key, "weight"))
+            #     parameters_to_prune.append((layer.attention.self.value, "weight"))
+            parameters_to_prune = []
+            
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
             prune.global_unstructured(
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,
@@ -1114,6 +1133,7 @@ def main():
                 prune.remove(module, param)
 
         print_model_size(model, args)
+        summary(model)
 
         files = []
         if args.dev_filename is not None:
