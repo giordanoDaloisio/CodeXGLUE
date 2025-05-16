@@ -273,14 +273,34 @@ Defect Prediction Graph,Quantization (quanto-qint8),F1,0.5688149688149688
 Defect Prediction Graph,Quantization (quanto-qint8),MCC,0.2316711785683037
 Defect Prediction Graph,Quantization (quanto-qint8),Accuracy,0.6215226939970717
 Defect Prediction Graph,Quantization (quanto-qint8),F1,0.5751848808545604
-Defect Prediction Graph,Quantization (quanto-qint8),MCC,0.23490234558506892
+Defect Prediction Graph,Quantization (quanto-qint8),MCC,0.2349023455850689
 Defect Prediction Graph,No One,Accuracy,0.6211566617862372
 Defect Prediction Graph,No One,F1,0.5721372467961968
-Defect Prediction Graph,No One,MCC,0.23362966149158498
+Defect Prediction Graph,No One,MCC,0.2336296614915849
 Defect Prediction Graph,Pruning 0.4,Accuracy,0.6153001464128843
 Defect Prediction Graph,Pruning 0.4,F1,0.4482939632545932
-Defect Prediction Graph,Pruning 0.4,MCC,0.22149695747026732
+Defect Prediction Graph,Pruning 0.4,MCC,0.2214969574702673
 Defect Prediction Graph,Pruning 0.2,Accuracy,0.6211566617862372
 Defect Prediction Graph,Pruning 0.2,F1,0.552141929900476
-Defect Prediction Graph,Pruning 0.2,MCC,0.23063267014173822
-Code Summa
+Defect Prediction Graph,Pruning 0.2,MCC,0.2306326701417382
+Code Summarization T5,No One,Avg Inference Time CPU,12.388410023478574
+Code Summarization T5,No One,Model Size,891.644607
+Code Summarization T5,Quantization (quanto-qint8),Avg Inference Time CUDA,2.273070220337358
+Code Summarization T5,Pruning 0.6,Avg Inference Time CPU,11.792606901290805
+Code Summarization T5,Pruning 0.6,Model Size,891.644607
+Code Summarization T5,Pruning 0.4,Avg Inference Time CPU,12.328668349011
+Code Summarization T5,Pruning 0.4,Model Size,891.644607
+Code Summarization T5,Pruning 0.2,Avg Inference Time CPU,12.398546519667603
+Code Summarization T5,Pruning 0.2,Model Size,891.644607
+Code Summarization T5,No One,Avg Inference Time CUDA,2.1138756275177
+Code Summarization T5,Pruning 0.6,Avg Inference Time CUDA,2.128093680670095
+Code Summarization T5,Quantization (quanto-qint4),Avg Inference Time CUDA,2.427902523861375
+Code Summarization T5,Pruning 0.2,Avg Inference Time CUDA,2.1148421473281327
+Code Summarization T5,Quantization (quanto-qfloat8),Avg Inference Time CPU,7.699378197969392
+Code Summarization T5,Quantization (quanto-qfloat8),Model Size,322.965955
+Code Summarization T5,Pruning 0.4,Avg Inference Time CUDA,2.100378367789956
+Code Summarization T5,Quantization (quanto-qint8),Avg Inference Time CPU,12.451433016810306
+Code Summarization T5,Quantization (quanto-qint8),Model Size,322.965507
+Code Summarization T5,Quantization (quanto-qint4),Avg Inference Time CPU,15.644011716509974
+Code Summarization T5,Quantization (quanto-qint4),Model Size,219.44509
+Code Summarization T5,Quantization (quanto-qint8),Avg Inference Time CUDA,2.2878125711928967

@@ -19,5 +19,5 @@ target_length=128
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python evaluator/evaluator.py --gold code/model_t5/java/test_1.gold --test_file dataset/java/test.jsonl --pred code/model_t5/java/test_1_cuda.output
+srun python evaluator/evaluator.py --model model_t5
 

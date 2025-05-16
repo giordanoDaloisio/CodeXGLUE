@@ -24,14 +24,15 @@ from sim import sim
 from argparse import ArgumentParser
 from transformers import AutoTokenizer, AutoModel
 import json
+import pandas as pd
+import os
 
 parser = ArgumentParser()
-parser.add_argument("--gold")
-parser.add_argument("--pred")
-parser.add_argument("--test_file")
+# parser.add_argument("--gold")
+# parser.add_argument("--pred")
+# parser.add_argument("--test_file")
+parser.add_argument("--model")
 args = parser.parse_args()
-
-
 
 
 # Added to bypass NIST-style pre-processing of hyp and ref files -- wade
@@ -221,22 +222,47 @@ if __name__ == '__main__':
   tokenizer = AutoTokenizer.from_pretrained(model_path)
   model = AutoModel.from_pretrained(model_path).to(DEVICE)
 
-  reference_file = args.gold
+  df = pd.read_csv('../../analysis/experiment_values.csv')
+  base_path = f'../code/{args.model}/java'
+
+  reference_file = f"{base_path}/test_1.gold"
   predictions = []
-  for row in open(args.pred):
-    predictions.append(row)
-  (goldMap, predictionMap) = computeMaps(predictions, reference_file)
+  for logs in os.listdir(base_path):
+     if 'cpu' in logs and 'output' in logs:
+        for row in open(os.path.join(base_path, logs)):
+          predictions.append(row)
+          (goldMap, predictionMap) = computeMaps(predictions, reference_file)
 
-  gold_list = [v[0] for v in goldMap.values()]
-  pred_list = [v[0] for v in predictionMap.values()]
-  
-  score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
-  sims = computeSim(args.test_file, pred_list)
-
-
-  print("Bleu", bleuFromMaps(goldMap, predictionMap)[0])
-  print("BERTScore Prec", np.mean(list(score['precision'])))
-  print("BERTScore Recall", np.mean(list(score['recall'])))
-  print("BERTScore F1", np.mean(list(score['f1'])))
-  print("SIDE Score", np.mean(sims))
+        gold_list = [v[0] for v in goldMap.values()]
+        pred_list = [v[0] for v in predictionMap.values()]
+        
+        score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
+        sims = computeSim(args.test_file, pred_list)
+        task = 'Summarization T5'
+        if 'prune4' in logs:
+            compression = 'Pruning 0.4'
+        elif 'prune6' in logs:
+            compression = 'Pruning 0.6'
+        elif 'prune' in logs:
+            compression = 'Pruning 0.2'
+        elif 'quantf8' in logs:
+            compression = 'Quantization (quanto-qfloat8)'
+        elif 'quant4' in logs:
+            compression = 'Quantization (quanto-qint4)'
+        elif 'quant' in logs:
+            compression = 'Quantization (quanto-qint8)'
+        else:
+            compression = 'No One'
+        df = pd.concat([df, pd.DataFrame({
+            'Task': [task, task, task], 
+            'Compression Method': [compression, compression, compression], 
+            'Parameter': ["Bleu", "BERTScore", "SIDE"], 
+            'Value': [bleuFromMaps(goldMap, predictionMap)[0], np.mean(list(score['f1'])), np.mean(sims)]
+        })], ignore_index=True)  
+        df.to_csv('../../analysis/experiment_values.csv', index=False)
+        print("Bleu", bleuFromMaps(goldMap, predictionMap)[0])
+        print("BERTScore Prec", np.mean(list(score['precision'])))
+        print("BERTScore Recall", np.mean(list(score['recall'])))
+        print("BERTScore F1", np.mean(list(score['f1'])))
+        print("SIDE Score", np.mean(sims))
 

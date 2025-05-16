@@ -1046,8 +1046,6 @@ def main():
 
     if args.do_test:
 
-        # starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
-
         if args.quantize:
             logger.info("Apply quantization qint8")
             quantize(model, weights=qint8, activations=qint8)
@@ -1201,7 +1199,7 @@ def main():
                 source_ids, source_mask = batch
                 with torch.no_grad():
                     # starter.record()
-                    if torch.cuda.is_available() and not args.no_cuda:
+                    if device == "cuda":
                         starter, ender = torch.cuda.Event(
                             enable_timing=True
                         ), torch.cuda.Event(enable_timing=True)
