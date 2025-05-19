@@ -223,7 +223,7 @@ if __name__ == '__main__':
   model = AutoModel.from_pretrained(model_path).to(DEVICE)
 
   df = pd.read_csv('../../analysis/experiment_values.csv')
-  base_path = f'../code/{args.model}/java'
+  base_path = f'code/{args.model}/java'
 
   reference_file = f"{base_path}/test_1.gold"
   predictions = []
@@ -237,7 +237,7 @@ if __name__ == '__main__':
         pred_list = [v[0] for v in predictionMap.values()]
         
         score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
-        sims = computeSim(args.test_file, pred_list)
+        sims = computeSim("dataset/java/test.jsonl", pred_list)
         task = 'Summarization T5'
         if 'prune4' in logs:
             compression = 'Pruning 0.4'

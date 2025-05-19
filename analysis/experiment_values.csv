@@ -290,7 +290,7 @@ Code Summarization T5,Pruning 0.6,Avg Inference Time CPU,11.792606901290805
 Code Summarization T5,Pruning 0.6,Model Size,891.644607
 Code Summarization T5,Pruning 0.4,Avg Inference Time CPU,12.328668349011
 Code Summarization T5,Pruning 0.4,Model Size,891.644607
-Code Summarization T5,Pruning 0.2,Avg Inference Time CPU,12.398546519667603
+Code Summarization T5,Pruning 0.2,Avg Inference Time CPU,12.398546519667605
 Code Summarization T5,Pruning 0.2,Model Size,891.644607
 Code Summarization T5,No One,Avg Inference Time CUDA,2.1138756275177
 Code Summarization T5,Pruning 0.6,Avg Inference Time CUDA,2.128093680670095
@@ -304,3 +304,24 @@ Code Summarization T5,Quantization (quanto-qint8),Model Size,322.965507
 Code Summarization T5,Quantization (quanto-qint4),Avg Inference Time CPU,15.644011716509974
 Code Summarization T5,Quantization (quanto-qint4),Model Size,219.44509
 Code Summarization T5,Quantization (quanto-qint8),Avg Inference Time CUDA,2.2878125711928967
+Summarization T5,Quantization (quanto-qint8),Bleu,19.87853430257151
+Summarization T5,Quantization (quanto-qint8),BERTScore,0.8928772263361514
+Summarization T5,Quantization (quanto-qint8),SIDE,0.8880885873889336
+Summarization T5,No One,Bleu,19.888215074898547
+Summarization T5,No One,BERTScore,0.8928905755023008
+Summarization T5,No One,SIDE,0.8882407288853843
+Summarization T5,Pruning 0.2,Bleu,19.685724702640247
+Summarization T5,Pruning 0.2,BERTScore,0.8921365491280758
+Summarization T5,Pruning 0.2,SIDE,0.8853715921505191
+Summarization T5,Quantization (quanto-qfloat8),Bleu,19.892636274128282
+Summarization T5,Quantization (quanto-qfloat8),BERTScore,0.8929028284109003
+Summarization T5,Quantization (quanto-qfloat8),SIDE,0.8877538213483387
+Summarization T5,Quantization (quanto-qint4),Bleu,19.716378822152773
+Summarization T5,Quantization (quanto-qint4),BERTScore,0.8925892769773492
+Summarization T5,Quantization (quanto-qint4),SIDE,0.8870927553557604
+Summarization T5,Pruning 0.6,Bleu,5.959810036621855
+Summarization T5,Pruning 0.6,BERTScore,0.7639073429941207
+Summarization T5,Pruning 0.6,SIDE,0.5104587082850987
+Summarization T5,Pruning 0.4,Bleu,19.423735798205378
+Summarization T5,Pruning 0.4,BERTScore,0.889968284930556
+Summarization T5,Pruning 0.4,SIDE,0.8796690877770137
