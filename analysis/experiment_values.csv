@@ -64,6 +64,8 @@ Defect Prediction,Pruning 0.4,MCC,0.196
 Defect Prediction,Pruning 0.2,F1,0.319
 Defect Prediction,Pruning 0.2,MCC,0.219
 Defect Prediction,Compressor,Model Size,3.09374
+Defect Prediction,Compressor,Avg Inference Time CPU,1.4956105309863423
+Defect Prediction,Compressor,Avg Inference Time CUDA,0.0168205083802688
 Summarization,No One,Avg Inference Time CUDA,23.721
 Summarization,Distillation (distilbert),Avg Inference Time CUDA,25.044
 Summarization,Quantization  (quanto-qfloat8),Avg Inference Time CUDA,27.249
@@ -196,6 +198,8 @@ Code Search,Compressor,MRR,0.0043
 Code Search,Compressor,MRR@1,0.0014
 Code Search,Compressor,MRR@5,0.0025
 Code Search,Compressor,Model Size,22.0094
+Code Search,Compressor,Avg Inference Time CPU,0.8026763117590616
+Code Search,Compressor,Avg Inference Time CUDA,0.0105062354838729
 Defect Prediction,Compressor,Accuracy,0.5948023426061494
 Defect Prediction,Compressor,F1,0.4213277574490329
 Defect Prediction,Compressor,MCC,0.1730328116109823
@@ -283,6 +287,9 @@ Defect Prediction Graph,Pruning 0.4,MCC,0.2214969574702673
 Defect Prediction Graph,Pruning 0.2,Accuracy,0.6211566617862372
 Defect Prediction Graph,Pruning 0.2,F1,0.552141929900476
 Defect Prediction Graph,Pruning 0.2,MCC,0.2306326701417382
+Defect Prediction Graph,Compressor,Model Size,3.09374
+Defect Prediction Graph,Compressor,Avg Inference Time CPU,0.85997282627017
+Defect Prediction Graph,Compressor,Avg Inference Time CUDA,0.0111315915750902
 Code Summarization T5,No One,Avg Inference Time CPU,12.388410023478574
 Code Summarization T5,No One,Model Size,891.644607
 Code Summarization T5,Quantization (quanto-qint8),Avg Inference Time CUDA,2.273070220337358
@@ -313,7 +320,7 @@ Summarization T5,No One,SIDE,0.8882407288853843
 Summarization T5,Pruning 0.2,Bleu,19.685724702640247
 Summarization T5,Pruning 0.2,BERTScore,0.8921365491280758
 Summarization T5,Pruning 0.2,SIDE,0.8853715921505191
-Summarization T5,Quantization (quanto-qfloat8),Bleu,19.892636274128282
+Summarization T5,Quantization (quanto-qfloat8),Bleu,19.89263627412828
 Summarization T5,Quantization (quanto-qfloat8),BERTScore,0.8929028284109003
 Summarization T5,Quantization (quanto-qfloat8),SIDE,0.8877538213483387
 Summarization T5,Quantization (quanto-qint4),Bleu,19.716378822152773
@@ -322,6 +329,9 @@ Summarization T5,Quantization (quanto-qint4),SIDE,0.8870927553557604
 Summarization T5,Pruning 0.6,Bleu,5.959810036621855
 Summarization T5,Pruning 0.6,BERTScore,0.7639073429941207
 Summarization T5,Pruning 0.6,SIDE,0.5104587082850987
-Summarization T5,Pruning 0.4,Bleu,19.423735798205378
+Summarization T5,Pruning 0.4,Bleu,19.423735798205374
 Summarization T5,Pruning 0.4,BERTScore,0.889968284930556
 Summarization T5,Pruning 0.4,SIDE,0.8796690877770137
+Defect Prediction Graph,Compressor,Accuracy,0.5969985358711567
+Defect Prediction Graph,Compressor,F1,0.49840546697038723
+Defect Prediction Graph,Compressor,MCC,0.17809725384884656

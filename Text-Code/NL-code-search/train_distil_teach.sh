@@ -17,7 +17,7 @@ source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
 cd code
-OUTPUTDIR=./saved_models_distil_ase3
+OUTPUTDIR=./saved_models_distil_graph_compress
 PRETRAINDIR=microsoft/codebert-base    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM

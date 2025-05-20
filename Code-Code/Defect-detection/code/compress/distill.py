@@ -158,7 +158,7 @@ def main():
     set_seed(args.seed)
     n_labels = 2
 
-    config = RobertaConfig.from_pretrained("microsoft/codebert-base")
+    config = RobertaConfig.from_pretrained("microsoft/graphcodebert-base")
     config.num_labels = n_labels
     config.num_attention_heads = args.attention_heads
     config.hidden_size = args.hidden_dim

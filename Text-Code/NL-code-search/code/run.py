@@ -254,7 +254,7 @@ def train(args, train_dataset, model, tokenizer):
             nl_inputs = batch[1].to(args.device)
 
             model.train()
-            loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
+            loss,code_vec,nl_vec,_ = model(code_inputs,nl_inputs)
 
             if args.n_gpu > 1:
                 loss = loss.mean()  # mean() to average on multi-gpu parallel training
@@ -362,17 +362,17 @@ def evaluate(args, model, tokenizer, eval_when_training=False):
         code_inputs = batch[0].to(args.device)
         nl_inputs = batch[1].to(args.device)
         with torch.no_grad():
-            lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
+            lm_loss, code_vec, nl_vec, logit = model(code_inputs, nl_inputs)
             eval_loss += lm_loss.mean().item()
             code_vecs.append(code_vec.cpu().numpy())
             nl_vecs.append(nl_vec.cpu().numpy())
         nb_eval_steps += 1
-        # logits.append(logit.cpu().numpy())
+        logits.append(logit.cpu().numpy())
     code_vecs = np.concatenate(code_vecs, 0)
     nl_vecs = np.concatenate(nl_vecs, 0)
-    # logits = np.concatenate(logits, 0)
-    # if "train_stud" in args.eval_data_file:
-    #     np.save("../dataset/preds_unlabel_train", logits)
+    if "train_stud" in args.eval_data_file:
+        logits = np.concatenate(logits, 0)
+        np.save("../dataset/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
     perplexity = torch.tensor(eval_loss)
 
@@ -411,7 +411,7 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
         model = torch.nn.DataParallel(model)
 
     # GPU-WARM-UP
-    if args.device == "cuda":
+    if torch.cuda.is_available() and not args.no_cuda:
         logger.info("******* Warmup **********")
         for i, batch in enumerate(eval_dataloader):
             if i < 5:
@@ -447,7 +447,7 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
             else:
                 start = time.time()
                 logger.info("************ Loading Data ***************")
-                lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
+                lm_loss, code_vec, nl_vec, _ = model(code_inputs, nl_inputs)
                 end = time.time()
                 inf_time = end - start
             times.append(inf_time)

@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/train_codebertasmall_%j.out
+#SBATCH -o ./logs_graph/train_teach_%j.out
 #SBATCH -J tc_train
 #SBATCH -p cuda
 #SBATCH -c 40
@@ -17,8 +17,8 @@ source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
 cd code
-OUTPUTDIR=./saved_models_codeberta_small
-PRETRAINDIR=huggingface/CodeBERTa-small-v1    # will download pre-trained CodeGPT model
+OUTPUTDIR=./saved_models_distil_graph_compress
+PRETRAINDIR=microsoft/graphcodebert-base    # will download pre-trained CodeGPT model
 LOGFILE=text2code_concode.log
 PER_NODE_GPU=1       # modify YOUR_GPU_NUM
 MODEL=roberta
@@ -29,9 +29,9 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
-    --tokenizer_name=$PRETRAINDIR  \
+    --tokenizer_name=roberta-base \
     --do_train \
-    --train_data_file=../dataset/train.jsonl \
+    --train_data_file=../dataset/train_teach.jsonl \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
     --epoch 2 \
@@ -41,4 +41,4 @@ srun python run.py \
     --learning_rate 5e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
-    --seed 123456 2>&1| tee train_distil.log
+    --seed 123456 2>&1| tee train.log

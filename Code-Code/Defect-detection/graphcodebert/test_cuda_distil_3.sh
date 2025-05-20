@@ -16,9 +16,9 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-base_model=microsoft/codebert-base
+base_model=microsoft/graphcodebert-base
 model_type=roberta
-output_dir=./saved_models_distil_ase_3
+output_dir=./saved_models_graph_distil
 
 cd code
 srun python run.py \
@@ -32,15 +32,15 @@ srun python run.py \
     --eval_data_file=../dataset/valid.jsonl \
     --test_data_file=../dataset/test.jsonl \
     --epoch 5 \
-    --block_size 400 \
     --attention_heads 8 \
     --hidden_dim 96 \
     --intermediate_size 64 \
     --n_layers 12 \
     --vocab_size 1000 \
-    --train_batch_size 32 \
+    --block_size 400 \
+    --train_batch_size 16 \
     --eval_batch_size 64 \
-    --learning_rate 2e-5 \
+    --learning_rate 1e-4 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
     --job_id $SLURM_JOB_ID \
