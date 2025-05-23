@@ -1,0 +1,18 @@
+05/23/2025 11:11:38 - WARNING - __main__ -   Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+05/23/2025 11:11:38 - DEBUG - urllib3.connectionpool -   Starting new HTTPS connection (1): huggingface.co:443
+05/23/2025 11:11:39 - DEBUG - urllib3.connectionpool -   https://huggingface.co:443 "HEAD /microsoft/graphcodebert-base/resolve/main/config.json HTTP/11" 200 0
+05/23/2025 11:11:39 - DEBUG - urllib3.connectionpool -   https://huggingface.co:443 "HEAD /roberta-base/resolve/main/tokenizer_config.json HTTP/11" 200 0
+05/23/2025 11:11:41 - INFO - __main__ -   Training/evaluation parameters Namespace(train_data_file='../dataset/train.jsonl', output_dir='./saved_models_distil_graph_compress', eval_data_file='../dataset/valid.jsonl', test_data_file='../dataset/test.jsonl', model_type='roberta', model_name_or_path='microsoft/graphcodebert-base', mlm=False, mlm_probability=0.15, config_name='microsoft/graphcodebert-base', tokenizer_name='roberta-base', cache_dir='', block_size=256, do_train=False, do_eval=True, do_test=True, evaluate_during_training=True, do_lower_case=False, train_batch_size=32, eval_batch_size=64, gradient_accumulation_steps=1, learning_rate=5e-05, weight_decay=0.0, adam_epsilon=1e-08, max_grad_norm=1.0, num_train_epochs=1.0, max_steps=-1, warmup_steps=0, logging_steps=50, save_steps=50, save_total_limit=None, eval_all_checkpoints=False, no_cuda=False, overwrite_output_dir=False, overwrite_cache=False, seed=123456, epoch=2, fp16=False, fp16_opt_level='O1', local_rank=-1, server_ip='', server_port='', teacher_name_or_path=None, quantize=False, quantize4=False, quantizef8=False, prune=False, prune4=False, prune6=False, job_id='488666', attention_heads=8, hidden_dim=96, intermediate_size=64, n_layers=12, vocab_size=1000, n_gpu=1, device=device(type='cuda'), per_gpu_train_batch_size=32, per_gpu_eval_batch_size=64, start_epoch=0, start_step=0)
+05/23/2025 11:11:41 - INFO - __main__ -   Size (MB): 22.0094
+05/23/2025 11:11:51 - INFO - __main__ -   ***** Running evaluation *****
+05/23/2025 11:11:51 - INFO - __main__ -     Num examples = 9604
+05/23/2025 11:11:51 - INFO - __main__ -     Batch size = 64
+05/23/2025 11:13:08 - INFO - __main__ -   ***** Eval results *****
+05/23/2025 11:13:08 - INFO - __main__ -     eval_loss = 4.1405
+05/23/2025 11:13:08 - INFO - __main__ -     eval_mrr = 0.001
+05/23/2025 11:13:08 - INFO - __main__ -   Size (MB): 22.0094
+05/23/2025 11:13:26 - INFO - __main__ -   ******* Warmup **********
+05/23/2025 11:13:27 - INFO - __main__ -   ***** Running Test *****
+05/23/2025 11:13:27 - INFO - __main__ -     Num examples = 19210
+05/23/2025 11:13:27 - INFO - __main__ -     Batch size = 64
+05/23/2025 11:14:41 - INFO - __main__ -   Average inference time: 0.009389912171221254

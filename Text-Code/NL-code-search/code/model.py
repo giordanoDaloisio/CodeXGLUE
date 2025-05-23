@@ -31,8 +31,7 @@ class Model(nn.Module):
         scores=(nl_vec[:,None,:]*code_vec[None,:,:]).sum(-1)
         loss_fct = CrossEntropyLoss()
         loss = loss_fct(scores, torch.arange(bs, device=scores.device))
-        logits = F.log_softmax(scores, dim=-1)
-        return loss,code_vec,nl_vec,logits
+        return loss,code_vec,nl_vec,scores
       
         
  

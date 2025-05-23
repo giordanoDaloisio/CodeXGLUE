@@ -109,8 +109,8 @@ def main():
     # args = parser.parse_args()
     answers = read_answers('../dataset/test.jsonl')
     df = pd.read_csv('../../../analysis/experiment_values.csv')
-    for logs in os.listdir('../code/saved_models_graph/'):
-        if os.path.isdir(os.path.join('../code/saved_models_graph/', logs)) or 'cuda' in logs:
+    for logs in os.listdir('../code/saved_models_distil_graph_compress/'):
+        if os.path.isdir(os.path.join('../code/saved_models_distil_graph_compress/', logs)) or 'cuda' in logs:
             continue
         task = 'Code Search Graph'
         if 'prune4' in logs:
@@ -127,7 +127,7 @@ def main():
             compression = 'Quantization (quanto-qint8)'
         else:
             compression = 'No One'
-        predictions = read_predictions(os.path.join('../code/saved_models_graph/', logs))
+        predictions = read_predictions(os.path.join('../code/saved_models_distil_graph_compress/', logs))
         scores = calculate_scores(answers, predictions)
         mrr_1 = calculate_mrr1(answers, predictions)
         mrr_5 = calculate_mrr5(answers, predictions)

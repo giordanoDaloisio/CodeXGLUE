@@ -1,10 +1,11 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs_graph/tc_distil_nocuda_%j.out
-#SBATCH -J tcnc
-#SBATCH -p normal
+#SBATCH -o ./logs_graph/tc_distil_%j.out
+#SBATCH -J tc_test
+#SBATCH -p cuda
 #SBATCH -c 40
+#SBATCH --gres=gpu:large
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -29,12 +30,12 @@ srun python run.py \
     --model_type=$MODEL \
     --config_name=$PRETRAINDIR \
     --model_name_or_path=$PRETRAINDIR \
+    --tokenizer_name=roberta-base \
     --attention_heads 8 \
     --hidden_dim 96 \
     --intermediate_size 64 \
     --n_layers 12 \
     --vocab_size 1000 \
-    --tokenizer_name=roberta-base \
     --do_eval \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
@@ -47,6 +48,5 @@ srun python run.py \
     --learning_rate 5e-5 \
     --max_grad_norm 1.0 \
     --evaluate_during_training \
-    --no_cuda \
-    --job_id $SLURM_JOB_ID \
-    --seed 123456 2>&1| tee test.log
+    --seed 123456 2>&1 \
+    --job_id $SLURM_JOB_ID | tee test.log

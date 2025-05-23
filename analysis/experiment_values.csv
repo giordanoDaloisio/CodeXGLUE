@@ -198,6 +198,9 @@ Code Search,Compressor,MRR,0.0043
 Code Search,Compressor,MRR@1,0.0014
 Code Search,Compressor,MRR@5,0.0025
 Code Search,Compressor,Model Size,22.0094
+Code Search Graph,Compressor,Model Size,22.006648
+Code Search Graph,Compressor,Avg Inference Time CPU,0.7721325646207182
+Code Search Graph,Compressor,Avg Inference Time CUDA,0.0093899121712212
 Code Search,Compressor,Avg Inference Time CPU,0.8026763117590616
 Code Search,Compressor,Avg Inference Time CUDA,0.0105062354838729
 Defect Prediction,Compressor,Accuracy,0.5948023426061494
@@ -329,9 +332,12 @@ Summarization T5,Quantization (quanto-qint4),SIDE,0.8870927553557604
 Summarization T5,Pruning 0.6,Bleu,5.959810036621855
 Summarization T5,Pruning 0.6,BERTScore,0.7639073429941207
 Summarization T5,Pruning 0.6,SIDE,0.5104587082850987
-Summarization T5,Pruning 0.4,Bleu,19.423735798205374
+Summarization T5,Pruning 0.4,Bleu,19.42373579820537
 Summarization T5,Pruning 0.4,BERTScore,0.889968284930556
 Summarization T5,Pruning 0.4,SIDE,0.8796690877770137
 Defect Prediction Graph,Compressor,Accuracy,0.5969985358711567
-Defect Prediction Graph,Compressor,F1,0.49840546697038723
-Defect Prediction Graph,Compressor,MCC,0.17809725384884656
+Defect Prediction Graph,Compressor,F1,0.4984054669703872
+Defect Prediction Graph,Compressor,MCC,0.1780972538488465
+Code Search Graph,Compressor,MRR,0.0003
+Code Search Graph,Compressor,MRR@1,0.0001
+Code Search Graph,Compressor,MRR@5,0.0001

@@ -77,6 +77,7 @@ from optimum.quanto import quantize, qint8, qint4, qfloat8, freeze, Calibration
 import torch.nn.utils.prune as prune
 import time
 import csv
+from studentmodel import StudentModel
 
 logger = logging.getLogger(__name__)
 
@@ -178,7 +179,7 @@ def set_seed(seed=42):
     torch.backends.cudnn.deterministic = True
 
 
-def train(args, train_dataset, model, tokenizer):
+def train(args, train_dataset, model, tokenizer, teacher_model=None):
     """ Train the model """
     
     args.train_batch_size = args.per_gpu_train_batch_size * max(1, args.n_gpu)
@@ -202,23 +203,6 @@ def train(args, train_dataset, model, tokenizer):
     optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
     scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=args.max_steps*0.1,
                                                 num_training_steps=args.max_steps)
-    if args.fp16:
-        try:
-            from apex import amp
-        except ImportError:
-            raise ImportError("Please install apex from https://www.github.com/nvidia/apex to use fp16 training.")
-        model, optimizer = amp.initialize(model, optimizer, opt_level=args.fp16_opt_level)
-
-    # multi-gpu training (should be after apex fp16 initialization)
-    if args.n_gpu > 1:
-        model = torch.nn.DataParallel(model)
-
-    # Distributed training (should be after apex fp16 initialization)
-    if args.local_rank != -1:
-        model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank],
-                                                          output_device=args.local_rank,
-                                                          find_unused_parameters=True)
-
     checkpoint_last = os.path.join(args.output_dir, 'checkpoint-last')
     scheduler_last = os.path.join(checkpoint_last, 'scheduler.pt')
     optimizer_last = os.path.join(checkpoint_last, 'optimizer.pt')
@@ -254,21 +238,19 @@ def train(args, train_dataset, model, tokenizer):
             nl_inputs = batch[1].to(args.device)
 
             model.train()
-            loss,code_vec,nl_vec,_ = model(code_inputs,nl_inputs)
+            if teacher_model is not None:
+                with torch.no_grad():
+                    teacher_model.eval()
+                    _, _, _, logit = teacher_model(code_inputs, nl_inputs, False)
+                loss,code_vec,nl_vec = model(code_inputs,nl_inputs,logit)
+            else:
+                loss,code_vec,nl_vec = model(code_inputs,nl_inputs)
 
-            if args.n_gpu > 1:
-                loss = loss.mean()  # mean() to average on multi-gpu parallel training
+           
             if args.gradient_accumulation_steps > 1:
                 loss = loss / args.gradient_accumulation_steps
 
-            if args.fp16:
-                with amp.scale_loss(loss, optimizer) as scaled_loss:
-                    scaled_loss.backward()
-                torch.nn.utils.clip_grad_norm_(amp.master_params(optimizer), args.max_grad_norm)
-            else:
-                loss.backward()
-                torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
-
+         
             tr_loss += loss.item()
             tr_num+=1
             train_loss+=loss.item()
@@ -357,22 +339,20 @@ def evaluate(args, model, tokenizer, eval_when_training=False):
     model.eval()
     code_vecs = []
     nl_vecs = []
-    logits = []
     for batch in eval_dataloader:
         code_inputs = batch[0].to(args.device)
         nl_inputs = batch[1].to(args.device)
         with torch.no_grad():
-            lm_loss, code_vec, nl_vec, logit = model(code_inputs, nl_inputs)
+            if "distil" in args.output_dir:
+                lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
+            else:
+                lm_loss, code_vec, nl_vec, logit = model(code_inputs, nl_inputs)
             eval_loss += lm_loss.mean().item()
             code_vecs.append(code_vec.cpu().numpy())
             nl_vecs.append(nl_vec.cpu().numpy())
         nb_eval_steps += 1
-        logits.append(logit.cpu().numpy())
     code_vecs = np.concatenate(code_vecs, 0)
     nl_vecs = np.concatenate(nl_vecs, 0)
-    if "train_stud" in args.eval_data_file:
-        logits = np.concatenate(logits, 0)
-        np.save("../dataset/preds_unlabel_train", logits)
     eval_loss = eval_loss / nb_eval_steps
     perplexity = torch.tensor(eval_loss)
 
@@ -445,10 +425,14 @@ def test(args, model, tokenizer, time_file="", time_folder=""):
                 inf_time = starter.elapsed_time(ender)
                 torch.cuda.synchronize()
             else:
-                start = time.time()
-                logger.info("************ Loading Data ***************")
-                lm_loss, code_vec, nl_vec, _ = model(code_inputs, nl_inputs)
-                end = time.time()
+                if 'distil' in args.output_dir:
+                    start = time.time()
+                    lm_loss, code_vec, nl_vec = model(code_inputs, nl_inputs)
+                    end = time.time()
+                else:
+                    start = time.time()
+                    lm_loss, code_vec, nl_vec, _ = model(code_inputs, nl_inputs)
+                    end = time.time()
                 inf_time = end - start
             times.append(inf_time)
             if time_folder != "" and time_file != "":
@@ -738,6 +722,9 @@ def main():
         "--server_port", type=str, default="", help="For distant debugging."
     )
 
+    parser.add_argument("--teacher_name_or_path", type=str, default=None, 
+                        help="The teacher model checkpoint for knowledge distillation.")
+
     parser.add_argument("--quantize", action="store_true")
     parser.add_argument("--quantize4", action="store_true")
     parser.add_argument("--quantizef8", action="store_true")
@@ -746,18 +733,13 @@ def main():
     parser.add_argument("--prune6", action="store_true")
     parser.add_argument("--job_id", type=str)
 
+    parser.add_argument("--attention_heads", type=int)
+    parser.add_argument("--hidden_dim", type=int)
+    parser.add_argument("--intermediate_size", type=int)
+    parser.add_argument("--n_layers", type=int)
+    parser.add_argument("--vocab_size", type=int)
+
     args = parser.parse_args()
-
-    # Setup distant debugging if needed
-    if args.server_ip and args.server_port:
-        # Distant debugging - see https://code.visualstudio.com/docs/python/debugging#_attach-to-a-local-script
-        import ptvsd
-
-        print("Waiting for debugger attach")
-        ptvsd.enable_attach(
-            address=(args.server_ip, args.server_port), redirect_output=True
-        )
-        ptvsd.wait_for_attach()
 
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1 or args.no_cuda or not torch.cuda.is_available():
@@ -791,10 +773,7 @@ def main():
     # Set seed
     set_seed(args.seed)
 
-    # Load pretrained model and tokenizer
-    if args.local_rank not in [-1, 0]:
-        torch.distributed.barrier()  # Barrier to make sure only the first process in distributed training download model & vocab
-
+   
     args.start_epoch = 0
     args.start_step = 0
     checkpoint_last = os.path.join(args.output_dir, "checkpoint-last")
@@ -832,17 +811,63 @@ def main():
             tokenizer.max_len_single_sentence
         )  # Our input block size will be the max possible for the model
     args.block_size = min(args.block_size, tokenizer.max_len_single_sentence)
-    if args.model_name_or_path:
-        model = model_class.from_pretrained(
-            args.model_name_or_path,
-            from_tf=bool(".ckpt" in args.model_name_or_path),
-            config=config,
+
+    if args.teacher_name_or_path :
+        logger.info("************ Load Teacher Model ***************")
+        teacher_config = config_class.from_pretrained(
+            args.teacher_name_or_path,
             cache_dir=args.cache_dir if args.cache_dir else None,
         )
-    else:
-        model = model_class(config)
+        teacher_model = model_class.from_pretrained(
+            args.teacher_name_or_path,
+            from_tf=bool(".ckpt" in args.teacher_name_or_path),
+            config=teacher_config,
+            cache_dir=args.cache_dir if args.cache_dir else None,
+        )
+        teacher_model = Model(teacher_model, teacher_config, tokenizer, args)
+        teacher_model.to(args.device)
 
-    model = Model(model, config, tokenizer, args)
+        logger.info("************ Load Student Model ***************")
+        config_student = config_class.from_dict(config.to_dict())
+        config_student.num_attention_heads = args.attention_heads
+        config_student.hidden_size = args.hidden_dim
+        config_student.intermediate_size = args.intermediate_size
+        config_student.num_hidden_layers = args.n_layers
+        student_enc = model_class(config_student) 
+
+
+        model = StudentModel(
+            student_enc,
+            config_student,
+            tokenizer,
+            args
+        )
+    else:
+        if args.attention_heads and args.hidden_dim and args.intermediate_size and args.n_layers:
+             config_student = config_class.from_dict(config.to_dict())
+             config_student.num_attention_heads = args.attention_heads
+             config_student.hidden_size = args.hidden_dim
+             config_student.intermediate_size = args.intermediate_size
+             config_student.num_hidden_layers = args.n_layers
+             encoder = model_class(config_student)
+             model = StudentModel(
+                    encoder,
+                    config_student,
+                    tokenizer,
+                    args
+             )
+        elif args.model_name_or_path:
+            model = model_class.from_pretrained(
+                args.model_name_or_path,
+                from_tf=bool(".ckpt" in args.model_name_or_path),
+                config=config,
+                cache_dir=args.cache_dir if args.cache_dir else None,
+            )
+            model = Model(model, config, tokenizer, args)
+        else:
+            model = model_class(config)
+            model = Model(model, config, tokenizer, args)
+       
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
 
@@ -857,8 +882,10 @@ def main():
 
         if args.local_rank == 0:
             torch.distributed.barrier()
-
-        train(args, train_dataset, model, tokenizer)
+        if args.teacher_name_or_path:
+            train(args, train_dataset, model, tokenizer, teacher_model)
+        else:
+            train(args, train_dataset, model, tokenizer)
 
     # Evaluation
     results = {}
