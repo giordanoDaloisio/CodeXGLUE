@@ -51,9 +51,9 @@ class Seq2Seq(nn.Module):
             Export to TorchScript can't handle parameter sharing so we are cloning them instead.
         """
         self._tie_or_clone_weights(self.lm_head,
-                                   self.encoder.embeddings.word_embeddings)        
+                                   self.encoder.embeddings.word_embeddings)    
         
-    def forward(self, source_ids=None,source_mask=None,target_ids=None,target_mask=None,args=None):   
+    def forward(self, source_ids=None,source_mask=None,target_ids=None,target_mask=None,args=None,teacher_logits=None):   
         outputs = self.encoder(source_ids, attention_mask=source_mask)
         encoder_output = outputs[0].permute([1,0,2]).contiguous()
         if target_ids is not None:  
@@ -62,6 +62,10 @@ class Seq2Seq(nn.Module):
             out = self.decoder(tgt_embeddings,encoder_output,tgt_mask=attn_mask,memory_key_padding_mask=(1-source_mask).bool())
             hidden_states = torch.tanh(self.dense(out)).permute([1,0,2]).contiguous()
             lm_logits = self.lm_head(hidden_states)
+
+            if teacher_logits is not None:
+                teacher_probs = torch.log_softmax(teacher_logits)
+
             # Shift so that tokens < n predict n
             active_loss = target_mask[..., 1:].ne(0).view(-1) == 1
             shift_logits = lm_logits[..., :-1, :].contiguous()

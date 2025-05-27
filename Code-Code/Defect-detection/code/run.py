@@ -78,10 +78,17 @@ from transformers import (
     DistilBertForMaskedLM,
     DistilBertForSequenceClassification,
     DistilBertTokenizer,
+    LlamaConfig,
+    LlamaTokenizer,
+    LlamaForSequenceClassification
 )
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
 from torchinfo import summary
 from distilled_dataset import DistilledDataset
+from huggingface_hub import login
+from hf_token import hf_token
+
+login(hf_token)
 
 logger = logging.getLogger(__name__)
 
@@ -95,6 +102,7 @@ MODEL_CLASSES = {
         DistilBertForSequenceClassification,
         DistilBertTokenizer,
     ),
+    "llama": (LlamaConfig, LlamaForSequenceClassification, LlamaTokenizer),
 }
 
 
@@ -260,22 +268,6 @@ def train(args, train_dataset, model, tokenizer):
             labels = batch[1].to(args.device)
             model.train()
             loss, logits = model(inputs, labels)
-
-            if args.n_gpu > 1:
-                loss = loss.mean()  # mean() to average on multi-gpu parallel training
-            if args.gradient_accumulation_steps > 1:
-                loss = loss / args.gradient_accumulation_steps
-
-            if args.fp16:
-                with amp.scale_loss(loss, optimizer) as scaled_loss:
-                    scaled_loss.backward()
-                torch.nn.utils.clip_grad_norm_(
-                    amp.master_params(optimizer), args.max_grad_norm
-                )
-            else:
-                loss.backward()
-                torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
-
             tr_loss += loss.item()
             tr_num += 1
             train_loss += loss.item()
