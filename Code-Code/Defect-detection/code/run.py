@@ -80,13 +80,17 @@ from transformers import (
     DistilBertTokenizer,
     LlamaConfig,
     LlamaTokenizer,
-    LlamaForSequenceClassification
+    LlamaForSequenceClassification,
+    AutoConfig,
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
 )
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
 from torchinfo import summary
 from distilled_dataset import DistilledDataset
 from huggingface_hub import login
 from hf_token import hf_token
+from peft import LoraConfig, get_peft_model
 
 login(hf_token)
 
@@ -103,6 +107,7 @@ MODEL_CLASSES = {
         DistilBertTokenizer,
     ),
     "llama": (LlamaConfig, LlamaForSequenceClassification, LlamaTokenizer),
+    "t5": (AutoConfig, AutoModelForSequenceClassification, AutoTokenizer),
 }
 
 
@@ -194,6 +199,19 @@ def train(args, train_dataset, model, tokenizer):
     args.warmup_steps = len(train_dataloader)
     args.logging_steps = len(train_dataloader)
     args.num_train_epochs = args.epoch
+
+    lora_config = LoraConfig(
+            r=16,
+            lora_alpha=32,
+            lora_dropout=0.1,
+            bias="none",
+            target_modules=["query", "key", "value", "dense"]  # General modules for other models
+    )
+
+    model = get_peft_model(model, lora_config)
+
+    model.print_trainable_parameters()
+
     model.to(args.device)
     # Prepare optimizer and schedule (linear warmup and decay)
     no_decay = ["bias", "LayerNorm.weight"]
@@ -650,7 +668,7 @@ def main():
     )
     parser.add_argument(
         "--block_size",
-        default=-1,
+        default=512,
         type=int,
         help="Optional input sequence length after tokenization."
         "The training dataset will be truncated in block of this size for training."
@@ -945,12 +963,12 @@ def main():
         args.tokenizer_name,
         do_lower_case=args.do_lower_case,
         cache_dir=args.cache_dir if args.cache_dir else None,
+        model_max_length=args.block_size,  # explicitly set
+        truncation=True                   # force truncation
     )
     if args.block_size <= 0:
-        args.block_size = (
-            tokenizer.max_len_single_sentence
-        )  # Our input block size will be the max possible for the model
-    args.block_size = min(args.block_size, tokenizer.max_len_single_sentence)
+        args.block_size = tokenizer.model_max_length
+    args.block_size = min(args.block_size, tokenizer.model_max_length)
     if args.model_name_or_path and not args.vocab_size:
 
         model = model_class.from_pretrained(
