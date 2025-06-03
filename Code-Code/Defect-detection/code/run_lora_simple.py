@@ -121,7 +121,10 @@ def main(args):
     trainer.evaluate()
 
     # Salva il modello
-    trainer.save_model(output_dir)
+    model = model.merge_and_unload()  # Merge LoRA weights into the base model
+    output_dir = os.path.join(output_dir, "final_model")
+    os.makedirs(output_dir, exist_ok=True)
+    model.save_pretrained(output_dir)
     logger.info("Modello salvato in %s", output_dir)
 
 if __name__ == "__main__":

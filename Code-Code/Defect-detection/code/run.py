@@ -57,9 +57,9 @@ import multiprocessing
 from model import Model
 
 cpu_cont = multiprocessing.cpu_count()
+from transformers.optimization import Adafactor
 from transformers import (
     WEIGHTS_NAME,
-    AdamW,
     get_linear_schedule_with_warmup,
     BertConfig,
     BertForMaskedLM,
@@ -233,7 +233,7 @@ def train(args, train_dataset, model, tokenizer):
             "weight_decay": 0.0,
         },
     ]
-    optimizer = AdamW(
+    optimizer = Adafactor(
         optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon
     )
     scheduler = get_linear_schedule_with_warmup(
@@ -585,7 +585,7 @@ def calibrate(args, model, tokenizer):
 
 def print_model_size(model):
     torch.save(model.state_dict(), "tmp.p")
-    logger.info("Size (MB): " + str(os.path.getsize("tmp.p") / 1e6))
+    print("Size (MB): " + str(os.path.getsize("tmp.p") / 1e6))
     os.remove("tmp.p")
 
 
@@ -938,50 +938,57 @@ def main():
         )
 
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    config = config_class.from_pretrained(
-        args.config_name if args.config_name else args.model_name_or_path,
-        cache_dir=args.cache_dir if args.cache_dir else None,
-    )
-    if (
-        args.attention_heads
-        and args.hidden_dim
-        and args.intermediate_size
-        and args.vocab_size
-        and args.n_layers
-    ):
-        logger.info("********** Using custom model parameters **********")
-        config.num_attention_heads = args.attention_heads
-        config.hidden_size = args.hidden_dim
-        config.intermediate_size = args.intermediate_size
-        config.vocab_size = args.vocab_size
-        config.num_hidden_layers = args.n_layers
-        config.hidden_dropout_prob = 0.5
-        config.num_labels = 2
-    else:
-        config.num_labels = 1
-    tokenizer = tokenizer_class.from_pretrained(
-        args.tokenizer_name,
-        do_lower_case=args.do_lower_case,
-        cache_dir=args.cache_dir if args.cache_dir else None,
-        model_max_length=args.block_size,  # explicitly set
-        truncation=True                   # force truncation
-    )
-    if args.block_size <= 0:
-        args.block_size = tokenizer.model_max_length
-    args.block_size = min(args.block_size, tokenizer.model_max_length)
-    if args.model_name_or_path and not args.vocab_size:
 
+    if args.model_type == "t5":
         model = model_class.from_pretrained(
-            args.model_name_or_path,
-            from_tf=bool(".ckpt" in args.model_name_or_path),
-            config=config,
+            args.model_name_or_path)
+        tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name)
+
+    else:    
+        config = config_class.from_pretrained(
+            args.config_name if args.config_name else args.model_name_or_path,
             cache_dir=args.cache_dir if args.cache_dir else None,
         )
-    else:
-        # For DISTILLATION
-        model = model_class(config)
+        if (
+            args.attention_heads
+            and args.hidden_dim
+            and args.intermediate_size
+            and args.vocab_size
+            and args.n_layers
+        ):
+            logger.info("********** Using custom model parameters **********")
+            config.num_attention_heads = args.attention_heads
+            config.hidden_size = args.hidden_dim
+            config.intermediate_size = args.intermediate_size
+            config.vocab_size = args.vocab_size
+            config.num_hidden_layers = args.n_layers
+            config.hidden_dropout_prob = 0.5
+            config.num_labels = 2
+        else:
+            config.num_labels = 1
+        tokenizer = tokenizer_class.from_pretrained(
+            args.tokenizer_name,
+            do_lower_case=args.do_lower_case,
+            cache_dir=args.cache_dir if args.cache_dir else None,
+            model_max_length=args.block_size,  # explicitly set
+            truncation=True                   # force truncation
+        )
+        if args.block_size <= 0:
+            args.block_size = tokenizer.model_max_length
+        args.block_size = min(args.block_size, tokenizer.model_max_length)
+        if args.model_name_or_path and not args.vocab_size:
 
-    model = Model(model, config, tokenizer, args)
+            model = model_class.from_pretrained(
+                args.model_name_or_path,
+                from_tf=bool(".ckpt" in args.model_name_or_path),
+                config=config,
+                cache_dir=args.cache_dir if args.cache_dir else None,
+            )
+        else:
+            # For DISTILLATION
+            model = model_class(config)
+
+        model = Model(model, config, tokenizer, args)
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
 
@@ -1001,10 +1008,11 @@ def main():
     # Evaluation
     if args.do_eval or args.do_test:
 
-        checkpoint_prefix = "checkpoint-best-acc/model.bin"
-        output_dir = os.path.join(args.output_dir, "{}".format(checkpoint_prefix))
-        model.load_state_dict(torch.load(output_dir, map_location=device))
-        model.to(args.device)
+        if args.model_type != "t5":
+            checkpoint_prefix = "checkpoint-best-acc/model.bin"
+            output_dir = os.path.join(args.output_dir, "{}".format(checkpoint_prefix))
+            model.load_state_dict(torch.load(output_dir, map_location=device))
+            model.to(args.device)
 
         if args.quantize:
             logger.info("********** Apply Quantization qint8 **********")
