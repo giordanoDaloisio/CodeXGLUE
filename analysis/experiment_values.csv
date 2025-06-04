@@ -341,3 +341,6 @@ Defect Prediction Graph,Compressor,MCC,0.1780972538488465
 Code Search Graph,Compressor,MRR,0.0003
 Code Search Graph,Compressor,MRR@1,0.0001
 Code Search Graph,Compressor,MRR@5,0.0001
+Defect Prediction T5P,No One,Accuracy,0.5142752562225475
+Defect Prediction T5P,No One,F1,0.3113648157758173
+Defect Prediction T5P,No One,MCC,-0.01483255881255189

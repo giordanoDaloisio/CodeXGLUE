@@ -1,11 +1,11 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs_t5/test_cuda_graph_quantf8_%j.out
+#SBATCH -o ./logs_t5/test_cuda_quantf8_%j.out
 #SBATCH -J def_q_gpu
 #SBATCH -p cuda
 #SBATCH -c 40
-#SBATCH --gres=gpu:large
+#SBATCH --gres=gpu:fat
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -18,6 +18,7 @@ conda activate codex
 
 base_model=Salesforce/codet5p-770m
 model_type=t5
+model_path=./saved_models_t5/load_model
 output_dir=./saved_models_t5
 
 cd code
@@ -25,8 +26,7 @@ srun python run.py \
     --output_dir=$output_dir \
     --model_type=$model_type \
     --tokenizer_name=$base_model \
-    --model_name_or_path=$base_model \
-    --do_eval \
+    --model_name_or_path=$model_path \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \

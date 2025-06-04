@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs_t5/test_cuda_graph_quant4_%j.out
+#SBATCH -o ./logs_t5/test_cuda_quant4_%j.out
 #SBATCH -J def_cuda_prune
 #SBATCH -p cuda
 #SBATCH -c 40
@@ -18,6 +18,7 @@ conda activate codex
 
 base_model=Salesforce/codet5p-770m
 model_type=t5
+model_path=./saved_models_t5/load_model
 output_dir=./saved_models_t5
 
 cd code
@@ -25,8 +26,7 @@ srun python run.py \
     --output_dir=$output_dir \
     --model_type=$model_type \
     --tokenizer_name=$base_model \
-    --model_name_or_path=$base_model \
-    --do_eval \
+    --model_name_or_path=$model_path \
     --do_test \
     --train_data_file=../dataset/train.jsonl \
     --eval_data_file=../dataset/valid.jsonl \

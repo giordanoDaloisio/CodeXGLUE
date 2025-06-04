@@ -65,10 +65,10 @@ def main():
 
     answers = read_answers('../dataset/test.jsonl')
     df = pd.read_csv('../../../analysis/experiment_values.csv')
-    for logs in os.listdir('../code/saved_models_graph_distil/'):
-        if os.path.isdir(os.path.join('../code/saved_models_graph_distil/', logs)) or 'cuda' in logs:
+    for logs in os.listdir('../code/saved_models_t5/'):
+        if os.path.isdir(os.path.join('../code/saved_models_t5/', logs)) or 'cuda' in logs:
             continue
-        task = 'Defect Prediction Graph'
+        task = 'Defect Prediction T5P'
         if 'prune4' in logs:
             compression = 'Pruning 0.4'
         elif 'prune6' in logs:
@@ -83,7 +83,7 @@ def main():
             compression = 'Quantization (quanto-qint8)'
         else:
             compression = 'No One'
-        predictions = read_predictions(os.path.join('../code/saved_models_graph_distil/', logs))
+        predictions = read_predictions(os.path.join('../code/saved_models_t5/', logs))
         scores = calculate_scores(answers, predictions)
         df = pd.concat([df, pd.DataFrame({
             'Task': [task, task, task], 

@@ -494,13 +494,13 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
         model = torch.nn.DataParallel(model)
 
     # GPU WARM-UP
-    if args.device == "cuda":
+    if args.device == torch.device("cuda"):
         for i, batch in enumerate(eval_dataloader):
             if i < 5:
                 inputs = batch[0].to(args.device)
                 label = batch[1].to(args.device)
                 with torch.no_grad():
-                    logit = model(inputs)
+                    output = model(inputs)
             else:
                 break
 
@@ -523,17 +523,17 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
                     enable_timing=True
                 )
                 starter.record()
-                logit = model(inputs)
+                output = model(inputs)
                 ender.record()
                 torch.cuda.synchronize()
                 inf_time = starter.elapsed_time(ender)
             else:
                 starter = time.time()
-                logit = model(inputs)
+                output = model(inputs)
                 ender = time.time()
                 inf_time = ender - starter
             inf_times.append(inf_time)
-            logits.append(logit.cpu().numpy())
+            logits.append(output.logits.cpu().numpy())
             labels.append(label.cpu().numpy())
             with open(os.path.join(time_folder, time_log), "a") as f:
                 csv_f = csv.writer(f)
@@ -869,6 +869,7 @@ def main():
     args.per_gpu_train_batch_size = args.train_batch_size // args.n_gpu
     args.per_gpu_eval_batch_size = args.eval_batch_size // args.n_gpu
     args.device = device
+    print("Device: ", device)
     # Setup logging
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -1012,7 +1013,7 @@ def main():
             checkpoint_prefix = "checkpoint-best-acc/model.bin"
             output_dir = os.path.join(args.output_dir, "{}".format(checkpoint_prefix))
             model.load_state_dict(torch.load(output_dir, map_location=device))
-            model.to(args.device)
+        model.to(args.device)
 
         if args.quantize:
             logger.info("********** Apply Quantization qint8 **********")
@@ -1041,10 +1042,10 @@ def main():
         if args.prune6:
             logger.info("******* Apply Pruning 0.6 ***********")
             parameters_to_prune = []
-            for layer in model.encoder.roberta.encoder.layer:
-                parameters_to_prune.append((layer.attention.self.query, "weight"))
-                parameters_to_prune.append((layer.attention.self.key, "weight"))
-                parameters_to_prune.append((layer.attention.self.value, "weight"))
+            
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
             prune.global_unstructured(
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,
@@ -1056,10 +1057,10 @@ def main():
         if args.prune4:
             logger.info("******* Apply Pruning 0.4 ***********")
             parameters_to_prune = []
-            for layer in model.encoder.roberta.encoder.layer:
-                parameters_to_prune.append((layer.attention.self.query, "weight"))
-                parameters_to_prune.append((layer.attention.self.key, "weight"))
-                parameters_to_prune.append((layer.attention.self.value, "weight"))
+            
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
             prune.global_unstructured(
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,
@@ -1073,10 +1074,10 @@ def main():
         if args.prune:
             logger.info("******* Apply Pruning 0.2 ***********")
             parameters_to_prune = []
-            for layer in model.encoder.roberta.encoder.layer:
-                parameters_to_prune.append((layer.attention.self.query, "weight"))
-                parameters_to_prune.append((layer.attention.self.key, "weight"))
-                parameters_to_prune.append((layer.attention.self.value, "weight"))
+            
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
             prune.global_unstructured(
                 parameters_to_prune,
                 pruning_method=prune.L1Unstructured,

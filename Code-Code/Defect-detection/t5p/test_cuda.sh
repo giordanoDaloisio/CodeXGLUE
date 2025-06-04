@@ -5,7 +5,7 @@
 #SBATCH -J def_cuda
 #SBATCH -p cuda
 #SBATCH -c 40
-#SBATCH --gres=gpu:large
+#SBATCH --gres=gpu:fat
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
