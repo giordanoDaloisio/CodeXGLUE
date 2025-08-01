@@ -91,6 +91,7 @@ from distilled_dataset import DistilledDataset
 from huggingface_hub import login
 from hf_token import hf_token
 from peft import LoraConfig, get_peft_model
+from torch.utils.checkpoint import checkpoint_sequential
 
 login(hf_token)
 
@@ -106,7 +107,7 @@ MODEL_CLASSES = {
         DistilBertForSequenceClassification,
         DistilBertTokenizer,
     ),
-    "llama": (LlamaConfig, LlamaForSequenceClassification, LlamaTokenizer),
+    "llama": (AutoConfig, AutoModelForSequenceClassification, AutoTokenizer),
     "t5": (AutoConfig, AutoModelForSequenceClassification, AutoTokenizer),
 }
 
@@ -131,7 +132,8 @@ def convert_examples_to_features(js, tokenizer, args):
     # source
     code = " ".join(js["func"].split())
     code_tokens = tokenizer.tokenize(code)[: args.block_size - 2]
-    source_tokens = [tokenizer.cls_token] + code_tokens + [tokenizer.sep_token]
+    # source_tokens = [tokenizer.cls_token] + code_tokens + [tokenizer.sep_token]
+    source_tokens = code_tokens
     source_ids = tokenizer.convert_tokens_to_ids(source_tokens)
     padding_length = args.block_size - len(source_ids)
     source_ids += [tokenizer.pad_token_id] * padding_length
@@ -563,7 +565,7 @@ def test(args, model, tokenizer, time_log="", time_folder=""):
                 f.write(example.idx + "\t1\n")
             else:
                 f.write(example.idx + "\t0\n")
-    logger.info("Average inference time: " + str(np.mean(inf_times)))
+    print("Average inference time: " + str(np.mean(inf_times)))
 
 
 def calibrate(args, model, tokenizer):
@@ -940,10 +942,31 @@ def main():
 
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
 
-    if args.model_type == "t5":
+    if args.model_type == "t5" or args.model_type == "llama":
+        
+        tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path)
+        special_tokens_dict = {}
+        if tokenizer.pad_token is None:
+            special_tokens_dict["pad_token"] = '<pad>' # Define a padding token
+        # if tokenizer.cls_token is None:
+        #     special_tokens_dict["cls_token"] = '<cls>' # Define a placeholder token for cls
+        # if tokenizer.sep_token is None:
+        #     special_tokens_dict["sep_token"] = '<sep>' # Define a placeholder token for sep
+        if special_tokens_dict:
+            tokenizer.add_special_tokens(special_tokens_dict)
+                # if tokenizer.pad_token is None:
+                #     tokenizer.add_special_tokens({'pad_token': '<pad>'})
+        
+        config = config_class.from_pretrained(args.model_name_or_path)
+
         model = model_class.from_pretrained(
-            args.model_name_or_path)
-        tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name)
+            args.model_name_or_path,
+            config=config,
+            ignore_mismatched_sizes=True,
+        )
+
+        model.resize_token_embeddings(len(tokenizer))
+        model.gradient_checkpointing_enable()
 
     else:    
         config = config_class.from_pretrained(
@@ -1009,7 +1032,7 @@ def main():
     # Evaluation
     if args.do_eval or args.do_test:
 
-        if args.model_type != "t5":
+        if args.model_type != "t5" and args.model_type != "llama":
             checkpoint_prefix = "checkpoint-best-acc/model.bin"
             output_dir = os.path.join(args.output_dir, "{}".format(checkpoint_prefix))
             model.load_state_dict(torch.load(output_dir, map_location=device))
@@ -1098,6 +1121,7 @@ def main():
                 logger.info("  %s = %s", key, str(round(result[key], 4)))
 
         if args.do_test and args.local_rank in [-1, 0]:
+            logger.info("***** Test results *****")
             test(args, model, tokenizer, logfile, time_dir)
 
         return results

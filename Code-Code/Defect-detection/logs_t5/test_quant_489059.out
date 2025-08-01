@@ -1,0 +1,122 @@
+WARNING:bitsandbytes.cextension:The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
+WARNING:__main__:Process rank: -1, device: cpu, n_gpu: 1, distributed training: False, 16-bits training: False
+Token indices sequence length is longer than the specified maximum sequence length for this model (1276 > 512). Running this sequence through the model will result in indexing errors
+Device:  cpu
+  0%|          | 0/43 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+  2%|▏         | 1/43 [10:55<7:38:32, 655.05s/it]  5%|▍         | 2/43 [21:26<7:18:10, 641.23s/it]  7%|▋         | 3/43 [31:55<7:03:45, 635.64s/it]  9%|▉         | 4/43 [42:24<6:51:30, 633.09s/it] 12%|█▏        | 5/43 [52:55<6:40:23, 632.18s/it] 14%|█▍        | 6/43 [1:03:25<6:29:23, 631.45s/it] 16%|█▋        | 7/43 [1:13:55<6:18:31, 630.88s/it] 19%|█▊        | 8/43 [1:24:25<6:07:51, 630.62s/it] 21%|██        | 9/43 [1:34:55<5:57:21, 630.62s/it] 23%|██▎       | 10/43 [1:50:06<6:34:19, 716.95s/it] 26%|██▌       | 11/43 [2:10:05<7:41:09, 864.67s/it] 28%|██▊       | 12/43 [2:30:04<8:19:13, 966.23s/it] 30%|███       | 13/43 [2:50:00<8:37:53, 1035.79s/it] 33%|███▎      | 14/43 [3:09:48<8:42:52, 1081.82s/it] 35%|███▍      | 15/43 [3:29:44<8:40:57, 1116.35s/it] 37%|███▋      | 16/43 [3:49:35<8:32:29, 1138.88s/it] 40%|███▉      | 17/43 [4:05:01<7:45:47, 1074.91s/it] 42%|████▏     | 18/43 [4:15:34<6:32:32, 942.10s/it]  44%|████▍     | 19/43 [4:26:05<5:39:27, 848.63s/it] 47%|████▋     | 20/43 [4:39:11<5:18:04, 829.74s/it] 49%|████▉     | 21/43 [4:53:59<5:10:40, 847.29s/it] 49%|████▉     | 21/43 [4:56:07<5:10:13, 846.06s/it]
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 1107, in <module>
+    main()
+    ~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 1023, in main
+    calibrate(args, model, tokenizer)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 583, in calibrate
+    model(inputs)
+    ~~~~~^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/t5/modeling_t5.py", line 2124, in forward
+    outputs = self.transformer(
+        input_ids,
+    ...<12 lines>...
+        return_dict=return_dict,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/t5/modeling_t5.py", line 1515, in forward
+    encoder_outputs = self.encoder(
+        input_ids=input_ids,
+    ...<5 lines>...
+        return_dict=return_dict,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/t5/modeling_t5.py", line 1124, in forward
+    layer_outputs = layer_module(
+        hidden_states,
+    ...<11 lines>...
+        cache_position=cache_position,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/t5/modeling_t5.py", line 679, in forward
+    self_attention_outputs = self.layer[0](
+        hidden_states,
+    ...<6 lines>...
+        cache_position=cache_position,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/t5/modeling_t5.py", line 597, in forward
+    attention_output = self.SelfAttention(
+        normed_hidden_states,
+    ...<6 lines>...
+        cache_position=cache_position,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/t5/modeling_t5.py", line 567, in forward
+    attn_output = self.o(attn_output)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1805, in inner
+    result = forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/nn/qlinear.py", line 50, in forward
+    return torch.nn.functional.linear(input, self.qweight, bias=self.bias)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/calibrate.py", line 93, in __torch_function__
+    output = func(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 268, in __torch_function__
+    return qlinear(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 266, in qlinear
+    return WeightQBytesLinearFunction.apply(input, other, bias)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 73, in forward
+    output = torch.ops.quanto.qbytes_mm(input._data, other._data, input._scale * other._scale)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/_ops.py", line 1158, in __call__
+    return self._op(*args, **(kwargs or {}))
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/qbytes_mm.py", line 99, in qbytes_mm_impl_cpu
+    return qbytes_int_mm(activations, weights, output_scales)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/qbytes_mm.py", line 49, in qbytes_int_mm
+    fp32_output = out_data.to(torch.float32) * output_scales.t()
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^
+RuntimeError: [enforce fail at alloc_cpu.cpp:119] err == 0. DefaultCPUAllocator: can't allocate memory: you tried to allocate 104857600 bytes. Error code 12 (Cannot allocate memory)
+srun: error: compute-2-4: task 0: Exited with exit code 1

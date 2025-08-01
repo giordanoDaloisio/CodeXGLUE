@@ -1,0 +1,19 @@
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:00<00:00,  5.42it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 18.91it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:05<00:16,  5.65s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:12<00:12,  6.43s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:19<00:06,  6.77s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:19<00:00,  4.15s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:19<00:00,  4.99s/it]
+Some weights of the model checkpoint at meta-llama/Llama-3.1-8B were not used when initializing LlamaForSequenceClassification: ['lm_head.weight']
+- This IS expected if you are initializing LlamaForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing LlamaForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Llama-3.1-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Llama-3.1-8B and are newly initialized because the shapes did not match:
+- model.embed_tokens.weight: found shape torch.Size([128256, 4096]) in the checkpoint and torch.Size([128257, 4096]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Llama-3.2-1B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/llama_distillation.py:99: UserWarning: Implicit dimension choice for log_softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss =  F.kl_div(F.log_softmax(student_logits/10.00), F.softmax(teacher_logits / 10.00), reduction="batchmean") * (10**2)
+/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/llama_distillation.py:99: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss =  F.kl_div(F.log_softmax(student_logits/10.00), F.softmax(teacher_logits / 10.00), reduction="batchmean") * (10**2)
+/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/peft/utils/save_and_load.py:250: UserWarning: Setting `save_embedding_layers` to `True` as the embedding layer has been resized during finetuning.
+  warnings.warn(

@@ -1,0 +1,27 @@
+WARNING:__main__:Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+Device:  cuda
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 1107, in <module>
+    main()
+    ~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 1081, in main
+    prune.global_unstructured(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        parameters_to_prune,
+        ^^^^^^^^^^^^^^^^^^^^
+        pruning_method=prune.L1Unstructured,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        amount=0.2,
+        ^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 1123, in global_unstructured
+    final_mask = container.compute_mask(relevant_importance_scores, default_mask)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 403, in compute_mask
+    mask = _combine_masks(method, t, default_mask)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 397, in _combine_masks
+    partial_mask = method.compute_mask(t[slc], default_mask=mask[slc])
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 524, in compute_mask
+    topk = torch.topk(torch.abs(t).view(-1), k=nparams_toprune, largest=False)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.05 GiB. GPU 0 has a total capacity of 39.25 GiB of which 84.31 MiB is free. Process 402196 has 128.00 MiB memory in use. Including non-PyTorch memory, this process has 19.82 GiB memory in use. Process 445689 has 19.29 GiB memory in use. Of the allocated memory 19.71 GiB is allocated by PyTorch, and 29.06 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+srun: error: compute-0-3: task 0: Exited with exit code 1

@@ -15,6 +15,8 @@ from peft import LoraConfig, get_peft_model
 from hf_token import hf_token
 from huggingface_hub import login
 import torch
+import torch.distributed as dist
+import torch.nn as nn
 from argparse import ArgumentParser
 
 logging.basicConfig(level=logging.INFO)
@@ -22,6 +24,14 @@ logger = logging.getLogger(__name__)
 login(hf_token)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# def setup():
+#     dist.init_process_group("nccl")
+#     torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
+
+# def cleanup():
+#     dist.destroy_process_group()
+
 
 def main(args):
     model_name = args.model_name
@@ -50,15 +60,17 @@ def main(args):
     tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
 
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer, padding=True)
-
+    # setup()
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels, torch_dtype="auto")
     model.config.pad_token_id = tokenizer.pad_token_id
     model.resize_token_embeddings(len(tokenizer))  # Resize embeddings to match tokenizer
+    # model.to(torch.cuda.current_device()) 
+    # model = nn.parallel.DistributedDataParallel(model, device_ids=[torch.cuda.current_device()])
     model.to(device)
 
     if "Llama" in model_name:
         lora_config = LoraConfig(
-            r=32,
+            r=64,
             lora_alpha=32,
             lora_dropout=0.1,
             bias="none",
@@ -75,14 +87,13 @@ def main(args):
 
     model = get_peft_model(model, lora_config)
 
-    model.print_trainable_parameters()
+    # model.print_trainable_parameters()
 
     # Metriche
     metric = load("accuracy", trust_remote_code=True)
 
     def compute_metrics(eval_pred):
         logits, labels = eval_pred
-        logits = logits[0]
         preds = np.argmax(logits, axis=-1)
         result = metric.compute(predictions=preds, references=labels)
         logger.info("Evaluation result: %s", result)
@@ -96,7 +107,7 @@ def main(args):
         learning_rate=2e-5,
         per_device_train_batch_size=32,
         per_device_eval_batch_size=64,
-        num_train_epochs=5,
+        num_train_epochs=3,
         weight_decay=0.01,
         logging_dir=os.path.join(output_dir, "logs"),
         load_best_model_at_end=True,
@@ -125,12 +136,14 @@ def main(args):
     output_dir = os.path.join(output_dir, "final_model")
     os.makedirs(output_dir, exist_ok=True)
     model.save_pretrained(output_dir)
+    tokenizer.save_pretrained(output_dir)
+    # cleanup()
     logger.info("Modello salvato in %s", output_dir)
 
 if __name__ == "__main__":
 
     parser = ArgumentParser()
-    parser.add_argument("--model_name", type=str, default="meta-llama/Llama-3.2-3B", help="Model name or path")
+    parser.add_argument("--model_name", type=str, default="meta-llama/Llama-3.1-8B", help="Model name or path")
     parser.add_argument("--output_dir", type=str, default="./saved_models_llama", help="Directory to save the model")
     
     args = parser.parse_args()

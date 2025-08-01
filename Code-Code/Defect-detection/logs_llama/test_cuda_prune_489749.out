@@ -1,0 +1,32 @@
+WARNING:__main__:Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, 16-bits training: False
+Device:  cuda
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:00<00:00,  4.41it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 17.60it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:08<00:26,  8.84s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:18<00:18,  9.34s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:29<00:09,  9.96s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:29<00:00,  6.14s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:29<00:00,  7.38s/it]
+Some weights of the model checkpoint at meta-llama/Llama-3.1-8B were not used when initializing LlamaForSequenceClassification: ['lm_head.weight']
+- This IS expected if you are initializing LlamaForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing LlamaForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Llama-3.1-8B and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Some weights of LlamaForSequenceClassification were not initialized from the model checkpoint at meta-llama/Llama-3.1-8B and are newly initialized because the shapes did not match:
+- model.embed_tokens.weight: found shape torch.Size([128256, 4096]) in the checkpoint and torch.Size([128257, 4096]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 1131, in <module>
+    main()
+    ~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Code/Defect-detection/code/run.py", line 1104, in main
+    prune.global_unstructured(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        parameters_to_prune,
+        ^^^^^^^^^^^^^^^^^^^^
+        pruning_method=prune.L1Unstructured,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        amount=0.2,
+        ^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 1102, in global_unstructured
+    getattr(module, name + "_mask", torch.ones_like(getattr(module, name)))
+                                    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 224.00 MiB. GPU 0 has a total capacity of 79.14 GiB of which 74.56 MiB is free. Including non-PyTorch memory, this process has 79.05 GiB memory in use. Of the allocated memory 78.79 GiB is allocated by PyTorch, and 4.16 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+srun: error: compute-2-3: task 0: Exited with exit code 1

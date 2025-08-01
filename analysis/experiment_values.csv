@@ -343,4 +343,12 @@ Code Search Graph,Compressor,MRR@1,0.0001
 Code Search Graph,Compressor,MRR@5,0.0001
 Defect Prediction T5P,No One,Accuracy,0.5142752562225475
 Defect Prediction T5P,No One,F1,0.3113648157758173
-Defect Prediction T5P,No One,MCC,-0.01483255881255189
+Defect Prediction T5P,Quantization (quanto-qint8),Accuracy,0.4930453879941435
+Defect Prediction T5P,Quantization (quanto-qint8),F1,0.4283945522080066
+Defect Prediction T5P,Quantization (quanto-qint8),MCC,-0.026047955683769584
+Defect Prediction T5P,Quantization (quanto-qint8),Accuracy,0.5344070278184481
+Defect Prediction T5P,Quantization (quanto-qint8),F1,0.3375
+Defect Prediction T5P,Quantization (quanto-qint8),MCC,0.031695474725348435
+Defect Prediction T5P,No One,Accuracy,0.5358711566617862
+Defect Prediction T5P,No One,F1,0.3233724653148346
+Defect Prediction T5P,No One,MCC,0.032722428587903654

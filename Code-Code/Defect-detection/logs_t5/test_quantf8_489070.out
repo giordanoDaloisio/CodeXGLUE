@@ -1,0 +1,1571 @@
+WARNING:bitsandbytes.cextension:The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
+WARNING:__main__:Process rank: -1, device: cpu, n_gpu: 1, distributed training: False, 16-bits training: False
+Token indices sequence length is longer than the specified maximum sequence length for this model (1276 > 512). Running this sequence through the model will result in indexing errors
+Device:  cpu
+  0%|          | 0/43 [00:00<?, ?it/s]Passing a tuple of `past_key_values` is deprecated and will be removed in Transformers v4.48.0. You should pass an instance of `EncoderDecoderCache` instead, e.g. `past_key_values=EncoderDecoderCache.from_legacy_cache(past_key_values)`.
+  2%|▏         | 1/43 [02:10<1:31:00, 130.02s/it]  5%|▍         | 2/43 [03:55<1:18:50, 115.37s/it]  7%|▋         | 3/43 [05:42<1:14:36, 111.91s/it]  9%|▉         | 4/43 [07:27<1:10:57, 109.17s/it] 12%|█▏        | 5/43 [09:08<1:07:13, 106.16s/it] 14%|█▍        | 6/43 [10:52<1:05:04, 105.52s/it] 16%|█▋        | 7/43 [12:35<1:02:40, 104.46s/it] 19%|█▊        | 8/43 [14:21<1:01:14, 104.99s/it] 21%|██        | 9/43 [16:07<59:45, 105.46s/it]   23%|██▎       | 10/43 [17:54<58:06, 105.66s/it] 26%|██▌       | 11/43 [19:44<57:06, 107.09s/it] 28%|██▊       | 12/43 [21:27<54:38, 105.77s/it] 30%|███       | 13/43 [23:10<52:28, 104.96s/it] 33%|███▎      | 14/43 [24:56<50:58, 105.45s/it] 35%|███▍      | 15/43 [26:36<48:27, 103.84s/it] 37%|███▋      | 16/43 [28:16<46:11, 102.65s/it] 40%|███▉      | 17/43 [29:59<44:30, 102.69s/it] 42%|████▏     | 18/43 [31:49<43:43, 104.95s/it] 44%|████▍     | 19/43 [33:32<41:46, 104.42s/it] 47%|████▋     | 20/43 [35:19<40:19, 105.18s/it] 49%|████▉     | 21/43 [37:01<38:10, 104.11s/it] 51%|█████     | 22/43 [38:44<36:16, 103.66s/it] 53%|█████▎    | 23/43 [40:26<34:26, 103.31s/it] 56%|█████▌    | 24/43 [42:07<32:26, 102.45s/it] 58%|█████▊    | 25/43 [43:46<30:26, 101.48s/it] 60%|██████    | 26/43 [45:31<29:04, 102.64s/it] 63%|██████▎   | 27/43 [47:18<27:41, 103.86s/it] 65%|██████▌   | 28/43 [49:05<26:11, 104.80s/it] 67%|██████▋   | 29/43 [50:48<24:20, 104.36s/it] 70%|██████▉   | 30/43 [52:31<22:29, 103.80s/it] 72%|███████▏  | 31/43 [54:14<20:45, 103.82s/it] 74%|███████▍  | 32/43 [56:01<19:10, 104.55s/it] 77%|███████▋  | 33/43 [57:44<17:21, 104.19s/it] 79%|███████▉  | 34/43 [59:32<15:46, 105.21s/it] 81%|████████▏ | 35/43 [1:01:12<13:50, 103.78s/it] 84%|████████▎ | 36/43 [1:02:51<11:56, 102.42s/it] 86%|████████▌ | 37/43 [1:04:36<10:17, 102.97s/it] 88%|████████▊ | 38/43 [1:06:19<08:36, 103.23s/it] 91%|█████████ | 39/43 [1:08:01<06:50, 102.66s/it] 93%|█████████▎| 40/43 [1:09:39<05:04, 101.43s/it] 95%|█████████▌| 41/43 [1:11:32<03:29, 104.69s/it] 98%|█████████▊| 42/43 [1:13:12<01:43, 103.52s/it]100%|██████████| 43/43 [1:14:25<00:00, 94.08s/it] 100%|██████████| 43/43 [1:14:25<00:00, 103.84s/it]
+Size (MB): 840.422492
+=====================================================================================
+Layer (type:depth-idx)                                       Param #
+=====================================================================================
+T5ForSequenceClassification                                  --
+├─T5Model: 1-1                                               --
+│    └─shared.weight                                         ├─32,870,400
+│    └─encoder.block.0.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.0.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.0.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.0.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.0.layer.0.SelfAttention.relative_attention_bias.weight ├─512
+│    └─encoder.block.0.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.0.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.0.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.0.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.1.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.1.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.1.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.1.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.1.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.1.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.1.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.1.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.2.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.2.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.2.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.2.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.2.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.2.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.2.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.2.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.3.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.3.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.3.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.3.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.3.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.3.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.3.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.3.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.4.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.4.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.4.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.4.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.4.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.4.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.4.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.4.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.5.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.5.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.5.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.5.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.5.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.5.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.5.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.5.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.6.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.6.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.6.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.6.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.6.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.6.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.6.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.6.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.7.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.7.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.7.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.7.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.7.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.7.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.7.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.7.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.8.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.8.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.8.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.8.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.8.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.8.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.8.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.8.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.9.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─encoder.block.9.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─encoder.block.9.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─encoder.block.9.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─encoder.block.9.layer.0.layer_norm.weight             ├─1,024
+│    └─encoder.block.9.layer.1.DenseReluDense.wi.weight      ├─4,194,304
+│    └─encoder.block.9.layer.1.DenseReluDense.wo.weight      ├─4,194,304
+│    └─encoder.block.9.layer.1.layer_norm.weight             ├─1,024
+│    └─encoder.block.10.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.10.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.10.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.10.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.10.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.10.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.10.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.10.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.11.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.11.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.11.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.11.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.11.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.11.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.11.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.11.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.12.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.12.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.12.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.12.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.12.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.12.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.12.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.12.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.13.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.13.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.13.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.13.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.13.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.13.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.13.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.13.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.14.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.14.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.14.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.14.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.14.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.14.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.14.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.14.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.15.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.15.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.15.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.15.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.15.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.15.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.15.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.15.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.16.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.16.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.16.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.16.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.16.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.16.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.16.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.16.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.17.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.17.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.17.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.17.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.17.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.17.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.17.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.17.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.18.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.18.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.18.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.18.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.18.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.18.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.18.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.18.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.19.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.19.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.19.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.19.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.19.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.19.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.19.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.19.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.20.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.20.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.20.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.20.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.20.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.20.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.20.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.20.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.21.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.21.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.21.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.21.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.21.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.21.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.21.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.21.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.22.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.22.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.22.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.22.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.22.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.22.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.22.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.22.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.block.23.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─encoder.block.23.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─encoder.block.23.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─encoder.block.23.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─encoder.block.23.layer.0.layer_norm.weight            ├─1,024
+│    └─encoder.block.23.layer.1.DenseReluDense.wi.weight     ├─4,194,304
+│    └─encoder.block.23.layer.1.DenseReluDense.wo.weight     ├─4,194,304
+│    └─encoder.block.23.layer.1.layer_norm.weight            ├─1,024
+│    └─encoder.final_layer_norm.weight                       ├─1,024
+│    └─decoder.block.0.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.0.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.0.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.0.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.0.layer.0.SelfAttention.relative_attention_bias.weight ├─512
+│    └─decoder.block.0.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.0.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.0.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.0.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.0.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.0.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.0.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.0.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.0.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.1.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.1.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.1.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.1.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.1.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.1.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.1.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.1.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.1.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.1.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.1.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.1.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.1.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.2.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.2.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.2.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.2.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.2.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.2.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.2.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.2.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.2.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.2.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.2.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.2.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.2.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.3.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.3.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.3.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.3.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.3.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.3.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.3.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.3.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.3.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.3.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.3.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.3.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.3.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.4.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.4.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.4.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.4.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.4.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.4.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.4.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.4.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.4.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.4.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.4.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.4.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.4.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.5.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.5.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.5.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.5.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.5.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.5.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.5.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.5.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.5.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.5.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.5.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.5.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.5.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.6.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.6.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.6.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.6.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.6.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.6.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.6.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.6.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.6.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.6.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.6.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.6.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.6.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.7.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.7.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.7.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.7.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.7.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.7.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.7.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.7.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.7.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.7.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.7.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.7.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.7.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.8.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.8.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.8.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.8.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.8.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.8.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.8.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.8.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.8.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.8.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.8.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.8.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.8.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.9.layer.0.SelfAttention.q.weight        ├─1,048,576
+│    └─decoder.block.9.layer.0.SelfAttention.k.weight        ├─1,048,576
+│    └─decoder.block.9.layer.0.SelfAttention.v.weight        ├─1,048,576
+│    └─decoder.block.9.layer.0.SelfAttention.o.weight        ├─1,048,576
+│    └─decoder.block.9.layer.0.layer_norm.weight             ├─1,024
+│    └─decoder.block.9.layer.1.EncDecAttention.q.weight      ├─1,048,576
+│    └─decoder.block.9.layer.1.EncDecAttention.k.weight      ├─1,048,576
+│    └─decoder.block.9.layer.1.EncDecAttention.v.weight      ├─1,048,576
+│    └─decoder.block.9.layer.1.EncDecAttention.o.weight      ├─1,048,576
+│    └─decoder.block.9.layer.1.layer_norm.weight             ├─1,024
+│    └─decoder.block.9.layer.2.DenseReluDense.wi.weight      ├─4,194,304
+│    └─decoder.block.9.layer.2.DenseReluDense.wo.weight      ├─4,194,304
+│    └─decoder.block.9.layer.2.layer_norm.weight             ├─1,024
+│    └─decoder.block.10.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.10.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.10.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.10.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.10.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.10.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.10.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.10.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.10.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.10.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.10.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.10.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.10.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.11.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.11.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.11.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.11.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.11.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.11.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.11.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.11.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.11.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.11.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.11.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.11.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.11.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.12.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.12.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.12.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.12.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.12.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.12.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.12.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.12.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.12.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.12.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.12.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.12.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.12.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.13.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.13.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.13.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.13.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.13.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.13.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.13.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.13.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.13.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.13.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.13.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.13.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.13.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.14.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.14.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.14.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.14.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.14.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.14.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.14.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.14.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.14.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.14.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.14.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.14.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.14.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.15.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.15.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.15.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.15.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.15.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.15.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.15.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.15.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.15.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.15.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.15.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.15.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.15.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.16.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.16.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.16.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.16.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.16.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.16.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.16.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.16.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.16.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.16.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.16.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.16.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.16.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.17.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.17.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.17.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.17.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.17.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.17.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.17.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.17.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.17.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.17.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.17.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.17.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.17.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.18.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.18.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.18.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.18.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.18.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.18.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.18.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.18.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.18.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.18.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.18.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.18.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.18.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.19.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.19.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.19.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.19.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.19.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.19.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.19.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.19.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.19.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.19.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.19.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.19.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.19.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.20.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.20.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.20.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.20.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.20.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.20.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.20.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.20.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.20.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.20.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.20.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.20.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.20.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.21.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.21.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.21.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.21.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.21.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.21.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.21.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.21.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.21.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.21.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.21.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.21.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.21.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.22.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.22.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.22.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.22.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.22.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.22.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.22.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.22.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.22.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.22.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.22.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.22.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.22.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.block.23.layer.0.SelfAttention.q.weight       ├─1,048,576
+│    └─decoder.block.23.layer.0.SelfAttention.k.weight       ├─1,048,576
+│    └─decoder.block.23.layer.0.SelfAttention.v.weight       ├─1,048,576
+│    └─decoder.block.23.layer.0.SelfAttention.o.weight       ├─1,048,576
+│    └─decoder.block.23.layer.0.layer_norm.weight            ├─1,024
+│    └─decoder.block.23.layer.1.EncDecAttention.q.weight     ├─1,048,576
+│    └─decoder.block.23.layer.1.EncDecAttention.k.weight     ├─1,048,576
+│    └─decoder.block.23.layer.1.EncDecAttention.v.weight     ├─1,048,576
+│    └─decoder.block.23.layer.1.EncDecAttention.o.weight     ├─1,048,576
+│    └─decoder.block.23.layer.1.layer_norm.weight            ├─1,024
+│    └─decoder.block.23.layer.2.DenseReluDense.wi.weight     ├─4,194,304
+│    └─decoder.block.23.layer.2.DenseReluDense.wo.weight     ├─4,194,304
+│    └─decoder.block.23.layer.2.layer_norm.weight            ├─1,024
+│    └─decoder.final_layer_norm.weight                       └─1,024
+│    └─Embedding: 2-1                                        32,870,400
+│    │    └─weight                                           └─32,870,400
+│    └─T5Stack: 2-2                                          32,870,400
+│    │    └─embed_tokens.weight                              ├─32,870,400
+│    │    └─block.0.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.relative_attention_bias.weight ├─512
+│    │    └─block.0.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.0.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.0.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.0.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.1.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.1.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.1.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.1.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.1.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.1.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.1.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.1.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.2.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.2.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.2.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.2.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.2.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.2.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.2.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.2.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.3.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.3.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.3.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.3.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.3.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.3.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.3.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.3.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.4.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.4.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.4.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.4.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.4.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.4.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.4.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.4.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.5.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.5.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.5.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.5.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.5.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.5.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.5.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.5.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.6.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.6.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.6.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.6.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.6.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.6.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.6.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.6.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.7.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.7.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.7.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.7.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.7.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.7.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.7.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.7.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.8.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.8.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.8.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.8.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.8.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.8.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.8.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.8.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.9.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.9.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.9.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.9.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.9.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.9.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.9.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.9.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.10.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.10.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.10.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.10.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.10.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.10.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.10.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.10.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.11.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.11.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.11.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.11.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.11.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.11.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.11.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.11.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.12.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.12.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.12.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.12.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.12.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.12.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.12.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.12.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.13.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.13.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.13.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.13.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.13.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.13.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.13.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.13.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.14.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.14.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.14.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.14.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.14.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.14.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.14.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.14.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.15.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.15.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.15.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.15.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.15.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.15.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.15.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.15.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.16.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.16.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.16.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.16.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.16.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.16.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.16.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.16.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.17.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.17.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.17.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.17.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.17.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.17.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.17.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.17.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.18.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.18.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.18.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.18.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.18.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.18.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.18.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.18.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.19.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.19.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.19.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.19.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.19.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.19.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.19.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.19.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.20.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.20.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.20.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.20.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.20.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.20.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.20.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.20.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.21.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.21.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.21.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.21.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.21.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.21.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.21.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.21.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.22.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.22.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.22.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.22.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.22.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.22.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.22.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.22.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.23.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.23.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.23.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.23.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.23.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.23.layer.1.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.23.layer.1.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.23.layer.1.layer_norm.weight               ├─1,024
+│    │    └─final_layer_norm.weight                          └─1,024
+│    │    └─Embedding: 3-1                                   (recursive)
+│    │    │    └─weight                                      └─32,870,400
+│    │    └─ModuleList: 3-2                                  302,039,552
+│    │    │    └─0.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.relative_attention_bias.weight ├─512
+│    │    │    └─0.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─0.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─0.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─0.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─1.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─1.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─1.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─1.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─1.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─1.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─1.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─1.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─2.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─2.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─2.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─2.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─2.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─2.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─2.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─2.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─3.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─3.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─3.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─3.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─3.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─3.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─3.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─3.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─4.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─4.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─4.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─4.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─4.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─4.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─4.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─4.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─5.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─5.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─5.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─5.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─5.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─5.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─5.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─5.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─6.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─6.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─6.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─6.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─6.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─6.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─6.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─6.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─7.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─7.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─7.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─7.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─7.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─7.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─7.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─7.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─8.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─8.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─8.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─8.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─8.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─8.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─8.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─8.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─9.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─9.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─9.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─9.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─9.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─9.layer.1.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─9.layer.1.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─9.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─10.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─10.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─10.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─10.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─10.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─10.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─10.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─10.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─11.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─11.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─11.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─11.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─11.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─11.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─11.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─11.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─12.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─12.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─12.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─12.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─12.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─12.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─12.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─12.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─13.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─13.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─13.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─13.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─13.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─13.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─13.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─13.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─14.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─14.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─14.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─14.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─14.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─14.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─14.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─14.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─15.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─15.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─15.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─15.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─15.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─15.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─15.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─15.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─16.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─16.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─16.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─16.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─16.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─16.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─16.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─16.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─17.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─17.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─17.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─17.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─17.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─17.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─17.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─17.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─18.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─18.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─18.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─18.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─18.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─18.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─18.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─18.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─19.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─19.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─19.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─19.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─19.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─19.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─19.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─19.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─20.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─20.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─20.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─20.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─20.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─20.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─20.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─20.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─21.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─21.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─21.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─21.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─21.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─21.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─21.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─21.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─22.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─22.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─22.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─22.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─22.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─22.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─22.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─22.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─23.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─23.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─23.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─23.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─23.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─23.layer.1.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─23.layer.1.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─23.layer.1.layer_norm.weight                └─1,024
+│    │    └─T5LayerNorm: 3-3                                 1,024
+│    │    │    └─weight                                      └─1,024
+│    │    └─Dropout: 3-4                                     --
+│    └─T5Stack: 2-3                                          32,870,400
+│    │    └─embed_tokens.weight                              ├─32,870,400
+│    │    └─block.0.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.0.layer.0.SelfAttention.relative_attention_bias.weight ├─512
+│    │    └─block.0.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.0.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.0.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.0.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.0.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.0.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.0.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.0.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.0.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.1.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.1.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.1.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.1.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.1.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.1.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.1.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.1.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.1.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.1.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.1.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.1.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.1.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.2.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.2.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.2.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.2.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.2.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.2.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.2.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.2.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.2.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.2.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.2.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.2.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.2.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.3.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.3.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.3.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.3.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.3.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.3.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.3.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.3.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.3.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.3.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.3.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.3.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.3.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.4.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.4.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.4.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.4.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.4.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.4.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.4.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.4.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.4.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.4.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.4.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.4.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.4.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.5.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.5.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.5.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.5.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.5.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.5.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.5.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.5.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.5.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.5.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.5.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.5.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.5.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.6.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.6.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.6.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.6.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.6.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.6.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.6.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.6.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.6.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.6.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.6.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.6.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.6.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.7.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.7.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.7.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.7.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.7.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.7.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.7.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.7.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.7.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.7.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.7.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.7.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.7.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.8.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.8.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.8.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.8.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.8.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.8.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.8.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.8.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.8.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.8.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.8.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.8.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.8.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.9.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    └─block.9.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    └─block.9.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    └─block.9.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    └─block.9.layer.0.layer_norm.weight                ├─1,024
+│    │    └─block.9.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    └─block.9.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    └─block.9.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    └─block.9.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    └─block.9.layer.1.layer_norm.weight                ├─1,024
+│    │    └─block.9.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    └─block.9.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    └─block.9.layer.2.layer_norm.weight                ├─1,024
+│    │    └─block.10.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.10.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.10.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.10.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.10.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.10.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.10.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.10.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.10.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.10.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.10.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.10.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.10.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.11.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.11.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.11.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.11.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.11.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.11.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.11.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.11.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.11.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.11.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.11.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.11.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.11.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.12.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.12.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.12.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.12.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.12.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.12.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.12.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.12.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.12.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.12.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.12.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.12.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.12.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.13.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.13.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.13.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.13.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.13.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.13.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.13.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.13.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.13.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.13.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.13.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.13.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.13.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.14.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.14.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.14.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.14.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.14.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.14.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.14.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.14.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.14.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.14.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.14.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.14.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.14.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.15.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.15.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.15.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.15.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.15.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.15.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.15.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.15.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.15.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.15.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.15.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.15.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.15.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.16.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.16.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.16.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.16.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.16.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.16.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.16.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.16.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.16.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.16.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.16.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.16.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.16.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.17.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.17.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.17.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.17.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.17.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.17.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.17.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.17.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.17.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.17.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.17.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.17.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.17.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.18.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.18.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.18.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.18.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.18.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.18.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.18.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.18.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.18.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.18.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.18.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.18.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.18.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.19.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.19.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.19.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.19.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.19.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.19.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.19.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.19.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.19.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.19.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.19.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.19.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.19.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.20.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.20.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.20.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.20.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.20.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.20.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.20.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.20.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.20.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.20.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.20.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.20.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.20.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.21.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.21.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.21.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.21.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.21.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.21.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.21.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.21.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.21.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.21.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.21.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.21.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.21.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.22.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.22.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.22.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.22.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.22.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.22.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.22.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.22.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.22.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.22.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.22.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.22.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.22.layer.2.layer_norm.weight               ├─1,024
+│    │    └─block.23.layer.0.SelfAttention.q.weight          ├─1,048,576
+│    │    └─block.23.layer.0.SelfAttention.k.weight          ├─1,048,576
+│    │    └─block.23.layer.0.SelfAttention.v.weight          ├─1,048,576
+│    │    └─block.23.layer.0.SelfAttention.o.weight          ├─1,048,576
+│    │    └─block.23.layer.0.layer_norm.weight               ├─1,024
+│    │    └─block.23.layer.1.EncDecAttention.q.weight        ├─1,048,576
+│    │    └─block.23.layer.1.EncDecAttention.k.weight        ├─1,048,576
+│    │    └─block.23.layer.1.EncDecAttention.v.weight        ├─1,048,576
+│    │    └─block.23.layer.1.EncDecAttention.o.weight        ├─1,048,576
+│    │    └─block.23.layer.1.layer_norm.weight               ├─1,024
+│    │    └─block.23.layer.2.DenseReluDense.wi.weight        ├─4,194,304
+│    │    └─block.23.layer.2.DenseReluDense.wo.weight        ├─4,194,304
+│    │    └─block.23.layer.2.layer_norm.weight               ├─1,024
+│    │    └─final_layer_norm.weight                          └─1,024
+│    │    └─Embedding: 3-5                                   (recursive)
+│    │    │    └─weight                                      └─32,870,400
+│    │    └─ModuleList: 3-6                                  402,727,424
+│    │    │    └─0.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─0.layer.0.SelfAttention.relative_attention_bias.weight ├─512
+│    │    │    └─0.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─0.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─0.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─0.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─0.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─0.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─0.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─0.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─0.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─1.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─1.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─1.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─1.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─1.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─1.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─1.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─1.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─1.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─1.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─1.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─1.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─1.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─2.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─2.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─2.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─2.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─2.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─2.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─2.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─2.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─2.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─2.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─2.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─2.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─2.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─3.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─3.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─3.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─3.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─3.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─3.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─3.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─3.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─3.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─3.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─3.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─3.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─3.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─4.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─4.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─4.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─4.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─4.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─4.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─4.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─4.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─4.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─4.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─4.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─4.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─4.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─5.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─5.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─5.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─5.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─5.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─5.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─5.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─5.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─5.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─5.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─5.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─5.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─5.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─6.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─6.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─6.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─6.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─6.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─6.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─6.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─6.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─6.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─6.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─6.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─6.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─6.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─7.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─7.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─7.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─7.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─7.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─7.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─7.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─7.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─7.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─7.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─7.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─7.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─7.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─8.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─8.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─8.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─8.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─8.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─8.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─8.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─8.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─8.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─8.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─8.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─8.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─8.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─9.layer.0.SelfAttention.q.weight            ├─1,048,576
+│    │    │    └─9.layer.0.SelfAttention.k.weight            ├─1,048,576
+│    │    │    └─9.layer.0.SelfAttention.v.weight            ├─1,048,576
+│    │    │    └─9.layer.0.SelfAttention.o.weight            ├─1,048,576
+│    │    │    └─9.layer.0.layer_norm.weight                 ├─1,024
+│    │    │    └─9.layer.1.EncDecAttention.q.weight          ├─1,048,576
+│    │    │    └─9.layer.1.EncDecAttention.k.weight          ├─1,048,576
+│    │    │    └─9.layer.1.EncDecAttention.v.weight          ├─1,048,576
+│    │    │    └─9.layer.1.EncDecAttention.o.weight          ├─1,048,576
+│    │    │    └─9.layer.1.layer_norm.weight                 ├─1,024
+│    │    │    └─9.layer.2.DenseReluDense.wi.weight          ├─4,194,304
+│    │    │    └─9.layer.2.DenseReluDense.wo.weight          ├─4,194,304
+│    │    │    └─9.layer.2.layer_norm.weight                 ├─1,024
+│    │    │    └─10.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─10.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─10.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─10.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─10.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─10.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─10.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─10.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─10.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─10.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─10.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─10.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─10.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─11.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─11.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─11.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─11.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─11.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─11.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─11.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─11.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─11.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─11.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─11.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─11.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─11.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─12.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─12.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─12.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─12.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─12.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─12.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─12.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─12.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─12.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─12.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─12.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─12.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─12.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─13.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─13.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─13.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─13.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─13.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─13.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─13.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─13.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─13.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─13.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─13.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─13.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─13.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─14.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─14.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─14.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─14.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─14.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─14.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─14.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─14.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─14.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─14.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─14.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─14.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─14.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─15.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─15.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─15.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─15.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─15.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─15.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─15.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─15.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─15.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─15.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─15.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─15.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─15.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─16.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─16.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─16.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─16.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─16.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─16.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─16.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─16.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─16.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─16.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─16.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─16.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─16.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─17.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─17.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─17.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─17.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─17.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─17.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─17.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─17.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─17.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─17.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─17.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─17.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─17.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─18.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─18.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─18.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─18.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─18.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─18.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─18.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─18.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─18.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─18.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─18.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─18.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─18.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─19.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─19.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─19.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─19.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─19.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─19.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─19.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─19.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─19.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─19.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─19.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─19.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─19.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─20.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─20.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─20.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─20.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─20.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─20.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─20.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─20.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─20.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─20.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─20.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─20.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─20.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─21.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─21.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─21.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─21.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─21.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─21.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─21.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─21.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─21.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─21.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─21.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─21.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─21.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─22.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─22.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─22.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─22.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─22.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─22.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─22.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─22.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─22.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─22.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─22.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─22.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─22.layer.2.layer_norm.weight                ├─1,024
+│    │    │    └─23.layer.0.SelfAttention.q.weight           ├─1,048,576
+│    │    │    └─23.layer.0.SelfAttention.k.weight           ├─1,048,576
+│    │    │    └─23.layer.0.SelfAttention.v.weight           ├─1,048,576
+│    │    │    └─23.layer.0.SelfAttention.o.weight           ├─1,048,576
+│    │    │    └─23.layer.0.layer_norm.weight                ├─1,024
+│    │    │    └─23.layer.1.EncDecAttention.q.weight         ├─1,048,576
+│    │    │    └─23.layer.1.EncDecAttention.k.weight         ├─1,048,576
+│    │    │    └─23.layer.1.EncDecAttention.v.weight         ├─1,048,576
+│    │    │    └─23.layer.1.EncDecAttention.o.weight         ├─1,048,576
+│    │    │    └─23.layer.1.layer_norm.weight                ├─1,024
+│    │    │    └─23.layer.2.DenseReluDense.wi.weight         ├─4,194,304
+│    │    │    └─23.layer.2.DenseReluDense.wo.weight         ├─4,194,304
+│    │    │    └─23.layer.2.layer_norm.weight                └─1,024
+│    │    └─T5LayerNorm: 3-7                                 1,024
+│    │    │    └─weight                                      └─1,024
+│    │    └─Dropout: 3-8                                     --
+├─T5ClassificationHead: 1-2                                  --
+│    └─dense.weight                                          ├─1,048,576
+│    └─dense.bias                                            ├─1,024
+│    └─out_proj.weight                                       ├─2,048
+│    └─out_proj.bias                                         └─2
+│    └─QLinear: 2-4                                          1,049,600
+│    │    └─weight                                           ├─1,048,576
+│    │    └─bias                                             └─1,024
+│    └─Dropout: 2-5                                          --
+│    └─QLinear: 2-6                                          2,050
+│    │    └─weight                                           ├─2,048
+│    │    └─bias                                             └─2
+=====================================================================================
+Total params: 804,431,874
+Trainable params: 804,431,874
+Non-trainable params: 0
+=====================================================================================
+  0%|          | 0/43 [00:00<?, ?it/s]  2%|▏         | 1/43 [01:38<1:08:44, 98.21s/it]  5%|▍         | 2/43 [03:08<1:03:58, 93.62s/it]  7%|▋         | 3/43 [04:39<1:01:41, 92.55s/it]  9%|▉         | 4/43 [06:08<59:03, 90.85s/it]   12%|█▏        | 5/43 [07:40<57:58, 91.55s/it] 14%|█▍        | 6/43 [09:04<54:41, 88.68s/it] 16%|█▋        | 7/43 [10:35<53:48, 89.69s/it] 19%|█▊        | 8/43 [12:09<53:03, 90.95s/it] 21%|██        | 9/43 [13:41<51:40, 91.19s/it] 23%|██▎       | 10/43 [15:09<49:36, 90.20s/it] 26%|██▌       | 11/43 [16:45<49:10, 92.21s/it] 28%|██▊       | 12/43 [18:20<48:04, 93.06s/it] 30%|███       | 13/43 [19:51<46:07, 92.25s/it] 33%|███▎      | 14/43 [21:18<43:53, 90.80s/it] 35%|███▍      | 15/43 [22:52<42:45, 91.62s/it] 37%|███▋      | 16/43 [24:24<41:21, 91.90s/it] 40%|███▉      | 17/43 [25:50<39:00, 90.00s/it] 42%|████▏     | 18/43 [27:20<37:32, 90.09s/it] 44%|████▍     | 19/43 [28:50<36:02, 90.12s/it] 47%|████▋     | 20/43 [30:27<35:17, 92.07s/it] 49%|████▉     | 21/43 [31:56<33:22, 91.00s/it] 51%|█████     | 22/43 [33:26<31:50, 90.98s/it] 53%|█████▎    | 23/43 [34:59<30:29, 91.46s/it] 56%|█████▌    | 24/43 [36:32<29:05, 91.88s/it] 58%|█████▊    | 25/43 [38:00<27:13, 90.74s/it] 60%|██████    | 26/43 [39:28<25:29, 90.00s/it] 63%|██████▎   | 27/43 [41:03<24:23, 91.49s/it] 65%|██████▌   | 28/43 [42:45<23:36, 94.47s/it] 67%|██████▋   | 29/43 [44:15<21:46, 93.33s/it] 70%|██████▉   | 30/43 [45:46<20:04, 92.65s/it] 72%|███████▏  | 31/43 [47:16<18:20, 91.72s/it] 74%|███████▍  | 32/43 [48:51<16:59, 92.71s/it] 77%|███████▋  | 33/43 [50:24<15:26, 92.68s/it] 79%|███████▉  | 34/43 [51:53<13:44, 91.61s/it] 81%|████████▏ | 35/43 [53:21<12:05, 90.72s/it] 84%|████████▎ | 36/43 [54:51<10:32, 90.31s/it] 86%|████████▌ | 37/43 [56:20<08:59, 89.93s/it] 88%|████████▊ | 38/43 [57:48<07:27, 89.48s/it] 91%|█████████ | 39/43 [59:23<06:04, 91.14s/it] 93%|█████████▎| 40/43 [1:00:52<04:31, 90.40s/it] 95%|█████████▌| 41/43 [1:02:18<02:58, 89.24s/it] 98%|█████████▊| 42/43 [1:03:50<01:30, 90.02s/it]100%|██████████| 43/43 [1:04:51<00:00, 81.27s/it]100%|██████████| 43/43 [1:04:51<00:00, 90.50s/it]
