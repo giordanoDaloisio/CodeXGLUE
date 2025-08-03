@@ -360,3 +360,5 @@ unsloth*
 load_model
 final_model
 test
+final_merged_model
+checkpoint*
