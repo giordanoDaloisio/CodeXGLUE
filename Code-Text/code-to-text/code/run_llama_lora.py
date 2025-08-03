@@ -161,6 +161,10 @@ def set_seed(seed=42):
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
+def print_model_size(model, args):
+    torch.save(model.state_dict(), f"tmp_{args.job_id}.p")
+    logger.info("Size (MB): " + str(os.path.getsize(f"tmp_{args.job_id}.p") / 1e6))
+    os.remove(f"tmp_{args.job_id}.p")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -328,33 +332,34 @@ def main():
     
     # Carica tokenizer
     tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path)
-    
-    # Aggiungi padding token se non presente
-    if tokenizer.pad_token is None:
-        tokenizer.add_special_tokens({"pad_token": "<pad>"})
-    
-    # Carica modello base
+
     model = model_class.from_pretrained(
         args.model_name_or_path,
         torch_dtype=torch.float16,
         device_map="auto" if args.n_gpu > 1 else None
     )
+        
+    # Aggiungi padding token se non presente
+    if tokenizer.pad_token is None:
+        tokenizer.add_special_tokens({"pad_token": "<pad>"})
     
+    # Carica modello base
     # Ridimensiona embeddings se necessario
     model.resize_token_embeddings(len(tokenizer))
     
-    # Configura LoRA
-    lora_config = LoraConfig(
-        task_type=TaskType.CAUSAL_LM,
-        r=args.lora_r,
-        lora_alpha=args.lora_alpha,
-        lora_dropout=args.lora_dropout,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-    )
-    
-    # Applica LoRA al modello
-    model = get_peft_model(model, lora_config)
-    model.print_trainable_parameters()
+    if args.do_train:
+        # Configura LoRA
+        lora_config = LoraConfig(
+            task_type=TaskType.CAUSAL_LM,
+            r=args.lora_r,
+            lora_alpha=args.lora_alpha,
+            lora_dropout=args.lora_dropout,
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        )
+        
+        # Applica LoRA al modello
+        model = get_peft_model(model, lora_config)
+        model.print_trainable_parameters()
     
     # Carica checkpoint se specificato
     if args.load_model_path is not None:
@@ -390,15 +395,6 @@ def main():
         )
 
         # Prepare optimizer and schedule
-        # optimizer = Adafactor(
-        #     model.parameters(),
-        #     lr=args.learning_rate,
-        #     # eps=args.adam_epsilon,
-        #     # weight_decay=args.weight_decay,
-        #     warmup_init=False,
-        #     relative_step=False,
-        # )
-
         optimizer = Adafactor(
             model.parameters(),
             scale_parameter=False, 
@@ -479,11 +475,21 @@ def main():
 
     ######## INFERENCE #############
     if args.do_test:
+        
+        print_model_size(model, args)
+
+        logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
+        time_dir = os.path.join(args.output_dir, "times")
+        os.makedirs(time_dir, exist_ok=True)
+        if os.path.exists(os.path.join(time_dir, logfile)):
+            os.remove(os.path.join(time_dir, logfile))
+
         files = []
         if args.dev_filename is not None:
             files.append(args.dev_filename)
         if args.test_filename is not None:
             files.append(args.test_filename)
+        
 
         for idx, file in enumerate(files):
             logger.info("Test file: {}".format(file))
@@ -503,6 +509,22 @@ def main():
             
             model.eval()
             p = []
+            times = []
+            ## GPU warm-up
+            if torch.cuda.is_available() and not args.no_cuda:
+                logger.info("********* GPU-WARM-UP ********")
+                # warm up for 5 batches
+                for i, batch in enumerate(eval_dataloader):
+                    if i < 5:
+                        batch = tuple(t.to(device) for t in batch)
+                        source_ids, source_mask = batch
+                        with torch.no_grad():
+                            _ = model.generate(
+                                input_ids=source_ids,
+                                attention_mask=source_mask,
+                            )
+                    else:
+                        break
             
             for batch in tqdm(eval_dataloader, total=len(eval_dataloader)):
                 batch = tuple(t.to(device) for t in batch)
@@ -510,6 +532,7 @@ def main():
                 
                 with torch.no_grad():
                     # Generate usando il modello
+                    start_time = time.time()
                     generated_ids = model.generate(
                         input_ids=input_ids,
                         attention_mask=attention_mask,
@@ -519,6 +542,8 @@ def main():
                         pad_token_id=tokenizer.pad_token_id,
                         eos_token_id=tokenizer.eos_token_id
                     )
+                    end_time = time.time()
+                    elapsed_time = end_time - start_time
                     
                     # Decodifica solo la parte generata (dopo l'input)
                     for i, generated in enumerate(generated_ids):
@@ -528,6 +553,10 @@ def main():
                             skip_special_tokens=True
                         )
                         p.append(generated_text.strip())
+                    times.append(elapsed_time)
+                    with open(os.path.join(time_dir, logfile), "a") as f:
+                        f.write(str(elapsed_time) + ",")
+                    torch.cuda.synchronize()
             
             # Salva risultati
             predictions = []
@@ -548,7 +577,9 @@ def main():
             )
             dev_bleu = round(bleu.bleuFromMaps(goldMap, predictionMap)[0], 2)
             logger.info("  %s = %s " % ("bleu-4", str(dev_bleu)))
+            logger.info("Average inference time: " + str(np.mean(times)))
             logger.info("  " + "*" * 20)
+
 
 
 if __name__ == "__main__":

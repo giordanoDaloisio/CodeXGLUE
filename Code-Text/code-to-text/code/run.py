@@ -1218,7 +1218,8 @@ def main():
                             preds = model(source_ids=source_ids, source_mask=source_mask)
                             ender.record()
                             ellapsed_time = starter.elapsed_time(ender)
-                        torch.cuda.synchronize()
+                        if torch.cuda.is_available():
+                            torch.cuda.synchronize()
                     else:
                         if args.model_type == "t5":
                             starter = time.time()
