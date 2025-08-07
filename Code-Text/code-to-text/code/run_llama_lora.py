@@ -163,7 +163,7 @@ def set_seed(seed=42):
 
 def print_model_size(model, args):
     torch.save(model.state_dict(), f"tmp_{args.job_id}.p")
-    logger.info("Size (MB): " + str(os.path.getsize(f"tmp_{args.job_id}.p") / 1e6))
+    print("Size (MB): " + str(os.path.getsize(f"tmp_{args.job_id}.p") / 1e6))
     os.remove(f"tmp_{args.job_id}.p")
 
 def main():
@@ -332,6 +332,7 @@ def main():
     
     # Carica tokenizer
     tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path)
+    
 
     model = model_class.from_pretrained(
         args.model_name_or_path,
@@ -340,12 +341,15 @@ def main():
     )
         
     # Aggiungi padding token se non presente
-    if tokenizer.pad_token is None:
-        tokenizer.add_special_tokens({"pad_token": "<pad>"})
+    # if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.pad_token_id = tokenizer.eos_token_id  # Set pad token to eos token for generation compatibility
+    # if model.config.pad_token_id is None:
+    #     model.config.pad_token_id = tokenizer.pad_token_id
     
-    # Carica modello base
-    # Ridimensiona embeddings se necessario
-    model.resize_token_embeddings(len(tokenizer))
+        # Carica modello base
+        # Ridimensiona embeddings se necessario
+        # model.resize_token_embeddings(len(tokenizer))
     
     if args.do_train:
         # Configura LoRA

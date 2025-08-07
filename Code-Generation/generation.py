@@ -9,6 +9,7 @@ import os
 from argparse import ArgumentParser
 from typing import List, Dict
 import json
+from optimum.quanto import qfloat8, qint8, qint4, quantize, freeze, Calibration
 
 login(hf_token)
 
@@ -28,9 +29,9 @@ def generate_batch_completions(pipe, prompts: List[str], task_ids: List[str]) ->
         prompts,
         do_sample=True,
         pad_token_id=pipe.tokenizer.eos_token_id,
-        batch_size=min(8, len(prompts))  # Batch size adattivo
+        batch_size=min(8, len(prompts)),  # Batch size adattivo
     )
-    
+
     end_time = time()
     total_time = end_time - start_time
     
@@ -57,13 +58,35 @@ def ensure_directory_exists(filepath: str):
     if directory and not os.path.exists(directory):
         os.makedirs(directory)
 
+def calibrate_model(pipe, problems: Dict, num_calibration_samples: int = 10):
+    """Calibra il modello con alcuni sample per la quantizzazione"""
+    print(f"Calibrando il modello con {num_calibration_samples} samples...")
+    
+    # Prendi alcuni prompt per la calibrazione
+    task_ids = list(problems.keys())[:num_calibration_samples]
+    calibration_prompts = [problems[task_id]["prompt"] for task_id in task_ids]
+    
+    # Esegui inferenza per calibrazione (senza salvare i risultati)
+    for prompt in calibration_prompts:
+        _ = pipe(
+            prompt,
+            max_new_tokens=50,  # Usa meno token per velocizzare la calibrazione
+            do_sample=False,    # Usa greedy decoding per la calibrazione
+            pad_token_id=pipe.tokenizer.eos_token_id
+        )
+    
+    print("Calibrazione completata.")
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--job_id", type=str, required=True, help="Job ID for tracking")
     parser.add_argument("--num_samples_per_task", type=int, default=100, help="Number of samples per task")
     parser.add_argument("--batch_size", type=int, default=8, help="Batch size for generation")
     parser.add_argument("--max_new_tokens", type=int, default=150, help="Max tokens to generate")
-    
+    parser.add_argument("--quantf8", action="store_true", help="Use quantization for the model")
+    parser.add_argument("--quant8", action="store_true", help="Use quantization for the model")
+    parser.add_argument("--quant4", action="store_true", help="Use quantization for the model")
+
     args = parser.parse_args()
     job_id = args.job_id
     
@@ -74,16 +97,47 @@ if __name__ == "__main__":
         device_map="auto",
         trust_remote_code=True
     )
+    pipe.tokenizer.pad_token = pipe.tokenizer.eos_token  # Imposta il token di padding
+    times_file = f"times/times_{job_id}.csv"
+    samples_file = f"samples_{job_id}.jsonl"
+    # Applica quantizzazione float8 se richiesta
+    if args.quantf8 or args.quant8 or args.quant4:
+        if args.quantf8:
+            print("Applicando quantizzazione float8...")
+            quantize(pipe.model, weights=qfloat8, activations=qfloat8)
+            times_file = f"times/times_quantf8_{job_id}.csv"
+            samples_file = f"samples_quantf8_{job_id}.jsonl"
+        elif args.quant8:
+            print("Applicando quantizzazione int8...")
+            quantize(pipe.model, weights=qint8, activations=qint8)
+            times_file = f"times/times_quant8_{job_id}.csv"
+            samples_file = f"samples_quant8_{job_id}.jsonl"
+        elif args.quant4:
+            print("Applicando quantizzazione int4...")
+            quantize(pipe.model, weights=qint4, activations=qint4)
+            times_file = f"times/times_quant4_{job_id}.csv"
+            samples_file = f"samples_quant4_{job_id}.jsonl"
+        else:
+            print("Nessuna quantizzazione applicata")       
+        # Leggi problemi per la calibrazione
+        problems = read_problems()
+        
+        # Calibrazione con contesto
+        with Calibration():
+            calibrate_model(pipe, problems, num_calibration_samples=10)
+        
+        # Freeze del modello dopo la calibrazione
+        freeze(pipe.model)
+        print("Quantizzazione float8 applicata e modello congelato.")
+    else:
+        # Leggi problemi normalmente
+        problems = read_problems()
     
     # Stampa dimensione del modello
     model_size = print_model_size(pipe.model)
     print(f"Model size: {model_size:.2f} MB")
     
-    # Leggi problemi
-    problems = read_problems()
-    
     # Assicurati che le directory esistano
-    times_file = f"times/times_{job_id}.csv"
     ensure_directory_exists(times_file)
     
     # Prepara header del CSV se il file non esiste
@@ -115,11 +169,11 @@ if __name__ == "__main__":
         
         # Genera completions in batch
         batch_samples, batch_time = generate_batch_completions(
-            pipe, prompts, task_ids, args.max_new_tokens
+            pipe, prompts, task_ids
         )
         
         # Salva samples
-        write_samples_batch(batch_samples)
+        write_samples_batch(batch_samples, samples_file)
         all_samples.extend(batch_samples)
         
         # Calcola statistiche di timing

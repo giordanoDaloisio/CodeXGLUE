@@ -5,8 +5,8 @@
 #SBATCH -J llama_test
 #SBATCH -p cuda
 #SBATCH -c 10
-#SBATCH --gres=gpu:3c_s80g:1
-# SBATCH --gres=gpu:fat
+# SBATCH --gres=gpu:3c_s80g:1
+#SBATCH --gres=gpu:fat
 
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -29,7 +29,7 @@ dev_file=$data_dir/$lang/valid.jsonl
 test_file=$data_dir/$lang/test.jsonl
 
 epochs=10
-pretrained_model=meta-llama/Llama-3.1-8B
+pretrained_model=meta-llama/Llama-3.1-8B™
 model_type=t5
 
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh

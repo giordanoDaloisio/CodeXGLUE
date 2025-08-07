@@ -350,6 +350,7 @@ MigrationBackup/
 .idea
 
 *.jsonl
+!Code-Generation/samples.jsonl
 *.bin
 Text-Code/NL-code-search-Adv/dataset/preds_unlabel_train.npy
 Text-Code/NL-code-search-Adv/dataset/BPE_1000.json

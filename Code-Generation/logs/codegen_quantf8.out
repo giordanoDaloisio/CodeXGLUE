@@ -1,0 +1,50 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [01:58<05:55, 118.48s/it]Loading checkpoint shards:  50%|█████     | 2/4 [03:19<03:12, 96.44s/it] Loading checkpoint shards:  75%|███████▌  | 3/4 [04:57<01:37, 97.37s/it]Loading checkpoint shards: 100%|██████████| 4/4 [05:27<00:00, 70.68s/it]Loading checkpoint shards: 100%|██████████| 4/4 [05:27<00:00, 81.93s/it]
+Device set to use cuda:0
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Applicando quantizzazione float8...
+Calibrando il modello con 10 samples...
+Calibrazione completata.
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/generation.py", line 130, in <module>
+    freeze(pipe.model)
+    ~~~~~~^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/quantize.py", line 146, in freeze
+    m.freeze()
+    ~~~~~~~~^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/nn/qmodule.py", line 303, in freeze
+    qweight = self.qweight
+              ^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/nn/qmodule.py", line 269, in qweight
+    return quantize_weight(
+        self.weight,
+    ...<5 lines>...
+        activation_qtype=self.activation_qtype,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/quantization.py", line 70, in quantize_weight
+    return WeightQBytesTensor.quantize(t, qtype, axis, scale, activation_qtype, optimized)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 166, in quantize
+    return WeightQBytesQuantizer.apply(base, qtype, axis, scale, activation_qtype, optimized)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/autograd/function.py", line 575, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 38, in forward
+    data = torch.ops.quanto.quantize_symmetric(base, dtype=qtype.dtype, axis=axis, scale=scale)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/_ops.py", line 1158, in __call__
+    return self._op(*args, **(kwargs or {}))
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/quantize.py", line 55, in quantize_symmetric
+    return torch.clamp(data, min=info.min, max=info.max).to(dtype)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.96 GiB. GPU 0 has a total capacity of 39.25 GiB of which 1.35 GiB is free. Process 1565284 has 19.82 GiB memory in use. Including non-PyTorch memory, this process has 37.84 GiB memory in use. Of the allocated memory 16.30 GiB is allocated by PyTorch, and 21.45 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+srun: error: compute-0-3: task 0: Exited with exit code 1
