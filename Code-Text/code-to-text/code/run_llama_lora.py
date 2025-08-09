@@ -107,7 +107,6 @@ class InputFeatures(object):
 def convert_examples_to_features(examples, tokenizer, args, stage=None):
     features = []
     for example_index, example in enumerate(examples):
-        # Formato: "Code: <code> Summary: <summary>"
         if stage == "test":
             input_text = f"Code: {example.source} Summary:"
             target_text = ""
@@ -115,7 +114,7 @@ def convert_examples_to_features(examples, tokenizer, args, stage=None):
             input_text = f"Code: {example.source} Summary: {example.target}"
             target_text = example.target
 
-        # Tokenizza l'input completo
+        # Tokenize input and target separately for proper masking
         inputs = tokenizer(
             input_text,
             max_length=args.max_source_length,
@@ -128,11 +127,17 @@ def convert_examples_to_features(examples, tokenizer, args, stage=None):
         attention_mask = inputs["attention_mask"].squeeze()
         
         if stage != "test":
-            # Per il training, le labels sono gli input_ids shiftati
+            # Properly calculate source length for masking
+            source_text = f"Code: {example.source} Summary:"
+            source_tokens = tokenizer(source_text, add_special_tokens=False)["input_ids"]
+            source_length = len(source_tokens) + 1  # +1 for BOS token if present
+            
             labels = input_ids.clone()
-            # Maschera le parti di input (solo la summary deve essere predetta)
-            source_length = len(tokenizer(f"Code: {example.source} Summary:")["input_ids"])
-            labels[:source_length] = -100  # Ignora la loss sulla parte di input
+            # Mask everything except the target (summary part)
+            labels[:source_length] = -100
+            
+            # Also mask padding tokens
+            labels[labels == tokenizer.pad_token_id] = -100
         else:
             labels = torch.tensor([-100] * len(input_ids))
 
@@ -267,7 +272,7 @@ def main():
     )
     parser.add_argument(
         "--learning_rate",
-        default=2e-4,
+        default=5e-5,  # Changed from 2e-4
         type=float,
         help="The initial learning rate for AdamW.",
     )
@@ -332,11 +337,17 @@ def main():
     
     # Carica tokenizer
     tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path)
+
+    if not args.do_train:
+        tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path, padding_side="left")
+    else:
+        # Carica tokenizer con padding a sinistra per compatibilità con Llama
+        tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path, padding_side="right")
     
 
     model = model_class.from_pretrained(
         args.model_name_or_path,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.bfloat16,  # Changed from float16
         device_map="auto" if args.n_gpu > 1 else None
     )
         
@@ -481,6 +492,7 @@ def main():
     if args.do_test:
         
         print_model_size(model, args)
+        
 
         logfile = f"times_{args.job_id}_{'cuda' if torch.cuda.is_available() else 'cpu'}.csv"
         time_dir = os.path.join(args.output_dir, "times")

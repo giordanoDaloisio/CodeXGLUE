@@ -228,7 +228,7 @@ if __name__ == '__main__':
   reference_file = f"{base_path}/test_1.gold"
   predictions = []
   for logs in os.listdir(base_path):
-     if 'cpu' in logs and 'output' in logs:
+     if 'output' in logs:
         for row in open(os.path.join(base_path, logs)):
           predictions.append(row)
           (goldMap, predictionMap) = computeMaps(predictions, reference_file)
@@ -238,7 +238,7 @@ if __name__ == '__main__':
         
         score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
         sims = computeSim("dataset/java/test.jsonl", pred_list)
-        task = 'Summarization T5'
+        task = 'Summarization Llama3.1'
         if 'prune4' in logs:
             compression = 'Pruning 0.4'
         elif 'prune6' in logs:

@@ -1,0 +1,18 @@
+{
+  "pass_at_k": {
+    "pass@1": 0.28884146341463407,
+    "pass@10": 0.749785615211382,
+    "pass@20": 0.8121669508136505
+  },
+  "metadata": {
+    "sample_file": "samples.jsonl",
+    "k_values": [
+      1,
+      10,
+      20
+    ],
+    "n_workers": 4,
+    "timeout": 3.0,
+    "total_problems": 164
+  }
+}

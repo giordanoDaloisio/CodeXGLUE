@@ -67,13 +67,19 @@ def calibrate_model(pipe, problems: Dict, num_calibration_samples: int = 10):
     calibration_prompts = [problems[task_id]["prompt"] for task_id in task_ids]
     
     # Esegui inferenza per calibrazione (senza salvare i risultati)
-    for prompt in calibration_prompts:
-        _ = pipe(
-            prompt,
-            max_new_tokens=50,  # Usa meno token per velocizzare la calibrazione
-            do_sample=False,    # Usa greedy decoding per la calibrazione
-            pad_token_id=pipe.tokenizer.eos_token_id
-        )
+    try:
+        for i, prompt in enumerate(calibration_prompts):
+            print(f"Calibrando sample {i+1}/{len(calibration_prompts)}")
+            _ = pipe(
+                prompt,
+                max_new_tokens=50,  # Usa meno token per velocizzare la calibrazione
+                do_sample=False,    # Usa greedy decoding per la calibrazione
+                pad_token_id=pipe.tokenizer.eos_token_id,
+                return_full_text=False  # Ritorna solo il testo generato
+            )
+    except Exception as e:
+        print(f"Errore durante calibrazione: {e}")
+        print("Continuando senza calibrazione completa...")
     
     print("Calibrazione completata.")
 
@@ -90,11 +96,21 @@ if __name__ == "__main__":
     args = parser.parse_args()
     job_id = args.job_id
     
+    # Determina device_map in base alla quantizzazione
+    # Per la quantizzazione, evitiamo device_map="auto" che causa problemi con meta tensors
+    if args.quantf8 or args.quant8 or args.quant4:
+        device_map = None  # Carica tutto su un singolo dispositivo
+        torch_dtype = torch.float16  # Usa float16 per risparmiare memoria
+    else:
+        device_map = "auto"
+        torch_dtype = None
+    
     # Inizializza la pipeline con ottimizzazioni
     pipe = pipeline(
         task="text-generation", 
         model="meta-llama/Llama-3.1-8B-Instruct", 
-        device_map="auto",
+        device_map=device_map,
+        torch_dtype=torch_dtype,
         trust_remote_code=True
     )
     pipe.tokenizer.pad_token = pipe.tokenizer.eos_token  # Imposta il token di padding
@@ -128,7 +144,12 @@ if __name__ == "__main__":
         
         # Freeze del modello dopo la calibrazione
         freeze(pipe.model)
-        print("Quantizzazione float8 applicata e modello congelato.")
+        if args.quantf8:
+            print("Quantizzazione float8 applicata e modello congelato.")
+        elif args.quant8:
+            print("Quantizzazione int8 applicata e modello congelato.")
+        elif args.quant4:
+            print("Quantizzazione int4 applicata e modello congelato.")
     else:
         # Leggi problemi normalmente
         problems = read_problems()
