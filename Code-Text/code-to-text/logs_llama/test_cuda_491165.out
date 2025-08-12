@@ -1,29 +1,0 @@
-WARNING:__main__:Process rank: -1, device: cuda, n_gpu: 1, distributed training: False
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:04,  1.38s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:03,  1.79s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:05<00:01,  1.79s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:05<00:00,  1.33s/it]
-Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
-/pytorch/aten/src/ATen/native/cuda/TensorCompare.cu:112: _assert_async_cuda_kernel: block: [0,0,0], thread: [0,0,0] Assertion `probability tensor contains either `inf`, `nan` or element < 0` failed.
-Traceback (most recent call last):
-  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/run_llama_lora.py", line 587, in <module>
-    main()
-    ~~~~^^
-  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/run_llama_lora.py", line 523, in main
-    _ = model.generate(
-        input_ids=source_ids,
-        attention_mask=source_mask,
-    )
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/generation/utils.py", line 2597, in generate
-    result = self._sample(
-        input_ids,
-    ...<5 lines>...
-        **model_kwargs,
-    )
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/generation/utils.py", line 3602, in _sample
-    next_tokens = torch.multinomial(probs, num_samples=1).squeeze(1)
-                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: CUDA error: device-side assert triggered
-CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
-For debugging consider passing CUDA_LAUNCH_BLOCKING=1
-Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
-

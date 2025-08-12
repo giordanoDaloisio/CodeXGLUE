@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 class CodeSummarizer:
-    def __init__(self, model_name: str = "meta-llama/Llama-3.1-8B-Instruct", use_quantization: bool = True):
+    def __init__(self, model_name: str = "meta-llama/Llama-3.1-8B-Instruct", use_quantization: bool = True, job_id=None):
         """
         Initialize the code summarizer with LLaMA model
         
@@ -30,6 +30,7 @@ class CodeSummarizer:
         """
         self.model_name = model_name
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.job_id = job_id
         logger.info(f"Using device: {self.device}")
         
         # Configure quantization if requested
@@ -60,6 +61,14 @@ class CodeSummarizer:
         )
         
         logger.info("Model loaded successfully")
+    
+    def print_model_size(self, model):
+        """Calcola la dimensione del modello senza salvare file temporanei"""
+        param_size = sum(p.numel() * p.element_size() for p in model.parameters())
+        buffer_size = sum(b.numel() * b.element_size() for b in model.buffers())
+        size_mb = (param_size + buffer_size) / 1e6
+        print(f"Size (MB): {size_mb:.2f}")
+        return size_mb
     
     def load_jsonl(self, file_path: str) -> List[Dict[str, Any]]:
         """Load data from JSONL file"""
@@ -181,8 +190,18 @@ Here are some examples:
         # Select few-shot examples
         few_shot_examples = random.sample(validation_data, min(num_few_shot, len(validation_data)))
         logger.info(f"Using {len(few_shot_examples)} few-shot examples")
-        
+
+        self.print_model_size(self.model)
+
+        ### GPU Warmup
+        self.model.eval()
+        with torch.no_grad():
+            for _ in range(5):  # Warmup for 5 iterations
+                inputs = self.tokenizer("print('Hello, world!')", return_tensors="pt").to(self.device)
+                _ = self.model(**inputs)
+
         results = []
+        times = []
         start_time = time.time()
         
         # Process test samples
@@ -191,9 +210,12 @@ Here are some examples:
             try:
                 # Create prompt
                 prompt = self.create_few_shot_prompt(few_shot_examples, test_example['code'])
-                
+
                 # Generate summary
+                start = time.time()
                 generated_summary = self.generate_summary(prompt)
+                end = time.time()
+                times.append(end - start)
                 
                 # Store result
                 result = {
@@ -229,12 +251,16 @@ Here are some examples:
         
         # Save results
         if output_file is None:
-            output_file = f"code_summarization_results_{int(time.time())}.json"
-            
+            output_file = f"model_llama/code_summarization_results_{self.job_id}.json"
+
         logger.info(f"Saving results to {output_file}")
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
-        
+
+        # Save timing information
+        with open(f"model_llama/code_summarization_times_{self.job_id}.json", "w", encoding="utf-8") as f:
+            json.dump(times, f, indent=2, ensure_ascii=False)
+
         # Print some example results
         logger.info("\n" + "="*50)
         logger.info("SAMPLE RESULTS:")
@@ -261,11 +287,11 @@ def main():
                        default="/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/dataset/java/test.jsonl", 
                        help="Path to test JSONL file")
     parser.add_argument("--model_name", 
-                       default="meta-llama/Meta-Llama-3.1-8B-Instruct",
+                       default="meta-llama/Llama-3.1-8B-Instruct",
                        help="HuggingFace model name")
     parser.add_argument("--num_few_shot", type=int, default=3,
                        help="Number of few-shot examples to use")
-    parser.add_argument("--num_test_samples", type=int, default=100,
+    parser.add_argument("--num_test_samples", type=int, default=None,
                        help="Number of test samples to evaluate (None for all)")
     parser.add_argument("--output_file", default=None,
                        help="Output file path for results")
@@ -297,6 +323,7 @@ def main():
     )
     
     logger.info("Script completed successfully!")
+    logger.info(f"Total examples processed: {len(results)}")
 
 if __name__ == "__main__":
     main()

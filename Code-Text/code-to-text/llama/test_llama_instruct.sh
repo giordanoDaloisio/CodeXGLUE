@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs_llama/test_cuda_instruct_%j.out
+#SBATCH -o ./logs_llama/cuda_instruct_%j.out
 #SBATCH -J llama_test
 #SBATCH -p cuda
 #SBATCH -c 10
@@ -31,4 +31,4 @@ test_file=$data_dir/$lang/test.jsonl
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-python quick_test_summarization.py
+srun python code_summarization_llama.py

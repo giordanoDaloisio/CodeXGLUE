@@ -1,6 +1,0 @@
-2025-08-09 12:00:03,471 - INFO - Initializing Code Summarizer...
-2025-08-09 12:00:03,626 - INFO - Using device: cuda
-2025-08-09 12:00:03,627 - INFO - Using 8-bit quantization
-2025-08-09 12:00:03,627 - INFO - Loading tokenizer: meta-llama/Meta-Llama-3.1-8B-Instruct
-2025-08-09 12:02:10,258 - INFO - Loading model: meta-llama/Meta-Llama-3.1-8B-Instruct
-Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
