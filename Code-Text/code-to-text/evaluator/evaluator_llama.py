@@ -167,7 +167,7 @@ def bleu(refs,  candidate, ground=0, smooth=1):
 def splitPuncts(line):
   return ' '.join(re.findall(r"[\w]+|[^\s\w]", line))
 
-def computeMaps(prediction):
+def computeMaps(predictions):
   predictionMap = {}
   goldMap = {}
   goldfile = "code/model/java/test_0_cpu.gold"
@@ -179,14 +179,14 @@ def computeMaps(prediction):
     #   (rid, pred) = (cols[0], '') 
     # else:
     #   (rid, pred) = (cols[0], cols[1]) 
-    predictionMap[id] = [splitPuncts(row.generated_summary.strip().lower())]
+    predictionMap[id] = [splitPuncts(row["generated_summary"].strip().lower())]
 
   for row in gf:
     (rid, pred) = row.split('\t') 
-    if rid in predictionMap: # Only insert if the id exists for the method
-      if rid not in goldMap:
-        goldMap[rid] = []
-      goldMap[rid].append(splitPuncts(pred.strip().lower()))
+    # if rid in predictionMap: # Only insert if the id exists for the method
+    if rid not in goldMap:
+      goldMap[rid] = []
+    goldMap[rid].append(splitPuncts(pred.strip().lower()))
 
   sys.stderr.write('Total: ' + str(len(goldMap)) + '\n')
   return (goldMap, predictionMap)
@@ -229,39 +229,39 @@ if __name__ == '__main__':
   reference_file = f"{base_path}/{args.file}"
   predictions = []
 
-  with open(reference_file, 'r') as f:
-    (goldMap, predictionMap) = computeMaps(f)
+with open(reference_file, 'r') as f:
+  (goldMap, predictionMap) = computeMaps(f)
 
-  gold_list = [v[0] for v in goldMap.values()]
-  pred_list = [v[0] for v in predictionMap.values()]
-  
-  score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
-  sims = computeSim("dataset/java/test.jsonl", pred_list)
-  task = 'Summarization Llama3.1'
-  if 'prune4' in reference_file:
-      compression = 'Pruning 0.4'
-  elif 'prune6' in reference_file:
-      compression = 'Pruning 0.6'
-  elif 'prune' in reference_file:
-      compression = 'Pruning 0.2'
-  elif 'quantf8' in reference_file:
-      compression = 'Quantization (quanto-qfloat8)'
-  elif 'quant4' in reference_file:
-      compression = 'Quantization (quanto-qint4)'
-  elif 'quant' in reference_file:
-      compression = 'Quantization (quanto-qint8)'
-  else:
-      compression = 'No One'
-  df = pd.concat([df, pd.DataFrame({
-      'Task': [task, task, task], 
-      'Compression Method': [compression, compression, compression], 
-      'Parameter': ["Bleu", "BERTScore", "SIDE"], 
-      'Value': [bleuFromMaps(goldMap, predictionMap)[0], np.mean(list(score['f1'])), np.mean(sims)]
-  })], ignore_index=True)  
-  df.to_csv('../../analysis/experiment_values.csv', index=False)
-  print("Bleu", bleuFromMaps(goldMap, predictionMap)[0])
-  print("BERTScore Prec", np.mean(list(score['precision'])))
-  print("BERTScore Recall", np.mean(list(score['recall'])))
-  print("BERTScore F1", np.mean(list(score['f1'])))
-  print("SIDE Score", np.mean(sims))
+gold_list = [v[0] for v in goldMap.values()]
+pred_list = [v[0] for v in predictionMap.values()]
+
+score = bertscore.compute(references=gold_list, predictions=pred_list, lang="en")
+sims = computeSim("dataset/java/test.jsonl", pred_list)
+task = 'Summarization Llama3.1'
+if 'prune4' in reference_file:
+    compression = 'Pruning 0.4'
+elif 'prune6' in reference_file:
+    compression = 'Pruning 0.6'
+elif 'prune' in reference_file:
+    compression = 'Pruning 0.2'
+elif 'quantf8' in reference_file:
+    compression = 'Quantization (quanto-qfloat8)'
+elif 'quant4' in reference_file:
+    compression = 'Quantization (quanto-qint4)'
+elif 'quant' in reference_file:
+    compression = 'Quantization (quanto-qint8)'
+else:
+    compression = 'No One'
+df = pd.concat([df, pd.DataFrame({
+    'Task': [task, task, task], 
+    'Compression Method': [compression, compression, compression], 
+    'Parameter': ["Bleu", "BERTScore", "SIDE"], 
+    'Value': [bleuFromMaps(goldMap, predictionMap)[0], np.mean(list(score['f1'])), np.mean(sims)]
+})], ignore_index=True)  
+df.to_csv('../../analysis/experiment_values.csv', index=False)
+print("Bleu", bleuFromMaps(goldMap, predictionMap)[0])
+print("BERTScore Prec", np.mean(list(score['precision'])))
+print("BERTScore Recall", np.mean(list(score['recall'])))
+print("BERTScore F1", np.mean(list(score['f1'])))
+print("SIDE Score", np.mean(sims))
 

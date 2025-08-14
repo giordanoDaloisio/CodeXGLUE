@@ -58,7 +58,7 @@ def ensure_directory_exists(filepath: str):
     if directory and not os.path.exists(directory):
         os.makedirs(directory)
 
-def calibrate_model(pipe, problems: Dict, num_calibration_samples: int = 10):
+def calibrate_model(pipe, problems: Dict, num_calibration_samples: int = 20):
     """Calibra il modello con alcuni sample per la quantizzazione"""
     print(f"Calibrando il modello con {num_calibration_samples} samples...")
     
