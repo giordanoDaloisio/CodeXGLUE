@@ -1,0 +1,16 @@
+2025-08-14 12:09:22,989 - INFO - Initializing Code Summarizer...
+2025-08-14 12:09:23,299 - INFO - Using device: cuda
+2025-08-14 12:09:23,300 - INFO - Apply quantization
+2025-08-14 12:09:23,300 - INFO - Using 8-bit quantization
+2025-08-14 12:09:23,300 - INFO - Loading tokenizer: meta-llama/Llama-3.1-8B-Instruct
+2025-08-14 12:09:25,057 - INFO - Loading model: meta-llama/Llama-3.1-8B-Instruct
+2025-08-14 12:11:48,523 - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [01:52<05:37, 112.43s/it]Loading checkpoint shards:  50%|█████     | 2/4 [03:28<03:25, 102.78s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [04:13<01:16, 76.20s/it] Loading checkpoint shards: 100%|██████████| 4/4 [04:25<00:00, 50.86s/it]Loading checkpoint shards: 100%|██████████| 4/4 [04:25<00:00, 66.26s/it]
+2025-08-14 12:16:14,203 - INFO - Model loaded successfully
+2025-08-14 12:16:14,203 - INFO - Loading datasets...
+2025-08-14 12:16:14,901 - INFO - Loaded 5183 examples from /NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/dataset/java/valid.jsonl
+2025-08-14 12:16:16,554 - INFO - Loaded 10955 examples from /NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/dataset/java/test.jsonl
+2025-08-14 12:16:16,555 - INFO - Using 3 few-shot examples
+2025-08-14 12:16:21,619 - INFO - Starting evaluation...
+Size (MB): 16060.52
+Generating summaries:   0%|          | 0/10955 [00:00<?, ?it/s]Generating summaries:   0%|          | 1/10955 [00:38<115:59:58, 38.12s/it]Generating summaries:   0%|          | 2/10955 [01:14<113:04:07, 37.16s/it]Generating summaries:   0%|          | 3/10955 [01:51<113:10:36, 37.20s/it]Generating summaries:   0%|          | 4/10955 [02:29<113:29:25, 37.31s/it]Generating summaries:   0%|          | 5/10955 [03:06<113:36:52, 37.35s/it]Generating summaries:   0%|          | 6/10955 [03:44<113:40:14, 37.37s/it]Generating summaries:   0%|          | 7/10955 [04:22<114:06:28, 37.52s/it]Generating summaries:   0%|          | 8/10955 [04:59<113:49:46, 37.43s/it]Generating summaries:   0%|          | 9/10955 [05:37<114:07:25, 37.53s/it]2025-08-14 12:22:36,146 - INFO - Processed 10/10955 samples. Est. remaining time: 6832.0min

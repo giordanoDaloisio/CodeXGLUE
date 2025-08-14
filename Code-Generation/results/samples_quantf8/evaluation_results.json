@@ -1,0 +1,18 @@
+{
+  "pass_at_k": {
+    "pass@1": 0.0,
+    "pass@10": 0.0,
+    "pass@20": 0.0
+  },
+  "metadata": {
+    "sample_file": "samples_quantf8_491248.jsonl",
+    "k_values": [
+      1,
+      10,
+      20
+    ],
+    "n_workers": 4,
+    "timeout": 3.0,
+    "total_problems": 164
+  }
+}

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/evaluator/evaluator_llama.py", line 233, in <module>
+    (goldMap, predictionMap) = computeMaps(f)
+                               ~~~~~~~~~~~^^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/evaluator/evaluator_llama.py", line 176, in computeMaps
+    for id, row in enumerate(json.load(predictions)):
+                             ~~~~~~~~~^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/json/__init__.py", line 293, in load
+    return loads(fp.read(),
+                 ^^^^^^^
+AttributeError: 'list' object has no attribute 'read'
+srun: error: compute-0-3: task 0: Exited with exit code 1

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/evaluator/evaluator_llama.py", line 232, in <module>
+    with open(reference_file, 'r') as f:
+         ~~~~^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'code/model_llama/java/code_summarization_results.json'
+srun: error: compute-0-3: task 0: Exited with exit code 1

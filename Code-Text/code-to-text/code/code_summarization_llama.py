@@ -12,15 +12,16 @@ from typing import List, Dict, Any
 import argparse
 from tqdm import tqdm
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM, QuantoConfig
 import logging
+import csv
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class CodeSummarizer:
-    def __init__(self, model_name: str = "meta-llama/Llama-3.1-8B-Instruct", use_quantization: bool = True, job_id=None):
+    def __init__(self, model_name: str = "meta-llama/Llama-3.1-8B-Instruct", job_id=None, args=None):
         """
         Initialize the code summarizer with LLaMA model
         
@@ -31,14 +32,16 @@ class CodeSummarizer:
         self.model_name = model_name
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.job_id = job_id
+        self.args = args
         logger.info(f"Using device: {self.device}")
         
         # Configure quantization if requested
         quantization_config = None
-        if use_quantization and torch.cuda.is_available():
-            quantization_config = BitsAndBytesConfig(
-                load_in_8bit=True,
-                bnb_8bit_compute_dtype=torch.float16
+        if args.quantf8 or args.quanti4 or args.quanti8:
+            logger.info("Apply quantization")
+            quantization_config = QuantoConfig(
+                weights="float8" if args.quantf8 else "int4" if args.quanti4 else "int8",
+                # activations="float8" if args.quantf8 else "int8" if args.quanti8 else None
             )
             logger.info("Using 8-bit quantization")
         
@@ -251,15 +254,27 @@ Here are some examples:
         
         # Save results
         if output_file is None:
-            output_file = f"model_llama/code_summarization_results_{self.job_id}.json"
+            if self.args.quantf8:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_quantf8.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_quantf8.csv"
+            elif self.args.quanti8:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_quanti8.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_quanti8.csv"
+            elif self.args.quanti4:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_quanti4.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_quanti4.csv"
+            else:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}.csv"
 
         logger.info(f"Saving results to {output_file}")
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
 
         # Save timing information
-        with open(f"model_llama/code_summarization_times_{self.job_id}.json", "w", encoding="utf-8") as f:
-            json.dump(times, f, indent=2, ensure_ascii=False)
+        with open(time_file, "w", encoding="utf-8") as f:
+            csv_writer = csv.writer(f)
+            csv_writer.writerows(times)
 
         # Print some example results
         logger.info("\n" + "="*50)
@@ -299,6 +314,10 @@ def main():
                        help="Disable 8-bit quantization")
     parser.add_argument("--temperature", type=float, default=0.1,
                        help="Sampling temperature for generation")
+    parser.add_argument("--job_id", type=str, default=None)
+    parser.add_argument("--quantf8", action="store_true")
+    parser.add_argument("--quanti8", action="store_true")
+    parser.add_argument("--quanti4", action="store_true")
     
     args = parser.parse_args()
     
@@ -310,7 +329,8 @@ def main():
     logger.info("Initializing Code Summarizer...")
     summarizer = CodeSummarizer(
         model_name=args.model_name,
-        use_quantization=not args.no_quantization
+        job_id=args.job_id,
+        args=args
     )
     
     # Run evaluation

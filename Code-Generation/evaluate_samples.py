@@ -153,7 +153,7 @@ def main():
         description="Valuta i risultati di generazione del codice usando HumanEval"
     )
     parser.add_argument(
-        "sample_file",
+        "--sample_file",
         type=str,
         help="Path al file samples.jsonl da valutare"
     )
