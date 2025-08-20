@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/generation.py", line 114, in <module>
+    pipe = pipeline(
+        task="text-generation",
+    ...<4 lines>...
+        config=quant_conf
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/pipelines/__init__.py", line 942, in pipeline
+    framework, model = infer_framework_load_model(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        adapter_path if adapter_path is not None else model,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        **model_kwargs,
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/pipelines/base.py", line 258, in infer_framework_load_model
+    if config.architectures:
+       ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QuantoConfig' object has no attribute 'architectures'
+srun: error: compute-0-3: task 0: Exited with exit code 1

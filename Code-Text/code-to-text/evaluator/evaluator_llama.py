@@ -179,14 +179,14 @@ def computeMaps(predictions):
     #   (rid, pred) = (cols[0], '') 
     # else:
     #   (rid, pred) = (cols[0], cols[1]) 
-    predictionMap[id] = [splitPuncts(row["generated_summary"].strip().lower())]
+    predictionMap[str(id)] = [splitPuncts(row["generated_summary"].strip().lower())]
 
   for row in gf:
     (rid, pred) = row.split('\t') 
-    # if rid in predictionMap: # Only insert if the id exists for the method
-    if rid not in goldMap:
-      goldMap[rid] = []
-    goldMap[rid].append(splitPuncts(pred.strip().lower()))
+    if rid in predictionMap: # Only insert if the id exists for the method
+      if rid not in goldMap:
+        goldMap[rid] = []
+      goldMap[rid].append(splitPuncts(pred.strip().lower()))
 
   sys.stderr.write('Total: ' + str(len(goldMap)) + '\n')
   return (goldMap, predictionMap)

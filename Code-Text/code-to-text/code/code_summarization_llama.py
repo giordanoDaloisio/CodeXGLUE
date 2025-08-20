@@ -12,6 +12,7 @@ from typing import List, Dict, Any
 import argparse
 from tqdm import tqdm
 import torch
+import torch.nn.utils.prune as prune
 from transformers import AutoTokenizer, AutoModelForCausalLM, QuantoConfig
 import logging
 import csv
@@ -63,6 +64,12 @@ class CodeSummarizer:
             trust_remote_code=True
         )
         
+        # Apply pruning if requested
+        if args.prune20 or args.prune40 or args.prune60:
+            pruning_amount = 0.2 if args.prune20 else 0.4 if args.prune40 else 0.6
+            logger.info(f"Applying unstructured pruning with {pruning_amount*100}% weight removal")
+            self.apply_unstructured_pruning(pruning_amount)
+        
         logger.info("Model loaded successfully")
     
     def print_model_size(self, model):
@@ -72,6 +79,110 @@ class CodeSummarizer:
         size_mb = (param_size + buffer_size) / 1e6
         print(f"Size (MB): {size_mb:.2f}")
         return size_mb
+    
+    def apply_unstructured_pruning(self, pruning_amount: float):
+        """
+        Apply unstructured magnitude-based pruning to all linear layers
+        
+        Args:
+            pruning_amount: Fraction of weights to prune (0.0 to 1.0)
+        """
+        logger.info(f"Starting unstructured pruning with {pruning_amount*100}% weight removal")
+        
+        # Count total linear layers
+        linear_layers = []
+        total_params_before = 0
+        
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                linear_layers.append((name, module))
+                total_params_before += module.weight.numel()
+                if hasattr(module, 'bias') and module.bias is not None:
+                    total_params_before += module.bias.numel()
+        
+        logger.info(f"Found {len(linear_layers)} linear layers with {total_params_before:,} total parameters")
+        
+        # Apply magnitude-based pruning to each linear layer
+        pruned_layers = 0
+        total_pruned_weights = 0
+        
+        for name, module in linear_layers:
+            try:
+                # Prune weights using magnitude-based unstructured pruning
+                prune.l1_unstructured(module, name='weight', amount=pruning_amount)
+                total_pruned_weights += int(module.weight.numel() * pruning_amount)
+                
+                # Also prune bias if it exists
+                if hasattr(module, 'bias') and module.bias is not None:
+                    prune.l1_unstructured(module, name='bias', amount=pruning_amount)
+                    total_pruned_weights += int(module.bias.numel() * pruning_amount)
+                
+                pruned_layers += 1
+                
+                if pruned_layers % 50 == 0:  # Log progress every 50 layers
+                    logger.info(f"Pruned {pruned_layers}/{len(linear_layers)} linear layers")
+                    
+            except Exception as e:
+                logger.warning(f"Failed to prune layer {name}: {e}")
+                continue
+        
+        logger.info(f"Successfully pruned {pruned_layers}/{len(linear_layers)} linear layers")
+        logger.info(f"Total pruned weights: {total_pruned_weights:,}")
+        
+        # Calculate actual sparsity
+        self.calculate_sparsity()
+    
+    def calculate_sparsity(self):
+        """Calculate and log the actual sparsity of the model"""
+        total_params = 0
+        zero_params = 0
+        
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                # Check weight sparsity
+                if hasattr(module, 'weight_mask'):
+                    # Pruned weights (with mask)
+                    weight = module.weight_orig * module.weight_mask
+                else:
+                    # Original weights (not pruned)
+                    weight = module.weight
+                
+                total_params += weight.numel()
+                zero_params += (weight == 0).sum().item()
+                
+                # Check bias sparsity if exists
+                if hasattr(module, 'bias') and module.bias is not None:
+                    if hasattr(module, 'bias_mask'):
+                        bias = module.bias_orig * module.bias_mask
+                    else:
+                        bias = module.bias
+                    
+                    total_params += bias.numel()
+                    zero_params += (bias == 0).sum().item()
+        
+        sparsity = zero_params / total_params if total_params > 0 else 0
+        logger.info(f"Model sparsity: {sparsity*100:.2f}% ({zero_params:,} zero weights out of {total_params:,})")
+        return sparsity
+    
+    def make_pruning_permanent(self):
+        """Make the pruning permanent by removing the pruning masks"""
+        logger.info("Making pruning permanent by removing masks...")
+        
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                try:
+                    # Remove weight pruning mask if it exists
+                    if hasattr(module, 'weight_mask'):
+                        prune.remove(module, 'weight')
+                    
+                    # Remove bias pruning mask if it exists
+                    if hasattr(module, 'bias_mask'):
+                        prune.remove(module, 'bias')
+                        
+                except Exception as e:
+                    logger.warning(f"Failed to remove pruning mask from {name}: {e}")
+        
+        logger.info("Pruning masks removed successfully")
     
     def load_jsonl(self, file_path: str) -> List[Dict[str, Any]]:
         """Load data from JSONL file"""
@@ -263,6 +374,15 @@ Here are some examples:
             elif self.args.quanti4:
                 output_file = f"model_llama/code_summarization_results_{self.job_id}_quanti4.json"
                 time_file = f"model_llama/code_summarization_times_{self.job_id}_quanti4.csv"
+            elif self.args.prune20:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_prune20.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_prune20.csv"
+            elif self.args.prune40:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_prune40.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_prune40.csv"
+            elif self.args.prune60:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_prune60.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_prune60.csv"
             else:
                 output_file = f"model_llama/code_summarization_results_{self.job_id}.json"
                 time_file = f"model_llama/code_summarization_times_{self.job_id}.csv"
@@ -273,8 +393,7 @@ Here are some examples:
 
         # Save timing information
         with open(time_file, "w", encoding="utf-8") as f:
-            csv_writer = csv.writer(f)
-            csv_writer.writerows(times)
+            json.dump(times, f, indent=2, ensure_ascii=False)
 
         # Print some example results
         logger.info("\n" + "="*50)
@@ -318,6 +437,12 @@ def main():
     parser.add_argument("--quantf8", action="store_true")
     parser.add_argument("--quanti8", action="store_true")
     parser.add_argument("--quanti4", action="store_true")
+    parser.add_argument("--prune20", action="store_true", 
+                       help="Apply unstructured pruning with 20% weight removal")
+    parser.add_argument("--prune40", action="store_true",
+                       help="Apply unstructured pruning with 40% weight removal") 
+    parser.add_argument("--prune60", action="store_true",
+                       help="Apply unstructured pruning with 60% weight removal")
     
     args = parser.parse_args()
     
