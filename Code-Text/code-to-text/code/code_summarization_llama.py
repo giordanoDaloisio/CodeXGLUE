@@ -30,11 +30,12 @@ class CodeSummarizer:
             model_name: HuggingFace model name
             use_quantization: Whether to use 8-bit quantization to reduce memory usage
         """
-        self.model_name = model_name
+        self.model_name = "distilled_llama_code_summarization/best_model_step_2500" if args.distillation else model_name
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.job_id = job_id
         self.args = args
         logger.info(f"Using device: {self.device}")
+        logger.info(f"Model name: {self.model_name}")
         
         # Configure quantization if requested
         quantization_config = None
@@ -45,19 +46,20 @@ class CodeSummarizer:
                 # activations="float8" if args.quantf8 else "int8" if args.quanti8 else None
             )
             logger.info("Using 8-bit quantization")
-        
+                
         # Load tokenizer
-        logger.info(f"Loading tokenizer: {model_name}")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        logger.info(f"Loading tokenizer: {self.model_name}")
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         
         # Add pad token if it doesn't exist
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
             
         # Load model
-        logger.info(f"Loading model: {model_name}")
+        logger.info(f"Loading model: {self.model_name}")
+
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
+            self.model_name,
             quantization_config=quantization_config,
             device_map="auto" if torch.cuda.is_available() else None,
             torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
@@ -68,7 +70,19 @@ class CodeSummarizer:
         if args.prune20 or args.prune40 or args.prune60:
             pruning_amount = 0.2 if args.prune20 else 0.4 if args.prune40 else 0.6
             logger.info(f"Applying unstructured pruning with {pruning_amount*100}% weight removal")
-            self.apply_unstructured_pruning(pruning_amount)
+            
+            if args.cpu_only_pruning:
+                logger.info("Using CPU-only pruning to avoid all GPU memory issues")
+                self.apply_cpu_only_pruning(pruning_amount)
+            elif args.offloaded_pruning:
+                logger.info("Using CPU offloading pruning to reduce memory pressure")
+                self.apply_offloaded_pruning(pruning_amount)
+            elif args.gradual_pruning:
+                logger.info("Using gradual pruning to reduce memory pressure")
+                self.apply_gradual_pruning(pruning_amount)
+            else:
+                logger.info("Using standard pruning with memory optimization")
+                self.apply_unstructured_pruning(pruning_amount)
         
         logger.info("Model loaded successfully")
     
@@ -82,12 +96,16 @@ class CodeSummarizer:
     
     def apply_unstructured_pruning(self, pruning_amount: float):
         """
-        Apply unstructured magnitude-based pruning to all linear layers
+        Apply unstructured magnitude-based pruning to all linear layers with memory optimization
         
         Args:
             pruning_amount: Fraction of weights to prune (0.0 to 1.0)
         """
         logger.info(f"Starting unstructured pruning with {pruning_amount*100}% weight removal")
+        
+        # Clear CUDA cache before starting
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
         
         # Count total linear layers
         linear_layers = []
@@ -102,12 +120,16 @@ class CodeSummarizer:
         
         logger.info(f"Found {len(linear_layers)} linear layers with {total_params_before:,} total parameters")
         
-        # Apply magnitude-based pruning to each linear layer
+        # Apply magnitude-based pruning to each linear layer with memory management
         pruned_layers = 0
         total_pruned_weights = 0
+        failed_layers = []
         
         for name, module in linear_layers:
             try:
+                # Memory-efficient pruning: prune one layer at a time
+                # and clean up immediately
+                
                 # Prune weights using magnitude-based unstructured pruning
                 prune.l1_unstructured(module, name='weight', amount=pruning_amount)
                 total_pruned_weights += int(module.weight.numel() * pruning_amount)
@@ -119,18 +141,62 @@ class CodeSummarizer:
                 
                 pruned_layers += 1
                 
-                if pruned_layers % 50 == 0:  # Log progress every 50 layers
+                # Clear cache more frequently to prevent memory buildup
+                if pruned_layers % 10 == 0:
+                    torch.cuda.empty_cache()
                     logger.info(f"Pruned {pruned_layers}/{len(linear_layers)} linear layers")
+                    
+            except torch.cuda.OutOfMemoryError as oom_e:
+                logger.warning(f"CUDA OOM while pruning layer {name}: {oom_e}")
+                failed_layers.append(name)
+                
+                # Try to recover by clearing cache and continuing
+                torch.cuda.empty_cache()
+                
+                # Try alternative approach: CPU-based pruning
+                try:
+                    logger.info(f"Attempting CPU-based pruning for layer {name}")
+                    self._cpu_based_pruning(module, pruning_amount)
+                    pruned_layers += 1
+                    total_pruned_weights += int(module.weight.numel() * pruning_amount)
+                    if hasattr(module, 'bias') and module.bias is not None:
+                        total_pruned_weights += int(module.bias.numel() * pruning_amount)
+                except Exception as cpu_e:
+                    logger.error(f"CPU-based pruning also failed for {name}: {cpu_e}")
+                    continue
                     
             except Exception as e:
                 logger.warning(f"Failed to prune layer {name}: {e}")
+                failed_layers.append(name)
                 continue
         
         logger.info(f"Successfully pruned {pruned_layers}/{len(linear_layers)} linear layers")
+        if failed_layers:
+            logger.warning(f"Failed to prune {len(failed_layers)} layers: {failed_layers[:5]}{'...' if len(failed_layers) > 5 else ''}")
         logger.info(f"Total pruned weights: {total_pruned_weights:,}")
+        
+        # Final cleanup
+        torch.cuda.empty_cache()
         
         # Calculate actual sparsity
         self.calculate_sparsity()
+    
+    def _cpu_based_pruning(self, module, pruning_amount):
+        """
+        Alternative CPU-based pruning for layers that cause CUDA OOM
+        """
+        # Move module to CPU temporarily
+        device = next(module.parameters()).device
+        module.cpu()
+        
+        try:
+            # Apply pruning on CPU
+            prune.l1_unstructured(module, name='weight', amount=pruning_amount)
+            if hasattr(module, 'bias') and module.bias is not None:
+                prune.l1_unstructured(module, name='bias', amount=pruning_amount)
+        finally:
+            # Move back to original device
+            module.to(device)
     
     def calculate_sparsity(self):
         """Calculate and log the actual sparsity of the model"""
@@ -183,6 +249,227 @@ class CodeSummarizer:
                     logger.warning(f"Failed to remove pruning mask from {name}: {e}")
         
         logger.info("Pruning masks removed successfully")
+    
+    def apply_gradual_pruning(self, final_pruning_amount: float, steps: int = 4):
+        """
+        Apply pruning gradually in multiple steps to reduce memory pressure
+        
+        Args:
+            final_pruning_amount: Final target pruning amount (0.0 to 1.0)
+            steps: Number of gradual steps
+        """
+        logger.info(f"Applying gradual pruning in {steps} steps to reach {final_pruning_amount*100}% sparsity")
+        
+        # Calculate pruning amount per step
+        step_amount = final_pruning_amount / steps
+        
+        for step in range(steps):
+            current_target = (step + 1) * step_amount
+            logger.info(f"Pruning step {step + 1}/{steps}: targeting {current_target*100:.1f}% sparsity")
+            
+            # Clear cache before each step
+            torch.cuda.empty_cache()
+            
+            # Apply incremental pruning
+            self._apply_incremental_pruning(step_amount)
+            
+            # Check current sparsity
+            current_sparsity = self.calculate_sparsity()
+            logger.info(f"Current model sparsity after step {step + 1}: {current_sparsity*100:.2f}%")
+            
+            # Cleanup between steps
+            torch.cuda.empty_cache()
+    
+    def _apply_incremental_pruning(self, pruning_amount: float):
+        """Apply incremental pruning to all linear layers"""
+        
+        linear_layers = []
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                linear_layers.append((name, module))
+        
+        pruned_count = 0
+        failed_count = 0
+        
+        for name, module in linear_layers:
+            try:
+                # For already pruned layers, we need to calculate the remaining weights
+                if hasattr(module, 'weight_mask'):
+                    # Calculate effective pruning amount for remaining weights
+                    remaining_ratio = module.weight_mask.float().mean().item()
+                    effective_amount = pruning_amount / remaining_ratio if remaining_ratio > 0 else 0
+                    effective_amount = min(effective_amount, 0.9)  # Cap at 90% to avoid complete removal
+                else:
+                    effective_amount = pruning_amount
+                
+                if effective_amount > 0.01:  # Only prune if meaningful amount
+                    prune.l1_unstructured(module, name='weight', amount=effective_amount)
+                    
+                    if hasattr(module, 'bias') and module.bias is not None:
+                        if hasattr(module, 'bias_mask'):
+                            bias_remaining = module.bias_mask.float().mean().item()
+                            bias_effective = pruning_amount / bias_remaining if bias_remaining > 0 else 0
+                            bias_effective = min(bias_effective, 0.9)
+                        else:
+                            bias_effective = pruning_amount
+                            
+                        if bias_effective > 0.01:
+                            prune.l1_unstructured(module, name='bias', amount=bias_effective)
+                
+                pruned_count += 1
+                
+                # Frequent cleanup
+                if pruned_count % 20 == 0:
+                    torch.cuda.empty_cache()
+                    
+            except Exception as e:
+                logger.warning(f"Failed incremental pruning for {name}: {e}")
+                failed_count += 1
+                torch.cuda.empty_cache()
+                continue
+        
+        logger.info("Incremental pruning: {pruned_count} layers processed, {failed_count} failed")
+    
+    def apply_offloaded_pruning(self, pruning_amount: float):
+        """
+        Apply pruning with aggressive CPU offloading for memory-constrained environments
+        """
+        logger.info(f"Applying pruning with aggressive CPU offloading for {pruning_amount*100}% sparsity")
+        
+        # Get all linear layers
+        linear_layers = []
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                linear_layers.append((name, module))
+        
+        logger.info(f"Processing {len(linear_layers)} linear layers with aggressive offloading")
+        
+        # Much smaller groups to minimize GPU memory usage
+        group_size = 3  # Process only 3 layers at a time
+        groups = [linear_layers[i:i + group_size] for i in range(0, len(linear_layers), group_size)]
+        
+        pruned_count = 0
+        failed_count = 0
+        
+        for group_idx, group in enumerate(groups):
+            logger.info(f"Processing group {group_idx + 1}/{len(groups)} ({len(group)} layers)")
+            
+            # Aggressive memory cleanup before each group
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+            
+            for name, module in group:
+                try:
+                    # Get original device
+                    original_device = next(module.parameters()).device
+                    
+                    # Move module to CPU completely
+                    module.cpu()
+                    
+                    # Force GPU memory cleanup
+                    torch.cuda.empty_cache()
+                    torch.cuda.synchronize()
+                    
+                    # Apply pruning on CPU with error handling
+                    try:
+                        prune.l1_unstructured(module, name='weight', amount=pruning_amount)
+                        if hasattr(module, 'bias') and module.bias is not None:
+                            prune.l1_unstructured(module, name='bias', amount=pruning_amount)
+                    except Exception as prune_e:
+                        logger.warning(f"CPU pruning failed for {name}: {prune_e}")
+                        # Try to continue without pruning this layer
+                        module.to(original_device)
+                        failed_count += 1
+                        continue
+                    
+                    # Move back to GPU one parameter at a time if needed
+                    try:
+                        module.to(original_device)
+                        pruned_count += 1
+                    except torch.cuda.OutOfMemoryError:
+                        logger.error(f"Cannot move {name} back to GPU - keeping on CPU")
+                        # Leave module on CPU if GPU is full
+                        failed_count += 1
+                        continue
+                    
+                except Exception as e:
+                    logger.warning(f"Failed to process layer {name} with offloading: {e}")
+                    failed_count += 1
+                    continue
+            
+            # Aggressive cleanup after each group
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+            
+            # Log memory status
+            if torch.cuda.is_available():
+                memory_allocated = torch.cuda.memory_allocated() / 1e9
+                memory_reserved = torch.cuda.memory_reserved() / 1e9
+                logger.info(f"GPU Memory - Allocated: {memory_allocated:.2f}GB, Reserved: {memory_reserved:.2f}GB")
+        
+        logger.info(f"Offloaded pruning completed: {pruned_count}/{len(linear_layers)} layers pruned, {failed_count} failed")
+        
+        # Final comprehensive cleanup
+        torch.cuda.empty_cache()
+        torch.cuda.synchronize()
+        
+        self.calculate_sparsity()
+    
+    def apply_cpu_only_pruning(self, pruning_amount: float):
+        """
+        Apply pruning keeping the entire model on CPU (slowest but most memory-safe)
+        """
+        logger.info(f"Applying CPU-only pruning for {pruning_amount*100}% sparsity")
+        logger.info("Moving entire model to CPU for pruning...")
+        
+        # Move entire model to CPU
+        original_device = next(self.model.parameters()).device
+        self.model.cpu()
+        
+        # Clear all GPU memory
+        torch.cuda.empty_cache()
+        torch.cuda.synchronize()
+        
+        # Get all linear layers
+        linear_layers = []
+        for name, module in self.model.named_modules():
+            if isinstance(module, torch.nn.Linear):
+                linear_layers.append((name, module))
+        
+        logger.info(f"Processing {len(linear_layers)} linear layers on CPU")
+        
+        pruned_count = 0
+        failed_count = 0
+        
+        # Process all layers on CPU
+        for name, module in tqdm(linear_layers, desc="CPU Pruning"):
+            try:
+                # Apply pruning on CPU
+                prune.l1_unstructured(module, name='weight', amount=pruning_amount)
+                if hasattr(module, 'bias') and module.bias is not None:
+                    prune.l1_unstructured(module, name='bias', amount=pruning_amount)
+                
+                pruned_count += 1
+                
+            except Exception as e:
+                logger.warning(f"Failed to prune layer {name} on CPU: {e}")
+                failed_count += 1
+                continue
+        
+        logger.info(f"CPU-only pruning completed: {pruned_count}/{len(linear_layers)} layers pruned, {failed_count} failed")
+        
+        # Calculate sparsity on CPU
+        self.calculate_sparsity()
+        
+        # Try to move model back to GPU
+        try:
+            logger.info("Attempting to move pruned model back to GPU...")
+            self.model.to(original_device)
+            logger.info("Successfully moved pruned model back to GPU")
+        except torch.cuda.OutOfMemoryError:
+            logger.warning("Cannot move pruned model back to GPU - keeping on CPU")
+            logger.warning("Model will run on CPU (slower inference)")
+            self.device = "cpu"
     
     def load_jsonl(self, file_path: str) -> List[Dict[str, Any]]:
         """Load data from JSONL file"""
@@ -383,6 +670,9 @@ Here are some examples:
             elif self.args.prune60:
                 output_file = f"model_llama/code_summarization_results_{self.job_id}_prune60.json"
                 time_file = f"model_llama/code_summarization_times_{self.job_id}_prune60.csv"
+            elif self.args.distillation:
+                output_file = f"model_llama/code_summarization_results_{self.job_id}_distillation.json"
+                time_file = f"model_llama/code_summarization_times_{self.job_id}_distillation.csv"
             else:
                 output_file = f"model_llama/code_summarization_results_{self.job_id}.json"
                 time_file = f"model_llama/code_summarization_times_{self.job_id}.csv"
@@ -443,6 +733,15 @@ def main():
                        help="Apply unstructured pruning with 40% weight removal") 
     parser.add_argument("--prune60", action="store_true",
                        help="Apply unstructured pruning with 60% weight removal")
+    parser.add_argument("--gradual_pruning", action="store_true",
+                       help="Use gradual pruning in multiple steps to reduce memory usage")
+    parser.add_argument("--offloaded_pruning", action="store_true",
+                       help="Use CPU offloading during pruning to save GPU memory")
+    parser.add_argument("--cpu_only_pruning", action="store_true",
+                       help="Keep entire model on CPU during pruning (slowest but most memory-safe)")
+    parser.add_argument("--skip_pruning_on_oom", action="store_true",
+                       help="Skip layers that cause OOM errors instead of failing completely")
+    parser.add_argument("--distillation", action="store_true")
     
     args = parser.parse_args()
     

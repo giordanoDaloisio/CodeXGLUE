@@ -5,8 +5,8 @@
 #SBATCH -J llama_test
 #SBATCH -p cuda
 #SBATCH -c 10
-# SBATCH --gres=gpu:3c_s80g:1
-#SBATCH --gres=gpu:fat
+#SBATCH --gres=gpu:3c_s80g:1
+# SBATCH --gres=gpu:fat
 
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -19,4 +19,4 @@ cd code
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python code_summarization_llama.py --prune20 --job_id=$SLURM_JOB_ID
+srun python code_summarization_llama.py --prune20 --gradual_pruning --offloaded_pruning --job_id=$SLURM_JOB_ID

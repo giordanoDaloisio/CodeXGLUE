@@ -1,0 +1,204 @@
+2025-08-21 17:39:02,311 - INFO - Initializing Code Summarizer...
+2025-08-21 17:39:02,488 - INFO - Using device: cuda
+2025-08-21 17:39:02,489 - INFO - Loading tokenizer: meta-llama/Llama-3.1-8B-Instruct
+2025-08-21 17:39:03,655 - INFO - Loading model: meta-llama/Llama-3.1-8B-Instruct
+2025-08-21 17:40:09,265 - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [01:26<04:20, 86.72s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:39<01:26, 43.33s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:52<00:29, 29.27s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:55<00:00, 18.82s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:55<00:00, 28.76s/it]
+2025-08-21 17:42:04,612 - INFO - Applying unstructured pruning with 20.0% weight removal
+2025-08-21 17:42:04,612 - INFO - Using CPU offloading pruning to reduce memory pressure
+2025-08-21 17:42:04,612 - INFO - Applying pruning with aggressive CPU offloading for 20.0% sparsity
+2025-08-21 17:42:04,613 - INFO - Processing 225 linear layers with aggressive offloading
+2025-08-21 17:42:04,613 - INFO - Processing group 1/75 (3 layers)
+2025-08-21 17:42:05,895 - INFO - GPU Memory - Allocated: 16.11GB, Reserved: 17.11GB
+2025-08-21 17:42:05,895 - INFO - Processing group 2/75 (3 layers)
+2025-08-21 17:42:11,321 - INFO - GPU Memory - Allocated: 16.38GB, Reserved: 17.11GB
+2025-08-21 17:42:11,321 - INFO - Processing group 3/75 (3 layers)
+2025-08-21 17:42:14,581 - INFO - GPU Memory - Allocated: 16.54GB, Reserved: 17.11GB
+2025-08-21 17:42:14,582 - INFO - Processing group 4/75 (3 layers)
+2025-08-21 17:42:17,820 - INFO - GPU Memory - Allocated: 16.70GB, Reserved: 17.11GB
+2025-08-21 17:42:17,820 - INFO - Processing group 5/75 (3 layers)
+2025-08-21 17:42:23,255 - INFO - GPU Memory - Allocated: 16.97GB, Reserved: 17.11GB
+2025-08-21 17:42:23,255 - INFO - Processing group 6/75 (3 layers)
+2025-08-21 17:42:24,223 - INFO - GPU Memory - Allocated: 17.02GB, Reserved: 17.11GB
+2025-08-21 17:42:24,223 - INFO - Processing group 7/75 (3 layers)
+2025-08-21 17:42:31,182 - INFO - GPU Memory - Allocated: 17.37GB, Reserved: 17.47GB
+2025-08-21 17:42:31,182 - INFO - Processing group 8/75 (3 layers)
+2025-08-21 17:42:32,225 - INFO - GPU Memory - Allocated: 17.42GB, Reserved: 17.47GB
+2025-08-21 17:42:32,225 - INFO - Processing group 9/75 (3 layers)
+2025-08-21 17:42:37,453 - INFO - GPU Memory - Allocated: 17.69GB, Reserved: 17.70GB
+2025-08-21 17:42:37,453 - INFO - Processing group 10/75 (3 layers)
+2025-08-21 17:42:40,378 - INFO - GPU Memory - Allocated: 17.85GB, Reserved: 17.85GB
+2025-08-21 17:42:40,379 - INFO - Processing group 11/75 (3 layers)
+2025-08-21 17:42:43,497 - INFO - GPU Memory - Allocated: 18.01GB, Reserved: 18.02GB
+2025-08-21 17:42:43,497 - INFO - Processing group 12/75 (3 layers)
+2025-08-21 17:42:48,602 - INFO - GPU Memory - Allocated: 18.28GB, Reserved: 18.29GB
+2025-08-21 17:42:48,603 - INFO - Processing group 13/75 (3 layers)
+2025-08-21 17:42:49,588 - INFO - GPU Memory - Allocated: 18.33GB, Reserved: 18.35GB
+2025-08-21 17:42:49,588 - INFO - Processing group 14/75 (3 layers)
+2025-08-21 17:42:56,806 - INFO - GPU Memory - Allocated: 18.68GB, Reserved: 18.70GB
+2025-08-21 17:42:56,807 - INFO - Processing group 15/75 (3 layers)
+2025-08-21 17:42:57,811 - INFO - GPU Memory - Allocated: 18.73GB, Reserved: 18.75GB
+2025-08-21 17:42:57,812 - INFO - Processing group 16/75 (3 layers)
+2025-08-21 17:43:03,177 - INFO - GPU Memory - Allocated: 19.00GB, Reserved: 19.02GB
+2025-08-21 17:43:03,177 - INFO - Processing group 17/75 (3 layers)
+2025-08-21 17:43:06,366 - INFO - GPU Memory - Allocated: 19.16GB, Reserved: 19.17GB
+2025-08-21 17:43:06,366 - INFO - Processing group 18/75 (3 layers)
+2025-08-21 17:43:09,534 - INFO - GPU Memory - Allocated: 19.32GB, Reserved: 19.34GB
+2025-08-21 17:43:09,534 - INFO - Processing group 19/75 (3 layers)
+2025-08-21 17:43:14,368 - INFO - GPU Memory - Allocated: 19.58GB, Reserved: 19.61GB
+2025-08-21 17:43:14,368 - INFO - Processing group 20/75 (3 layers)
+2025-08-21 17:43:15,282 - INFO - GPU Memory - Allocated: 19.63GB, Reserved: 19.67GB
+2025-08-21 17:43:15,282 - INFO - Processing group 21/75 (3 layers)
+2025-08-21 17:43:22,145 - INFO - GPU Memory - Allocated: 19.99GB, Reserved: 20.02GB
+2025-08-21 17:43:22,145 - INFO - Processing group 22/75 (3 layers)
+2025-08-21 17:43:23,146 - INFO - GPU Memory - Allocated: 20.04GB, Reserved: 20.07GB
+2025-08-21 17:43:23,146 - INFO - Processing group 23/75 (3 layers)
+2025-08-21 17:43:28,071 - INFO - GPU Memory - Allocated: 20.31GB, Reserved: 20.34GB
+2025-08-21 17:43:28,071 - INFO - Processing group 24/75 (3 layers)
+2025-08-21 17:43:31,211 - INFO - GPU Memory - Allocated: 20.46GB, Reserved: 20.49GB
+2025-08-21 17:43:31,211 - INFO - Processing group 25/75 (3 layers)
+2025-08-21 17:43:34,495 - INFO - GPU Memory - Allocated: 20.62GB, Reserved: 20.67GB
+2025-08-21 17:43:34,495 - INFO - Processing group 26/75 (3 layers)
+2025-08-21 17:43:39,930 - INFO - GPU Memory - Allocated: 20.89GB, Reserved: 20.93GB
+2025-08-21 17:43:39,930 - INFO - Processing group 27/75 (3 layers)
+2025-08-21 17:43:40,963 - INFO - GPU Memory - Allocated: 20.94GB, Reserved: 20.99GB
+2025-08-21 17:43:40,963 - INFO - Processing group 28/75 (3 layers)
+2025-08-21 17:43:47,788 - INFO - GPU Memory - Allocated: 21.30GB, Reserved: 21.34GB
+2025-08-21 17:43:47,788 - INFO - Processing group 29/75 (3 layers)
+2025-08-21 17:43:48,714 - INFO - GPU Memory - Allocated: 21.35GB, Reserved: 21.40GB
+2025-08-21 17:43:48,714 - INFO - Processing group 30/75 (3 layers)
+2025-08-21 17:43:54,074 - INFO - GPU Memory - Allocated: 21.61GB, Reserved: 21.66GB
+2025-08-21 17:43:54,074 - INFO - Processing group 31/75 (3 layers)
+2025-08-21 17:43:57,207 - INFO - GPU Memory - Allocated: 21.77GB, Reserved: 21.81GB
+2025-08-21 17:43:57,207 - INFO - Processing group 32/75 (3 layers)
+2025-08-21 17:44:00,701 - INFO - GPU Memory - Allocated: 21.93GB, Reserved: 21.99GB
+2025-08-21 17:44:00,702 - INFO - Processing group 33/75 (3 layers)
+2025-08-21 17:44:06,000 - INFO - GPU Memory - Allocated: 22.20GB, Reserved: 22.25GB
+2025-08-21 17:44:06,001 - INFO - Processing group 34/75 (3 layers)
+2025-08-21 17:44:07,058 - INFO - GPU Memory - Allocated: 22.25GB, Reserved: 22.31GB
+2025-08-21 17:44:07,058 - INFO - Processing group 35/75 (3 layers)
+2025-08-21 17:44:14,083 - INFO - GPU Memory - Allocated: 22.60GB, Reserved: 22.66GB
+2025-08-21 17:44:14,083 - INFO - Processing group 36/75 (3 layers)
+2025-08-21 17:44:15,094 - INFO - GPU Memory - Allocated: 22.65GB, Reserved: 22.72GB
+2025-08-21 17:44:15,095 - INFO - Processing group 37/75 (3 layers)
+2025-08-21 17:44:19,600 - INFO - GPU Memory - Allocated: 22.92GB, Reserved: 22.98GB
+2025-08-21 17:44:19,601 - INFO - Processing group 38/75 (3 layers)
+2025-08-21 17:44:22,629 - INFO - GPU Memory - Allocated: 23.08GB, Reserved: 23.14GB
+2025-08-21 17:44:22,629 - INFO - Processing group 39/75 (3 layers)
+2025-08-21 17:44:25,395 - INFO - GPU Memory - Allocated: 23.24GB, Reserved: 23.31GB
+2025-08-21 17:44:25,395 - INFO - Processing group 40/75 (3 layers)
+2025-08-21 17:44:30,899 - INFO - GPU Memory - Allocated: 23.51GB, Reserved: 23.58GB
+2025-08-21 17:44:30,899 - INFO - Processing group 41/75 (3 layers)
+2025-08-21 17:44:31,931 - INFO - GPU Memory - Allocated: 23.56GB, Reserved: 23.63GB
+2025-08-21 17:44:31,931 - INFO - Processing group 42/75 (3 layers)
+2025-08-21 17:44:39,059 - INFO - GPU Memory - Allocated: 23.91GB, Reserved: 23.98GB
+2025-08-21 17:44:39,059 - INFO - Processing group 43/75 (3 layers)
+2025-08-21 17:44:39,996 - INFO - GPU Memory - Allocated: 23.96GB, Reserved: 24.04GB
+2025-08-21 17:44:39,996 - INFO - Processing group 44/75 (3 layers)
+2025-08-21 17:44:45,216 - INFO - GPU Memory - Allocated: 24.23GB, Reserved: 24.31GB
+2025-08-21 17:44:45,216 - INFO - Processing group 45/75 (3 layers)
+2025-08-21 17:44:48,531 - INFO - GPU Memory - Allocated: 24.39GB, Reserved: 24.46GB
+2025-08-21 17:44:48,531 - INFO - Processing group 46/75 (3 layers)
+2025-08-21 17:44:51,771 - INFO - GPU Memory - Allocated: 24.55GB, Reserved: 24.63GB
+2025-08-21 17:44:51,771 - INFO - Processing group 47/75 (3 layers)
+2025-08-21 17:44:57,365 - INFO - GPU Memory - Allocated: 24.82GB, Reserved: 24.90GB
+2025-08-21 17:44:57,365 - INFO - Processing group 48/75 (3 layers)
+2025-08-21 17:44:58,327 - INFO - GPU Memory - Allocated: 24.87GB, Reserved: 24.95GB
+2025-08-21 17:44:58,327 - INFO - Processing group 49/75 (3 layers)
+2025-08-21 17:45:05,423 - INFO - GPU Memory - Allocated: 25.22GB, Reserved: 25.30GB
+2025-08-21 17:45:05,424 - INFO - Processing group 50/75 (3 layers)
+2025-08-21 17:45:06,375 - INFO - GPU Memory - Allocated: 25.27GB, Reserved: 25.36GB
+2025-08-21 17:45:06,375 - INFO - Processing group 51/75 (3 layers)
+2025-08-21 17:45:11,081 - INFO - GPU Memory - Allocated: 25.54GB, Reserved: 25.63GB
+2025-08-21 17:45:11,082 - INFO - Processing group 52/75 (3 layers)
+2025-08-21 17:45:14,341 - INFO - GPU Memory - Allocated: 25.70GB, Reserved: 25.78GB
+2025-08-21 17:45:14,341 - INFO - Processing group 53/75 (3 layers)
+2025-08-21 17:45:17,171 - INFO - GPU Memory - Allocated: 25.86GB, Reserved: 25.95GB
+2025-08-21 17:45:17,171 - INFO - Processing group 54/75 (3 layers)
+2025-08-21 17:45:21,778 - INFO - GPU Memory - Allocated: 26.13GB, Reserved: 26.22GB
+2025-08-21 17:45:21,778 - INFO - Processing group 55/75 (3 layers)
+2025-08-21 17:45:22,808 - INFO - GPU Memory - Allocated: 26.18GB, Reserved: 26.27GB
+2025-08-21 17:45:22,808 - INFO - Processing group 56/75 (3 layers)
+2025-08-21 17:45:29,601 - INFO - GPU Memory - Allocated: 26.53GB, Reserved: 26.63GB
+2025-08-21 17:45:29,601 - INFO - Processing group 57/75 (3 layers)
+2025-08-21 17:45:30,480 - INFO - GPU Memory - Allocated: 26.58GB, Reserved: 26.68GB
+2025-08-21 17:45:30,480 - INFO - Processing group 58/75 (3 layers)
+2025-08-21 17:45:35,995 - INFO - GPU Memory - Allocated: 26.85GB, Reserved: 26.95GB
+2025-08-21 17:45:35,995 - INFO - Processing group 59/75 (3 layers)
+2025-08-21 17:45:39,127 - INFO - GPU Memory - Allocated: 27.01GB, Reserved: 27.10GB
+2025-08-21 17:45:39,127 - INFO - Processing group 60/75 (3 layers)
+2025-08-21 17:45:42,306 - INFO - GPU Memory - Allocated: 27.17GB, Reserved: 27.27GB
+2025-08-21 17:45:42,306 - INFO - Processing group 61/75 (3 layers)
+2025-08-21 17:45:47,890 - INFO - GPU Memory - Allocated: 27.44GB, Reserved: 27.54GB
+2025-08-21 17:45:47,890 - INFO - Processing group 62/75 (3 layers)
+2025-08-21 17:45:48,884 - INFO - GPU Memory - Allocated: 27.49GB, Reserved: 27.59GB
+2025-08-21 17:45:48,884 - INFO - Processing group 63/75 (3 layers)
+2025-08-21 17:45:56,311 - INFO - GPU Memory - Allocated: 27.84GB, Reserved: 27.95GB
+2025-08-21 17:45:56,311 - INFO - Processing group 64/75 (3 layers)
+2025-08-21 17:45:57,321 - INFO - GPU Memory - Allocated: 27.89GB, Reserved: 28.00GB
+2025-08-21 17:45:57,321 - INFO - Processing group 65/75 (3 layers)
+2025-08-21 17:46:02,933 - INFO - GPU Memory - Allocated: 28.16GB, Reserved: 28.27GB
+2025-08-21 17:46:02,933 - INFO - Processing group 66/75 (3 layers)
+2025-08-21 17:46:06,129 - INFO - GPU Memory - Allocated: 28.32GB, Reserved: 28.42GB
+2025-08-21 17:46:06,129 - INFO - Processing group 67/75 (3 layers)
+2025-08-21 17:46:08,960 - INFO - GPU Memory - Allocated: 28.48GB, Reserved: 28.59GB
+2025-08-21 17:46:08,960 - INFO - Processing group 68/75 (3 layers)
+2025-08-21 17:46:14,237 - INFO - GPU Memory - Allocated: 28.74GB, Reserved: 28.86GB
+2025-08-21 17:46:14,238 - INFO - Processing group 69/75 (3 layers)
+2025-08-21 17:46:15,253 - INFO - GPU Memory - Allocated: 28.79GB, Reserved: 28.92GB
+2025-08-21 17:46:15,253 - INFO - Processing group 70/75 (3 layers)
+2025-08-21 17:46:22,259 - INFO - GPU Memory - Allocated: 29.15GB, Reserved: 29.27GB
+2025-08-21 17:46:22,259 - INFO - Processing group 71/75 (3 layers)
+2025-08-21 17:46:23,229 - INFO - GPU Memory - Allocated: 29.20GB, Reserved: 29.32GB
+2025-08-21 17:46:23,229 - INFO - Processing group 72/75 (3 layers)
+2025-08-21 17:46:28,803 - INFO - GPU Memory - Allocated: 29.47GB, Reserved: 29.59GB
+2025-08-21 17:46:28,804 - INFO - Processing group 73/75 (3 layers)
+2025-08-21 17:46:31,835 - INFO - GPU Memory - Allocated: 29.62GB, Reserved: 29.74GB
+2025-08-21 17:46:31,835 - INFO - Processing group 74/75 (3 layers)
+2025-08-21 17:46:34,914 - INFO - GPU Memory - Allocated: 29.78GB, Reserved: 29.91GB
+2025-08-21 17:46:34,914 - INFO - Processing group 75/75 (3 layers)
+2025-08-21 17:47:00,690 - INFO - GPU Memory - Allocated: 31.07GB, Reserved: 31.20GB
+2025-08-21 17:47:00,690 - INFO - Offloaded pruning completed: 225/225 layers pruned, 0 failed
+2025-08-21 17:47:01,573 - INFO - Model sparsity: 20.00% (1,500,931,667 zero weights out of 7,504,658,432)
+2025-08-21 17:47:01,573 - INFO - Model loaded successfully
+2025-08-21 17:47:01,573 - INFO - Loading datasets...
+2025-08-21 17:47:02,224 - INFO - Loaded 5183 examples from /NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/dataset/java/valid.jsonl
+2025-08-21 17:47:04,161 - INFO - Loaded 10955 examples from /NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/dataset/java/test.jsonl
+2025-08-21 17:47:04,161 - INFO - Using 3 few-shot examples
+Size (MB): 31069.84
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 767, in <module>
+    main()
+    ~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 755, in main
+    results = summarizer.evaluate(
+        validation_file=args.validation_file,
+    ...<3 lines>...
+        output_file=args.output_file
+    )
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 600, in evaluate
+    _ = self.model(**inputs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/utils/generic.py", line 969, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/llama/modeling_llama.py", line 704, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1857, in _call_impl
+    return inner()
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1794, in inner
+    args_result = hook(self, args)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 30, in __call__
+    setattr(module, self._tensor_name, self.apply_mask(module))
+                                       ~~~~~~~~~~~~~~~^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/utils/prune.py", line 71, in apply_mask
+    pruned_tensor = mask.to(dtype=orig.dtype) * orig
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1002.00 MiB. GPU 0 has a total capacity of 79.14 GiB of which 254.00 MiB is free. Process 597654 has 36.52 GiB memory in use. Including non-PyTorch memory, this process has 42.35 GiB memory in use. Of the allocated memory 41.95 GiB is allocated by PyTorch, and 190.30 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+srun: error: compute-2-3: task 0: Exited with exit code 1

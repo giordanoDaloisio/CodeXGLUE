@@ -1,0 +1,358 @@
+2025-08-21 12:52:48,588 - INFO - Initializing Code Summarizer...
+2025-08-21 12:52:48,763 - INFO - Using device: cuda
+2025-08-21 12:52:48,763 - INFO - Loading tokenizer: meta-llama/Llama-3.1-8B-Instruct
+2025-08-21 12:52:50,237 - INFO - Loading model: meta-llama/Llama-3.1-8B-Instruct
+2025-08-21 12:53:50,046 - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:09<00:27,  9.13s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:19<00:19,  9.70s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:28<00:09,  9.52s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:29<00:00,  6.15s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:29<00:00,  7.38s/it]
+2025-08-21 12:54:20,023 - WARNING - Some parameters are on the meta device because they were offloaded to the cpu.
+2025-08-21 12:54:20,024 - INFO - Applying unstructured pruning with 20.0% weight removal
+2025-08-21 12:54:20,024 - INFO - Using CPU offloading pruning to reduce memory pressure
+2025-08-21 12:54:20,024 - INFO - Applying pruning with aggressive CPU offloading for 20.0% sparsity
+2025-08-21 12:54:20,024 - INFO - Processing 225 linear layers with aggressive offloading
+2025-08-21 12:54:20,024 - INFO - Processing group 1/75 (3 layers)
+2025-08-21 12:54:21,170 - INFO - GPU Memory - Allocated: 12.44GB, Reserved: 12.45GB
+2025-08-21 12:54:21,170 - INFO - Processing group 2/75 (3 layers)
+2025-08-21 12:54:26,631 - INFO - GPU Memory - Allocated: 12.71GB, Reserved: 12.72GB
+2025-08-21 12:54:26,631 - INFO - Processing group 3/75 (3 layers)
+2025-08-21 12:54:29,935 - INFO - GPU Memory - Allocated: 12.87GB, Reserved: 12.89GB
+2025-08-21 12:54:29,936 - INFO - Processing group 4/75 (3 layers)
+2025-08-21 12:54:33,175 - INFO - GPU Memory - Allocated: 13.03GB, Reserved: 13.04GB
+2025-08-21 12:54:33,175 - INFO - Processing group 5/75 (3 layers)
+2025-08-21 12:54:38,609 - INFO - GPU Memory - Allocated: 13.30GB, Reserved: 13.31GB
+2025-08-21 12:54:38,609 - INFO - Processing group 6/75 (3 layers)
+2025-08-21 12:54:39,584 - INFO - GPU Memory - Allocated: 13.35GB, Reserved: 13.36GB
+2025-08-21 12:54:39,584 - INFO - Processing group 7/75 (3 layers)
+2025-08-21 12:54:46,618 - INFO - GPU Memory - Allocated: 13.70GB, Reserved: 13.72GB
+2025-08-21 12:54:46,618 - INFO - Processing group 8/75 (3 layers)
+2025-08-21 12:54:47,680 - INFO - GPU Memory - Allocated: 13.75GB, Reserved: 13.77GB
+2025-08-21 12:54:47,681 - INFO - Processing group 9/75 (3 layers)
+2025-08-21 12:54:52,959 - INFO - GPU Memory - Allocated: 14.02GB, Reserved: 14.04GB
+2025-08-21 12:54:52,959 - INFO - Processing group 10/75 (3 layers)
+2025-08-21 12:54:55,929 - INFO - GPU Memory - Allocated: 14.18GB, Reserved: 14.21GB
+2025-08-21 12:54:55,929 - INFO - Processing group 11/75 (3 layers)
+2025-08-21 12:54:59,051 - INFO - GPU Memory - Allocated: 14.34GB, Reserved: 14.36GB
+2025-08-21 12:54:59,051 - INFO - Processing group 12/75 (3 layers)
+2025-08-21 12:55:04,209 - INFO - GPU Memory - Allocated: 14.61GB, Reserved: 14.63GB
+2025-08-21 12:55:04,210 - INFO - Processing group 13/75 (3 layers)
+2025-08-21 12:55:05,202 - INFO - GPU Memory - Allocated: 14.66GB, Reserved: 14.68GB
+2025-08-21 12:55:05,202 - INFO - Processing group 14/75 (3 layers)
+2025-08-21 12:55:12,307 - INFO - GPU Memory - Allocated: 15.01GB, Reserved: 15.04GB
+2025-08-21 12:55:12,307 - INFO - Processing group 15/75 (3 layers)
+2025-08-21 12:55:13,306 - INFO - GPU Memory - Allocated: 15.06GB, Reserved: 15.09GB
+2025-08-21 12:55:13,307 - INFO - Processing group 16/75 (3 layers)
+2025-08-21 12:55:18,674 - INFO - GPU Memory - Allocated: 15.33GB, Reserved: 15.36GB
+2025-08-21 12:55:18,674 - INFO - Processing group 17/75 (3 layers)
+2025-08-21 12:55:22,575 - ERROR - Cannot move model.layers.6.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:55:23,233 - ERROR - Cannot move model.layers.7.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:55:23,386 - INFO - GPU Memory - Allocated: 15.34GB, Reserved: 15.38GB
+2025-08-21 12:55:23,386 - INFO - Processing group 18/75 (3 layers)
+2025-08-21 12:55:24,207 - ERROR - Cannot move model.layers.7.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:55:26,526 - ERROR - Cannot move model.layers.7.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:55:26,527 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:26,527 - INFO - Processing group 19/75 (3 layers)
+2025-08-21 12:55:28,500 - ERROR - Cannot move model.layers.7.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:55:30,679 - ERROR - Cannot move model.layers.7.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:55:31,347 - ERROR - Cannot move model.layers.8.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:55:31,348 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:31,348 - INFO - Processing group 20/75 (3 layers)
+2025-08-21 12:55:31,484 - ERROR - Cannot move model.layers.8.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:55:31,653 - ERROR - Cannot move model.layers.8.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:55:32,275 - ERROR - Cannot move model.layers.8.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:55:32,275 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:32,276 - INFO - Processing group 21/75 (3 layers)
+2025-08-21 12:55:34,723 - ERROR - Cannot move model.layers.8.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:55:37,238 - ERROR - Cannot move model.layers.8.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:55:39,145 - ERROR - Cannot move model.layers.8.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:55:39,145 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:39,145 - INFO - Processing group 22/75 (3 layers)
+2025-08-21 12:55:39,837 - ERROR - Cannot move model.layers.9.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:55:40,005 - ERROR - Cannot move model.layers.9.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:55:40,154 - ERROR - Cannot move model.layers.9.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:55:40,155 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:40,155 - INFO - Processing group 23/75 (3 layers)
+2025-08-21 12:55:40,872 - ERROR - Cannot move model.layers.9.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:55:42,881 - ERROR - Cannot move model.layers.9.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:55:45,086 - ERROR - Cannot move model.layers.9.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:55:45,087 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:45,087 - INFO - Processing group 24/75 (3 layers)
+2025-08-21 12:55:47,387 - ERROR - Cannot move model.layers.9.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:55:48,055 - ERROR - Cannot move model.layers.10.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:55:48,205 - ERROR - Cannot move model.layers.10.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:55:48,206 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:48,206 - INFO - Processing group 25/75 (3 layers)
+2025-08-21 12:55:48,358 - ERROR - Cannot move model.layers.10.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:55:48,997 - ERROR - Cannot move model.layers.10.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:55:51,505 - ERROR - Cannot move model.layers.10.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:55:51,505 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:51,505 - INFO - Processing group 26/75 (3 layers)
+2025-08-21 12:55:53,877 - ERROR - Cannot move model.layers.10.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:55:56,224 - ERROR - Cannot move model.layers.10.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:55:56,942 - ERROR - Cannot move model.layers.11.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:55:56,942 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:56,942 - INFO - Processing group 27/75 (3 layers)
+2025-08-21 12:55:57,090 - ERROR - Cannot move model.layers.11.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:55:57,260 - ERROR - Cannot move model.layers.11.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:55:57,981 - ERROR - Cannot move model.layers.11.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:55:57,981 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:55:57,981 - INFO - Processing group 28/75 (3 layers)
+2025-08-21 12:56:00,050 - ERROR - Cannot move model.layers.11.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:02,412 - ERROR - Cannot move model.layers.11.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:04,793 - ERROR - Cannot move model.layers.11.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:04,794 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:04,794 - INFO - Processing group 29/75 (3 layers)
+2025-08-21 12:56:05,430 - ERROR - Cannot move model.layers.12.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:05,588 - ERROR - Cannot move model.layers.12.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:05,727 - ERROR - Cannot move model.layers.12.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:05,727 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:05,727 - INFO - Processing group 30/75 (3 layers)
+2025-08-21 12:56:06,463 - ERROR - Cannot move model.layers.12.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:08,825 - ERROR - Cannot move model.layers.12.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:11,097 - ERROR - Cannot move model.layers.12.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:11,098 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:11,098 - INFO - Processing group 31/75 (3 layers)
+2025-08-21 12:56:13,482 - ERROR - Cannot move model.layers.12.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:14,076 - ERROR - Cannot move model.layers.13.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:14,231 - ERROR - Cannot move model.layers.13.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:14,232 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:14,232 - INFO - Processing group 32/75 (3 layers)
+2025-08-21 12:56:14,406 - ERROR - Cannot move model.layers.13.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:15,085 - ERROR - Cannot move model.layers.13.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:17,634 - ERROR - Cannot move model.layers.13.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:17,635 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:17,635 - INFO - Processing group 33/75 (3 layers)
+2025-08-21 12:56:19,998 - ERROR - Cannot move model.layers.13.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:22,206 - ERROR - Cannot move model.layers.13.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:22,888 - ERROR - Cannot move model.layers.14.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:22,888 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:22,888 - INFO - Processing group 34/75 (3 layers)
+2025-08-21 12:56:23,054 - ERROR - Cannot move model.layers.14.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:23,238 - ERROR - Cannot move model.layers.14.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:23,941 - ERROR - Cannot move model.layers.14.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:23,942 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:23,942 - INFO - Processing group 35/75 (3 layers)
+2025-08-21 12:56:26,406 - ERROR - Cannot move model.layers.14.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:28,416 - ERROR - Cannot move model.layers.14.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:30,932 - ERROR - Cannot move model.layers.14.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:30,932 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:30,933 - INFO - Processing group 36/75 (3 layers)
+2025-08-21 12:56:31,632 - ERROR - Cannot move model.layers.15.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:31,777 - ERROR - Cannot move model.layers.15.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:31,950 - ERROR - Cannot move model.layers.15.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:31,951 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:31,951 - INFO - Processing group 37/75 (3 layers)
+2025-08-21 12:56:32,525 - ERROR - Cannot move model.layers.15.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:34,415 - ERROR - Cannot move model.layers.15.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:36,451 - ERROR - Cannot move model.layers.15.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:36,452 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:36,452 - INFO - Processing group 38/75 (3 layers)
+2025-08-21 12:56:38,723 - ERROR - Cannot move model.layers.15.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:39,316 - ERROR - Cannot move model.layers.16.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:39,480 - ERROR - Cannot move model.layers.16.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:39,480 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:39,480 - INFO - Processing group 39/75 (3 layers)
+2025-08-21 12:56:39,641 - ERROR - Cannot move model.layers.16.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:40,301 - ERROR - Cannot move model.layers.16.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:42,249 - ERROR - Cannot move model.layers.16.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:42,249 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:42,250 - INFO - Processing group 40/75 (3 layers)
+2025-08-21 12:56:44,716 - ERROR - Cannot move model.layers.16.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:47,125 - ERROR - Cannot move model.layers.16.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:47,722 - ERROR - Cannot move model.layers.17.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:47,722 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:47,722 - INFO - Processing group 41/75 (3 layers)
+2025-08-21 12:56:47,889 - ERROR - Cannot move model.layers.17.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:48,038 - ERROR - Cannot move model.layers.17.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:48,758 - ERROR - Cannot move model.layers.17.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:48,759 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:48,759 - INFO - Processing group 42/75 (3 layers)
+2025-08-21 12:56:51,227 - ERROR - Cannot move model.layers.17.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:56:53,621 - ERROR - Cannot move model.layers.17.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:56:55,875 - ERROR - Cannot move model.layers.17.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:56:55,875 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:55,875 - INFO - Processing group 43/75 (3 layers)
+2025-08-21 12:56:56,511 - ERROR - Cannot move model.layers.18.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:56:56,672 - ERROR - Cannot move model.layers.18.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:56:56,811 - ERROR - Cannot move model.layers.18.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:56:56,811 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:56:56,811 - INFO - Processing group 44/75 (3 layers)
+2025-08-21 12:56:57,490 - ERROR - Cannot move model.layers.18.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:56:59,695 - ERROR - Cannot move model.layers.18.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:02,017 - ERROR - Cannot move model.layers.18.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:02,018 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:02,018 - INFO - Processing group 45/75 (3 layers)
+2025-08-21 12:57:04,543 - ERROR - Cannot move model.layers.18.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:05,133 - ERROR - Cannot move model.layers.19.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:05,304 - ERROR - Cannot move model.layers.19.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:05,305 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:05,305 - INFO - Processing group 46/75 (3 layers)
+2025-08-21 12:57:05,474 - ERROR - Cannot move model.layers.19.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:06,113 - ERROR - Cannot move model.layers.19.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:08,548 - ERROR - Cannot move model.layers.19.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:08,548 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:08,548 - INFO - Processing group 47/75 (3 layers)
+2025-08-21 12:57:11,174 - ERROR - Cannot move model.layers.19.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:13,519 - ERROR - Cannot move model.layers.19.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:14,143 - ERROR - Cannot move model.layers.20.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:14,144 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:14,144 - INFO - Processing group 48/75 (3 layers)
+2025-08-21 12:57:14,293 - ERROR - Cannot move model.layers.20.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:14,448 - ERROR - Cannot move model.layers.20.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:15,117 - ERROR - Cannot move model.layers.20.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:15,118 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:15,118 - INFO - Processing group 49/75 (3 layers)
+2025-08-21 12:57:17,707 - ERROR - Cannot move model.layers.20.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:19,910 - ERROR - Cannot move model.layers.20.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:22,176 - ERROR - Cannot move model.layers.20.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:22,177 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:22,177 - INFO - Processing group 50/75 (3 layers)
+2025-08-21 12:57:22,808 - ERROR - Cannot move model.layers.21.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:22,979 - ERROR - Cannot move model.layers.21.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:23,140 - ERROR - Cannot move model.layers.21.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:23,141 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:23,141 - INFO - Processing group 51/75 (3 layers)
+2025-08-21 12:57:23,706 - ERROR - Cannot move model.layers.21.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:25,590 - ERROR - Cannot move model.layers.21.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:27,812 - ERROR - Cannot move model.layers.21.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:27,813 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:27,813 - INFO - Processing group 52/75 (3 layers)
+2025-08-21 12:57:30,222 - ERROR - Cannot move model.layers.21.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:30,896 - ERROR - Cannot move model.layers.22.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:31,046 - ERROR - Cannot move model.layers.22.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:31,047 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:31,047 - INFO - Processing group 53/75 (3 layers)
+2025-08-21 12:57:31,209 - ERROR - Cannot move model.layers.22.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:31,864 - ERROR - Cannot move model.layers.22.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:33,860 - ERROR - Cannot move model.layers.22.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:33,860 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:33,860 - INFO - Processing group 54/75 (3 layers)
+2025-08-21 12:57:35,927 - ERROR - Cannot move model.layers.22.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:37,862 - ERROR - Cannot move model.layers.22.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:38,460 - ERROR - Cannot move model.layers.23.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:38,461 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:38,461 - INFO - Processing group 55/75 (3 layers)
+2025-08-21 12:57:38,601 - ERROR - Cannot move model.layers.23.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:38,777 - ERROR - Cannot move model.layers.23.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:39,506 - ERROR - Cannot move model.layers.23.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:39,507 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:39,507 - INFO - Processing group 56/75 (3 layers)
+2025-08-21 12:57:41,699 - ERROR - Cannot move model.layers.23.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:43,854 - ERROR - Cannot move model.layers.23.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:46,268 - ERROR - Cannot move model.layers.23.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:46,268 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:46,268 - INFO - Processing group 57/75 (3 layers)
+2025-08-21 12:57:46,856 - ERROR - Cannot move model.layers.24.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:47,002 - ERROR - Cannot move model.layers.24.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:47,146 - ERROR - Cannot move model.layers.24.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:47,147 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:47,147 - INFO - Processing group 58/75 (3 layers)
+2025-08-21 12:57:47,814 - ERROR - Cannot move model.layers.24.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:50,085 - ERROR - Cannot move model.layers.24.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:52,659 - ERROR - Cannot move model.layers.24.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:57:52,660 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:52,660 - INFO - Processing group 59/75 (3 layers)
+2025-08-21 12:57:54,903 - ERROR - Cannot move model.layers.24.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:57:55,617 - ERROR - Cannot move model.layers.25.self_attn.q_proj back to GPU - keeping on CPU
+2025-08-21 12:57:55,781 - ERROR - Cannot move model.layers.25.self_attn.k_proj back to GPU - keeping on CPU
+2025-08-21 12:57:55,781 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:55,781 - INFO - Processing group 60/75 (3 layers)
+2025-08-21 12:57:55,938 - ERROR - Cannot move model.layers.25.self_attn.v_proj back to GPU - keeping on CPU
+2025-08-21 12:57:56,532 - ERROR - Cannot move model.layers.25.self_attn.o_proj back to GPU - keeping on CPU
+2025-08-21 12:57:58,939 - ERROR - Cannot move model.layers.25.mlp.gate_proj back to GPU - keeping on CPU
+2025-08-21 12:57:58,939 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:57:58,939 - INFO - Processing group 61/75 (3 layers)
+2025-08-21 12:58:01,470 - ERROR - Cannot move model.layers.25.mlp.up_proj back to GPU - keeping on CPU
+2025-08-21 12:58:03,862 - ERROR - Cannot move model.layers.25.mlp.down_proj back to GPU - keeping on CPU
+2025-08-21 12:58:03,965 - WARNING - Failed to process layer model.layers.26.self_attn.q_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,966 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,966 - INFO - Processing group 62/75 (3 layers)
+2025-08-21 12:58:03,966 - WARNING - Failed to process layer model.layers.26.self_attn.k_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,966 - WARNING - Failed to process layer model.layers.26.self_attn.v_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,966 - WARNING - Failed to process layer model.layers.26.self_attn.o_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,967 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,967 - INFO - Processing group 63/75 (3 layers)
+2025-08-21 12:58:03,967 - WARNING - Failed to process layer model.layers.26.mlp.gate_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,967 - WARNING - Failed to process layer model.layers.26.mlp.up_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,967 - WARNING - Failed to process layer model.layers.26.mlp.down_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,968 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,968 - INFO - Processing group 64/75 (3 layers)
+2025-08-21 12:58:03,968 - WARNING - Failed to process layer model.layers.27.self_attn.q_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,968 - WARNING - Failed to process layer model.layers.27.self_attn.k_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,968 - WARNING - Failed to process layer model.layers.27.self_attn.v_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,968 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,968 - INFO - Processing group 65/75 (3 layers)
+2025-08-21 12:58:03,969 - WARNING - Failed to process layer model.layers.27.self_attn.o_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,969 - WARNING - Failed to process layer model.layers.27.mlp.gate_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,969 - WARNING - Failed to process layer model.layers.27.mlp.up_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,970 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,970 - INFO - Processing group 66/75 (3 layers)
+2025-08-21 12:58:03,971 - WARNING - Failed to process layer model.layers.27.mlp.down_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,971 - WARNING - Failed to process layer model.layers.28.self_attn.q_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,971 - WARNING - Failed to process layer model.layers.28.self_attn.k_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,971 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,971 - INFO - Processing group 67/75 (3 layers)
+2025-08-21 12:58:03,971 - WARNING - Failed to process layer model.layers.28.self_attn.v_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,972 - WARNING - Failed to process layer model.layers.28.self_attn.o_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,972 - WARNING - Failed to process layer model.layers.28.mlp.gate_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,972 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,972 - INFO - Processing group 68/75 (3 layers)
+2025-08-21 12:58:03,972 - WARNING - Failed to process layer model.layers.28.mlp.up_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,972 - WARNING - Failed to process layer model.layers.28.mlp.down_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,973 - WARNING - Failed to process layer model.layers.29.self_attn.q_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,973 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,973 - INFO - Processing group 69/75 (3 layers)
+2025-08-21 12:58:03,973 - WARNING - Failed to process layer model.layers.29.self_attn.k_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,973 - WARNING - Failed to process layer model.layers.29.self_attn.v_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,973 - WARNING - Failed to process layer model.layers.29.self_attn.o_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,974 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,974 - INFO - Processing group 70/75 (3 layers)
+2025-08-21 12:58:03,974 - WARNING - Failed to process layer model.layers.29.mlp.gate_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,974 - WARNING - Failed to process layer model.layers.29.mlp.up_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,974 - WARNING - Failed to process layer model.layers.29.mlp.down_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,975 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,975 - INFO - Processing group 71/75 (3 layers)
+2025-08-21 12:58:03,975 - WARNING - Failed to process layer model.layers.30.self_attn.q_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,975 - WARNING - Failed to process layer model.layers.30.self_attn.k_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,975 - WARNING - Failed to process layer model.layers.30.self_attn.v_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,975 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,975 - INFO - Processing group 72/75 (3 layers)
+2025-08-21 12:58:03,976 - WARNING - Failed to process layer model.layers.30.self_attn.o_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,976 - WARNING - Failed to process layer model.layers.30.mlp.gate_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,976 - WARNING - Failed to process layer model.layers.30.mlp.up_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,976 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,976 - INFO - Processing group 73/75 (3 layers)
+2025-08-21 12:58:03,976 - WARNING - Failed to process layer model.layers.30.mlp.down_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,977 - WARNING - Failed to process layer model.layers.31.self_attn.q_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,977 - WARNING - Failed to process layer model.layers.31.self_attn.k_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,977 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,977 - INFO - Processing group 74/75 (3 layers)
+2025-08-21 12:58:03,977 - WARNING - Failed to process layer model.layers.31.self_attn.v_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,977 - WARNING - Failed to process layer model.layers.31.self_attn.o_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,977 - WARNING - Failed to process layer model.layers.31.mlp.gate_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,978 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,978 - INFO - Processing group 75/75 (3 layers)
+2025-08-21 12:58:03,978 - WARNING - Failed to process layer model.layers.31.mlp.up_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,978 - WARNING - Failed to process layer model.layers.31.mlp.down_proj with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,978 - WARNING - Failed to process layer lm_head with offloading: Cannot copy out of meta tensor; no data!
+2025-08-21 12:58:03,979 - INFO - GPU Memory - Allocated: 15.35GB, Reserved: 15.38GB
+2025-08-21 12:58:03,979 - INFO - Offloaded pruning completed: 50/225 layers pruned, 175 failed
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 767, in <module>
+    main()
+    ~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 748, in main
+    summarizer = CodeSummarizer(
+        model_name=args.model_name,
+        job_id=args.job_id,
+        args=args
+    )
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 77, in __init__
+    self.apply_offloaded_pruning(pruning_amount)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 414, in apply_offloaded_pruning
+    self.calculate_sparsity()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 209, in calculate_sparsity
+    weight = module.weight_orig * module.weight_mask
+             ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 79.14 GiB of which 4.00 MiB is free. Process 369769 has 64.62 GiB memory in use. Including non-PyTorch memory, this process has 14.49 GiB memory in use. Of the allocated memory 14.29 GiB is allocated by PyTorch, and 33.59 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+srun: error: compute-2-3: task 0: Exited with exit code 1

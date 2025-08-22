@@ -1,0 +1,61 @@
+2025-08-21 12:26:11,233 - INFO - Initializing Code Summarizer...
+2025-08-21 12:26:11,421 - INFO - Using device: cuda
+2025-08-21 12:26:11,422 - INFO - Loading tokenizer: meta-llama/Llama-3.1-8B-Instruct
+2025-08-21 12:26:12,671 - INFO - Loading model: meta-llama/Llama-3.1-8B-Instruct
+2025-08-21 12:27:15,906 - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:15<00:47, 15.99s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:31<00:31, 15.94s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:54<00:18, 18.81s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:00<00:20, 20.20s/it]
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 767, in <module>
+    main()
+    ~~~~^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 748, in main
+    summarizer = CodeSummarizer(
+        model_name=args.model_name,
+        job_id=args.job_id,
+        args=args
+    )
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Text/code-to-text/code/code_summarization_llama.py", line 59, in __init__
+    self.model = AutoModelForCausalLM.from_pretrained(
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model_name,
+        ^^^^^^^^^^^
+    ...<3 lines>...
+        trust_remote_code=True
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/models/auto/auto_factory.py", line 571, in from_pretrained
+    return model_class.from_pretrained(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        pretrained_model_name_or_path, *model_args, config=config, **hub_kwargs, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/modeling_utils.py", line 309, in _wrapper
+    return func(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/modeling_utils.py", line 4574, in from_pretrained
+    ) = cls._load_pretrained_model(
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model,
+        ^^^^^^
+    ...<13 lines>...
+        weights_only=weights_only,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/modeling_utils.py", line 5031, in _load_pretrained_model
+    disk_offload_index, cpu_offload_index = _load_state_dict_into_meta_model(
+                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model_to_load,
+        ^^^^^^^^^^^^^^
+    ...<13 lines>...
+        device_mesh=device_mesh,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/modeling_utils.py", line 808, in _load_state_dict_into_meta_model
+    param = param.to(casting_dtype)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1002.00 MiB. GPU 0 has a total capacity of 79.14 GiB of which 766.00 MiB is free. Process 369769 has 62.23 GiB memory in use. Including non-PyTorch memory, this process has 16.14 GiB memory in use. Of the allocated memory 14.85 GiB is allocated by PyTorch, and 1.09 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+srun: error: compute-2-3: task 0: Exited with exit code 1
