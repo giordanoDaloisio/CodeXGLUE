@@ -364,3 +364,6 @@ Summarization Llama3.1,Quantization (quanto-qint8),SIDE,0.8868896476911667
 Summarization Llama3.1,Quantization (quanto-qint8),Bleu,12.557670018654228
 Summarization Llama3.1,Quantization (quanto-qint8),BERTScore,0.8760393922593375
 Summarization Llama3.1,Quantization (quanto-qint8),SIDE,0.8694024985257429
+Summarization Llama3.1,No One,Bleu,14.508449233758208
+Summarization Llama3.1,No One,BERTScore,0.8798365528427918
+Summarization Llama3.1,No One,SIDE,0.8760309399085631

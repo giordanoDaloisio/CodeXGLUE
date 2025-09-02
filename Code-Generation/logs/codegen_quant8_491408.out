@@ -1,48 +1,0 @@
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.18s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.12s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.03s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.43it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.19it/s]
-Device set to use cuda:0
-Traceback (most recent call last):
-  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/generation.py", line 109, in <module>
-    pipe = pipeline(
-        task="text-generation",
-    ...<3 lines>...
-        trust_remote_code=True
-    )
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/pipelines/__init__.py", line 1180, in pipeline
-    return pipeline_class(model=model, framework=framework, task=task, **kwargs)
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/pipelines/text_generation.py", line 114, in __init__
-    super().__init__(*args, **kwargs)
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/pipelines/base.py", line 1016, in __init__
-    self.model.to(self.device)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/modeling_utils.py", line 3851, in to
-    return super().to(*args, **kwargs)
-           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1355, in to
-    return self._apply(convert)
-           ~~~~~~~~~~~^^^^^^^^^
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 915, in _apply
-    module._apply(fn)
-    ~~~~~~~~~~~~~^^^^
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 915, in _apply
-    module._apply(fn)
-    ~~~~~~~~~~~~~^^^^
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 915, in _apply
-    module._apply(fn)
-    ~~~~~~~~~~~~~^^^^
-  [Previous line repeated 2 more times]
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 942, in _apply
-    param_applied = fn(param)
-  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1341, in convert
-    return t.to(
-           ~~~~^
-        device,
-        ^^^^^^^
-        dtype if t.is_floating_point() or t.is_complex() else None,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        non_blocking,
-        ^^^^^^^^^^^^^
-    )
-    ^
-torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 112.00 MiB. GPU 0 has a total capacity of 39.25 GiB of which 8.75 MiB is free. Process 2876809 has 15.24 GiB memory in use. Process 2876863 has 9.88 GiB memory in use. Including non-PyTorch memory, this process has 14.07 GiB memory in use. Of the allocated memory 13.87 GiB is allocated by PyTorch, and 129.52 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
-srun: error: compute-0-3: task 0: Exited with exit code 1

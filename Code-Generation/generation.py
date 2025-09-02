@@ -1,5 +1,5 @@
 from human_eval.data import read_problems, write_jsonl
-from transformers import pipeline, QuantoConfig
+from transformers import QuantoConfig, AutoModelForCausalLM, AutoTokenizer
 from hf_token import hf_token
 from huggingface_hub import login
 from time import time
@@ -7,7 +7,7 @@ import torch
 import csv
 import os
 from argparse import ArgumentParser
-from typing import List, Dict
+from typing import List, Dict, Optional
 import json
 import logging
 
@@ -24,29 +24,50 @@ def print_model_size(model):
     logger.info(f"Size (MB): {size_mb:.2f}")
     return size_mb
 
-def generate_batch_completions(pipe, prompts: List[str], task_ids: List[str]) -> tuple:
-    """Genera completions in batch per maggiore efficienza"""
-    start_time = time()
-    # Usa batching per migliorare l'efficienza
-    responses = pipe(
-        prompts,
-        do_sample=True,
-        pad_token_id=pipe.tokenizer.eos_token_id,
-        batch_size=min(8, len(prompts)),  # Batch size adattivo
-    )
+def generate_batch_completions(
+    model: AutoModelForCausalLM,
+    tokenizer: AutoTokenizer,
+    prompts: List[str],
+    task_ids: List[str],
+    gen_kwargs: Dict,
+    batch_size: int,
+    model_device: Optional[torch.device] = None,
+) -> tuple:
+    """Genera completions in batch usando model.generate.
 
-    end_time = time()
-    total_time = end_time - start_time
-    
-    # Prepara i samples
-    samples = []
-    for task_id, response in zip(task_ids, responses):
-        completion = response[0]["generated_text"] if isinstance(response, list) else response["generated_text"]        
-        samples.append({
-            "task_id": task_id,
-            "completion": completion
-        })
-    
+    Ritorna (samples, total_time_sec), dove samples è una lista di dict
+    {task_id, completion}.
+    """
+    start_time = time()
+    samples: List[Dict] = []
+
+    for i in range(0, len(prompts), batch_size):
+        batch_prompts = prompts[i : i + batch_size]
+        batch_task_ids = task_ids[i : i + batch_size]
+
+        enc = tokenizer(
+            batch_prompts,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+        )
+
+        # Sposta gli input sul device del modello solo nel caso single-device
+        if model_device is not None:
+            enc = {k: v.to(model_device) for k, v in enc.items()}
+
+        with torch.no_grad():
+            outputs = model.generate(
+                input_ids=enc["input_ids"],
+                attention_mask=enc.get("attention_mask"),
+                **gen_kwargs,
+            )
+
+        texts = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+        for tid, text in zip(batch_task_ids, texts):
+            samples.append({"task_id": tid, "completion": text})
+
+    total_time = time() - start_time
     return samples, total_time
 
 def write_samples_batch(samples: List[Dict], filename: str = "samples.jsonl"):
@@ -60,31 +81,6 @@ def ensure_directory_exists(filepath: str):
     directory = os.path.dirname(filepath)
     if directory and not os.path.exists(directory):
         os.makedirs(directory)
-
-# def calibrate_model(pipe, problems: Dict, num_calibration_samples: int = 20):
-#     """Calibra il modello con alcuni sample per la quantizzazione"""
-#     print(f"Calibrando il modello con {num_calibration_samples} samples...")
-    
-#     # Prendi alcuni prompt per la calibrazione
-#     task_ids = list(problems.keys())[:num_calibration_samples]
-#     calibration_prompts = [problems[task_id]["prompt"] for task_id in task_ids]
-    
-#     # Esegui inferenza per calibrazione (senza salvare i risultati)
-#     try:
-#         for i, prompt in enumerate(calibration_prompts):
-#             logger.info(f"Calibrando sample {i+1}/{len(calibration_prompts)}")
-#             _ = pipe(
-#                 prompt,
-#                 max_new_tokens=50,  # Usa meno token per velocizzare la calibrazione
-#                 do_sample=False,    # Usa greedy decoding per la calibrazione
-#                 pad_token_id=pipe.tokenizer.eos_token_id,
-#                 return_full_text=False  # Ritorna solo il testo generato
-#             )
-#     except Exception as e:
-#         logger.error(f"Errore durante calibrazione: {e}")
-#         logger.info("Continuando senza calibrazione completa...")
-
-#     logger.info("Calibrazione completata.")
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -110,58 +106,46 @@ if __name__ == "__main__":
         torch_dtype = None
         quant_conf = None
     
+    tokenizer = AutoTokenizer.from_pretrained(
+        "meta-llama/Llama-3.1-8B-Instruct"
+    )
 
-    pipe = pipeline(
-        task="text-generation", 
-        model="meta-llama/Llama-3.1-8B-Instruct", 
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
+    model = AutoModelForCausalLM.from_pretrained(
+        "meta-llama/Llama-3.1-8B-Instruct",
         device_map=device_map,
         torch_dtype=torch_dtype,
         trust_remote_code=True,
-        config=quant_conf
+        quantization_config=quant_conf
     )
-    pipe.tokenizer.pad_token = pipe.tokenizer.eos_token  # Imposta il token di padding
+
+    model.eval()
+
+    # Se non usiamo device_map (single device), mettiamo esplicitamente il modello su CUDA se disponibile
+    model_device: Optional[torch.device] = None
+    if device_map is None:
+        model_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model.to(model_device)
+
+    # pipe = pipeline(
+    #     task="text-generation", 
+    #     model="meta-llama/Llama-3.1-8B-Instruct", 
+    #     device_map=device_map,
+    #     torch_dtype=torch_dtype,
+    #     trust_remote_code=True,
+    #     config=quant_conf
+    # )
+    # pipe.tokenizer.pad_token = pipe.tokenizer.eos_token  # Imposta il token di padding
     times_file = f"times/times_{job_id}.csv"
     samples_file = f"samples_{job_id}.jsonl"
-    # # Applica quantizzazione float8 se richiesta
-    # if args.quantf8 or args.quant8 or args.quant4:
-    #     if args.quantf8:
-    #         print("Applicando quantizzazione float8...")
-    #         quantize(pipe.model, weights=qfloat8, activations=qfloat8)
-    #         times_file = f"times/times_quantf8_{job_id}.csv"
-    #         samples_file = f"samples_quantf8_{job_id}.jsonl"
-    #     elif args.quant8:
-    #         print("Applicando quantizzazione int8...")
-    #         quantize(pipe.model, weights=qint8, activations=qint8)
-    #         times_file = f"times/times_quant8_{job_id}.csv"
-    #         samples_file = f"samples_quant8_{job_id}.jsonl"
-    #     elif args.quant4:
-    #         print("Applicando quantizzazione int4...")
-    #         quantize(pipe.model, weights=qint4, activations=qint4)
-    #         times_file = f"times/times_quant4_{job_id}.csv"
-    #         samples_file = f"samples_quant4_{job_id}.jsonl"
-    #     else:
-    #         print("Nessuna quantizzazione applicata")       
-    #     # Leggi problemi per la calibrazione
-    #     problems = read_problems()
-        
-    #     # Calibrazione con contesto
-    #     with Calibration():
-    #         calibrate_model(pipe, problems, num_calibration_samples=10)
-        
-    #     # Freeze del modello dopo la calibrazione
-    #     freeze(pipe.model)
-    #     if args.quantf8:
-    #         print("Quantizzazione float8 applicata e modello congelato.")
-    #     elif args.quant8:
-    #         print("Quantizzazione int8 applicata e modello congelato.")
-    #     elif args.quant4:
-    #         print("Quantizzazione int4 applicata e modello congelato.")
-    # else:
+  
     # Leggi problemi normalmente
     problems = read_problems()
     
     # Stampa dimensione del modello
-    model_size = print_model_size(pipe.model)
+    model_size = print_model_size(model)
     logger.info(f"Model size: {model_size:.2f} MB")
     
     # Assicurati che le directory esistano
@@ -179,15 +163,36 @@ if __name__ == "__main__":
     # Prepara tutti i prompt in anticipo
     task_ids = list(problems.keys())
 
-    ## GPU Warmup
-    logger.info("Eseguendo warmup della GPU...")
-    warmup_prompts = [problems[task_id]["prompt"] for task_id in task_ids[:10]]
-    pipe(warmup_prompts, do_sample=True)
+    ## GPU/Model Warmup
+    logger.info("Eseguendo warmup del modello...")
+    warmup_prompts = [problems[task_id]["prompt"] for task_id in task_ids[: min(10, len(task_ids))]]
+    if warmup_prompts:
+        enc_w = tokenizer(warmup_prompts, return_tensors="pt", padding=True, truncation=True)
+        if model_device is not None:
+            enc_w = {k: v.to(model_device) for k, v in enc_w.items()}
+        with torch.no_grad():
+            _ = model.generate(
+                input_ids=enc_w["input_ids"],
+                attention_mask=enc_w.get("attention_mask"),
+                max_new_tokens=1,
+                do_sample=False,
+                pad_token_id=tokenizer.eos_token_id,
+                eos_token_id=tokenizer.eos_token_id,
+            )
     logger.info("Warmup completato.")
     
     logger.info(f"Generando {args.num_samples_per_task} samples per {len(task_ids)} tasks...")
     
+    # Parametri di generazione condivisi
+    gen_kwargs = dict(
+        do_sample=True,
+        max_new_tokens=args.max_new_tokens,
+        pad_token_id=tokenizer.eos_token_id,
+        eos_token_id=tokenizer.eos_token_id,
+    )
+
     # Processa in batch per massimizzare l'efficienza
+    batch_total_times: List[float] = []
     for sample_idx in range(args.num_samples_per_task):
         logger.info(f"Batch {sample_idx + 1}/{args.num_samples_per_task}")
         
@@ -196,7 +201,13 @@ if __name__ == "__main__":
         
         # Genera completions in batch
         batch_samples, batch_time = generate_batch_completions(
-            pipe, prompts, task_ids
+            model=model,
+            tokenizer=tokenizer,
+            prompts=prompts,
+            task_ids=task_ids,
+            gen_kwargs=gen_kwargs,
+            batch_size=max(1, int(args.batch_size)),
+            model_device=model_device,
         )
         
         # Salva samples
@@ -206,6 +217,7 @@ if __name__ == "__main__":
         # Calcola statistiche di timing
         time_per_sample = batch_time / len(batch_samples)
         all_times.append(time_per_sample)
+        batch_total_times.append(batch_time)
         
         # Salva timing info
         with open(times_file, "a", newline="") as f:
@@ -217,14 +229,15 @@ if __name__ == "__main__":
     
     # Statistiche finali
     total_samples = len(all_samples)
-    avg_time = sum(all_times) / len(all_times)
-    total_time = sum(all_times) * len(task_ids)
+    avg_time = sum(all_times) / len(all_times) if all_times else 0.0
+    total_time = sum(batch_total_times)
     
     logger.info(f"\nStatistiche finali:")
     logger.info(f"- Totale samples generati: {total_samples}")
     logger.info(f"- Tempo medio per sample: {avg_time:.2f}s")
     logger.info(f"- Tempo totale: {total_time:.2f}s")
-    logger.info(f"- Throughput: {total_samples/total_time:.2f} samples/s")
+    throughput = (total_samples / total_time) if total_time > 0 else 0.0
+    logger.info(f"- Throughput: {throughput:.2f} samples/s")
     
     # Salva statistiche finali
     with open(f"stats_{job_id}.json", "w") as f:
@@ -233,7 +246,7 @@ if __name__ == "__main__":
             "total_samples": total_samples,
             "avg_time_per_sample": avg_time,
             "total_time": total_time,
-            "throughput": total_samples/total_time,
+            "throughput": throughput,
             "model_size_mb": model_size,
             "num_tasks": len(task_ids),
             "samples_per_task": args.num_samples_per_task

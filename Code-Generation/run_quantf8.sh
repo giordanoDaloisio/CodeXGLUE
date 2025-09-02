@@ -4,8 +4,8 @@
 #SBATCH -o ./logs/codegen_quantf8_%j.out
 #SBATCH -J codegen
 #SBATCH -p cuda
-#SBATCH -c 30
-#SBATCH --gres=gpu:fat
+#SBATCH -c 10
+#SBATCH --gres=gpu:large
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}

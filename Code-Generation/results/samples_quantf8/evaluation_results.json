@@ -1,8 +1,8 @@
 {
   "pass_at_k": {
-    "pass@1": 0.0,
-    "pass@10": 0.0,
-    "pass@20": 0.0
+    "pass@1":  25.48,
+    "pass@10":  70.46,
+    "pass@20":  78.15
   },
   "metadata": {
     "sample_file": "samples_quantf8_491248.jsonl",

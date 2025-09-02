@@ -1,0 +1,15 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:13<00:39, 13.23s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:25<00:25, 12.85s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:47<00:16, 16.83s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:51<00:00, 11.64s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:51<00:00, 12.76s/it]
+/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py:2356: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+INFO:__main__:Size (MB): 16060.52
+INFO:__main__:Model size: 16060.52 MB
+INFO:__main__:Eseguendo warmup del modello...
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+INFO:__main__:Warmup completato.
+INFO:__main__:Generando 100 samples per 164 tasks...
+INFO:__main__:Batch 1/100
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.

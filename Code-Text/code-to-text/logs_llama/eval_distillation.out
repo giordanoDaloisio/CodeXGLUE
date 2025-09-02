@@ -1,0 +1,9 @@
+WARNING:evaluate.loading:Using the latest cached version of the module from /NFSHOME/gdaloisio/.cache/huggingface/modules/evaluate_modules/metrics/evaluate-metric--bertscore/cf4907b18f8f741f202232c0f8009a3bd49ff98802c245abcb6ea51a37a8c05b (last modified on Tue Sep  3 14:42:20 2024) since it couldn't be found locally at evaluate-metric--bertscore, or remotely on the Hugging Face Hub.
+Total: 10955
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['pooler.dense.bias', 'pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Bleu 14.508449233758208
+BERTScore Prec 0.8820439813725756
+BERTScore Recall 0.8785248233813883
+BERTScore F1 0.8798365528427918
+SIDE Score 0.8760309399085631
