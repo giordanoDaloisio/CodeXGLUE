@@ -13,3 +13,42 @@ INFO:__main__:Batch 1/100
 A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
 A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
 A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+/pytorch/aten/src/ATen/native/cuda/TensorCompare.cu:112: _assert_async_cuda_kernel: block: [0,0,0], thread: [0,0,0] Assertion `probability tensor contains either `inf`, `nan` or element < 0` failed.
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/generation.py", line 203, in <module>
+    batch_samples, batch_time = generate_batch_completions(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model=model,
+        ^^^^^^^^^^^^
+    ...<5 lines>...
+        model_device=model_device,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/generation.py", line 60, in generate_batch_completions
+    outputs = model.generate(
+        input_ids=enc["input_ids"],
+        attention_mask=enc.get("attention_mask"),
+        **gen_kwargs,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/generation/utils.py", line 2597, in generate
+    result = self._sample(
+        input_ids,
+    ...<5 lines>...
+        **model_kwargs,
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/generation/utils.py", line 3548, in _sample
+    while self._has_unfinished_sequences(this_peer_finished, synced_gpus, device=input_ids.device):
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/generation/utils.py", line 2748, in _has_unfinished_sequences
+    elif this_peer_finished:
+         ^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: device-side assert triggered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+srun: error: compute-0-3: task 0: Exited with exit code 1
