@@ -91,6 +91,7 @@ if __name__ == "__main__":
     parser.add_argument("--quantf8", action="store_true", help="Use quantization for the model")
     parser.add_argument("--quant8", action="store_true", help="Use quantization for the model")
     parser.add_argument("--quant4", action="store_true", help="Use quantization for the model")
+    parser.add_argument("--model_name_or_path", type=str, default="meta-llama/Llama-3.1-8B-Instruct", help="Model name or path")
 
     args = parser.parse_args()
     job_id = args.job_id
@@ -102,19 +103,19 @@ if __name__ == "__main__":
         quant_conf = QuantoConfig(weights="int8" if args.quant8 else "int4" if args.quant4 else "float8")
 
     else:
-        device_map = "auto"
+        device_map = None
         torch_dtype = None
         quant_conf = None
     
     tokenizer = AutoTokenizer.from_pretrained(
-        "meta-llama/Llama-3.1-8B-Instruct"
+        args.model_name_or_path
     )
 
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        "meta-llama/Llama-3.1-8B-Instruct",
+        args.model_name_or_path,
         device_map=device_map,
         torch_dtype=torch_dtype,
         trust_remote_code=True,

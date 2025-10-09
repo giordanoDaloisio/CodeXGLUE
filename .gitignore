@@ -364,3 +364,4 @@ test
 final_merged_model
 checkpoint*
 *.safetensors
+finetuned_model
