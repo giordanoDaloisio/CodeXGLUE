@@ -19,10 +19,12 @@ import gzip
 from typing import List, Dict, Any
 
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, QuantoConfig
 from tqdm import tqdm
 import logging
 import time
+from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -45,6 +47,33 @@ def load_humaneval(path: str) -> List[Dict[str, Any]]:
             if line.strip():
                 problems.append(json.loads(line))
     return problems
+
+def calibration(problems, tokenizer, model, device, args):
+       logger.info("Calibrating the model...")
+       with torch.no_grad():
+        for i, problem in enumerate(problems):
+            if i < 10:
+                prompt = problem['prompt']
+                
+                # Tokenizza prompt
+                inputs = tokenizer(prompt, return_tensors='pt', truncation=True, max_length=1024)
+                input_ids = inputs['input_ids'].to(device)
+                attention_mask = inputs.get('attention_mask', None)
+                if attention_mask is not None:
+                    attention_mask = attention_mask.to(device)
+
+                # Genera multiple samples
+                _ = model.generate(
+                    input_ids,
+                    attention_mask=attention_mask,
+                    max_new_tokens= args.max_new_tokens,
+                    temperature=args.temperature,
+                    top_p=args.top_p,
+                    do_sample=True,
+                    num_return_sequences=args.num_samples_per_task,
+                    pad_token_id=tokenizer.eos_token_id,
+                    eos_token_id=tokenizer.eos_token_id,
+                )
 
 
 def generate_completions(
@@ -123,12 +152,20 @@ def evaluate_humaneval(
     temperature: float = 0.8,
     top_p: float = 0.95,
     timeout: float = 3.0,
-    use_fp16: bool = True
+    use_fp16: bool = True,
+    args = None
 ):
     """Valuta modello su HumanEval e calcola pass@k."""
     
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"[Info] Device: {device}")
+
+    if args.quantize_f8 or args.quantize_i8 or args.quantize_i4:
+        device_map = None  # Carica tutto su un singolo dispositivo
+        quant_conf = QuantoConfig(weights="int8" if args.quantize_i8 else "int4" if args.quantize_i4 else "float8")
+    else:
+        device_map = None
+        quant_conf = None
     
     # Carica modello
     print(f"[Info] Carico modello da {model_path}")
@@ -142,17 +179,47 @@ def evaluate_humaneval(
     dtype = torch.float16 if use_fp16 and device == 'cuda' else torch.float32
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
-        torch_dtype=dtype
+        torch_dtype=dtype,
+        device_map=device_map,
+        trust_remote_code=True,
+        quantization_config=quant_conf
     ).to(device)
-    
-    print(f"[Info] Modello caricato: {model.config.model_type}")
-    print(f"[Info] Num parameters: {model.num_parameters():,}")
-    
+        
     # Carica HumanEval
     print(f"[Info] Carico HumanEval da {humaneval_file}")
     problems = load_humaneval(humaneval_file)
     print(f"[Info] Num problemi: {len(problems)}")
+
+
+    # if args.quantize_i8:
+    #     logger.info("********** Apply Quantization qint8 **********")
+    #     quantize(model, weights=qint8, activations=qint8)
+    #     with Calibration():
+    #         logger.info("*********** Calibrate **************")
+    #         calibration(problems, tokenizer, model, device, args)
+    #     freeze(model)
+
+    # if args.quantize_i4:
+    #     logger.info("********** Apply Quantization qint4 **********")
+    #     quantize(model, weights=qint4, activations=qint4)
+    #     with Calibration():
+    #         logger.info("*********** Calibrate **************")
+    #         calibration(problems, tokenizer, model, device, args)
+    #     freeze(model)
+
+    # if args.quantize_f8:
+    #     logger.info("********** Apply Quantization qfloat8 **********")
+    #     quantize(model, weights=qfloat8, activations=qfloat8)
+    #     with Calibration():
+    #         logger.info("*********** Calibrate **************")
+    #         calibration(problems, tokenizer, model, device, args)
+    #     freeze(model)
     
+
+    print(f"[Info] Modello caricato: {model.config.model_type}")
+    print(f"[Info] Num parameters: {model.num_parameters():,}")
+    print((f"[Info] Dimensione del modello: {print_model_size(model):,}"))
+
     # Genera completions
     print(f"[Info] Generazione completions (samples per task: {num_samples_per_task})")
     samples, times = generate_completions(
@@ -175,6 +242,12 @@ def evaluate_humaneval(
 
     # Salva tempi di generazione
     times_file = os.path.join(output_dir, 'times.jsonl')
+    if args.quantize_i8:
+         times_file = os.path.join(output_dir, 'times_qint8.jsonl')
+    if args.quantize_i4:
+            times_file = os.path.join(output_dir, 'times_qint4.jsonl')
+    if args.quantize_f8:
+            times_file = os.path.join(output_dir, 'times_qfloat8.jsonl')
     with open(times_file, 'w', encoding='utf-8') as f:
         for t in times:
             f.write(json.dumps(t) + '\n')
@@ -256,6 +329,11 @@ def parse_args():
                        help='Timeout per test execution (secondi)')
     parser.add_argument('--no_fp16', action='store_true',
                        help='Disabilita FP16 (usa FP32)')
+    parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu',
+                       help='Device da usare (default: cuda se disponibile)')
+    parser.add_argument('--quantize_f8', action='store_true')
+    parser.add_argument('--quantize_i8', action='store_true')
+    parser.add_argument('--quantize_i4', action='store_true')
     
     return parser.parse_args()
 
@@ -272,5 +350,6 @@ if __name__ == '__main__':
         temperature=args.temperature,
         top_p=args.top_p,
         timeout=args.timeout,
-        use_fp16=not args.no_fp16
+        use_fp16=not args.no_fp16,
+        args = args
     )
