@@ -24,6 +24,7 @@ from tqdm import tqdm
 import logging
 import time
 from optimum.quanto import qint8, qint4, qfloat8, quantize, freeze, Calibration
+from torch.nn.utils import prune
 
 
 logging.basicConfig(level=logging.INFO)
@@ -31,12 +32,9 @@ logger = logging.getLogger(__name__)
 
 
 def print_model_size(model):
-    """Calcola la dimensione del modello senza salvare file temporanei"""
-    param_size = sum(p.numel() * p.element_size() for p in model.parameters())
-    buffer_size = sum(b.numel() * b.element_size() for b in model.buffers())
-    size_mb = (param_size + buffer_size) / 1e6
-    logger.info(f"Size (MB): {size_mb:.2f}")
-    return size_mb
+    torch.save(model.state_dict(), "tmp.p")
+    print("Size (MB): " + str(os.path.getsize("tmp.p") / 1e6))
+    os.remove("tmp.p")
 
 def load_humaneval(path: str) -> List[Dict[str, Any]]:
     """Carica dataset HumanEval."""
@@ -190,35 +188,57 @@ def evaluate_humaneval(
     problems = load_humaneval(humaneval_file)
     print(f"[Info] Num problemi: {len(problems)}")
 
+    if args.prune6:
+            logger.info("******* Apply Pruning 0.6 ***********")
+            parameters_to_prune = []
+            
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.6,
+            )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
 
-    # if args.quantize_i8:
-    #     logger.info("********** Apply Quantization qint8 **********")
-    #     quantize(model, weights=qint8, activations=qint8)
-    #     with Calibration():
-    #         logger.info("*********** Calibrate **************")
-    #         calibration(problems, tokenizer, model, device, args)
-    #     freeze(model)
+    if args.prune4:
+        logger.info("******* Apply Pruning 0.4 ***********")
+        parameters_to_prune = []
+        
+        for module in model.modules():
+            if isinstance(module, torch.nn.Linear):
+                parameters_to_prune.append((module, "weight"))
+        prune.global_unstructured(
+            parameters_to_prune,
+            pruning_method=prune.L1Unstructured,
+            amount=0.4,
+        )
+        for module, param in parameters_to_prune:
+            logger.info(prune.is_pruned(module))
+            prune.remove(module, param)
+            logger.info(prune.is_pruned(module))
 
-    # if args.quantize_i4:
-    #     logger.info("********** Apply Quantization qint4 **********")
-    #     quantize(model, weights=qint4, activations=qint4)
-    #     with Calibration():
-    #         logger.info("*********** Calibrate **************")
-    #         calibration(problems, tokenizer, model, device, args)
-    #     freeze(model)
-
-    # if args.quantize_f8:
-    #     logger.info("********** Apply Quantization qfloat8 **********")
-    #     quantize(model, weights=qfloat8, activations=qfloat8)
-    #     with Calibration():
-    #         logger.info("*********** Calibrate **************")
-    #         calibration(problems, tokenizer, model, device, args)
-    #     freeze(model)
-    
+    if args.prune:
+        logger.info("******* Apply Pruning 0.2 ***********")
+        parameters_to_prune = []
+        
+        for module in model.modules():
+            if isinstance(module, torch.nn.Linear):
+                parameters_to_prune.append((module, "weight"))
+        prune.global_unstructured(
+            parameters_to_prune,
+            pruning_method=prune.L1Unstructured,
+            amount=0.2,
+        )
+        for module, param in parameters_to_prune:
+            prune.remove(module, param)
+ 
 
     print(f"[Info] Modello caricato: {model.config.model_type}")
     print(f"[Info] Num parameters: {model.num_parameters():,}")
-    print((f"[Info] Dimensione del modello: {print_model_size(model):,}"))
+    print_model_size(model)
 
     # Genera completions
     print(f"[Info] Generazione completions (samples per task: {num_samples_per_task})")
@@ -248,6 +268,12 @@ def evaluate_humaneval(
             times_file = os.path.join(output_dir, 'times_qint4.jsonl')
     if args.quantize_f8:
             times_file = os.path.join(output_dir, 'times_qfloat8.jsonl')
+    if args.prune6:
+            times_file = os.path.join(output_dir, 'times_prune6.jsonl')
+    if args.prune4:
+            times_file = os.path.join(output_dir, 'times_prune4.jsonl')
+    if args.prune:
+            times_file = os.path.join(output_dir, 'times_prune2.jsonl')
     with open(times_file, 'w', encoding='utf-8') as f:
         for t in times:
             f.write(json.dumps(t) + '\n')
@@ -334,6 +360,9 @@ def parse_args():
     parser.add_argument('--quantize_f8', action='store_true')
     parser.add_argument('--quantize_i8', action='store_true')
     parser.add_argument('--quantize_i4', action='store_true')
+    parser.add_argument('--prune6', action='store_true')
+    parser.add_argument('--prune4', action='store_true')
+    parser.add_argument('--prune', action='store_true')
     
     return parser.parse_args()
 
