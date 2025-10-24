@@ -1,27 +1,40 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Knowledge Distillation di CodeGPT su DistilGPT (o altro modello decoder-only) su CodeSearchNet-Python
-per code generation, seguito da valutazione su HumanEval.
+Knowledge Distillation di CodeGPT (teacher) su DistilGPT-2 (student) per code generation
+su dataset CodeSearchNet-Python, seguito da valutazione su HumanEval.
 
 Workflow:
-1. Carica dataset CodeSearchNet-Python (docstring + code)
-2. Knowledge Distillation con causal LM training
-3. Salva checkpoint
-4. Valuta su HumanEval con pass@k metrics
+1. Carica teacher model (es. microsoft/CodeGPT-small-py)
+2. Carica student model (es. distilbert/distilgpt2)
+3. Knowledge Distillation con loss combinata:
+   - Cross-Entropy loss (student sui labels veri)
+   - KL Divergence loss (student cerca di imitare teacher)
+4. Salva student model distillato
+5. Valuta su HumanEval con pass@k metrics
 
 Usage:
-python finetune_codegpt_codesearchnet.py \
-  --model_name_or_path microsoft/CodeGPT-small-py \
-  --output_dir ./codegpt_finetuned \
+python distillation.py \
+  --teacher_model_path microsoft/CodeGPT-small-py \
+  --student_model_path distilbert/distilgpt2 \
+  --output_dir ./distilgpt_distilled \
   --num_train_epochs 3 \
   --train_batch_size 8 \
   --eval_batch_size 8 \
   --learning_rate 5e-5 \
-  --max_seq_length 512 \
+  --temperature 2.0 \
+  --alpha 0.5 \
   --do_train \
   --do_eval \
   --eval_on_humaneval
+
+Parametri chiave per distillation:
+  --temperature: Controlla quanto "smooth" sono le distribuzioni (default: 2.0)
+                 Valori più alti = distribuzioni più soft, meglio per distillation
+  --alpha: Bilancia CE loss vs KL loss (default: 0.5)
+           alpha=1.0 = solo CE (fine-tuning classico)
+           alpha=0.0 = solo KL (pura distillation)
+           alpha=0.5 = bilanciato (raccomandato)
 """
 from __future__ import annotations
 import argparse
@@ -32,6 +45,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
 
 import torch
+import torch.nn.functional as F
 from torch.utils.data import Dataset
 from transformers import (
     AutoTokenizer,
@@ -41,6 +55,7 @@ from transformers import (
     TrainingArguments,
     DataCollatorForLanguageModeling,
 )
+from transformers.optimization import Adafactor
 from datasets import load_dataset
 from tqdm import tqdm
 
@@ -104,6 +119,79 @@ class CodeSearchNetDataset(Dataset):
         }
 
 
+# ==========================================================
+# Knowledge Distillation Trainer
+# ==========================================================
+
+class DistillationTrainer(Trainer):
+    """
+    Custom Trainer per Knowledge Distillation con loss combinata:
+    - Cross-Entropy loss (student sul ground truth)
+    - KL Divergence loss (student vs teacher)
+    """
+    
+    def __init__(self, teacher_model=None, temperature=2.0, alpha=0.5, *args, **kwargs):
+        """
+        Args:
+            teacher_model: Modello teacher (già caricato e frozen)
+            temperature: Temperature per softmax nella distillation
+            alpha: Peso per bilanciare CE loss (alpha) e KL loss (1-alpha)
+        """
+        super().__init__(*args, **kwargs)
+        self.teacher = teacher_model
+        self.temperature = temperature
+        self.alpha = alpha
+        
+        # Freeze teacher
+        if self.teacher is not None:
+            self.teacher.eval()
+            for param in self.teacher.parameters():
+                param.requires_grad = False
+    
+    def compute_loss(self, model, inputs, return_outputs=False):
+        """
+        Computa loss combinata per distillation:
+        Loss = alpha * CE_loss + (1 - alpha) * KL_loss
+        """
+        # Forward pass student
+        outputs_student = model(**inputs)
+        
+        # Standard cross-entropy loss (student sui labels veri)
+        loss_ce = outputs_student.loss
+        
+        # Se non c'è teacher, usa solo CE loss (fallback a fine-tuning normale)
+        if self.teacher is None:
+            return (loss_ce, outputs_student) if return_outputs else loss_ce
+        
+        # Forward pass teacher (no grad)
+        with torch.no_grad():
+            outputs_teacher = self.teacher(**inputs)
+        
+        # Estrai logits
+        logits_student = outputs_student.logits
+        logits_teacher = outputs_teacher.logits
+        
+        # KL Divergence loss tra distribuzioni softmax
+        # KL(Teacher || Student) con temperature scaling
+        loss_kl = F.kl_div(
+            F.log_softmax(logits_student / self.temperature, dim=-1),
+            F.softmax(logits_teacher / self.temperature, dim=-1),
+            reduction='batchmean'
+        ) * (self.temperature ** 2)
+        
+        # Loss combinata
+        loss = self.alpha * loss_ce + (1 - self.alpha) * loss_kl
+        
+        # Log delle loss individuali (opzionale)
+        self.log({
+            'loss_ce': loss_ce.item(),
+            'loss_kl': loss_kl.item(),
+            'loss_total': loss.item()
+        })
+        
+        return (loss, outputs_student) if return_outputs else loss
+
+
 def load_codesearchnet_python(
     split: str = 'train',
     num_samples: Optional[int] = None,
@@ -157,7 +245,7 @@ def load_codesearchnet_python(
 # ==========================================================
 
 def train_model(args):
-    """Fine-tune CodeGPT su CodeSearchNet-Python."""
+    """Knowledge Distillation con causal LM training su CodeSearchNet-Python."""
     
     # Setup device
     device = 'cuda' if torch.cuda.is_available() and not args.no_cuda else 'cpu'
@@ -167,24 +255,38 @@ def train_model(args):
     random.seed(args.seed)
     torch.manual_seed(args.seed)
     
-    # Carica tokenizer e modello
-    print(f"[Info] Carico modello da {args.model_name_or_path}")
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
+    # Carica tokenizer e modelli teacher + student
+    print(f"[Info] Carico TEACHER model da {args.teacher_model_path}")
+    tokenizer = AutoTokenizer.from_pretrained(args.teacher_model_path)
     
     # GPT-2 non ha pad_token di default
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
-    
-    config = AutoConfig.from_pretrained(args.model_name_or_path)
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model_name_or_path,
-        config=config,
+
+    # Carica Teacher Model (es. CodeGPT)
+    teacher_config = AutoConfig.from_pretrained(args.teacher_model_path)
+    teacher_model = AutoModelForCausalLM.from_pretrained(
+        args.teacher_model_path,
+        config=teacher_config,
     )
+    teacher_model.resize_token_embeddings(len(tokenizer))
+    teacher_model.to(device)
     
-    # Resize embeddings se il tokenizer è stato modificato
-    model.resize_token_embeddings(len(tokenizer))
+    print(f"[Info] Teacher: {teacher_config.model_type}, Params: {teacher_model.num_parameters():,}")
     
-    print(f"[Info] Modello: {config.model_type}, Params: {model.num_parameters():,}")
+    # Carica Student Model (es. DistilGPT-2)
+    print(f"[Info] Carico STUDENT model da {args.student_model_path}")
+    student_config = AutoConfig.from_pretrained(args.student_model_path)
+    student_model = AutoModelForCausalLM.from_pretrained(
+        args.student_model_path,
+        config=student_config,
+    )
+    student_model.resize_token_embeddings(len(tokenizer))
+    student_model.to(device)
+    
+    print(f"[Info] Student: {student_config.model_type}, Params: {student_model.num_parameters():,}")
+    print(f"[Info] Compression ratio: {student_model.num_parameters() / teacher_model.num_parameters():.2%}")
+
     
     # Carica dataset
     print(f"[Info] Carico dataset CodeSearchNet-Python")
@@ -250,9 +352,17 @@ def train_model(args):
         report_to=args.report_to,
     )
     
-    # Trainer
-    trainer = Trainer(
-        model=model,
+    # Usa DistillationTrainer invece di Trainer standard
+    print(f"\n[Info] Configuro Knowledge Distillation Trainer")
+    print(f"       Temperature: {args.temperature}")
+    print(f"       Alpha (CE weight): {args.alpha}")
+    print(f"       1-Alpha (KL weight): {1-args.alpha}")
+    
+    trainer = DistillationTrainer(
+        teacher_model=teacher_model,
+        temperature=args.temperature,
+        alpha=args.alpha,
+        model=student_model,
         args=training_args,
         train_dataset=train_dataset if args.do_train else None,
         eval_dataset=eval_dataset if args.do_eval else None,
@@ -261,10 +371,10 @@ def train_model(args):
     
     # Training
     if args.do_train:
-        print(f"\n[Training] Inizio fine-tuning...")
+        print(f"\n[Training] Inizio Knowledge Distillation...")
         train_result = trainer.train()
         
-        # Salva modello finale
+        # Salva modello finale (solo student)
         trainer.save_model()
         tokenizer.save_pretrained(args.output_dir)
         
@@ -273,7 +383,7 @@ def train_model(args):
         trainer.log_metrics("train", metrics)
         trainer.save_metrics("train", metrics)
         
-        print(f"[Training] Completato. Modello salvato in {args.output_dir}")
+        print(f"[Training] Completato. Student model salvato in {args.output_dir}")
     
     # Evaluation su dataset CodeSearchNet
     if args.do_eval:
@@ -422,13 +532,22 @@ def evaluate_on_humaneval(
 # ==========================================================
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Fine-tune CodeGPT su CodeSearchNet-Python")
+    parser = argparse.ArgumentParser(description="Knowledge Distillation di CodeGPT su DistilGPT per CodeSearchNet-Python")
     
-    # Model
-    parser.add_argument('--model_name_or_path', type=str, default='microsoft/CodeGPT-small-py',
-                       help='Pretrained model name or path')
-    parser.add_argument('--output_dir', type=str, default='./codegpt_finetuned',
-                       help='Output directory per modello e checkpoints')
+    # Model - Distillation
+    parser.add_argument('--teacher_model_path', type=str, default='microsoft/CodeGPT-small-py',
+                       help='Teacher model name or path (es. CodeGPT)')
+    parser.add_argument('--student_model_path', type=str, default='distilbert/distilgpt2',
+                       help='Student model name or path (es. DistilGPT-2)')
+    parser.add_argument('--output_dir', type=str, default='./distilgpt_distilled',
+                       help='Output directory per student model e checkpoints')
+    
+    # Distillation hyperparameters
+    parser.add_argument('--temperature', type=float, default=2.0,
+                       help='Temperature per softmax nella distillation (default: 2.0)')
+    parser.add_argument('--alpha', type=float, default=0.5,
+                       help='Peso per CE loss (1-alpha = peso KL loss, default: 0.5)')
+
     
     # Dataset
     parser.add_argument('--cache_dir', type=str, default=None,
