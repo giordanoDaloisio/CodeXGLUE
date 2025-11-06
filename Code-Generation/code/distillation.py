@@ -148,10 +148,16 @@ class DistillationTrainer(Trainer):
             for param in self.teacher.parameters():
                 param.requires_grad = False
     
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         """
         Computa loss combinata per distillation:
         Loss = alpha * CE_loss + (1 - alpha) * KL_loss
+        
+        Args:
+            model: Student model
+            inputs: Input batch
+            return_outputs: Se True, ritorna anche gli outputs
+            num_items_in_batch: Numero di item nel batch (per compatibilità con nuove versioni Transformers)
         """
         # Forward pass student
         outputs_student = model(**inputs)

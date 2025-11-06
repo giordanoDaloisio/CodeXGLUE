@@ -1,0 +1,9 @@
+========================================
+Testing CodeGPT su HumanEval
+========================================
+Model: ./codegen_finetuned
+Output: ./codegen_finetuned
+Epochs: 3
+Batch size: 8
+========================================
+WARNING:bitsandbytes.cextension:The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
