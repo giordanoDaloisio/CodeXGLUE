@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs/codegpt_test_i8_%j.out
+#SBATCH -o ./logs/codegpt_test_i8_cpu_%j.out
 #SBATCH -J codegpt_test
-#SBATCH -p cuda
+#SBATCH -p normal
+#SBATCH -w compute-0-7
 #SBATCH -c 20
-#SBATCH --gres=gpu:fat
 
 # Script per fine-tuning CodeGPT su CodeSearchNet-Python e valutazione su HumanEval
 # Uso: sbatch run_codegpt_finetune.sh
