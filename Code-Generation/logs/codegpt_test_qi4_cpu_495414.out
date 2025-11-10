@@ -1,0 +1,38 @@
+========================================
+Testing CodeGPT su HumanEval
+========================================
+Model: ./codegen_finetuned
+Output: ./codegen_finetuned
+Epochs: 3
+Batch size: 8
+========================================
+WARNING:bitsandbytes.cextension:The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers and GPU quantization are unavailable.
+[Info] Device: cpu
+[Info] Carico modello da ./codegen_finetuned
+[Info] Carico HumanEval da ../data/HumanEval.jsonl.gz
+[Info] Num problemi: 164
+[Info] Modello caricato: codegen
+[Info] Num parameters: 354,858,103
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/code/evaluate.py", line 373, in <module>
+    evaluate_humaneval(
+    ~~~~~~~~~~~~~~~~~~^
+        model_path=args.model_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+        args = args
+        ^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/code/evaluate.py", line 241, in evaluate_humaneval
+    print_model_size(model)
+    ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/code/evaluate.py", line 36, in print_model_size
+    print("Size (MB): " + str(os.path.getsize("tmp.p") / 1e6))
+                              ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "<frozen genericpath>", line 86, in getsize
+FileNotFoundError: [Errno 2] No such file or directory: 'tmp.p'
+
+========================================
+Testing completato!
+========================================
