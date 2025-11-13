@@ -17,12 +17,9 @@ logger = logging.getLogger(__name__)
 login(hf_token)
 
 def print_model_size(model):
-    """Calcola la dimensione del modello senza salvare file temporanei"""
-    param_size = sum(p.numel() * p.element_size() for p in model.parameters())
-    buffer_size = sum(b.numel() * b.element_size() for b in model.buffers())
-    size_mb = (param_size + buffer_size) / 1e6
-    logger.info(f"Size (MB): {size_mb:.2f}")
-    return size_mb
+    torch.save(model.state_dict(), "tmp.p")
+    print("Size (MB): " + str(os.path.getsize("tmp.p") / 1e6))
+    os.remove("tmp.p")
 
 def generate_batch_completions(
     model: AutoModelForCausalLM,
@@ -130,15 +127,6 @@ if __name__ == "__main__":
         model_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         model.to(model_device)
 
-    # pipe = pipeline(
-    #     task="text-generation", 
-    #     model="meta-llama/Llama-3.1-8B-Instruct", 
-    #     device_map=device_map,
-    #     torch_dtype=torch_dtype,
-    #     trust_remote_code=True,
-    #     config=quant_conf
-    # )
-    # pipe.tokenizer.pad_token = pipe.tokenizer.eos_token  # Imposta il token di padding
     times_file = f"times/times_{job_id}.csv"
     samples_file = f"samples_{job_id}.jsonl"
   
@@ -146,13 +134,12 @@ if __name__ == "__main__":
     problems = read_problems()
     
     # Stampa dimensione del modello
-    model_size = print_model_size(model)
-    logger.info(f"Model size: {model_size:.2f} MB")
+    print_model_size(model)
     
     # Assicurati che le directory esistano
     ensure_directory_exists(times_file)
     
-    # Prepara header del CSV se il file non esiste
+    # # Prepara header del CSV se il file non esiste
     if not os.path.exists(times_file):
         with open(times_file, "w", newline="") as f:
             writer = csv.writer(f)
@@ -161,7 +148,7 @@ if __name__ == "__main__":
     all_times = []
     all_samples = []
     
-    # Prepara tutti i prompt in anticipo
+    # # Prepara tutti i prompt in anticipo
     task_ids = list(problems.keys())
 
     ## GPU/Model Warmup
@@ -184,7 +171,7 @@ if __name__ == "__main__":
     
     logger.info(f"Generando {args.num_samples_per_task} samples per {len(task_ids)} tasks...")
     
-    # Parametri di generazione condivisi
+    # # Parametri di generazione condivisi
     gen_kwargs = dict(
         do_sample=True,
         max_new_tokens=args.max_new_tokens,
@@ -248,7 +235,6 @@ if __name__ == "__main__":
             "avg_time_per_sample": avg_time,
             "total_time": total_time,
             "throughput": throughput,
-            "model_size_mb": model_size,
             "num_tasks": len(task_ids),
             "samples_per_task": args.num_samples_per_task
         }, f, indent=2)

@@ -1,0 +1,5 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:17<00:53, 17.95s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:42<00:43, 21.75s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:09<00:24, 24.28s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:13<00:00, 16.34s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:13<00:00, 18.46s/it]
+/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py:2356: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Size (MB): 5809.99012

@@ -1,0 +1,9 @@
+{
+  "job_id": "495504",
+  "total_samples": 16400,
+  "avg_time_per_sample": 1.189857117882589,
+  "total_time": 19513.65673327446,
+  "throughput": 0.840437044894559,
+  "num_tasks": 164,
+  "samples_per_task": 100
+}
