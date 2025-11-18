@@ -1,9 +1,0 @@
-{
-  "model_path": "./codegen_finetuned",
-  "num_samples_per_task": 20,
-  "max_new_tokens": 256,
-  "temperature": 0.8,
-  "top_p": 0.95,
-  "num_problems": 164,
-  "total_samples": 3280
-}

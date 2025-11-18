@@ -35,7 +35,7 @@ def generate_batch_completions(
     Ritorna (samples, total_time_sec), dove samples è una lista di dict
     {task_id, completion}.
     """
-    start_time = time()
+    times = []
     samples: List[Dict] = []
 
     for i in range(0, len(prompts), batch_size):
@@ -54,6 +54,7 @@ def generate_batch_completions(
             enc = {k: v.to(model_device) for k, v in enc.items()}
 
         with torch.no_grad():
+            start_time = time()
             outputs = model.generate(
                 input_ids=enc["input_ids"],
                 attention_mask=enc.get("attention_mask"),
@@ -64,8 +65,10 @@ def generate_batch_completions(
         for tid, text in zip(batch_task_ids, texts):
             samples.append({"task_id": tid, "completion": text})
 
-    total_time = time() - start_time
-    return samples, total_time
+        batch_time = time() - start_time
+        times.append(batch_time)
+
+    return samples, times
 
 def write_samples_batch(samples: List[Dict], filename: str = "samples.jsonl"):
     """Scrive i samples in batch invece di uno alla volta"""
@@ -134,7 +137,7 @@ if __name__ == "__main__":
     problems = read_problems()
     
     # Stampa dimensione del modello
-    print_model_size(model)
+    # print_model_size(model)
     
     # Assicurati che le directory esistano
     ensure_directory_exists(times_file)
@@ -143,7 +146,7 @@ if __name__ == "__main__":
     if not os.path.exists(times_file):
         with open(times_file, "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["task_id", "batch_time", "samples_in_batch", "time_per_sample"])
+            writer.writerow(["task_id", "batch_time", "samples_in_batch"])
     
     all_times = []
     all_samples = []
@@ -188,7 +191,7 @@ if __name__ == "__main__":
         prompts = [problems[task_id]["prompt"] for task_id in task_ids]
         
         # Genera completions in batch
-        batch_samples, batch_time = generate_batch_completions(
+        batch_samples, batch_times = generate_batch_completions(
             model=model,
             tokenizer=tokenizer,
             prompts=prompts,
@@ -203,17 +206,21 @@ if __name__ == "__main__":
         all_samples.extend(batch_samples)
         
         # Calcola statistiche di timing
-        time_per_sample = batch_time / len(batch_samples)
-        all_times.append(time_per_sample)
-        batch_total_times.append(batch_time)
+        # time_per_sample = batch_time / len(batch_samples)
+        # all_times.append(time_per_sample)
+        batch_total_times.extend(batch_times)
         
         # Salva timing info
         with open(times_file, "a", newline="") as f:
             writer = csv.writer(f)
-            for i, task_id in enumerate(task_ids):
-                writer.writerow([task_id, batch_time, len(batch_samples), time_per_sample])
+            num_tasks = len(task_ids)
+            for i, batch_time in enumerate(batch_times):
+                start = i * args.batch_size
+                end = min(start + args.batch_size, num_tasks)
+                bs = max(0, end - start)
+                writer.writerow([f"batch_{sample_idx}_{i}", batch_time, bs])
         
-        logger.info(f"Batch time: {batch_time:.2f}s, Time per sample: {time_per_sample:.2f}s")
+        # logger.info(f"Batch time: {batch_time:.2f}s, Time per sample: {time_per_sample:.2f}s")
     
     # Statistiche finali
     total_samples = len(all_samples)
