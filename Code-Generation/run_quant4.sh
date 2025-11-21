@@ -5,7 +5,7 @@
 #SBATCH -J codegen
 #SBATCH -p cuda
 #SBATCH -c 10
-#SBATCH --gres=gpu:fat
+#SBATCH --gres=gpu:large
 # SBATCH --gres=gpu:3c_s80g:1
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
