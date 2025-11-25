@@ -17,4 +17,4 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python generation.py --job_id $SLURM_JOB_ID
+srun python generation.py --job_id $SLURM_JOB_ID 

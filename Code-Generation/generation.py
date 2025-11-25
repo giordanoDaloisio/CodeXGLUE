@@ -137,7 +137,7 @@ if __name__ == "__main__":
     problems = read_problems()
     
     # Stampa dimensione del modello
-    # print_model_size(model)
+    print_model_size(model)
     
     # Assicurati che le directory esistano
     ensure_directory_exists(times_file)

@@ -421,3 +421,15 @@ Code Generation CodeGen-350M,Distillation (DistilGPT),Model Size,163.907255
 Code Generation CodeGen-350M,Pruning 0.2,Model Size,709.770889
 Code Generation CodeGen-350M,Pruning 0.4,Model Size,1419.484809
 Code Generation CodeGen-350M,Pruning 0.6,Model Size,1419.484809
+Code Generation Qwen3-4B,No One,Model Size,16090.030731
+Code Generation Qwen3-4B,No One,Pass@1, 0.0716
+Code Generation Qwen3-4B,No One,Pass@10,0.2798
+Code Generation Qwen3-4B,No One,Pass@20,0.3467
+Code Generation Qwen3-4B,Quantization (quanto-qint4),Model Size,2708.911177
+Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@1, 0.0980
+Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@10,0.3718
+Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@20,0.4611
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Model Size,4414.166045
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1, 0.0645
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2746
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3501

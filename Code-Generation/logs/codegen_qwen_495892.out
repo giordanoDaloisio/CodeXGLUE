@@ -1,0 +1,113 @@
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [01:15<02:30, 75.10s/it]Fetching 3 files: 100%|██████████| 3/3 [01:15<00:00, 25.03s/it]
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:06<00:12,  6.40s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:12<00:06,  6.47s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:12<00:00,  4.31s/it]
+INFO:__main__:Eseguendo warmup del modello...
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+INFO:__main__:Warmup completato.
+INFO:__main__:Generando 100 samples per 164 tasks...
+INFO:__main__:Batch 1/100
+INFO:__main__:Batch 2/100
+INFO:__main__:Batch 3/100
+INFO:__main__:Batch 4/100
+INFO:__main__:Batch 5/100
+INFO:__main__:Batch 6/100
+INFO:__main__:Batch 7/100
+INFO:__main__:Batch 8/100
+INFO:__main__:Batch 9/100
+INFO:__main__:Batch 10/100
+INFO:__main__:Batch 11/100
+INFO:__main__:Batch 12/100
+INFO:__main__:Batch 13/100
+INFO:__main__:Batch 14/100
+INFO:__main__:Batch 15/100
+INFO:__main__:Batch 16/100
+INFO:__main__:Batch 17/100
+INFO:__main__:Batch 18/100
+INFO:__main__:Batch 19/100
+INFO:__main__:Batch 20/100
+INFO:__main__:Batch 21/100
+INFO:__main__:Batch 22/100
+INFO:__main__:Batch 23/100
+INFO:__main__:Batch 24/100
+INFO:__main__:Batch 25/100
+INFO:__main__:Batch 26/100
+INFO:__main__:Batch 27/100
+INFO:__main__:Batch 28/100
+INFO:__main__:Batch 29/100
+INFO:__main__:Batch 30/100
+INFO:__main__:Batch 31/100
+INFO:__main__:Batch 32/100
+INFO:__main__:Batch 33/100
+INFO:__main__:Batch 34/100
+INFO:__main__:Batch 35/100
+INFO:__main__:Batch 36/100
+INFO:__main__:Batch 37/100
+INFO:__main__:Batch 38/100
+INFO:__main__:Batch 39/100
+INFO:__main__:Batch 40/100
+INFO:__main__:Batch 41/100
+INFO:__main__:Batch 42/100
+INFO:__main__:Batch 43/100
+INFO:__main__:Batch 44/100
+INFO:__main__:Batch 45/100
+INFO:__main__:Batch 46/100
+INFO:__main__:Batch 47/100
+INFO:__main__:Batch 48/100
+INFO:__main__:Batch 49/100
+INFO:__main__:Batch 50/100
+INFO:__main__:Batch 51/100
+INFO:__main__:Batch 52/100
+INFO:__main__:Batch 53/100
+INFO:__main__:Batch 54/100
+INFO:__main__:Batch 55/100
+INFO:__main__:Batch 56/100
+INFO:__main__:Batch 57/100
+INFO:__main__:Batch 58/100
+INFO:__main__:Batch 59/100
+INFO:__main__:Batch 60/100
+INFO:__main__:Batch 61/100
+INFO:__main__:Batch 62/100
+INFO:__main__:Batch 63/100
+INFO:__main__:Batch 64/100
+INFO:__main__:Batch 65/100
+INFO:__main__:Batch 66/100
+INFO:__main__:Batch 67/100
+INFO:__main__:Batch 68/100
+INFO:__main__:Batch 69/100
+INFO:__main__:Batch 70/100
+INFO:__main__:Batch 71/100
+INFO:__main__:Batch 72/100
+INFO:__main__:Batch 73/100
+INFO:__main__:Batch 74/100
+INFO:__main__:Batch 75/100
+INFO:__main__:Batch 76/100
+INFO:__main__:Batch 77/100
+INFO:__main__:Batch 78/100
+INFO:__main__:Batch 79/100
+INFO:__main__:Batch 80/100
+INFO:__main__:Batch 81/100
+INFO:__main__:Batch 82/100
+INFO:__main__:Batch 83/100
+INFO:__main__:Batch 84/100
+INFO:__main__:Batch 85/100
+INFO:__main__:Batch 86/100
+INFO:__main__:Batch 87/100
+INFO:__main__:Batch 88/100
+INFO:__main__:Batch 89/100
+INFO:__main__:Batch 90/100
+INFO:__main__:Batch 91/100
+INFO:__main__:Batch 92/100
+INFO:__main__:Batch 93/100
+INFO:__main__:Batch 94/100
+INFO:__main__:Batch 95/100
+INFO:__main__:Batch 96/100
+INFO:__main__:Batch 97/100
+INFO:__main__:Batch 98/100
+INFO:__main__:Batch 99/100
+INFO:__main__:Batch 100/100
+INFO:__main__:
+Statistiche finali:
+INFO:__main__:- Totale samples generati: 16400
+INFO:__main__:- Tempo medio per sample: 0.00s
+INFO:__main__:- Tempo totale: 26092.92s
+INFO:__main__:- Throughput: 0.63 samples/s
+Size (MB): 16090.030731

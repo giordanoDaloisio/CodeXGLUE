@@ -1,0 +1,50 @@
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:10<00:21, 10.80s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:22<00:11, 11.39s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:22<00:00,  6.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:22<00:00,  7.66s/it]
+/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py:2356: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+INFO:__main__:Eseguendo warmup del modello...
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+INFO:__main__:Warmup completato.
+INFO:__main__:Generando 100 samples per 164 tasks...
+INFO:__main__:Batch 1/100
+INFO:__main__:Batch 2/100
+INFO:__main__:Batch 3/100
+INFO:__main__:Batch 4/100
+INFO:__main__:Batch 5/100
+INFO:__main__:Batch 6/100
+INFO:__main__:Batch 7/100
+INFO:__main__:Batch 8/100
+INFO:__main__:Batch 9/100
+INFO:__main__:Batch 10/100
+INFO:__main__:Batch 11/100
+INFO:__main__:Batch 12/100
+INFO:__main__:Batch 13/100
+INFO:__main__:Batch 14/100
+INFO:__main__:Batch 15/100
+INFO:__main__:Batch 16/100
+INFO:__main__:Batch 17/100
+INFO:__main__:Batch 18/100
+INFO:__main__:Batch 19/100
+INFO:__main__:Batch 20/100
+INFO:__main__:Batch 21/100
+INFO:__main__:Batch 22/100
+INFO:__main__:Batch 23/100
+INFO:__main__:Batch 24/100
+INFO:__main__:Batch 25/100
+INFO:__main__:Batch 26/100
+INFO:__main__:Batch 27/100
+INFO:__main__:Batch 28/100
+INFO:__main__:Batch 29/100
+INFO:__main__:Batch 30/100
+INFO:__main__:Batch 31/100
+INFO:__main__:Batch 32/100
+INFO:__main__:Batch 33/100
+INFO:__main__:Batch 34/100
+INFO:__main__:Batch 35/100
+INFO:__main__:Batch 36/100
+INFO:__main__:Batch 37/100
+INFO:__main__:Batch 38/100
+INFO:__main__:Batch 39/100
+INFO:__main__:Batch 40/100
+INFO:__main__:Batch 41/100
+INFO:__main__:Batch 42/100
