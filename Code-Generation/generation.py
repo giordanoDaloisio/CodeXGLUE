@@ -10,6 +10,7 @@ from argparse import ArgumentParser
 from typing import List, Dict, Optional
 import json
 import logging
+from torch.nn.utils import prune
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -91,6 +92,9 @@ if __name__ == "__main__":
     parser.add_argument("--quantf8", action="store_true", help="Use quantization for the model")
     parser.add_argument("--quant8", action="store_true", help="Use quantization for the model")
     parser.add_argument("--quant4", action="store_true", help="Use quantization for the model")
+    parser.add_argument("--prune6", action="store_true", help="Use prune for the model")
+    parser.add_argument("--prune4", action="store_true", help="Use prune for the model")
+    parser.add_argument("--prune", action="store_true", help="Use prune for the model")
     parser.add_argument("--model_name_or_path", type=str, default="meta-llama/Llama-3.1-8B-Instruct", help="Model name or path")
 
     args = parser.parse_args()
@@ -121,6 +125,54 @@ if __name__ == "__main__":
         trust_remote_code=True,
         quantization_config=quant_conf
     )
+
+    if args.prune6:
+            logger.info("******* Apply Pruning 0.6 ***********")
+            parameters_to_prune = []
+            
+            for module in model.modules():
+                if isinstance(module, torch.nn.Linear):
+                    parameters_to_prune.append((module, "weight"))
+            prune.global_unstructured(
+                parameters_to_prune,
+                pruning_method=prune.L1Unstructured,
+                amount=0.6,
+            )
+            for module, param in parameters_to_prune:
+                prune.remove(module, param)
+
+    if args.prune4:
+        logger.info("******* Apply Pruning 0.4 ***********")
+        parameters_to_prune = []
+        
+        for module in model.modules():
+            if isinstance(module, torch.nn.Linear):
+                parameters_to_prune.append((module, "weight"))
+        prune.global_unstructured(
+            parameters_to_prune,
+            pruning_method=prune.L1Unstructured,
+            amount=0.4,
+        )
+        for module, param in parameters_to_prune:
+            logger.info(prune.is_pruned(module))
+            prune.remove(module, param)
+            logger.info(prune.is_pruned(module))
+
+    if args.prune:
+        logger.info("******* Apply Pruning 0.2 ***********")
+        parameters_to_prune = []
+        
+        for module in model.modules():
+            if isinstance(module, torch.nn.Linear):
+                parameters_to_prune.append((module, "weight"))
+        prune.global_unstructured(
+            parameters_to_prune,
+            pruning_method=prune.L1Unstructured,
+            amount=0.2,
+        )
+        for module, param in parameters_to_prune:
+            prune.remove(module, param)
+ 
 
     model.eval()
 

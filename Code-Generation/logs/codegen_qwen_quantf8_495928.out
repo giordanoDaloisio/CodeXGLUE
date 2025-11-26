@@ -48,3 +48,68 @@ INFO:__main__:Batch 39/100
 INFO:__main__:Batch 40/100
 INFO:__main__:Batch 41/100
 INFO:__main__:Batch 42/100
+INFO:__main__:Batch 43/100
+INFO:__main__:Batch 44/100
+INFO:__main__:Batch 45/100
+INFO:__main__:Batch 46/100
+INFO:__main__:Batch 47/100
+INFO:__main__:Batch 48/100
+INFO:__main__:Batch 49/100
+INFO:__main__:Batch 50/100
+INFO:__main__:Batch 51/100
+INFO:__main__:Batch 52/100
+INFO:__main__:Batch 53/100
+INFO:__main__:Batch 54/100
+INFO:__main__:Batch 55/100
+INFO:__main__:Batch 56/100
+INFO:__main__:Batch 57/100
+INFO:__main__:Batch 58/100
+INFO:__main__:Batch 59/100
+INFO:__main__:Batch 60/100
+INFO:__main__:Batch 61/100
+INFO:__main__:Batch 62/100
+INFO:__main__:Batch 63/100
+INFO:__main__:Batch 64/100
+INFO:__main__:Batch 65/100
+INFO:__main__:Batch 66/100
+INFO:__main__:Batch 67/100
+INFO:__main__:Batch 68/100
+INFO:__main__:Batch 69/100
+INFO:__main__:Batch 70/100
+INFO:__main__:Batch 71/100
+INFO:__main__:Batch 72/100
+INFO:__main__:Batch 73/100
+INFO:__main__:Batch 74/100
+INFO:__main__:Batch 75/100
+INFO:__main__:Batch 76/100
+INFO:__main__:Batch 77/100
+INFO:__main__:Batch 78/100
+INFO:__main__:Batch 79/100
+INFO:__main__:Batch 80/100
+INFO:__main__:Batch 81/100
+INFO:__main__:Batch 82/100
+INFO:__main__:Batch 83/100
+INFO:__main__:Batch 84/100
+INFO:__main__:Batch 85/100
+INFO:__main__:Batch 86/100
+INFO:__main__:Batch 87/100
+INFO:__main__:Batch 88/100
+INFO:__main__:Batch 89/100
+INFO:__main__:Batch 90/100
+INFO:__main__:Batch 91/100
+INFO:__main__:Batch 92/100
+INFO:__main__:Batch 93/100
+INFO:__main__:Batch 94/100
+INFO:__main__:Batch 95/100
+INFO:__main__:Batch 96/100
+INFO:__main__:Batch 97/100
+INFO:__main__:Batch 98/100
+INFO:__main__:Batch 99/100
+INFO:__main__:Batch 100/100
+INFO:__main__:
+Statistiche finali:
+INFO:__main__:- Totale samples generati: 16400
+INFO:__main__:- Tempo medio per sample: 0.00s
+INFO:__main__:- Tempo totale: 23973.86s
+INFO:__main__:- Throughput: 0.68 samples/s
+Size (MB): 4414.166877

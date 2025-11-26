@@ -16,4 +16,4 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python evaluate_samples.py --sample_file samples_495922.jsonl
+srun python evaluate_samples.py --sample_file samples_495928.jsonl
