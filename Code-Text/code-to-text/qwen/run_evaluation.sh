@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs_llama/eval_distillation.out
+#SBATCH -o ./logs_qwen/eval_%j.out
 #SBATCH -J eval
 #SBATCH -p cuda
 #SBATCH -c 10
@@ -19,4 +19,4 @@ target_length=128
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python evaluator/evaluator_llama.py --file code_summarization_results_distillation.json
+srun python evaluator/evaluator_qwen.py --file code_summarization_results_None.json

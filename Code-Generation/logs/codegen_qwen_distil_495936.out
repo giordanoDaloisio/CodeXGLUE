@@ -35,3 +35,26 @@ INFO:__main__:Batch 29/100
 INFO:__main__:Batch 30/100
 INFO:__main__:Batch 31/100
 INFO:__main__:Batch 32/100
+INFO:__main__:Batch 33/100
+INFO:__main__:Batch 34/100
+INFO:__main__:Batch 35/100
+srun: forcing job termination
+srun: got SIGCONT
+slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
+slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
+slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
+slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
+slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
+slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
+slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
+slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
+slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
+slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
+slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
+slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
+slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
+slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
+slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
+slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
+slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
+slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
