@@ -86,13 +86,10 @@ class CodeSummarizer:
         
         logger.info("Model loaded successfully")
     
-    def print_model_size(self, model):
-        """Calcola la dimensione del modello senza salvare file temporanei"""
-        param_size = sum(p.numel() * p.element_size() for p in model.parameters())
-        buffer_size = sum(b.numel() * b.element_size() for b in model.buffers())
-        size_mb = (param_size + buffer_size) / 1e6
-        print(f"Size (MB): {size_mb:.2f}")
-        return size_mb
+    def print_model_size(model):
+        torch.save(model.state_dict(), "tmp.p")
+        print("Size (MB): " + str(os.path.getsize("tmp.p") / 1e6))
+        os.remove("tmp.p")
     
     def apply_unstructured_pruning(self, pruning_amount: float):
         """

@@ -372,7 +372,7 @@ Summarization Llama3.1,Quantization (quanto-qfloat8),Model Size,9084.264369
 Summarization Llama3.1,Quantization (quanto-qint8),Model Size,9084.263665
 Summarization Llama3.1,Quantization (quanto-qint4),Model Size,5809.99012
 Summarization Llama3.1,Distillation (Llama3.2-1B),Model Size,4943.26
-Code Generation Llama3.1,No One,Pass@1,0.28884146341463407
+Code Generation Llama3.1,No One,Pass@1,0.288841463414634
 Code Generation Llama3.1,No One,Pass@10,0.749785615211382
 Code Generation Llama3.1,No One,Pass@20,0.8121669508136505
 Code Generation Llama3.1,Quantization (quanto-qfloat8),Pass@1,0.2548
@@ -389,30 +389,30 @@ Code Generation Llama3.1,Quantization (quanto-qfloat8),Model Size,9084.264369
 Code Generation Llama3.1,Quantization (quanto-qint8),Model Size,9084.263665
 Code Generation Llama3.1,Quantization (quanto-qint4),Model Size,5809.99012
 Code Generation Llama3.1,Distillation (Llama3.2-1B),Model Size,4943.26
-Code Generation CodeGen-350M,No One,Pass@1,0.019817073170731708
-Code Generation CodeGen-350M,No One,Pass@10,0.09650345029885164
-Code Generation CodeGen-350M,No One,Pass@20,0.12195121951219512
-Code Generation CodeGen-350M,Quantization (quanto-qfloat8),Pass@1,0.009756097560975611
-Code Generation CodeGen-350M,Quantization (quanto-qfloat8),Pass@10,0.04867411811174554
-Code Generation CodeGen-350M,Quantization (quanto-qfloat8),Pass@20,0.07317073170731707
-Code Generation CodeGen-350M,Quantization (quanto-qint4),Pass@1,0.02743902439024391
-Code Generation CodeGen-350M,Quantization (quanto-qint4),Pass@10,0.10065695084195424
-Code Generation CodeGen-350M,Quantization (quanto-qint4),Pass@20,0.12804878048780488
-Code Generation CodeGen-350M,Quantization (quanto-qint8),Pass@1,0.021341463414634148
-Code Generation CodeGen-350M,Quantization (quanto-qint8),Pass@10,0.10042351837545525
-Code Generation CodeGen-350M,Quantization (quanto-qint8),Pass@20,0.13414634146341464
+Code Generation CodeGen-350M,No One,Pass@1,0.0198170731707317
+Code Generation CodeGen-350M,No One,Pass@10,0.0965034502988516
+Code Generation CodeGen-350M,No One,Pass@20,0.1219512195121951
+Code Generation CodeGen-350M,Quantization (quanto-qfloat8),Pass@1,0.0097560975609756
+Code Generation CodeGen-350M,Quantization (quanto-qfloat8),Pass@10,0.0486741181117455
+Code Generation CodeGen-350M,Quantization (quanto-qfloat8),Pass@20,0.073170731707317
+Code Generation CodeGen-350M,Quantization (quanto-qint4),Pass@1,0.0274390243902439
+Code Generation CodeGen-350M,Quantization (quanto-qint4),Pass@10,0.1006569508419542
+Code Generation CodeGen-350M,Quantization (quanto-qint4),Pass@20,0.1280487804878048
+Code Generation CodeGen-350M,Quantization (quanto-qint8),Pass@1,0.0213414634146341
+Code Generation CodeGen-350M,Quantization (quanto-qint8),Pass@10,0.1004235183754552
+Code Generation CodeGen-350M,Quantization (quanto-qint8),Pass@20,0.1341463414634146
 Code Generation CodeGen-350M,Distillation (DistilGPT),Pass@1,0.0003
-Code Generation CodeGen-350M,Distillation (DistilGPT),Pass@10,0.0030
+Code Generation CodeGen-350M,Distillation (DistilGPT),Pass@10,0.003
 Code Generation CodeGen-350M,Distillation (DistilGPT),Pass@20,0.0061
 Code Generation CodeGen-350M,Pruning 0.6,Pass@1,0.0
 Code Generation CodeGen-350M,Pruning 0.6,Pass@10,0.0
 Code Generation CodeGen-350M,Pruning 0.6,Pass@20,0.0
-Code Generation CodeGen-350M,Pruning 0.4,Pass@1,0.015548780487804883
-Code Generation CodeGen-350M,Pruning 0.4,Pass@10,0.06273851497743366
-Code Generation CodeGen-350M,Pruning 0.4,Pass@20,0.07926829268292683
-Code Generation CodeGen-350M,Pruning 0.2,Pass@1,0.01707317073170732
-Code Generation CodeGen-350M,Pruning 0.2,Pass@10,0.08644658030182457
-Code Generation CodeGen-350M,Pruning 0.2,Pass@20,0.11585365853658537
+Code Generation CodeGen-350M,Pruning 0.4,Pass@1,0.0155487804878048
+Code Generation CodeGen-350M,Pruning 0.4,Pass@10,0.0627385149774336
+Code Generation CodeGen-350M,Pruning 0.4,Pass@20,0.0792682926829268
+Code Generation CodeGen-350M,Pruning 0.2,Pass@1,0.0170731707317073
+Code Generation CodeGen-350M,Pruning 0.2,Pass@10,0.0864465803018245
+Code Generation CodeGen-350M,Pruning 0.2,Pass@20,0.1158536585365853
 Code Generation CodeGen-350M,No One,Model Size,1419.484809
 Code Generation CodeGen-350M,Quantization (quanto-qint4),Model Size,709.716526
 Code Generation CodeGen-350M,Quantization (quanto-qint8),Model Size,709.716526
@@ -422,19 +422,22 @@ Code Generation CodeGen-350M,Pruning 0.2,Model Size,709.770889
 Code Generation CodeGen-350M,Pruning 0.4,Model Size,1419.484809
 Code Generation CodeGen-350M,Pruning 0.6,Model Size,1419.484809
 Code Generation Qwen3-4B,No One,Model Size,16090.030731
-Code Generation Qwen3-4B,No One,Pass@1, 0.0716
+Code Generation Qwen3-4B,No One,Pass@1,0.0716
 Code Generation Qwen3-4B,No One,Pass@10,0.2798
 Code Generation Qwen3-4B,No One,Pass@20,0.3467
 Code Generation Qwen3-4B,Quantization (quanto-qint4),Model Size,2708.911177
-Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@1, 0.0980
+Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@1,0.098
 Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@10,0.3718
 Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@20,0.4611
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Model Size,4414.166045
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1, 0.0645
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0645
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2746
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3501
 Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Model Size,4414.166877
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1, 0.0768
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0768
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2987
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3735
 Code Summarization Qwen3-4B,No One,Model Size,16090.030731
+Summarization Llama3.1,No One,Bleu,9.704966460235557
+Summarization Llama3.1,No One,BERTScore,0.8681375892507274
+Summarization Llama3.1,No One,SIDE,0.8852656660746869

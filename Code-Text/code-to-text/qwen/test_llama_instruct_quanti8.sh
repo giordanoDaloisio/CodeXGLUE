@@ -1,12 +1,12 @@
 #!/bin/bash -l
 #SBATCH -s
 #SBATCH -n 1
-#SBATCH -o ./logs_llama/cuda_instruct_quanti8_%j.out
-#SBATCH -J llama_test
+#SBATCH -o ./logs_qwen/cuda_instruct_quanti8_%j.out
+#SBATCH -J llama_qwen
 #SBATCH -p cuda
 #SBATCH -c 10
 # SBATCH --gres=gpu:3c_s80g:1
-#SBATCH --gres=gpu:fat
+#SBATCH --gres=gpu:large
 
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -19,4 +19,4 @@ cd code
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python code_summarization_llama.py --quanti8 --job_id=$SLURM_JOB_ID
+srun python code_summarization_llama.py --quanti8 --job_id=$SLURM_JOB_ID --model_name Qwen/Qwen3-4B-Instruct-2507

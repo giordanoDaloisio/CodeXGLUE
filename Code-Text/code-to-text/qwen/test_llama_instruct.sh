@@ -31,4 +31,4 @@ test_file=$data_dir/$lang/test.jsonl
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python code_summarization_llama.py --model_name Qwen/Qwen3-4B-Instruct-2507 
+srun python code_summarization_llama.py --model_name Qwen/Qwen2.5-7B-Instruct
