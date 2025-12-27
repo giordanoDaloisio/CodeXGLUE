@@ -454,8 +454,8 @@ Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0645
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2746
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3501
 Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Model Size,4414.166877
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0768
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2987
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3735
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@1,0.0768
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@10,0.2987
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@20,0.3735
 
 
