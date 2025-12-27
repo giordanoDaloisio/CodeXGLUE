@@ -5,7 +5,7 @@
 #SBATCH -J codegen_qwen
 #SBATCH -p cuda
 #SBATCH -c 10
-#SBATCH --gres=gpu:large
+#SBATCH --gres=gpu:3c_s80g:1
 
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 export OPENBLAS_NUM_THREADS=${SLURM_CPUS_PER_TASK}
@@ -17,4 +17,4 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python generation.py --job_id $SLURM_JOB_ID --quantf8 --model_name_or_path Qwen/Qwen3-4B-Instruct-2507
+srun python generation.py --job_id $SLURM_JOB_ID --quantf8 --model_name_or_path Qwen/Qwen2.5-7B-Instruct
