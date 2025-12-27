@@ -425,6 +425,26 @@ Code Generation Qwen2.5-7B,No One,Model Size,29941.563392
 Code Generation Qwen2.5-7B,No One,Pass@1,0.031
 Code Generation Qwen2.5-7B,No One,Pass@10,0.1774
 Code Generation Qwen2.5-7B,No One,Pass@20,0.2467
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Model Size,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@1,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@10,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@20,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Model Size,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@1,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@10,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@20,
+Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Model Size,8709.021065
+Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Pass@1,0.0
+Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Pass@10,0.0
+Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Pass@20,0.0
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Model Size,6174.975007
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@1,0.0078
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@10,0.0636
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@20,0.1076
+Code Generation Qwen3-4B,No One,Model Size,16090.030731
+Code Generation Qwen3-4B,No One,Pass@1,0.0716
+Code Generation Qwen3-4B,No One,Pass@10,0.2798
+Code Generation Qwen3-4B,No One,Pass@20,0.3467
 Code Generation Qwen3-4B,Quantization (quanto-qint4),Model Size,2708.911177
 Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@1,0.098
 Code Generation Qwen3-4B,Quantization (quanto-qint4),Pass@10,0.3718
@@ -433,13 +453,9 @@ Code Generation Qwen3-4B,Quantization (quanto-qint8),Model Size,4414.166045
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0645
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2746
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3501
-Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Model Size,8709.021065
-Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@1,
-Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@10,
-Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@20,
-Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Model Size,6174.975007
-Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@1,0.0078
-Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@10,0.0636
-Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@20,0.1076
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Model Size,4414.166877
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0768
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2987
+Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3735
 
 
