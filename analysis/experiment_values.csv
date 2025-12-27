@@ -434,10 +434,12 @@ Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0645
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2746
 Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3501
 Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Model Size,4414.166877
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@1,0.0768
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@10,0.2987
-Code Generation Qwen3-4B,Quantization (quanto-qint8),Pass@20,0.3735
-Code Summarization Qwen3-4B,No One,Model Size,16090.030731
-Summarization Llama3.1,No One,Bleu,9.704966460235557
-Summarization Llama3.1,No One,BERTScore,0.8681375892507274
-Summarization Llama3.1,No One,SIDE,0.8852656660746869
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@1,0.0768
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@10,0.2987
+Code Generation Qwen3-4B,Quantization (quanto-qfloat8),Pass@20,0.3735
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Model Size,6174.975007
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@1,0.0078
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@10,0.0636
+Code Generation Qwen3-4B,Distillation (DistilQwen2.5-1.5B-Instruct),Pass@20,0.1076
+
+

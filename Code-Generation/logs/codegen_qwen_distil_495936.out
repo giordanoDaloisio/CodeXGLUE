@@ -1,60 +1,0 @@
-Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:54<00:54, 54.38s/it]Fetching 2 files: 100%|██████████| 2/2 [00:54<00:00, 27.19s/it]
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.51s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:03<00:00,  1.63s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:03<00:00,  1.76s/it]
-INFO:__main__:Eseguendo warmup del modello...
-INFO:__main__:Warmup completato.
-INFO:__main__:Generando 100 samples per 164 tasks...
-INFO:__main__:Batch 1/100
-INFO:__main__:Batch 2/100
-INFO:__main__:Batch 3/100
-INFO:__main__:Batch 4/100
-INFO:__main__:Batch 5/100
-INFO:__main__:Batch 6/100
-INFO:__main__:Batch 7/100
-INFO:__main__:Batch 8/100
-INFO:__main__:Batch 9/100
-INFO:__main__:Batch 10/100
-INFO:__main__:Batch 11/100
-INFO:__main__:Batch 12/100
-INFO:__main__:Batch 13/100
-INFO:__main__:Batch 14/100
-INFO:__main__:Batch 15/100
-INFO:__main__:Batch 16/100
-INFO:__main__:Batch 17/100
-INFO:__main__:Batch 18/100
-INFO:__main__:Batch 19/100
-INFO:__main__:Batch 20/100
-INFO:__main__:Batch 21/100
-INFO:__main__:Batch 22/100
-INFO:__main__:Batch 23/100
-INFO:__main__:Batch 24/100
-INFO:__main__:Batch 25/100
-INFO:__main__:Batch 26/100
-INFO:__main__:Batch 27/100
-INFO:__main__:Batch 28/100
-INFO:__main__:Batch 29/100
-INFO:__main__:Batch 30/100
-INFO:__main__:Batch 31/100
-INFO:__main__:Batch 32/100
-INFO:__main__:Batch 33/100
-INFO:__main__:Batch 34/100
-INFO:__main__:Batch 35/100
-srun: forcing job termination
-srun: got SIGCONT
-slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
-slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
-slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
-slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
-slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
-slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
-slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
-slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
-slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
-slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
-slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
-slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
-slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
-slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
-slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
-slurmstepd-compute-2-3: error: If munged is up, restart with --num-threads=10
-slurmstepd-compute-2-3: error: Munge encode failed: Failed to access "/var/run/munge/munge.socket.2": No such file or directory
-slurmstepd-compute-2-3: error: slurm_send_node_msg: auth_g_create: REQUEST_COMPLETE_BATCH_SCRIPT has authentication error
