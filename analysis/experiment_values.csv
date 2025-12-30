@@ -429,7 +429,7 @@ Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Model Size,
 Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@1,
 Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@10,
 Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@20,
-Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Model Size,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Model Size,8709.020361
 Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@1,
 Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@10,
 Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@20,
