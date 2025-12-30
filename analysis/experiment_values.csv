@@ -425,14 +425,14 @@ Code Generation Qwen2.5-7B,No One,Model Size,29941.563392
 Code Generation Qwen2.5-7B,No One,Pass@1,0.031
 Code Generation Qwen2.5-7B,No One,Pass@10,0.1774
 Code Generation Qwen2.5-7B,No One,Pass@20,0.2467
-Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Model Size,
-Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@1,
-Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@10,
-Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@20,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Model Size,None
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@1,None
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@10,None
+Code Generation Qwen2.5-7B,Quantization (quanto-qint4),Pass@20,None
 Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Model Size,8709.020361
-Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@1,
-Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@10,
-Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@20,
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@1,0.03
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@10,0.1746
+Code Generation Qwen2.5-7B,Quantization (quanto-qint8),Pass@20,0.2467
 Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Model Size,8709.021065
 Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Pass@1,0.0
 Code Generation Qwen2.5-7B,Quantization (quanto-qfloat8),Pass@10,0.0

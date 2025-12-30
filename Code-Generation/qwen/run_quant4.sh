@@ -18,4 +18,4 @@ export NUMEXPR_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python generation.py --job_id $SLURM_JOB_ID --quant4 --model_name_or_path Qwen/Qwen2.5-7B-Instruct
+srun python generation.py --job_id $SLURM_JOB_ID --quant4 --model_name_or_path Qwen/Qwen3-4B-Instruct-2507
