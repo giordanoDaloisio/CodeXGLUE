@@ -31,4 +31,4 @@ test_file=$data_dir/$lang/test.jsonl
 source /NFSHOME/gdaloisio/miniconda3/etc/profile.d/conda.sh
 conda activate codex
 
-srun python code_summarization_llama.py --distillation
+srun python code_summarization_llama.py --job_id=$SLURM_JOB_ID --model_name alibaba-pai/DistilQwen2.5-1.5B-Instruct

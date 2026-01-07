@@ -11,6 +11,7 @@ from typing import List, Dict, Optional
 import json
 import logging
 from torch.nn.utils import prune
+# from optimum.quanto import QuantizedModelForCausalLM, qint4, qint8, qfloat8
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -125,6 +126,14 @@ if __name__ == "__main__":
         trust_remote_code=True,
         quantization_config=quant_conf
     )
+
+    # if args.quantf8 or args.quant8 or args.quant4:
+    #     logger.info("******* Apply Quantization ***********")
+    #     # quant_conf = QuantoConfig(weights="float8" if args.quantf8 else "int8" if args.quant8 else "int4")
+    #     weight = qfloat8 if args.quantf8 else qint8 if args.quant8 else qint4
+    #     model = QuantizedModelForCausalLM.quantize(
+    #         model, weights=weight
+    #     )
 
     if args.prune6:
             logger.info("******* Apply Pruning 0.6 ***********")

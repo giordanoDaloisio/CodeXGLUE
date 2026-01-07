@@ -1,0 +1,315 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:05<00:15,  5.20s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:10<00:10,  5.15s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:15<00:05,  5.10s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:20<00:00,  4.93s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:20<00:00,  5.01s/it]
+/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py:2356: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py", line 2506, in _run_ninja_build
+    subprocess.run(
+    ~~~~~~~~~~~~~~^
+        command,
+        ^^^^^^^^
+    ...<3 lines>...
+        check=True,
+        ^^^^^^^^^^^
+        env=env)
+        ^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/subprocess.py", line 579, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['ninja', '-v']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/NFSHOME/gdaloisio/code/CodeXGLUE/Code-Generation/generation.py", line 192, in <module>
+    model.to(model_device)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/transformers/modeling_utils.py", line 3851, in to
+    return super().to(*args, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1355, in to
+    return self._apply(convert)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+    ~~~~~~~~~~~~~^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+    ~~~~~~~~~~~~~^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 915, in _apply
+    module._apply(fn)
+    ~~~~~~~~~~~~~^^^^
+  [Previous line repeated 2 more times]
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 942, in _apply
+    param_applied = fn(param)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1341, in convert
+    return t.to(
+           ~~~~^
+        device,
+        ^^^^^^^
+        dtype if t.is_floating_point() or t.is_complex() else None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        non_blocking,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 274, in __torch_function__
+    return func(*args, **kwargs)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 300, in __torch_dispatch__
+    return WeightQBytesTensor.create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        t.qtype,
+        ^^^^^^^^
+    ...<6 lines>...
+        requires_grad=t.requires_grad,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/qbytes.py", line 141, in create
+    return MarlinF8QBytesTensor(qtype, axis, size, stride, data, scale, requires_grad)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/marlin/fp8/qbits.py", line 79, in __init__
+    data_packed = MarlinF8PackedTensor.pack(data)  # pack fp8 data to in32, and apply marlier re-ordering.
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/tensor/weights/marlin/fp8/packed.py", line 183, in pack
+    data_int32 = torch.ops.quanto.pack_fp8_marlin(
+        b_q_weight=data_int32, perm=perm, size_k=in_features, size_n=out_features, num_bits=8
+    )
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/_ops.py", line 1158, in __call__
+    return self._op(*args, **(kwargs or {}))
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/__init__.py", line 167, in gptq_marlin_repack
+    return ext.lib.gptq_marlin_repack(b_q_weight, perm, size_k, size_n, num_bits)
+           ^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/extension.py", line 44, in lib
+    self._lib = load(
+                ~~~~^
+        name=self.name,
+        ^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        build_directory=self.build_directory,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py", line 1623, in load
+    return _jit_compile(
+        name,
+    ...<11 lines>...
+        is_standalone,
+        keep_intermediates=keep_intermediates)
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py", line 2076, in _jit_compile
+    _write_ninja_file_and_build_library(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=name,
+        ^^^^^^^^^^
+    ...<9 lines>...
+        with_sycl=with_sycl,
+        ^^^^^^^^^^^^^^^^^^^^
+        is_standalone=is_standalone)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py", line 2222, in _write_ninja_file_and_build_library
+    _run_ninja_build(
+    ~~~~~~~~~~~~~~~~^
+        build_directory,
+        ^^^^^^^^^^^^^^^^
+        verbose,
+        ^^^^^^^^
+        error_prefix=f"Error building extension '{name}'")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/utils/cpp_extension.py", line 2522, in _run_ninja_build
+    raise RuntimeError(message) from e
+RuntimeError: Error building extension 'quanto_cuda': [1/7] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output marlin_cuda_kernel.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/marlin_cuda_kernel.cu -o marlin_cuda_kernel.cuda.o 
+FAILED: marlin_cuda_kernel.cuda.o 
+/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output marlin_cuda_kernel.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/marlin_cuda_kernel.cu -o marlin_cuda_kernel.cuda.o 
+In file included from /usr/local/cuda/include/cuda_runtime.h:83,
+                 from <command-line>:
+/usr/local/cuda/include/crt/host_config.h:132:2: error: #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+  132 | #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      |  ^~~~~
+In file included from /usr/include/errno.h:28,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/cerrno:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ext/string_conversions.h:44,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/basic_string.h:3968,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/string:53,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/locale_classes.h:40,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/ios_base.h:41,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ios:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ostream:38,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/iostream:39,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/marlin_cuda_kernel.cu:25:
+/usr/include/bits/errno.h:26:11: fatal error: linux/errno.h: No such file or directory
+   26 | # include <linux/errno.h>
+      |           ^~~~~~~~~~~~~~~
+compilation terminated.
+[2/7] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output unpack.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/unpack.cu -o unpack.cuda.o 
+FAILED: unpack.cuda.o 
+/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output unpack.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/unpack.cu -o unpack.cuda.o 
+In file included from /usr/local/cuda/include/cuda_runtime.h:83,
+                 from <command-line>:
+/usr/local/cuda/include/crt/host_config.h:132:2: error: #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+  132 | #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      |  ^~~~~
+In file included from /usr/include/errno.h:28,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/cerrno:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ext/string_conversions.h:44,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/basic_string.h:3968,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/string:53,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/locale_classes.h:40,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/ios_base.h:41,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ios:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ostream:38,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/DeviceType.h:13,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/Device.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/function_hook.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:2,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/variable.h:6,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/all.h:7,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/extension.h:5,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/unpack.cu:15:
+/usr/include/bits/errno.h:26:11: fatal error: linux/errno.h: No such file or directory
+   26 | # include <linux/errno.h>
+      |           ^~~~~~~~~~~~~~~
+compilation terminated.
+[3/7] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output gemm_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemm_cuda.cu -o gemm_cuda.cuda.o 
+FAILED: gemm_cuda.cuda.o 
+/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output gemm_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemm_cuda.cu -o gemm_cuda.cuda.o 
+In file included from /usr/local/cuda/include/cuda_runtime.h:83,
+                 from <command-line>:
+/usr/local/cuda/include/crt/host_config.h:132:2: error: #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+  132 | #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      |  ^~~~~
+In file included from /usr/include/errno.h:28,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/cerrno:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ext/string_conversions.h:44,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/basic_string.h:3968,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/string:53,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/locale_classes.h:40,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/ios_base.h:41,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ios:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ostream:38,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/DeviceType.h:13,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/Device.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/function_hook.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:2,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/variable.h:6,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/all.h:7,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/extension.h:5,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemm_cuda.h:1,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemm_cuda.cu:3:
+/usr/include/bits/errno.h:26:11: fatal error: linux/errno.h: No such file or directory
+   26 | # include <linux/errno.h>
+      |           ^~~~~~~~~~~~~~~
+compilation terminated.
+[4/7] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output gemv_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemv_cuda.cu -o gemv_cuda.cuda.o 
+FAILED: gemv_cuda.cuda.o 
+/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output gemv_cuda.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemv_cuda.cu -o gemv_cuda.cuda.o 
+In file included from /usr/local/cuda/include/cuda_runtime.h:83,
+                 from <command-line>:
+/usr/local/cuda/include/crt/host_config.h:132:2: error: #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+  132 | #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      |  ^~~~~
+In file included from /usr/include/errno.h:28,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/cerrno:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ext/string_conversions.h:44,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/basic_string.h:3968,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/string:53,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/locale_classes.h:40,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/ios_base.h:41,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ios:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ostream:38,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/DeviceType.h:13,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/Device.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/function_hook.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:2,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/variable.h:6,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/all.h:7,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/extension.h:5,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/awq/v2/gemv_cuda.cu:29:
+/usr/include/bits/errno.h:26:11: fatal error: linux/errno.h: No such file or directory
+   26 | # include <linux/errno.h>
+      |           ^~~~~~~~~~~~~~~
+compilation terminated.
+[5/7] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output fp8_marlin.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/fp8_marlin.cu -o fp8_marlin.cuda.o 
+FAILED: fp8_marlin.cuda.o 
+/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output fp8_marlin.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/fp8_marlin.cu -o fp8_marlin.cuda.o 
+In file included from /usr/local/cuda/include/cuda_runtime.h:83,
+                 from <command-line>:
+/usr/local/cuda/include/crt/host_config.h:132:2: error: #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+  132 | #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      |  ^~~~~
+In file included from /usr/include/errno.h:28,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/cerrno:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ext/string_conversions.h:44,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/basic_string.h:3968,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/string:53,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/locale_classes.h:40,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/ios_base.h:41,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ios:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ostream:38,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/DeviceType.h:13,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/Device.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/function_hook.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:2,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/variable.h:6,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/all.h:7,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/gptq_marlin.cuh:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/fp8_marlin.cu:22:
+/usr/include/bits/errno.h:26:11: fatal error: linux/errno.h: No such file or directory
+   26 | # include <linux/errno.h>
+      |           ^~~~~~~~~~~~~~~
+compilation terminated.
+[6/7] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output gptq_marlin_repack.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/gptq_marlin_repack.cu -o gptq_marlin_repack.cuda.o 
+FAILED: gptq_marlin_repack.cuda.o 
+/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output gptq_marlin_repack.cuda.o.d -DTORCH_EXTENSION_NAME=quanto_cuda -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1016\" -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /NFSHOME/gdaloisio/miniconda3/envs/codex/include/python3.13 -D_GLIBCXX_USE_CXX11_ABI=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_80,code=compute_80 -gencode=arch=compute_80,code=sm_80 --compiler-options '-fPIC' --expt-extended-lambda --use_fast_math -DQUANTO_CUDA_ARCH=800 -std=c++17 -c /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/gptq_marlin_repack.cu -o gptq_marlin_repack.cuda.o 
+In file included from /usr/local/cuda/include/cuda_runtime.h:83,
+                 from <command-line>:
+/usr/local/cuda/include/crt/host_config.h:132:2: error: #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+  132 | #error -- unsupported GNU version! gcc versions later than 11 are not supported! The nvcc flag '-allow-unsupported-compiler' can be used to override this version check; however, using an unsupported host compiler may cause compilation failure or incorrect run time execution. Use at your own risk.
+      |  ^~~~~
+In file included from /usr/include/errno.h:28,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/cerrno:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ext/string_conversions.h:44,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/basic_string.h:3968,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/string:53,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/locale_classes.h:40,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/bits/ios_base.h:41,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ios:42,
+                 from /opt/ohpc/pub/compiler/gcc/12.3.0/include/c++/12.3.0/ostream:38,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/DeviceType.h:13,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/c10/core/Device.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/TensorBody.h:11,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/core/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/ATen/Tensor.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/function_hook.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/cpp_hook.h:2,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/variable.h:6,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/autograd/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/autograd.h:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/torch/include/torch/csrc/api/include/torch/all.h:7,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/gptq_marlin.cuh:3,
+                 from /NFSHOME/gdaloisio/miniconda3/envs/codex/lib/python3.13/site-packages/optimum/quanto/library/extensions/cuda/marlin/gptq_marlin_repack.cu:1:
+/usr/include/bits/errno.h:26:11: fatal error: linux/errno.h: No such file or directory
+   26 | # include <linux/errno.h>
+      |           ^~~~~~~~~~~~~~~
+compilation terminated.
+ninja: build stopped: subcommand failed.
+
+srun: error: compute-2-3: task 0: Exited with exit code 1
